@@ -7,7 +7,7 @@ addons:
     - $PYTHON-dev
     - $PYTHON-setuptools
 install:
-  - mkdir $HOME/py
+  - mkdir -p $PYTHONPATH
   - easy_install$PYSUF --prefix ~/py pip virtualenv
   - ~/py/bin/virtualenv -p python$PYVER ~/virtualenv
   - . ~/virtualenv/bin/activate
