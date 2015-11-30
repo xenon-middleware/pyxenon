@@ -1,0 +1,4 @@
+Cython==0.23.4
+-e git+git://github.com/kivy/pyjnius.git#egg=jnius-1.1.dev0
+six==1.10.0
+wheel==0.24.0
