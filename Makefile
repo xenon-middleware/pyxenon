@@ -6,6 +6,7 @@ LICENSE_NAME="Apache License, Version 2.0"
 all: install
 
 requirements: requirements.txt
+	@pip install Cython==0.23.4
 	@pip install -r requirements.txt
 
 test-requirements: test_requirements.txt
