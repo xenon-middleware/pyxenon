@@ -1,15 +1,15 @@
 language: c
 env:
-    - PYTHON=python PYSUF='' PYVER=2.7 PYTHONPATH='/home/travis/py/lib/python2.7/site-packages'
-    - PYTHON=python3 PYSUF='3' PYVER=3.2 PYTHONPATH='/home/travis/py/lib/python3.2/site-packages'
+  - PYTHON=python PYSUF='' PYVER=2.7 PYTHONPATH='/home/travis/py/lib/python2.7/site-packages'
+  - PYTHON=python3 PYSUF='3' PYVER=3.2 PYTHONPATH='/home/travis/py/lib/python3.2/site-packages'
 addons:
   apt_packages:
     - $PYTHON-dev
     - $PYTHON-setuptools
-before_install:
-    - mkdir $HOME/py
-    - easy_install$PYSUF --prefix ~/py pip virtualenv
-    - ~/py/bin/virtualenv -p python$PYVER ~/virtualenv
-    - . ~/virtualenv/bin/activate
-install: make install
+install:
+  - mkdir $HOME/py
+  - easy_install$PYSUF --prefix ~/py pip virtualenv
+  - ~/py/bin/virtualenv -p python$PYVER ~/virtualenv
+  - . ~/virtualenv/bin/activate
+  - make install
 script: make fulltest
