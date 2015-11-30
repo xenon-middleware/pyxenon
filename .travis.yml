@@ -1,4 +1,5 @@
 language: c
+sudo: required
 env:
   - PYTHON=python PYSUF='' PYVER=2.7
   - PYTHON=python3 PYSUF='3' PYVER=3.2
@@ -6,7 +7,6 @@ install:
   - sudo apt-get update -y
   - sudo apt-get install -y $PYTHON-dev
   - sudo apt-get install -y $PYTHON-setuptools
-  - mkdir -p $PYTHONPATH
   - sudo easy_install$PYSUF virtualenv
   - virtualenv -p python$PYVER ~/virtualenv
   - . ~/virtualenv/bin/activate
