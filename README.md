@@ -35,6 +35,8 @@ jobs.waitUntilDone(job, 1000)
 
 with open(job.getJobDescription().getStdout()) as f:
     print(f.read())
+
+xenon.XenonFactory.endXenon(x)
 ```
 
 ## API
