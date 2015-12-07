@@ -6,27 +6,25 @@ Python interface to the [Xenon library](http://nlesc.github.io/Xenon/). Already 
 
 ## Installation
 
-First export environment variable JDK\_HOME to your JDK installation (JAVA\_HOME). Then run
+First export environment variable `JDK_HOME` to your JDK installation. Then run
 
 ```shell
 make install
 ```
-If pip is used to import this package, make sure to install `Cython==0.23.4` before installing pyxenon, because `jnius` will deduce its dependencies in the wrong order.
+This will run `pip install` internally. If pip is used to import this package, make sure to install `Cython==0.23.4` before installing pyxenon, because `jnius` will otherwise deduce its dependencies in the wrong order.
 
-Currently, Xenon library version 1.1.0-SNAPSHOT is placed in the `libs` directory with its dependencies. To use another version by default, replace these jar files with alternative jar files and run `make reinstall`. Alternatively, the classpath can be overridden with `xenon.init()`.
+Currently, Xenon library version 1.1.0-SNAPSHOT is placed in the `libs` directory with its dependencies. To use another version, replace these jar files with alternative jar files and run `make reinstall`. Alternatively, a custom classpath can be provided to `xenon.init()`.
 
 ## Usage
 
-Except for initialization and finalization, the API follows the [Xenon 1.1.0 Java API](http://nlesc.github.io/Xenon/versions/1.1.0/javadoc/). First `xenon.init()` must be called to set up the Java classpath. Then `x = xenon.Xenon()` can be used to create a new Xenon instance. Either with-resources syntax is used, as shown the following example, or `x.close()` must be called to end Xenon. If neither is done, the object destructor will try to finalize Xenon. However, Python does not guarantee that the destructor is called.
+Except for initialization and finalization, the API follows the [Xenon 1.1.0 Java API](http://nlesc.github.io/Xenon/versions/1.1.0/javadoc/). First `xenon.init()` must be called to set up the Java Virtual Machine and its classpath. Then `x = xenon.Xenon()` creates a new Xenon instance. Either use with-resources syntax, as shown the following example, or call `x.close()` to end Xenon. If neither is done, the object destructor will try to finalize Xenon. However, Python does not guarantee that this destructor is called, which may cause a Java process running after python has finished execution.
 
 ```python
 import xenon
 import os
 
-# set default classpath
+# use default classpath
 xenon.init()
-# override the classpath
-# xenon.init(['path/to/xenon.jar', 'path/to/xenon/lib/*.jar'])
 
 # start xenon
 with xenon.Xenon() as x:
@@ -56,7 +54,7 @@ Contributions can be made using GitHub pull requests. To add a feature, first ru
 
     make test
 
-until no warnings appear. This checks against PEP8 code standards. Then commit, to make sure the change didn't break any code. Before a creating a pull request, run
+until no warnings appear. This will also try to install test dependencies of `test_requirements.txt`. The command checks against PEP8 code standards and syntax errors. Then commit, to make sure the change didn't break any code. Before a creating a pull request, run
 
     make fulltest
 

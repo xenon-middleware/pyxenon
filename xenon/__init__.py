@@ -37,7 +37,6 @@ def init(classpath=None):
     if classpath is None:
         localdir = os.path.dirname(os.path.realpath(_module_path(init)))
         classpath = [os.path.join(localdir, '..', 'libs', '*.jar')]
-        print(classpath)
 
     cp = []
     for c in classpath:
