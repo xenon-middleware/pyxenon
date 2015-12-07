@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/NLeSC/pyxenon.svg?branch=master)](https://travis-ci.org/NLeSC/pyxenon)
 
-Python interface to the Xenon library. Already functional, but will be improved.
+Python interface to the [Xenon library](http://nlesc.github.io/Xenon/). Already functional, but will be improved.
 
 ## Installation
 
@@ -16,7 +16,7 @@ Currently, Xenon library version 1.1.0-SNAPSHOT is placed in the `libs` director
 
 ## Usage
 
-Except for initialization and finalization, the API follows the Java Xenon API. First `xenon.init()` must be called to set up the Java classpath. Then `x = xenon.Xenon()` can be used to create a new Xenon instance. Either with-resources syntax is used, as in the example, or `x.close()` must be called to end Xenon. If neither is done, the object destructor will try to finalize Xenon. However, Python does not guarantee that the destructor is called.
+Except for initialization and finalization, the API follows the [Xenon 1.1.0 Java API](http://nlesc.github.io/Xenon/versions/1.1.0/javadoc/). First `xenon.init()` must be called to set up the Java classpath. Then `x = xenon.Xenon()` can be used to create a new Xenon instance. Either with-resources syntax is used, as shown the following example, or `x.close()` must be called to end Xenon. If neither is done, the object destructor will try to finalize Xenon. However, Python does not guarantee that the destructor is called.
 
 ```python
 import xenon
