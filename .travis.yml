@@ -8,4 +8,6 @@ python:
 install:
   - pip install -U pip
   - make install
+  - pip install codacy-coverage
 script: make fulltest
+after_script: python-codacy-coverage -r coverage.xml
