@@ -26,6 +26,16 @@ try:
 except ImportError:
     from distutils.core import setup
 
+from glob import glob
+import os
+
+# install libraries
+from distutils.command.install import INSTALL_SCHEMES
+for scheme in INSTALL_SCHEMES.values():
+    scheme['data'] = scheme['purelib']
+
+jar_files = glob(os.path.join('libs', '*.jar'))
+data_files = [('libs', list(jar_files))]
 
 setup(name='pyxenon',
       version='0.1.0',
@@ -51,6 +61,7 @@ setup(name='pyxenon',
         'Programming Language :: Python :: 3.4',
         'Topic :: System :: Distributed Computing'
       ],
+      data_files=data_files,
       install_requires=['cython', 'jnius'],
       tests_require=['nose', 'pyflakes', 'pep8', 'coverage']
      )

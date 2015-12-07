@@ -15,6 +15,7 @@
 # limitations under the License.
 
 package = 'nl.esciencecenter.xenon.files'
+__all__ = ['RelativePath', 'OpenOption', 'CopyOption', 'PosixFilePermission']
 
 RelativePath = None
 PosixFilePermission = None

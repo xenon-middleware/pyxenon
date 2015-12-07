@@ -15,9 +15,9 @@
 # limitations under the License.
 
 package = 'nl.esciencecenter.xenon.jobs'
+__all__ = ['JobDescription']
 
 JobDescription = None
-__all__ = ['JobDescription']
 
 
 def _init():
