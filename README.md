@@ -6,11 +6,12 @@ Python interface to the Xenon library. Already functional, but will be improved.
 
 ## Installation
 
-Simply run
+First export environment variable JDK\_HOME to your JDK installation (JAVA\_HOME). Then run
 
 ```shell
 make install
 ```
+If pip is used to import this package, make sure to install `Cython==0.23.4` before installing pyxenon, because `jnius` will deduce its dependencies in the wrong order.
 
 Currently, Xenon library version 1.1.0-SNAPSHOT is placed in the `libs` directory with its dependencies. To use another version by default, replace these jar files with alternative jar files and run `make reinstall`. Alternatively, the classpath can be overridden with `xenon.init()`.
 
