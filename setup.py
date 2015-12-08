@@ -34,8 +34,9 @@ from distutils.command.install import INSTALL_SCHEMES
 for scheme in INSTALL_SCHEMES.values():
     scheme['data'] = scheme['purelib']
 
-jar_files = glob(os.path.join('libs', '*.jar'))
-data_files = [('libs', list(jar_files))]
+jar_files = list(glob(os.path.join('libs', '*.jar')))
+config_files = list(glob(os.path.join('libs', '*.xml')))
+data_files = [('libs', jar_files + config_files)]
 
 setup(name='pyxenon',
       version='0.1.0',

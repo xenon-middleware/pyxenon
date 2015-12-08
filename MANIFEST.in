@@ -3,4 +3,4 @@ include LICENSE
 include README.md
 include requirements.txt
 include test_requirements.txt
-recursive-include libs *.jar
+recursive-include libs *.jar *.xml

@@ -29,10 +29,12 @@ def make_init():
 
     After first call, this is a no-op, since jnius cannot be reinitialized.
     '''
+    # Override log_level to get more details on the internals, e.g. 'DEBUG'
+    log_level = None
     global is_initiated
     if not is_initiated:
         assert_equals(None, xenon.jobs.JobDescription)
-        xenon.init()
+        xenon.init(log_level=log_level)
         assert_not_equal(None, xenon.jobs.JobDescription)
         is_initiated = True
 

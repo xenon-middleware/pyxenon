@@ -37,7 +37,7 @@ __all__ = ['init', 'files', 'jobs', 'exceptions', 'Xenon']
 _is_initialized = False
 
 
-def init(classpath=None):
+def init(classpath=None, log_level=None):
     '''
     Initialize the Java Runtime Environment with jnius and set the classpath.
 
@@ -45,6 +45,8 @@ def init(classpath=None):
     ----------
     classpath : list of str
         A list of Java classpath locations that may include wildcards.
+    log_level: one of [ERROR, WARN, INFO, DEBUG, TRACE] (default: WARN)
+        Logback log level for Java code, case insensitive
 
     Raises
     ------
@@ -52,6 +54,7 @@ def init(classpath=None):
         recoverable: it requires python to restart before calling this function
         again.
     ValueError: if the function is called more than once.
+    ValueError: if the provided log level is not recognized.
     '''
     global _is_initialized
     if _is_initialized:
@@ -61,12 +64,21 @@ def init(classpath=None):
 
     if classpath is None:
         localdir = os.path.dirname(os.path.realpath(_module_path(init)))
-        classpath = [os.path.join(localdir, '..', 'libs', '*.jar')]
+        libdir = os.path.join(localdir, '..', 'libs')
+        classpath = [libdir, os.path.join(libdir, '*.jar')]
 
     cp = []
     for c in classpath:
         cp += glob.glob(c)
     jnius_config.set_classpath(*cp)
+
+    if log_level is not None:
+        log_level = log_level.upper()
+        levels = ['ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE']
+        if log_level not in levels:
+            raise ValueError('Log level is {0} but it must be one of {1}'
+                             .format(log_level, levels))
+        jnius_config.add_options('-Dloglevel={0}'.format(log_level))
 
     # import jnius after setting the classpath or Xenon will not be found
     import jnius
