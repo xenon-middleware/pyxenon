@@ -18,10 +18,9 @@
 Xenon exception classes
 
 To catch exceptions thrown by Xenon, use the xenon.exceptions.XenonException
-class.
+class, reflecting Java class nl.esciencecenter.xenon.XenonException.
 '''
 
-''' Implementation of Java nl.esciencecenter.xenon.XenonException '''
 XenonException = None
 
 __all__ = ['XenonException']

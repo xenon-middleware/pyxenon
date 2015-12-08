@@ -17,10 +17,10 @@
 '''
 Classes and enums in files.
 
-To use as arguments in API calls.
+To use as arguments in API calls. The `package` variable stores the Java package
+name of the Xenon files API.
 '''
 
-''' Java Package name '''
 package = 'nl.esciencecenter.xenon.files'
 __all__ = ['RelativePath', 'OpenOption', 'CopyOption', 'PosixFilePermission']
 

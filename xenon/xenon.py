@@ -17,10 +17,10 @@
 '''
 Primary Xenon API
 
-To instantiate and use the Java Xenon API with.
+To instantiate and use the Java Xenon API with. The `package` variable stores
+the Java package name of the Xenon jobs API.
 '''
 
-''' Java package name '''
 package = 'nl.esciencecenter.xenon'
 
 
