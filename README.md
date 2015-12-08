@@ -1,6 +1,7 @@
 # Python interface to Xenon
 
 ![License](https://img.shields.io/github/license/NLeSC/pyxenon.svg)
+![Python version](https://img.shields.io/pypi/pyversions/pyxenon.svg)
 [![Build Status](https://travis-ci.org/NLeSC/pyxenon.svg?branch=master)](https://travis-ci.org/NLeSC/pyxenon)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/35e155e3bb08459aa2c24622d5fdb0d3)](https://www.codacy.com/app/NLeSC/pyxenon)
 
