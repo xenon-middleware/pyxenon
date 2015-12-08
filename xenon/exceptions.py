@@ -21,14 +21,14 @@ To catch exceptions thrown by Xenon, use the xenon.exceptions.XenonException
 class, reflecting Java class nl.esciencecenter.xenon.XenonException.
 '''
 
-XenonException = None
-
 __all__ = ['XenonException']
+
+XenonException = None
 
 
 def _init():
     ''' Initialize classes. Only to be called in xenon.init. '''
     global XenonException
-    from jnius import autoclass
+    import jnius
 
-    XenonException = autoclass('nl.esciencecenter.xenon.XenonException')
+    XenonException = jnius.JavaException
