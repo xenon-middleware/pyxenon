@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+''' Test initialization. '''
+
 import xenon
 import os
 from nose.tools import assert_equals, assert_not_equal
@@ -22,6 +24,11 @@ is_initiated = False
 
 
 def make_init():
+    '''
+    Initialize Xenon.
+
+    After first call, this is a no-op, since jnius cannot be reinitialized.
+    '''
     global is_initiated
     if not is_initiated:
         assert_equals(None, xenon.jobs.JobDescription)
@@ -31,10 +38,12 @@ def make_init():
 
 
 def test_init():
+    ''' Test initialization '''
     make_init()
 
 
 def test_module_path():
+    ''' Test module path recognition '''
     make_init()
     cd = os.path.join(os.getcwd(), 'tests', 'test_init.py')
     mpath = xenon._module_path(test_module_path)

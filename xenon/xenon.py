@@ -14,6 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+'''
+Primary Xenon API
+
+To instantiate and use the Java Xenon API with.
+'''
+
+''' Java package name '''
 package = 'nl.esciencecenter.xenon'
 
 

@@ -14,13 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+'''
+Job classes
+
+Use as arguments in API.
+'''
+
+''' Java Package name '''
 package = 'nl.esciencecenter.xenon.jobs'
 __all__ = ['JobDescription']
 
+''' Java JobDescription, to submit a job with. '''
 JobDescription = None
 
 
 def _init():
+    ''' Initialize classes. Only to be called in xenon.init. '''
     global JobDescription
     from jnius import autoclass
 

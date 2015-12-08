@@ -14,12 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+'''
+Xenon exception classes
+
+To catch exceptions thrown by Xenon, use the xenon.exceptions.XenonException
+class.
+'''
+
+''' Implementation of Java nl.esciencecenter.xenon.XenonException '''
 XenonException = None
 
 __all__ = ['XenonException']
 
 
 def _init():
+    ''' Initialize classes. Only to be called in xenon.init. '''
     global XenonException
     from jnius import autoclass
 

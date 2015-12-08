@@ -14,6 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+'''
+Classes and enums in files.
+
+To use as arguments in API calls.
+'''
+
+''' Java Package name '''
 package = 'nl.esciencecenter.xenon.files'
 __all__ = ['RelativePath', 'OpenOption', 'CopyOption', 'PosixFilePermission']
 
@@ -24,6 +31,7 @@ CopyOption = None
 
 
 def _init():
+    ''' Initialize classes. Only to be called in xenon.init. '''
     global RelativePath, PosixFilePermission, OpenOption, CopyOption
     from jnius import autoclass
 

@@ -14,12 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+''' Test Xenon class '''
+
 from test_init import make_init
 import xenon
 from nose.tools import (assert_raises, assert_not_equal, assert_equals)
 
 
 def test_xenon():
+    ''' Test Xenon initialization, attributes and closing. '''
     make_init()
     import jnius
     x = xenon.Xenon()
@@ -31,7 +34,8 @@ def test_xenon():
     assert_raises(ValueError, x.close)
 
 
-def test_xenon_closeable():
+def test_xenon_with():
+    ''' Test Xenons with-resources syntax '''
     make_init()
     import jnius
     with xenon.Xenon() as x:
@@ -39,5 +43,6 @@ def test_xenon_closeable():
 
 
 def test_xenon_destructor():
+    ''' Test Xenons del operator '''
     x = xenon.Xenon()
     del x
