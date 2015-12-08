@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/NLeSC/pyxenon.svg?branch=master)](https://travis-ci.org/NLeSC/pyxenon)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/35e155e3bb08459aa2c24622d5fdb0d3)](https://www.codacy.com/app/NLeSC/pyxenon)
+![License](https://img.shields.io/github/license/NLeSC/pyxenon.svg)
 
 Python interface to the [Xenon library](http://nlesc.github.io/Xenon/). Underneath it uses [pyjnius](https://github.com/kivy/pyjnius), which uses Cython and the Java Native Interface to interface with a Java Virtual Machine.
 
