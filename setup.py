@@ -58,7 +58,7 @@ setup(name='pyxenon',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
-        'Topic :: System :: Distributed Computing'
+        'Topic :: System :: Distributed Computing',
       ],
       data_files=data_files,
       install_requires=['cython', 'jnius'],
