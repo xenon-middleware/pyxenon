@@ -17,8 +17,8 @@
 '''
 Classes and enums in files.
 
-To use as arguments in API calls. The `package` variable stores the Java package
-name of the Xenon files API.
+To use as arguments in API calls. The `package` variable stores the Java
+package name of the Xenon files API.
 '''
 
 package = 'nl.esciencecenter.xenon.files'
