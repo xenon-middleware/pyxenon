@@ -1,7 +1,7 @@
 # Python interface to Xenon
 
 [![PyPi version](https://img.shields.io/pypi/v/pyxenon.svg)](https://pypi.python.org/pypi/pyxenon)
-![License](https://img.shields.io/github/license/NLeSC/pyxenon.svg)
+[![Apache 2 License](https://img.shields.io/github/license/NLeSC/pyxenon.svg?branch=master)](https://raw.githubusercontent.com/NLeSC/pyxenon/master/LICENSE)
 ![Python versions](https://img.shields.io/pypi/pyversions/pyxenon.svg)
 [![Build Status](https://travis-ci.org/NLeSC/pyxenon.svg?branch=master)](https://travis-ci.org/NLeSC/pyxenon)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/35e155e3bb08459aa2c24622d5fdb0d3)](https://www.codacy.com/app/NLeSC/pyxenon)
@@ -10,14 +10,14 @@ Python interface to the [Xenon middleware library](http://nlesc.github.io/Xenon/
 
 ## Installation
 
-First export environment variable `JDK_HOME` pointing to your JDK installation. Then run
+First export environment variable `JAVA_HOME` pointing to your JDK installation. Then run
 
 ```shell
 make install
 ```
-This will run `pip install` internally. If pip imports this package, make sure to install `Cython==0.23.4` before installing `pyxenon`, because `pyjnius` will otherwise deduce its dependencies in the wrong order.
+This will run `pip install` internally. If pip imports this package, make sure to install `Cython==0.23.4` before installing `pyxenon`, because `pyjnius` will otherwise deduce its dependencies in the wrong order. If there is a problem installing, please install pyjnius from source by cloning [its git repository](https://github.com/kivy/pyjnius), then install `pyxenon`.
 
-Currently, Xenon library version 1.1.0-SNAPSHOT is placed in the `libs` directory with its dependencies. To use another version, replace these jar files with alternative jar files and run `make reinstall`. Alternatively, a custom classpath can be provided to `xenon.init()`.
+Currently, Xenon library version 1.1.0 is placed in the `libs` directory with its dependencies. To use another version, replace these jar files with alternative jar files and run `make reinstall`. Alternatively, a custom classpath can be provided to `xenon.init()`.
 
 ## Usage
 
@@ -50,7 +50,7 @@ with xenon.Xenon() as x:
 
 ## API
 
-The API consists of all methods exported in `__init__.py`, `xenon.files`, `xenon.jobs` and `xenon.exceptions`. 
+The API consists of all methods and classes exported in `__init__.py`, `xenon.files`, `xenon.jobs` and `xenon.exceptions`.  Of each of the classes, find further documentation in the corresponding Xenon class.
 
 ## Contributing
 
