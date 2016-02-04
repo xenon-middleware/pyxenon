@@ -3,3 +3,5 @@
 /.coverage
 /coverage.xml
 /.Python
+/dist
+/pyxenon.egg-info
