@@ -27,13 +27,13 @@ the function parameters through the documentation on
 https://nlesc.github.io/Xenon.
 '''
 
-from . import files, jobs, exceptions
+from . import files, jobs, exceptions, conversions
 from .xenon import Xenon
 import os
 import glob
 import inspect
 
-__all__ = ['init', 'files', 'jobs', 'exceptions', 'Xenon']
+__all__ = ['init', 'files', 'jobs', 'exceptions', 'conversions', 'Xenon']
 _is_initialized = False
 
 
@@ -88,6 +88,8 @@ def init(classpath=None, log_level=None):
         files._init()
         jobs._init()
         exceptions._init()
+        conversions._init()
+
     except jnius.JavaException as ex:
         raise ValueError("Classpath does not correctly specify Xenon and "
                          "its dependencies. This exception is fatal: calling "
