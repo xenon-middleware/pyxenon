@@ -50,7 +50,9 @@ with xenon.Xenon() as x:
 
 ## API
 
-The API consists of all methods and classes exported in `__init__.py`, `xenon.files`, `xenon.jobs` and `xenon.exceptions`.  Of each of the classes, find further documentation in the corresponding Xenon class.
+The API consists of all methods and classes exported in `__init__.py`, `xenon.files`, `xenon.jobs`, `xenon.exceptions`, and `xenon.conversions`.  Of each of the classes, find further documentation in the corresponding Xenon class.
+
+Due to a limitation of Java and Python interactions, classes can currently not be imported directly, they need to be called with their module name. For example, `from xenon.exceptions import XenonException; try: ...; except XenonException: ...` will fail. The `XenonException` must be called as `import xenon; xenon.exceptions.XenonException` or `from xenon import exceptions; exceptions.XenonException`.
 
 ## Contributing
 
