@@ -21,7 +21,7 @@ import sys
 from nose.tools import assert_equals
 
 if sys.version[0] == 2:
-    from future import print_function
+    from __future__ import print_function
 
 def test_output_stream():
     make_init()
