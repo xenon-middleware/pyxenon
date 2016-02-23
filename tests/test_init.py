@@ -49,4 +49,4 @@ def test_module_path():
     make_init()
     cd = os.path.join(os.getcwd(), 'tests', 'test_init.py')
     mpath = xenon._module_path(test_module_path)
-    assert_equals(cd, mpath)
+    assert_equals(os.path.realpath(cd), os.path.realpath(mpath))
