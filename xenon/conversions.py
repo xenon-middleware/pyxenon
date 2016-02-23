@@ -21,6 +21,7 @@ This module contains functions to help converting Python objects to their
 Java equivalents. We need these to converse with Xenon IO.
 """
 
+from __future__ import print_function
 from . import exceptions
 
 PrintStream = None
@@ -89,10 +90,12 @@ class JavaIterator(object):
     """Wraps a Java iterator."""
     def __init__(self, iter):
         self.iter = iter
-        self.next = self.__next__
 
     def __iter__(self):
         return self
+
+    def next(self):
+        return self.__next__()
 
     def __next__(self):
         if self.iter.hasNext():
@@ -125,10 +128,12 @@ class InputStream(object):
     def __init__(self, java_input_stream):
         self.jis = java_input_stream
         self.scan = Scanner(self.jis)
-        self.next = self.__next__
 
     def __iter__(self):
         return self
+
+    def next(self):
+        return self.__next__()
 
     def __next__(self):
         try:

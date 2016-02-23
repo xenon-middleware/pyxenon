@@ -29,7 +29,8 @@ def test_output_stream():
     ByteArrayOutputStream = autoclass('java.io.ByteArrayOutputStream')
     stream = ByteArrayOutputStream()
     out = OutputStream(cast('java.io.OutputStream', stream))
-    print("Hello, World!", file=out, flush=True)
+    print("Hello, World!", file=out)
+    out.flush()
     print(stream.toString(), file=sys.stderr)
     assert_equals(stream.toString(), "Hello, World!\n")
 
