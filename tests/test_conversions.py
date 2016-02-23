@@ -14,14 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import print_function
+
 from test_init import make_init
 from xenon.conversions import (
     OutputStream, InputStream, dict_to_HashMap, Map_to_dict)
 import sys
 from nose.tools import assert_equals
-
-if sys.version[0] == 2:
-    from __future__ import print_function
 
 def test_output_stream():
     make_init()
