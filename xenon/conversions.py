@@ -89,6 +89,7 @@ class JavaIterator(object):
     """Wraps a Java iterator."""
     def __init__(self, iter):
         self.iter = iter
+        self.next = self.__next__
 
     def __iter__(self):
         return self
@@ -118,7 +119,9 @@ def Map_to_dict(m):
 
 
 class InputStream(object):
-    """Iterator class, returning lines in a stream."""
+    """Iterator class, returning lines in a stream. The java.io.InputStream is
+    composed with a java.util.Scanner object to achieve higher level input
+    operations."""
     def __init__(self, java_input_stream):
         self.jis = java_input_stream
         self.scan = Scanner(self.jis)
@@ -140,6 +143,8 @@ class OutputStream(object):
 
         print("Hello, World!", file=OutputStream(my_java_stream), flush=True)
 
+    The java.io.OutputStream is composed with a java.io.PrintStream to
+    get to the higher level I/O operations in Java.
     """
     def __init__(self, java_output_stream):
         self.jos = java_output_stream
