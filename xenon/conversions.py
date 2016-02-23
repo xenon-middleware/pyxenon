@@ -29,20 +29,18 @@ BufferedReader = None
 InputStreamReader = None
 Scanner = None
 HashMap = None
-# jnius_cast = None
 
 
 def _init():
+    """ Initialize classes. Only called from xenon.init(). """
     global PrintStream, BufferedReader, InputStreamReader, Scanner, HashMap
-    # global jnius_cast
-    from jnius import autoclass, cast
+    from jnius import autoclass
 
     PrintStream = autoclass('java.io.PrintStream')
     BufferedReader = autoclass('java.io.BufferedReader')
     InputStreamReader = autoclass('java.io.InputStreamReader')
     Scanner = autoclass('java.util.Scanner')
     HashMap = autoclass('java.util.HashMap')
-    # jnius_cast = cast
 
 
 def read_lines(input_stream):
