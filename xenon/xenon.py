@@ -46,6 +46,9 @@ class Xenon(object):
 
     def __getattr__(self, name, *args, **kwargs):
         """ Call Xenon functions, defined in the Java Xenon API """
+        if name == 'xenon':
+            return None
+
         if self.xenon is None:
             raise ValueError("Xenon is already closed")
 
@@ -60,7 +63,7 @@ class Xenon(object):
 
         self.xenon_factory.endXenon(self.xenon)
         del self.xenon_factory
-        self.xenon = None
+        del self.xenon
 
     def __del__(self):
         """
