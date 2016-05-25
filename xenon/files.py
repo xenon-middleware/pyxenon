@@ -21,6 +21,8 @@ To use as arguments in API calls. The `package` variable stores the Java
 package name of the Xenon files API.
 '''
 
+from .java import nl
+
 package = 'nl.esciencecenter.xenon.files'
 __all__ = ['RelativePath', 'OpenOption', 'CopyOption', 'PosixFilePermission']
 
@@ -33,9 +35,8 @@ CopyOption = None
 def _init():
     ''' Initialize classes. Only to be called in xenon.init. '''
     global RelativePath, PosixFilePermission, OpenOption, CopyOption
-    from jnius import autoclass
 
-    RelativePath = autoclass(package + '.RelativePath')
-    PosixFilePermission = autoclass(package + '.PosixFilePermission')
-    OpenOption = autoclass(package + '.OpenOption')
-    CopyOption = autoclass(package + '.CopyOption')
+    RelativePath = nl.esciencecenter.xenon.files.RelativePath
+    PosixFilePermission = nl.esciencecenter.xenon.files.PosixFilePermission
+    OpenOption = nl.esciencecenter.xenon.files.OpenOption
+    CopyOption = nl.esciencecenter.xenon.files.CopyOption

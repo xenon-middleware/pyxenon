@@ -13,21 +13,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""
-Xenon exception classes
-
-To catch exceptions thrown by Xenon, use the xenon.exceptions.XenonException
-class, reflecting Java class nl.esciencecenter.xenon.XenonException.
-"""
-import jpype
-
-__all__ = ['XenonException']
-
-XenonException = None
+import inspect
+import os
 
 
-def _init():
-    """ Initialize classes. Only to be called in xenon.init. """
-    global XenonException
+def _local_function():
+    pass
 
-    XenonException = jpype.JavaException
+
+def module_path(local_function=_local_function):
+    """
+    Returns the module path without the use of __file__.
+
+    Requires a function defined locally in the module.
+    From http://stackoverflow.com/questions/729583
+    """
+    return os.path.abspath(inspect.getsourcefile(local_function))

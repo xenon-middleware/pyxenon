@@ -61,6 +61,6 @@ setup(name='pyxenon',
         'Topic :: System :: Distributed Computing',
       ],
       data_files=data_files,
-      install_requires=['cython', 'jnius'],
+      install_requires=['JPype1', 'future'],
       tests_require=['nose', 'pyflakes', 'pep8', 'coverage']
-     )
+      )

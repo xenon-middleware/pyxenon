@@ -32,7 +32,7 @@ xenon.init()
 
 # start xenon
 with xenon.Xenon() as x:
-        # create a new job scheduler, using SSH to localhost to submit new jobs.
+	# create a new job scheduler, using SSH to localhost to submit new jobs.
 	jobs = x.jobs()
 	sched = jobs.newScheduler('ssh', 'localhost', None, None)
 
@@ -45,8 +45,8 @@ with xenon.Xenon() as x:
 	job = jobs.submitJob(sched, desc)
 	jobs.waitUntilDone(job, 1000)
 
-        # read the standard output of the job. We can do this directly because
-        # we ran on localhost, otherwise, we need to transfer the file first.
+	# read the standard output of the job. We can do this directly because
+	# we ran on localhost, otherwise, we need to transfer the file first.
 	with open(job.getJobDescription().getStdout()) as f:
 	    print(f.read())
 ```

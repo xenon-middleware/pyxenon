@@ -21,6 +21,8 @@ Use as arguments in API. The `package` variable stores the Java package
 name of the Xenon jobs API. Use xenon.jobs.JobDescription to submit a job with.
 '''
 
+from .java import nl
+
 package = 'nl.esciencecenter.xenon.jobs'
 __all__ = ['JobDescription']
 
@@ -30,6 +32,5 @@ JobDescription = None
 def _init():
     ''' Initialize classes. Only to be called in xenon.init. '''
     global JobDescription
-    from jnius import autoclass
 
-    JobDescription = autoclass(package + '.JobDescription')
+    JobDescription = nl.esciencecenter.xenon.jobs.JobDescription

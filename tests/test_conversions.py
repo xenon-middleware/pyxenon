@@ -21,14 +21,14 @@ from xenon.conversions import (
     OutputStream, InputStream, dict_to_HashMap, Map_to_dict)
 import sys
 from nose.tools import assert_equals
+from xenon import cast, java
+
 
 def test_output_stream():
     make_init()
 
-    from jnius import autoclass, cast
-    ByteArrayOutputStream = autoclass('java.io.ByteArrayOutputStream')
-    stream = ByteArrayOutputStream()
-    out = OutputStream(cast('java.io.OutputStream', stream))
+    stream = java.io.ByteArrayOutputStream()
+    out = OutputStream(cast(java.io.OutputStream, stream))
     print("Hello, World!", file=out)
     out.flush()
     print(stream.toString(), file=sys.stderr)
@@ -38,10 +38,8 @@ def test_output_stream():
 def test_input_stream():
     make_init()
 
-    from jnius import autoclass, cast
-    ByteArrayInputStream = autoclass('java.io.ByteArrayInputStream')
-    stream = ByteArrayInputStream("Infinity, and beyond!\n".encode())
-    inp = InputStream(cast('java.io.InputStream', stream))
+    stream = java.io.ByteArrayInputStream("Infinity, and beyond!\n".encode())
+    inp = InputStream(cast(java.io.InputStream, stream))
     lines = list(inp)
     assert_equals(lines, ["Infinity, and beyond!"])
 
