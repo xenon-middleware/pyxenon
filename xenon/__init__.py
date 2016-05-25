@@ -63,18 +63,17 @@ def init(classpath=None, log_level=None):
     if _is_initialized:
         raise ValueError("xenon.init can be called only once")
 
-    init_jvm(classpath, log_level)
+    try:
+        init_jvm(classpath, log_level)
+    except TypeError:
+        raise ValueError("Classpath does not correctly specify Xenon and "
+                         "its dependencies. This exception is fatal: calling "
+                         "init again will not resolve this error.")
 
     # import after setting the classpath or Xenon will not be found
     _is_initialized = True
 
-    try:
-        files._init()
-        jobs._init()
-        exceptions._init()
-        conversions._init()
-
-    except TypeError as ex:
-        raise ValueError("Classpath does not correctly specify Xenon and "
-                         "its dependencies. This exception is fatal: calling "
-                         "init again will not resolve this error.", ex)
+    files._init()
+    jobs._init()
+    exceptions._init()
+    conversions._init()

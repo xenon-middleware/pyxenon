@@ -43,15 +43,20 @@ def cast(name_or_class, value):
     name_or_class : Java class or name of Java class.
     value : Java object
     """
-    if isinstance(name_or_class, basestring):
-        tp = java_class(name_or_class)
-    else:
-        tp = name_or_class
-
-    return jpype.JObject(value, tp=tp)
+    return jpype.JObject(value, tp=name_or_class)
 
 
 def java_class(class_name):
+    """ Get a class from given class name.
+
+    Parameters
+    ----------
+    class_name : string like 'java.package.ClassName'
+
+    Raises
+    ------
+    TypeError : if the class does not exist.
+    """
     try:
         package_index = class_name.rindex('.')
     except ValueError:
@@ -59,8 +64,14 @@ def java_class(class_name):
             'Cannot resolve class \'{0}\' without a package name'
             .format(class_name))
     else:
-        return getattr(jpype.JPackage(class_name[:package_index]),
+        cls = getattr(jpype.JPackage(class_name[:package_index]),
                        class_name[package_index + 1:])
+
+        # test whether the classpath contains the class
+        # it will raise a TypeError otherwise
+        cls.__javaclass__.getName()
+
+        return cls
 
 
 def init_jvm(classpath=None, log_level=None, *args):
@@ -93,3 +104,7 @@ def init_jvm(classpath=None, log_level=None, *args):
     jvm_args += args
 
     jpype.startJVM(jpype.getDefaultJVMPath(), *jvm_args)
+
+    # test whether the classpath contains Xenon
+    # it will raise a TypeError otherwise
+    nl.esciencecenter.xenon.Xenon.__javaclass__.getName()
