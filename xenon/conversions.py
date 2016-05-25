@@ -59,8 +59,7 @@ def read_lines(input_stream):
     reader = Scanner(input_stream)
 
     while True:
-        line = reader.nextLine()
-        yield line
+        yield reader.nextLine()
 
 
 def dict_to_HashMap(d):
