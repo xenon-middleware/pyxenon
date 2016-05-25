@@ -13,21 +13,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""
-Xenon exception classes
-
-To catch exceptions thrown by Xenon, use the xenon.exceptions.XenonException
-class, reflecting Java class nl.esciencecenter.xenon.XenonException.
-"""
-import jpype
-
-__all__ = ['XenonException']
-
-XenonException = None
+import os
+import xenon
+from nose.tools import assert_equals
 
 
-def _init():
-    """ Initialize classes. Only to be called in xenon.init. """
-    global XenonException
+def test_module_path():
+    """ Test module path recognition """
+    cd = os.path.join(os.getcwd(), 'tests', 'test_util.py')
+    mpath = xenon.module_path(test_module_path)
+    assert_equals(os.path.realpath(cd), os.path.realpath(mpath))
 
-    XenonException = jpype.JavaException
+
+def test_module_path_default():
+    """ Test module path recognition """
+    cd = os.path.join(os.getcwd(), 'xenon', 'util.py')
+    mpath = xenon.module_path()
+    assert_equals(os.path.realpath(cd), os.path.realpath(mpath))

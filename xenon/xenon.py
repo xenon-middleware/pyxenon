@@ -14,47 +14,47 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''
+"""
 Primary Xenon API
 
 To instantiate and use the Java Xenon API with. The `package` variable stores
 the Java package name of the Xenon jobs API.
-'''
+"""
+from .java import nl
 
 package = 'nl.esciencecenter.xenon'
 
 
 class Xenon(object):
-    '''
+    """
     Xenon class, reflecting the Java Xenon class.
 
     With this object, the need for XenonFactory is obviated.
     It can be used in the Python with-resources construct.
-    '''
+    """
     def __init__(self, options=None):
-        from jnius import autoclass
-        '''
+        """
         Create a Xenon class using the XenonFactory
 
         Parameters
         ----------
         options : dict or None
             options to Xenon, takes Xenon properties as keys
-        '''
-        self.xenon_factory = autoclass(package + '.XenonFactory')
+        """
+        self.xenon_factory = nl.esciencecenter.xenon.XenonFactory
         self.xenon = self.xenon_factory.newXenon(options)
 
     def __getattr__(self, name, *args, **kwargs):
-        ''' Call Xenon functions, defined in the Java Xenon API '''
+        """ Call Xenon functions, defined in the Java Xenon API """
         if self.xenon is None:
             raise ValueError("Xenon is already closed")
 
         return getattr(self.xenon, name, *args, **kwargs)
 
     def close(self):
-        '''
+        """
         Close and remove Xenon.
-        '''
+        """
         if self.xenon is None:
             raise ValueError("Xenon is already closed")
 
@@ -63,18 +63,18 @@ class Xenon(object):
         self.xenon = None
 
     def __del__(self):
-        '''
+        """
         Close xenon after deletion if close was not called.
 
         Java Xenon might not quit by itself, so we have to explicitly do this.
-        '''
+        """
         if self.xenon is not None:
             self.close()
 
     def __enter__(self):
-        ''' Enter with-resources, Xenon __init__ already did everything '''
+        """ Enter with-resources, Xenon __init__ already did everything """
         return self
 
     def __exit__(self, type, value, traceback):
-        ''' Exit with-resources, close and remove Xenon '''
+        """ Exit with-resources, close and remove Xenon """
         self.close()

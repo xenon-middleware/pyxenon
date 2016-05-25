@@ -24,10 +24,10 @@ from nose.tools import (assert_raises, assert_not_equal, assert_equals)
 def test_xenon():
     ''' Test Xenon initialization, attributes and closing. '''
     make_init()
-    import jnius
+
     x = xenon.Xenon()
     assert_not_equal(None, x.xenon)
-    assert_equals(jnius.JavaMethod, type(x.jobs))
+    assert_equals(xenon.JavaBoundMethod, type(x.jobs))
     x.close()
     assert_equals(None, x.xenon)
     assert_raises(ValueError, x.__getattr__, 'jobs')
@@ -37,9 +37,8 @@ def test_xenon():
 def test_xenon_with():
     ''' Test Xenons with-resources syntax '''
     make_init()
-    import jnius
     with xenon.Xenon() as x:
-        assert_equals(jnius.JavaMethod, type(x.jobs))
+        assert_equals(xenon.JavaBoundMethod, type(x.jobs))
 
 
 def test_xenon_destructor():

@@ -23,6 +23,8 @@ Java equivalents. We need these to converse with Xenon IO.
 
 from __future__ import print_function
 from . import exceptions
+import jpype
+from jpype import java
 
 PrintStream = None
 BufferedReader = None
@@ -34,13 +36,12 @@ HashMap = None
 def _init():
     """ Initialize classes. Only called from xenon.init(). """
     global PrintStream, BufferedReader, InputStreamReader, Scanner, HashMap
-    from jnius import autoclass
 
-    PrintStream = autoclass('java.io.PrintStream')
-    BufferedReader = autoclass('java.io.BufferedReader')
-    InputStreamReader = autoclass('java.io.InputStreamReader')
-    Scanner = autoclass('java.util.Scanner')
-    HashMap = autoclass('java.util.HashMap')
+    PrintStream = java.io.PrintStream
+    BufferedReader = java.io.BufferedReader
+    InputStreamReader = java.io.InputStreamReader
+    Scanner = java.util.Scanner
+    HashMap = java.util.HashMap
 
 
 def read_lines(input_stream):
@@ -156,7 +157,7 @@ class OutputStream(object):
 
     def write(self, str):
         """Write a string to stream, using java.io.PrintStream.print"""
-        self.stream.print(str)
+        self.stream.print_(jpype.JString(str))
 
     def close(self):
         """Closes the underlying java stream."""
