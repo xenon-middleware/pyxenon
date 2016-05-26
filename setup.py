@@ -26,20 +26,9 @@ try:
 except ImportError:
     from distutils.core import setup
 
-from glob import glob
-import os
-
-# install libraries
-from distutils.command.install import INSTALL_SCHEMES
-for scheme in INSTALL_SCHEMES.values():
-    scheme['data'] = scheme['purelib']
-
-jar_files = list(glob(os.path.join('libs', '*.jar')))
-config_files = list(glob(os.path.join('libs', '*.xml')))
-data_files = [('libs', jar_files + config_files)]
 
 setup(name='pyxenon',
-      version='0.2.0',
+      version='0.2.1',
       description='Python wrapper for the Xenon API.',
       author='Joris Borgdorff',
       author_email='j.borgdorff@esciencecenter.nl',
@@ -60,7 +49,7 @@ setup(name='pyxenon',
         'Programming Language :: Python :: 3.5',
         'Topic :: System :: Distributed Computing',
       ],
-      data_files=data_files,
+      package_data={'xenon': ['libs/*.jar', 'libs/*.xml']},
       install_requires=['JPype1'],
       tests_require=['nose', 'pyflakes', 'pep8', 'coverage'],
       )

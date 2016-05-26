@@ -30,7 +30,7 @@ JavaField = _jpype._JavaField
 def xenon_classpath():
     """ list of classpath entries that xenon needs, using wildcards. """
     local_dir = os.path.dirname(os.path.realpath(module_path()))
-    lib_dir = os.path.join(local_dir, '..', 'libs')
+    lib_dir = os.path.join(local_dir, 'libs')
     return [lib_dir, os.path.join(lib_dir, '*.jar')]
 
 
@@ -64,7 +64,7 @@ def java_class(class_name):
             .format(class_name))
     else:
         cls = getattr(jpype.JPackage(class_name[:package_index]),
-                       class_name[package_index + 1:])
+                      class_name[package_index + 1:])
 
         # test whether the classpath contains the class
         # it will raise a TypeError otherwise

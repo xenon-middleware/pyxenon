@@ -17,7 +17,7 @@ pip install -r requirements.txt
 pip install .
 ```
 
-Currently, Xenon library version 1.1.0 is placed in the `libs` directory with its dependencies. To use another version, replace these jar files with alternative jar files and run `pip install -U .`. Alternatively, a custom classpath can be provided to `xenon.init()`.
+Currently, Xenon library version 1.1.0 is placed in the `xenon/libs` directory with its dependencies. To use another version, replace these jar files with alternative jar files and run `pip install -U .`. Alternatively, a custom classpath can be provided to `xenon.init()`.
 
 ## Usage
 
