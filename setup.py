@@ -39,7 +39,7 @@ config_files = list(glob(os.path.join('libs', '*.xml')))
 data_files = [('libs', jar_files + config_files)]
 
 setup(name='pyxenon',
-      version='0.1.0',
+      version='0.2.0',
       description='Python wrapper for the Xenon API.',
       author='Joris Borgdorff',
       author_email='j.borgdorff@esciencecenter.nl',
@@ -61,6 +61,6 @@ setup(name='pyxenon',
         'Topic :: System :: Distributed Computing',
       ],
       data_files=data_files,
-      install_requires=['JPype1', 'future'],
-      tests_require=['nose', 'pyflakes', 'pep8', 'coverage']
+      install_requires=['JPype1'],
+      tests_require=['nose', 'pyflakes', 'pep8', 'coverage'],
       )

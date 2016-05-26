@@ -23,6 +23,8 @@ Currently, Xenon library version 1.1.0 is placed in the `libs` directory with it
 
 Except for initialization and finalization, the API follows the [Xenon 1.1.0 Java API](http://nlesc.github.io/Xenon/versions/1.1.0/javadoc/). First `xenon.init()` must be called to set up the Java Virtual Machine and its classpath. Then `x = xenon.Xenon()` creates a new Xenon instance. Either use with-resources syntax, as shown the following example, or call `x.close()` to end Xenon. If neither is done, the object destructor will try to finalize Xenon. However, Python does not guarantee that this destructor is called, which may cause a Java process running after python has finished execution.
 
+See [JPype documentation](https://jpype.readthedocs.io) for how to use Java classes in Python.
+
 ```python
 import xenon
 import os
