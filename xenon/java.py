@@ -15,7 +15,6 @@
 # limitations under the License.
 import os
 from .util import module_path
-from past.builtins import basestring
 import glob
 import jpype
 from jpype._jclass import _jpype
