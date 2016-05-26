@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''
+"""
 Python bindings of the Xenon Java API.
 
 Xenon is a middleware library to schedule jobs and manipulate files on local
@@ -25,20 +25,23 @@ As for initialization, run xenon.init() before anything else, then use
 xenon.Xenon() or 'with xenon.Xenon() as x' to start using the Xenon API. Find
 the function parameters through the documentation on
 https://nlesc.github.io/Xenon.
-'''
+"""
 
-from . import files, jobs, exceptions
+from . import files, jobs, exceptions, conversions
 from .xenon import Xenon
-import os
-import glob
-import inspect
+from .java import (init_jvm, java_class, cast, nl, JavaBoundMethod, JavaClass,
+                   JavaMethod, JavaField)
+from jpype import java, javax
+from .util import module_path
 
-__all__ = ['init', 'files', 'jobs', 'exceptions', 'Xenon']
+__all__ = ['init', 'files', 'jobs', 'exceptions', 'conversions', 'Xenon',
+           'java_class', 'module_path', 'cast', 'java', 'javax', 'nl',
+           'JavaBoundMethod', 'JavaClass', 'JavaMethod', 'JavaField']
 _is_initialized = False
 
 
 def init(classpath=None, log_level=None):
-    '''
+    """
     Initialize the Java Runtime Environment with jnius and set the classpath.
 
     Parameters
@@ -55,50 +58,22 @@ def init(classpath=None, log_level=None):
         again.
     ValueError: if the function is called more than once.
     ValueError: if the provided log level is not recognized.
-    '''
+    """
     global _is_initialized
     if _is_initialized:
         raise ValueError("xenon.init can be called only once")
 
-    import jnius_config
-
-    if classpath is None:
-        localdir = os.path.dirname(os.path.realpath(_module_path(init)))
-        libdir = os.path.join(localdir, '..', 'libs')
-        classpath = [libdir, os.path.join(libdir, '*.jar')]
-
-    cp = []
-    for c in classpath:
-        cp += glob.glob(c)
-    jnius_config.set_classpath(*cp)
-
-    if log_level is not None:
-        log_level = log_level.upper()
-        levels = ['ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE']
-        if log_level not in levels:
-            raise ValueError('Log level is {0} but it must be one of {1}'
-                             .format(log_level, levels))
-        jnius_config.add_options('-Dloglevel={0}'.format(log_level))
-
-    # import jnius after setting the classpath or Xenon will not be found
-    import jnius
-    _is_initialized = True
-
     try:
-        files._init()
-        jobs._init()
-        exceptions._init()
-    except jnius.JavaException as ex:
+        init_jvm(classpath, log_level)
+    except TypeError:
         raise ValueError("Classpath does not correctly specify Xenon and "
                          "its dependencies. This exception is fatal: calling "
-                         "init again will not resolve this error.", ex)
+                         "init again will not resolve this error.")
 
+    # import after setting the classpath or Xenon will not be found
+    _is_initialized = True
 
-def _module_path(local_function):
-    '''
-    Returns the module path without the use of __file__.
-
-    Requires a function defined locally in the module.
-    From http://stackoverflow.com/questions/729583
-    '''
-    return os.path.abspath(inspect.getsourcefile(local_function))
+    files._init()
+    jobs._init()
+    exceptions._init()
+    conversions._init()
