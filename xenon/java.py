@@ -27,10 +27,14 @@ JavaClass = _jpype._JavaClass
 JavaField = _jpype._JavaField
 
 
+def xenon_lib_dir():
+    local_dir = os.path.dirname(os.path.realpath(module_path()))
+    return os.path.join(local_dir, 'libs')
+
+
 def xenon_classpath():
     """ list of classpath entries that xenon needs, using wildcards. """
-    local_dir = os.path.dirname(os.path.realpath(module_path()))
-    lib_dir = os.path.join(local_dir, 'libs')
+    lib_dir = xenon_lib_dir()
     return [lib_dir, os.path.join(lib_dir, '*.jar')]
 
 
@@ -73,7 +77,8 @@ def java_class(class_name):
         return cls
 
 
-def init_jvm(classpath=None, log_level=None, *args):
+def init_jvm(classpath=None, log_level=None, log_configuration_file=None,
+             *args):
     """ Initialize the Java virtual machine.
 
     Parameters
@@ -91,6 +96,10 @@ def init_jvm(classpath=None, log_level=None, *args):
     cp = [filename for elem in classpath for filename in glob.glob(elem)]
 
     jvm_args.append('-Djava.class.path={0}'.format(os.path.pathsep.join(cp)))
+    if log_configuration_file is None:
+        log_configuration_file = os.path.join(xenon_lib_dir(), 'logback.xml')
+    jvm_args.append('-Dlogback.configurationFile={0}'
+                    .format(log_configuration_file))
 
     if log_level is not None:
         log_level = log_level.upper()
