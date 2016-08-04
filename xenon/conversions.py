@@ -26,23 +26,6 @@ from . import exceptions
 import jpype
 from jpype import java
 
-PrintStream = None
-BufferedReader = None
-InputStreamReader = None
-Scanner = None
-HashMap = None
-
-
-def _init():
-    """ Initialize classes. Only called from xenon.init(). """
-    global PrintStream, BufferedReader, InputStreamReader, Scanner, HashMap
-
-    PrintStream = java.io.PrintStream
-    BufferedReader = java.io.BufferedReader
-    InputStreamReader = java.io.InputStreamReader
-    Scanner = java.util.Scanner
-    HashMap = java.util.HashMap
-
 
 def read_lines(input_stream):
     """Read all lines from a java.io.InputStream, assuming the stream is
@@ -56,7 +39,7 @@ def read_lines(input_stream):
     :returns:
         generator iterating the lines read from `input_stream`.
     """
-    reader = Scanner(input_stream)
+    reader = java.util.Scanner(input_stream)
 
     while True:
         yield reader.nextLine()
@@ -78,7 +61,7 @@ def dict_to_HashMap(d):
     if d is None:
         return None
 
-    m = HashMap()
+    m = java.util.HashMap()
     for k, v in d.items():
         m.put(k, v)
     return m
@@ -125,7 +108,7 @@ class InputStream(object):
     operations."""
     def __init__(self, java_input_stream):
         self.jis = java_input_stream
-        self.scan = Scanner(self.jis)
+        self.scan = java.util.Scanner(self.jis)
 
     def __iter__(self):
         return self
@@ -151,7 +134,7 @@ class OutputStream(object):
     """
     def __init__(self, java_output_stream):
         self.jos = java_output_stream
-        self.stream = PrintStream(self.jos)
+        self.stream = java.io.PrintStream(self.jos)
         self.closed = False
 
     def write(self, str):

@@ -76,4 +76,3 @@ def init(classpath=None, log_level=None):
     files._init()
     jobs._init()
     exceptions._init()
-    conversions._init()
