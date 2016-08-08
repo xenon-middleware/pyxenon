@@ -21,14 +21,25 @@ This module contains functions to help converting Python objects to their
 Java equivalents. We need these to converse with Xenon IO.
 """
 
-from __future__ import print_function
 from . import exceptions
 import jpype
-from jpype import java
+import io
+
+Scanner = None
+HashMap = None
+PrintStream = None
+
+def _init():
+    global Scanner, HashMap, PrintStream
+
+    Scanner = jpype.java.util.Scanner
+    HashMap = jpype.java.util.HashMap
+    PrintStream = jpype.java.io.PrintStream
 
 
 def read_lines(input_stream):
-    """Read all lines from a java.io.InputStream, assuming the stream is
+    """
+    Read all lines from a java.io.InputStream, assuming the stream is
     text-based. Internally this routine uses java.util.Scanner to return
     a stream of lines.
 
@@ -39,14 +50,13 @@ def read_lines(input_stream):
     :returns:
         generator iterating the lines read from `input_stream`.
     """
-    reader = java.util.Scanner(input_stream)
-
-    while True:
-        yield reader.nextLine()
+    for line in InputStream(input_stream):
+        yield line
 
 
 def dict_to_HashMap(d):
-    """Converts a Python dictionary to a java.util.HashMap. The HashMap gives
+    """
+    Converts a Python dictionary to a java.util.HashMap. The HashMap gives
     an implementation of java.util.Map, which is used as a parameter type in
     many calls to Xenon. It is the responsibility of the user to make sure
     that the elements in the dictionary have consistent types.
@@ -58,35 +68,20 @@ def dict_to_HashMap(d):
     :returns:
         a java.util.HashMap
     """
+    global HashMap
+
     if d is None:
         return None
 
-    m = java.util.HashMap()
+    m = HashMap()
     for k, v in d.items():
         m.put(k, v)
     return m
 
 
-class JavaIterator(object):
-    """Wraps a Java iterator."""
-    def __init__(self, iter):
-        self.iter = iter
-
-    def __iter__(self):
-        return self
-
-    def next(self):
-        return self.__next__()
-
-    def __next__(self):
-        if self.iter.hasNext():
-            return self.iter.next()
-        else:
-            raise StopIteration()
-
-
 def Map_to_dict(m):
-    """Converts a java.util.Map compatible object to a Python dict.
+    """
+    Converts a java.util.Map compatible object to a Python dict.
 
     :param m:
         the map object
@@ -96,19 +91,19 @@ def Map_to_dict(m):
         the equivalent dictionary
     :rtype: dict
     """
-    d = {}
-    for k in JavaIterator(m.keySet().iterator()):
-        d[k] = m.get(k)
-    return d
+    return dict((entry.getKey(), entry.getValue()) for entry in m.entrySet())
 
 
 class InputStream(object):
-    """Iterator class, returning lines in a stream. The java.io.InputStream is
+    """
+    Iterator class, returning lines in a stream. The java.io.InputStream is
     composed with a java.util.Scanner object to achieve higher level input
     operations."""
     def __init__(self, java_input_stream):
-        self.jis = java_input_stream
-        self.scan = java.util.Scanner(self.jis)
+        global Scanner
+        if java_input_stream is None:
+            raise ValueError("Stream may not be none")
+        self.scan = Scanner(java_input_stream)
 
     def __iter__(self):
         return self
@@ -124,44 +119,54 @@ class InputStream(object):
         return line
 
 
-class OutputStream(object):
-    """Output stream object, this should be used as an opened output file::
+class OutputStream(io.TextIOBase):
+    """
+    Output stream object, this should be used as an opened output file::
 
         print("Hello, World!", file=OutputStream(my_java_stream), flush=True)
 
     The java.io.OutputStream is composed with a java.io.PrintStream to
     get to the higher level I/O operations in Java.
     """
-    def __init__(self, java_output_stream):
-        self.jos = java_output_stream
-        self.stream = java.io.PrintStream(self.jos)
-        self.closed = False
+    def __init__(self, java_output_stream, *args, **kwargs):
+        global PrintStream
+        super(OutputStream, self).__init__(*args, **kwargs)
+        self.stream = PrintStream(java_output_stream)
 
-    def write(self, str):
+    def write(self, string):
         """Write a string to stream, using java.io.PrintStream.print"""
-        self.stream.print_(jpype.JString(str))
+        self.stream.print_(jpype.JString(string))
+        return len(string)
 
     def close(self):
         """Closes the underlying java stream."""
         self.stream.close()
-        self.closed = True
+        super(OutputStream, self).close()
 
     def flush(self):
         """Flushes the underlying java stream."""
         self.stream.flush()
 
+    def read(self, *args, **kwargs):
+        """Raises IOError"""
+        raise IOError()
+
     def fileno(self):
         """Raises OSError"""
-        raise OSError()
-
-    def readable(self):
-        """Returns False"""
-        return False
-
-    def seekable(self):
-        """Returns False"""
-        return False
+        raise IOError()
 
     def writable(self):
         """Returns True"""
         return True
+
+    def detach(self):
+        """Separate the underlying raw stream from the buffer and return
+        it.
+
+        :rtype: None
+        """
+        raise io.UnsupportedOperation()
+
+    def writelines(self, lines):
+        for line in lines:
+            self.write(line + '\n')
