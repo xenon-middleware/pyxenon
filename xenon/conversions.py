@@ -29,6 +29,7 @@ Scanner = None
 HashMap = None
 PrintStream = None
 
+
 def _init():
     global Scanner, HashMap, PrintStream
 

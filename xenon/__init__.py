@@ -30,13 +30,30 @@ https://nlesc.github.io/Xenon.
 from . import files, jobs, exceptions, conversions
 from .xenon import Xenon
 from .java import (init_jvm, java_class, cast, nl, JavaBoundMethod, JavaClass,
-                   JavaMethod, JavaField)
+                   JavaMethod, JavaField, xenon_lib_dir, xenon_classpath)
 from jpype import java, javax
 from .util import module_path
 
-__all__ = ['init', 'files', 'jobs', 'exceptions', 'conversions', 'Xenon',
-           'java_class', 'module_path', 'cast', 'java', 'javax', 'nl',
-           'JavaBoundMethod', 'JavaClass', 'JavaMethod', 'JavaField']
+__all__ = [
+    'cast',
+    'conversions',
+    'exceptions',
+    'files',
+    'init',
+    'java',
+    'java_class',
+    'JavaBoundMethod',
+    'JavaClass',
+    'JavaMethod',
+    'JavaField',
+    'javax',
+    'jobs',
+    'module_path',
+    'nl',
+    'Xenon',
+    'xenon_classpath',
+    'xenon_lib_dir',
+]
 _is_initialized = False
 
 
