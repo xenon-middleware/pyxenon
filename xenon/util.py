@@ -37,8 +37,8 @@ def module_path(local_function=_local_function):
         to it (for example, in the interpreter or from eval()).
     @return: absolute path of the file of the given function
     """
-    path = os.path.abspath(inspect.getsourcefile(local_function))
-    if not os.path.exists(path):
+    path = inspect.getsourcefile(local_function)
+    if path is None or not os.path.exists(path):
         raise ValueError('Given function "{0}" is not installed in any file '
                          'or package.')
-    return path
+    return os.path.abspath(path)
