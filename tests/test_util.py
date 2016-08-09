@@ -15,7 +15,7 @@
 # limitations under the License.
 import os
 import xenon
-from nose.tools import assert_equals
+from nose.tools import assert_equals, assert_raises
 
 
 def test_module_path():
@@ -30,3 +30,8 @@ def test_module_path_default():
     cd = os.path.join(os.getcwd(), 'xenon', 'util.py')
     mpath = xenon.module_path()
     assert_equals(os.path.realpath(cd), os.path.realpath(mpath))
+
+
+def test_module_path_lambda():
+    """ Test module path recognition """
+    assert_raises(ValueError, xenon.module_path, eval('lambda x: x'))

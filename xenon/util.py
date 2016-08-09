@@ -13,19 +13,32 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+""" Utility functions """
+
 import inspect
 import os
 
 
 def _local_function():
+    """ local function for passing into module_path."""
     pass
 
 
 def module_path(local_function=_local_function):
     """
-    Returns the module path without the use of __file__.
+    Returns the path of the given function without the use of __file__.
 
     Requires a function defined locally in the module.
     From http://stackoverflow.com/questions/729583
+
+    @param local_function: function to get the file path from, by default gets
+        the xenon.util file path.
+    @raise ValueError: if the given function does not have a file associated
+        to it (for example, in the interpreter or from eval()).
+    @return: absolute path of the file of the given function
     """
-    return os.path.abspath(inspect.getsourcefile(local_function))
+    path = os.path.abspath(inspect.getsourcefile(local_function))
+    if not os.path.exists(path):
+        raise ValueError('Given function "{0}" is not installed in any file '
+                         'or package.')
+    return path
