@@ -59,6 +59,8 @@ The API consists of all methods and classes exported in `__init__.py`, `xenon.fi
 
 Due to a limitation of Java and Python interactions, classes can currently not be imported directly, they need to be called with their module name. For example, `from xenon.exceptions import XenonException; try: ...; except XenonException: ...` will fail. The `XenonException` must be called as `import xenon; xenon.exceptions.XenonException` or `from xenon import exceptions; exceptions.XenonException`.
 
+For more limitations on Java with Python see the [JPype documentation](http://jpype.readthedocs.io/en/latest/). In particular, everywhere where in the Java API a varargs is expected as a function argument (e.g. `public getJobs(Scheduler scheduler, Job... jobs))`), provide an list instead of a variable number of arguments.
+
 ## Contributing
 
 Contributions can be made using GitHub pull requests. To add a feature, first run
