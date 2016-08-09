@@ -20,6 +20,7 @@ from flake8.api import legacy as flake8
 import os
 import logging
 
+# flake8 is logging is really verbose. disable.
 logging.disable(logging.CRITICAL)
 
 
