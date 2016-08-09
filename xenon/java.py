@@ -28,6 +28,7 @@ JavaField = _jpype._JavaField
 
 
 def xenon_lib_dir():
+    """ The lib directory that can be used in the code. """
     local_dir = os.path.dirname(os.path.realpath(module_path()))
     return os.path.join(local_dir, 'libs')
 
