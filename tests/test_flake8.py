@@ -54,4 +54,3 @@ def check_file_flake8(paths):
         return flake8.get_style_guide().check_files(paths).total_errors
     else:
         return 0
-
