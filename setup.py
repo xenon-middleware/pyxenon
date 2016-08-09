@@ -51,5 +51,7 @@ setup(name='pyxenon',
       ],
       package_data={'xenon': ['libs/*.jar', 'libs/*.xml']},
       install_requires=['JPype1'],
-      tests_require=['nose', 'pyflakes', 'pep8', 'coverage'],
+      extras_require={
+          'test': ['nose', 'flake8', 'coverage'],
+      },
       )

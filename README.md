@@ -10,12 +10,18 @@ Python interface to the [Xenon middleware library](http://nlesc.github.io/Xenon/
 
 ## Installation
 
-First export environment variable `JAVA_HOME` pointing to your Java installation (otherwise pyxenon will try to autodetect Java). Then run
+The package is available on PyPi, to use that release, just install with:
+```
+pip install -U pyxenon
+```
+
+To install from source, run,
 
 ```shell
-pip install -r requirements.txt
-pip install .
+pip install -U .
 ```
+
+If the install fails due to a missing Java requirement, export environment variable `JAVA_HOME` pointing to your Java installation and try again. 
 
 Currently, Xenon library version 1.1.0 is placed in the `xenon/libs` directory with its dependencies. To use another version, replace these jar files with alternative jar files and run `pip install -U .`. Alternatively, a custom classpath can be provided to `xenon.init()`.
 
@@ -63,12 +69,12 @@ For more limitations on Java with Python see the [JPype documentation](http://jp
 
 ## Contributing
 
-Contributions can be made using GitHub pull requests. To add a feature, first run
-
-    make test
-
-until no warnings appear. This will also try to install test dependencies of `test_requirements.txt`. The command checks against PEP8 code standards and syntax errors. Then commit, to make sure the change didn't break any code. Before a creating a pull request, run
-
-    make fulltest
-
-The pull request will be evaluated in [Travis](https://travis-ci.org/NLeSC/pyxenon).
+Contributions can be made using GitHub pull requests. To add a feature, first install the test requirements
+```
+pip install -U ".[test]"
+```
+and then run
+```
+nosetests
+```
+until all tests succeed. The command checks against flake8 code standards and syntax errors. Then commit, to make sure the change didn't break any code.  The pull request will be evaluated in [Travis](https://travis-ci.org/NLeSC/pyxenon).
