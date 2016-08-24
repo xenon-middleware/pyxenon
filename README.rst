@@ -118,7 +118,7 @@ and then run
 
 ::
 
-    nosetests
+    pytest --flake8
 
 until all tests succeed. The command checks against flake8 code
 standards and syntax errors. Then commit, to make sure the change didn't

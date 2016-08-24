@@ -15,23 +15,23 @@
 # limitations under the License.
 import os
 import xenon
-from nose.tools import assert_equals, assert_raises
+import pytest
 
 
 def test_module_path():
     """ Test module path recognition """
     cd = os.path.join(os.getcwd(), 'tests', 'test_util.py')
-    mpath = xenon.module_path(test_module_path)
-    assert_equals(os.path.realpath(cd), os.path.realpath(mpath))
+    m_path = xenon.module_path(test_module_path)
+    assert os.path.realpath(cd) == os.path.realpath(m_path)
 
 
 def test_module_path_default():
     """ Test module path recognition """
     cd = os.path.join(os.getcwd(), 'xenon', 'util.py')
-    mpath = xenon.module_path()
-    assert_equals(os.path.realpath(cd), os.path.realpath(mpath))
+    m_path = xenon.module_path()
+    assert os.path.realpath(cd) == os.path.realpath(m_path)
 
 
 def test_module_path_lambda():
     """ Test module path recognition """
-    assert_raises(ValueError, xenon.module_path, eval('lambda x: x'))
+    pytest.raises(ValueError, xenon.module_path, eval('lambda x: x'))

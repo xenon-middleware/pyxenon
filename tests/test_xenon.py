@@ -13,35 +13,31 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-''' Test Xenon class '''
-
-from test_init import make_init
+""" Test Xenon class """
 import xenon
-from nose.tools import (assert_raises, assert_not_equal, assert_equals)
+import pytest
 
 
 def test_xenon():
-    ''' Test Xenon initialization, attributes and closing. '''
-    make_init()
-
+    """ Test Xenon initialization, attributes and closing. """
     x = xenon.Xenon()
-    assert_not_equal(None, x.xenon)
-    assert_equals(xenon.JavaBoundMethod, type(x.jobs))
+    assert x.xenon is not None
+    assert xenon.JavaBoundMethod == type(x.jobs)  # noqa
     x.close()
-    assert_equals(None, x.xenon)
-    assert_raises(ValueError, x.__getattr__, 'jobs')
-    assert_raises(ValueError, x.close)
+    assert x.xenon is None
+    with pytest.raises(ValueError):
+        _ = x.jobs  # noqa
+    with pytest.raises(ValueError):
+        x.close()
 
 
 def test_xenon_with():
-    ''' Test Xenons with-resources syntax '''
-    make_init()
+    """ Test Xenons with-resources syntax """
     with xenon.Xenon() as x:
-        assert_equals(xenon.JavaBoundMethod, type(x.jobs))
+        assert xenon.JavaBoundMethod == type(x.jobs)  # noqa
 
 
 def test_xenon_destructor():
-    ''' Test Xenons del operator '''
+    """ Test Xenons del operator """
     x = xenon.Xenon()
     del x

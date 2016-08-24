@@ -14,12 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''
+"""
 Job classes
 
 Use as arguments in API. The `package` variable stores the Java package
 name of the Xenon jobs API. Use xenon.jobs.JobDescription to submit a job with.
-'''
+"""
 
 from .java import nl
 
@@ -30,7 +30,7 @@ JobDescription = None
 
 
 def _init():
-    ''' Initialize classes. Only to be called in xenon.init. '''
+    """ Initialize classes. Only to be called in xenon.init. """
     global JobDescription
 
     JobDescription = nl.esciencecenter.xenon.jobs.JobDescription

@@ -20,7 +20,6 @@ import jpype
 from jpype._jclass import _jpype
 
 # we can reference the package already, just not use it yet
-nl = jpype.JPackage('nl')
 JavaBoundMethod = _jpype._JavaBoundMethod
 JavaMethod = _jpype._JavaMethod
 JavaClass = _jpype._JavaClass
@@ -116,4 +115,53 @@ def init_jvm(classpath=None, log_level=None, log_configuration_file=None,
 
     # test whether the classpath contains Xenon
     # it will raise a TypeError otherwise
-    nl.esciencecenter.xenon.Xenon.__javaclass__.getName()
+    JavaPackage.JPackageClass = jpype.JPackage
+    JavaPackage('nl').esciencecenter.xenon.Xenon.__javaclass__.getName()
+
+
+class JavaPackage(object):
+    """ Wrapper around JPackage to avoid segmentation faults. """
+    JPackageClass = None
+
+    def __init__(self, name):
+        """ mirrors jpype.JPackage.__init__ """
+        self.__name = name
+        self.__object = None
+
+    def __getattribute__(self, n):
+        """
+        mirrors jpype.JPackage.__getattribute__, with the addition of
+        constructing a new JPackage if it was not already done.
+        """
+        if n == '_object':
+            obj = self.__object
+            if obj is None:
+                try:
+                    obj = JavaPackage.JPackageClass(self.__name)
+                    self.__object = obj
+                except TypeError:
+                    raise EnvironmentError("Xenon is not yet initialized")
+            return obj
+        elif '__' in n:
+            return object.__getattribute__(self, n)
+        else:
+            return self._object.__getattribute__(n)
+
+    def __setattr__(self, n, v, intern=False):
+        """ mirrors jpype.JPackage.__setattr__ """
+        if '__' in n:
+            object.__setattr__(self, n, v)
+        else:
+            self.__object.__setattr__(n, v, intern=intern)
+
+    def __str__(self):
+        """ copy of jpype.JPackage.__str__ """
+        return "<Java package {0}>".format(self.__name)
+
+    def __call__(self, *arg, **kwarg):
+        """ copy of jpype.JPackage.__call__ """
+        raise TypeError("Package {0} is not Callable".format(self.__name))
+
+nl = JavaPackage('nl')
+java = JavaPackage('java')
+javax = JavaPackage('javax')

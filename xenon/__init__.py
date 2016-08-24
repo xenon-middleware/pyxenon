@@ -29,9 +29,9 @@ https://nlesc.github.io/Xenon.
 
 from . import files, jobs, exceptions, conversions
 from .xenon import Xenon
-from .java import (init_jvm, java_class, cast, nl, JavaBoundMethod, JavaClass,
-                   JavaMethod, JavaField, xenon_lib_dir, xenon_classpath)
-from jpype import java, javax
+from .java import (init_jvm, java_class, cast, JavaBoundMethod, JavaClass,
+                   JavaMethod, JavaField, xenon_lib_dir, xenon_classpath,
+                   JavaPackage, nl, java, javax)
 from .util import module_path
 
 __all__ = [
@@ -44,8 +44,9 @@ __all__ = [
     'java_class',
     'JavaBoundMethod',
     'JavaClass',
-    'JavaMethod',
     'JavaField',
+    'JavaMethod',
+    'JavaPackage',
     'javax',
     'jobs',
     'module_path',

@@ -16,25 +16,22 @@
 
 """ Test Xenon exceptions """
 
-from test_init import make_init
 import xenon
-from nose.tools import assert_raises, assert_true
+import pytest
 
 
 def test_xenon_raises():
     """ Test that Xenon raises a XenonException when given faulty arguments """
-    make_init()
     with xenon.Xenon() as x:
         creds = x.credentials()
         cred = creds.newPasswordCredential('ssh', 'wrong-user',
                                            list('wrong-password'), None)
-        assert_raises(xenon.exceptions.XenonException, x.jobs().newScheduler,
-                      'ssh', 'localhost', cred, None)
+        with pytest.raises(xenon.exceptions.XenonException):
+            x.jobs().newScheduler('ssh', 'localhost', cred, None)
 
 
 def test_xenon_except():
     """ Test that Xenon try-catch works with XenonException """
-    make_init()
     with xenon.Xenon() as x:
         try:
             creds = x.credentials()
@@ -42,7 +39,7 @@ def test_xenon_except():
                                                list('wrong-password'), None)
             x.jobs().newScheduler('ssh', 'localhost', cred, None)
             # exception not thrown
-            assert_true(False)
+            assert False
         except xenon.exceptions.XenonException:
             # exception thrown
-            assert_true(True)
+            pass

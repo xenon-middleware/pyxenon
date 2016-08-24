@@ -1,7 +1,10 @@
 *.pyc
+__pycache__/
 /build
 /.coverage
 /coverage.xml
 /.Python
 /dist
 /pyxenon.egg-info
+/.idea/
+/.cache/
