@@ -20,9 +20,10 @@ Primary Xenon API
 To instantiate and use the Java Xenon API with. The `package` variable stores
 the Java package name of the Xenon jobs API.
 """
-from .java import nl
+from .java import JavaClass
 
 package = 'nl.esciencecenter.xenon'
+XenonFactory = JavaClass(package + '.XenonFactory')
 
 
 class Xenon(object):
@@ -41,8 +42,8 @@ class Xenon(object):
         options : dict or None
             options to Xenon, takes Xenon properties as keys
         """
-        self.xenon_factory = nl.esciencecenter.xenon.XenonFactory
-        self.xenon = self.xenon_factory.newXenon(options)
+        global XenonFactory
+        self.xenon = XenonFactory.newXenon(options)
 
     def __getattr__(self, name, *args, **kwargs):
         """ Call Xenon functions, defined in the Java Xenon API """
@@ -58,11 +59,11 @@ class Xenon(object):
         """
         Close and remove Xenon.
         """
+        global XenonFactory
         if self.xenon is None:
             raise ValueError("Xenon is already closed")
 
-        self.xenon_factory.endXenon(self.xenon)
-        del self.xenon_factory
+        XenonFactory.endXenon(self.xenon)
         del self.xenon
 
     def __del__(self):

@@ -15,6 +15,7 @@
 # limitations under the License.
 """ Test Xenon class """
 import xenon
+from jpype._jclass import _jpype
 import pytest
 
 
@@ -22,7 +23,7 @@ def test_xenon():
     """ Test Xenon initialization, attributes and closing. """
     x = xenon.Xenon()
     assert x.xenon is not None
-    assert xenon.JavaBoundMethod == type(x.jobs)  # noqa
+    assert _jpype._JavaBoundMethod == type(x.jobs)  # noqa
     x.close()
     assert x.xenon is None
     with pytest.raises(ValueError):
@@ -34,7 +35,7 @@ def test_xenon():
 def test_xenon_with():
     """ Test Xenons with-resources syntax """
     with xenon.Xenon() as x:
-        assert xenon.JavaBoundMethod == type(x.jobs)  # noqa
+        assert _jpype._JavaBoundMethod == type(x.jobs)  # noqa
 
 
 def test_xenon_destructor():

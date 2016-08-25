@@ -28,10 +28,10 @@ https://nlesc.github.io/Xenon.
 """
 
 from . import files, jobs, exceptions, conversions
-from .xenon import Xenon
-from .java import (init_jvm, java_class, cast, JavaBoundMethod, JavaClass,
-                   JavaMethod, JavaField, xenon_lib_dir, xenon_classpath,
-                   JavaPackage, nl, java, javax)
+from .xenon import Xenon, XenonFactory
+from .exceptions import XenonException
+from .java import (init_jvm, cast, xenon_lib_dir, xenon_classpath,
+                   JavaPackage, JavaClass, nl, java, javax)
 from .util import module_path
 
 __all__ = [
@@ -41,17 +41,15 @@ __all__ = [
     'files',
     'init',
     'java',
-    'java_class',
-    'JavaBoundMethod',
     'JavaClass',
-    'JavaField',
-    'JavaMethod',
     'JavaPackage',
     'javax',
     'jobs',
     'module_path',
     'nl',
     'Xenon',
+    'XenonException',
+    'XenonFactory',
     'xenon_classpath',
     'xenon_lib_dir',
 ]
@@ -90,8 +88,3 @@ def init(classpath=None, log_level=None):
 
     # import after setting the classpath or Xenon will not be found
     _is_initialized = True
-
-    files._init()
-    jobs._init()
-    exceptions._init()
-    conversions._init()

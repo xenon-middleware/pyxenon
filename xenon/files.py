@@ -14,29 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''
+"""
 Classes and enums in files.
 
 To use as arguments in API calls. The `package` variable stores the Java
 package name of the Xenon files API.
-'''
+"""
 
-from .java import nl
+from .java import JavaClass
 
 package = 'nl.esciencecenter.xenon.files'
-__all__ = ['RelativePath', 'OpenOption', 'CopyOption', 'PosixFilePermission']
+RelativePath = JavaClass(package + '.RelativePath')
+PosixFilePermission = JavaClass(package + '.PosixFilePermission')
+OpenOption = JavaClass(package + '.OpenOption')
+CopyOption = JavaClass(package + '.CopyOption')
 
-RelativePath = None
-PosixFilePermission = None
-OpenOption = None
-CopyOption = None
-
-
-def _init():
-    ''' Initialize classes. Only to be called in xenon.init. '''
-    global RelativePath, PosixFilePermission, OpenOption, CopyOption
-
-    RelativePath = nl.esciencecenter.xenon.files.RelativePath
-    PosixFilePermission = nl.esciencecenter.xenon.files.PosixFilePermission
-    OpenOption = nl.esciencecenter.xenon.files.OpenOption
-    CopyOption = nl.esciencecenter.xenon.files.CopyOption
+__all__ = ['RelativePath', 'PosixFilePermission', 'OpenOption', 'CopyOption']

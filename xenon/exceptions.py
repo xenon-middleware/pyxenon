@@ -21,13 +21,6 @@ class, reflecting Java class nl.esciencecenter.xenon.XenonException.
 """
 import jpype
 
+XenonException = jpype.JavaException
+
 __all__ = ['XenonException']
-
-XenonException = None
-
-
-def _init():
-    """ Initialize classes. Only to be called in xenon.init. """
-    global XenonException
-
-    XenonException = jpype.JavaException

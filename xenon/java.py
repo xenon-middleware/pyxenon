@@ -19,12 +19,6 @@ import glob
 import jpype
 from jpype._jclass import _jpype
 
-# we can reference the package already, just not use it yet
-JavaBoundMethod = _jpype._JavaBoundMethod
-JavaMethod = _jpype._JavaMethod
-JavaClass = _jpype._JavaClass
-JavaField = _jpype._JavaField
-
 
 def xenon_lib_dir():
     """ The lib directory that can be used in the code. """
@@ -49,34 +43,6 @@ def cast(name_or_class, value):
     return jpype.JObject(value, tp=name_or_class)
 
 
-def java_class(class_name):
-    """ Get a class from given class name.
-
-    Parameters
-    ----------
-    class_name : string like 'java.package.ClassName'
-
-    Raises
-    ------
-    TypeError : if the class does not exist.
-    """
-    try:
-        package_index = class_name.rindex('.')
-    except ValueError:
-        raise ValueError(
-            'Cannot resolve class \'{0}\' without a package name'
-            .format(class_name))
-    else:
-        cls = getattr(jpype.JPackage(class_name[:package_index]),
-                      class_name[package_index + 1:])
-
-        # test whether the classpath contains the class
-        # it will raise a TypeError otherwise
-        cls.__javaclass__.getName()
-
-        return cls
-
-
 def init_jvm(classpath=None, log_level=None, log_configuration_file=None,
              *args):
     """ Initialize the Java virtual machine.
@@ -86,6 +52,7 @@ def init_jvm(classpath=None, log_level=None, log_configuration_file=None,
     classpath : list of strings with classpath entries. This must include Xenon
         dependencies. If None, xenon_classpath() is used as classpath.
     log_level : one of 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE'
+    log_configuration_file : logback.xml configuration file path
     args :
     """
     if classpath is None:
@@ -113,54 +80,103 @@ def init_jvm(classpath=None, log_level=None, log_configuration_file=None,
 
     jpype.startJVM(jpype.getDefaultJVMPath(), *jvm_args)
 
+    JavaPackage.JPackageClass = jpype.JPackage
+    JavaClass.JClassClass = jpype.JClass
+
     # test whether the classpath contains Xenon
     # it will raise a TypeError otherwise
-    JavaPackage.JPackageClass = jpype.JPackage
-    JavaPackage('nl').esciencecenter.xenon.Xenon.__javaclass__.getName()
+    nl.esciencecenter.xenon.Xenon.__javaclass__.getName()
 
 
 class JavaPackage(object):
-    """ Wrapper around JPackage to avoid segmentation faults. """
+    """ Wrapper around jpype.JPackage to avoid segmentation faults. """
     JPackageClass = None
 
     def __init__(self, name):
         """ mirrors jpype.JPackage.__init__ """
         self.__name = name
-        self.__object = None
+        self.__j_package = None
 
-    def __getattribute__(self, n):
+    @property
+    def _j_package(self):
+        if self.__j_package is None:
+            try:
+                self.__j_package = JavaPackage.JPackageClass(self.__name)
+            except TypeError:
+                raise EnvironmentError("Xenon is not yet initialized")
+        return self.__j_package
+
+    def __getattr__(self, n, *args, **kwargs):
         """
         mirrors jpype.JPackage.__getattribute__, with the addition of
         constructing a new JPackage if it was not already done.
         """
-        if n == '_object':
-            obj = self.__object
-            if obj is None:
-                try:
-                    obj = JavaPackage.JPackageClass(self.__name)
-                    self.__object = obj
-                except TypeError:
-                    raise EnvironmentError("Xenon is not yet initialized")
-            return obj
-        elif '__' in n:
-            return object.__getattribute__(self, n)
+        if n == '__test__':
+            raise AttributeError('Attribute {0} not found'.format(n))
         else:
-            return self._object.__getattribute__(n)
+            return self._j_package.__getattribute__(n, *args, **kwargs)
 
-    def __setattr__(self, n, v, intern=False):
+    def __setattr__(self, n, v, *args, **kwargs):
         """ mirrors jpype.JPackage.__setattr__ """
-        if '__' in n:
+        if n in ['_JavaPackage__j_package', '_JavaPackage__name']:
             object.__setattr__(self, n, v)
         else:
-            self.__object.__setattr__(n, v, intern=intern)
+            self._j_package.__setattr__(n, v, *args, **kwargs)
 
-    def __str__(self):
-        """ copy of jpype.JPackage.__str__ """
-        return "<Java package {0}>".format(self.__name)
 
-    def __call__(self, *arg, **kwarg):
-        """ copy of jpype.JPackage.__call__ """
-        raise TypeError("Package {0} is not Callable".format(self.__name))
+class JavaClass(object):
+    """ Wrapper around jpype.JClass to avoid segmentation faults. """
+    JClassClass = None
+
+    def __init__(self, name):
+        """ mirrors jpype.JClass(name) """
+        self.__name = name
+        self.__j_class = None
+
+    def __call__(self, *args, **kwargs):
+        """
+        mirrors jpype._JavaClass.__new__
+        """
+        return self._j_class(*args, **kwargs)
+
+    def __getattribute__(self, n):
+        """
+        mirrors jpype._JavaClass.__getattribute__, with the addition of
+        constructing a new JClass if it was not already done.
+        """
+        if n in ['_JavaClass__j_class', '_JavaClass__name']:
+            return object.__getattribute__(self, n)
+        elif n == '__test__':
+            raise AttributeError('Cannot unit test class {0}'.format(n))
+
+        jcl = self.__j_class
+        d = object.__getattribute__(self, '__dict__')
+        if jcl is None:
+            try:
+                jcl = JavaClass.JClassClass(self.__name)
+            except TypeError:
+                raise EnvironmentError("Xenon is not yet initialized")
+            self.__j_class = jcl
+
+            # static Java functions and fields are stored in the dict
+            d.update(jcl.__dict__)
+
+        if n == '_j_class':
+            return jcl
+        elif n == '__dict__':
+            return d
+        elif n in d:
+            return d[n]
+
+        return jcl.__getattribute__(jcl, n)
+
+    def __setattr__(self, n, v, *args, **kwargs):
+        """ mirrors jpype.JClass.__setattr__ """
+        if n in ['_JavaClass__j_class', '_JavaClass__name']:
+            object.__setattr__(self, n, v)
+        else:
+            self._j_class.__setattr__(n, v, *args, **kwargs)
+
 
 nl = JavaPackage('nl')
 java = JavaPackage('java')

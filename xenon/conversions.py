@@ -21,21 +21,14 @@ This module contains functions to help converting Python objects to their
 Java equivalents. We need these to converse with Xenon IO.
 """
 
-from . import exceptions
+from .java import JavaClass
+from .exceptions import XenonException
 import jpype
 import io
 
-Scanner = None
-HashMap = None
-PrintStream = None
-
-
-def _init():
-    global Scanner, HashMap, PrintStream
-
-    Scanner = jpype.java.util.Scanner
-    HashMap = jpype.java.util.HashMap
-    PrintStream = jpype.java.io.PrintStream
+Scanner = JavaClass('java.util.Scanner')
+HashMap = JavaClass('java.util.HashMap')
+PrintStream = JavaClass('java.io.PrintStream')
 
 
 def read_lines(input_stream):
@@ -115,7 +108,7 @@ class InputStream(object):
     def __next__(self):
         try:
             line = self.scan.nextLine()
-        except exceptions.XenonException:
+        except XenonException:
             raise StopIteration()
         return line
 
