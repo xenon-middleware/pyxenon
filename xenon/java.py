@@ -18,6 +18,9 @@ from .util import module_path
 import glob
 import jpype
 
+_JClass = None
+_JPackage = None
+
 
 def xenon_lib_dir():
     """ The lib directory that can be used in the code. """
@@ -54,6 +57,7 @@ def init_jvm(classpath=None, log_level=None, log_configuration_file=None,
     log_configuration_file : logback.xml configuration file path
     args :
     """
+    global _JClass, _JPackage
     if classpath is None:
         classpath = xenon_classpath()
 
@@ -79,8 +83,8 @@ def init_jvm(classpath=None, log_level=None, log_configuration_file=None,
 
     jpype.startJVM(jpype.getDefaultJVMPath(), *jvm_args)
 
-    JavaPackage.JPackageClass = jpype.JPackage
-    JavaClass.JClassClass = jpype.JClass
+    _JPackage = jpype.JPackage
+    _JClass = jpype.JClass
 
     # test whether the classpath contains Xenon
     # it will raise a TypeError otherwise
@@ -94,8 +98,6 @@ class JavaPackage(object):
     Instead it will raise EnvironmentError if xenon.init has not yet been
     called.
     """
-    JPackageClass = None
-
     def __init__(self, name):
         """ wraps jpype.JPackage.__init__ """
         self.__name = name
@@ -108,9 +110,10 @@ class JavaPackage(object):
         @raise EnvironmentError: if xenon.init has not yet been called.
         """
         if self.__j_package is None:
-            if JavaPackage.JPackageClass is None:
+            global _JPackage
+            if _JPackage is None:
                 raise EnvironmentError("Xenon is not yet initialized")
-            self.__j_package = JavaPackage.JPackageClass(self.__name)
+            self.__j_package = _JPackage(self.__name)
 
         return self.__j_package
 
@@ -134,8 +137,6 @@ class JavaPackage(object):
 
 class JavaClass(object):
     """ Wrapper around jpype.JClass to avoid segmentation faults. """
-    JClassClass = None
-
     def __init__(self, name):
         """ wraps jpype.JClass(name) """
         self.__name = name
@@ -168,10 +169,11 @@ class JavaClass(object):
         # members of that class as well
         d = object.__getattribute__(self, '__dict__')
         if jcl is None:
-            if JavaClass.JClassClass is None:
+            global _JClass
+            if _JClass is None:
                 raise EnvironmentError("Xenon is not yet initialized")
 
-            jcl = JavaClass.JClassClass(self.__name)
+            jcl = _JClass(self.__name)
             self.__j_class = jcl
 
             # static Java functions and fields are stored in the dict
