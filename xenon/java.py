@@ -17,7 +17,6 @@ import os
 from .util import module_path
 import glob
 import jpype
-from jpype._jclass import _jpype
 
 
 def xenon_lib_dir():
