@@ -19,15 +19,17 @@
 Internal setup of the xenon package.
 """
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
+import os
 
+# Get the long description from the README file
+with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as f:
+    long_description = f.read()
 
 setup(name='pyxenon',
       version='0.3',
       description='Python wrapper for the Xenon API.',
+      long_description=long_description,
       author='Joris Borgdorff',
       author_email='j.borgdorff@esciencecenter.nl',
       url='https://github.com/NLeSC/pyxenon',
