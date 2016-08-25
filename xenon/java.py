@@ -88,35 +88,44 @@ def init_jvm(classpath=None, log_level=None, log_configuration_file=None,
 
 
 class JavaPackage(object):
-    """ Wrapper around jpype.JPackage to avoid segmentation faults. """
+    """
+    Wrapper around jpype.JPackage to avoid segmentation faults.
+
+    Instead it will raise EnvironmentError if xenon.init has not yet been
+    called.
+    """
     JPackageClass = None
 
     def __init__(self, name):
-        """ mirrors jpype.JPackage.__init__ """
+        """ wraps jpype.JPackage.__init__ """
         self.__name = name
         self.__j_package = None
 
     @property
     def _j_package(self):
+        """
+        Actual package class
+        @raise EnvironmentError: if xenon.init has not yet been called.
+        """
         if self.__j_package is None:
-            try:
-                self.__j_package = JavaPackage.JPackageClass(self.__name)
-            except TypeError:
+            if JavaPackage.JPackageClass is None:
                 raise EnvironmentError("Xenon is not yet initialized")
+            self.__j_package = JavaPackage.JPackageClass(self.__name)
+
         return self.__j_package
 
     def __getattr__(self, n, *args, **kwargs):
         """
-        mirrors jpype.JPackage.__getattribute__, with the addition of
+        wraps jpype.JPackage.__getattribute__, with the addition of
         constructing a new JPackage if it was not already done.
         """
-        if n == '__test__':
+        if n == '__test__':  # avoid pytest inspection
             raise AttributeError('Attribute {0} not found'.format(n))
         else:
             return self._j_package.__getattribute__(n, *args, **kwargs)
 
     def __setattr__(self, n, v, *args, **kwargs):
-        """ mirrors jpype.JPackage.__setattr__ """
+        """ wraps jpype.JPackage.__setattr__ """
         if n in ['_JavaPackage__j_package', '_JavaPackage__name']:
             object.__setattr__(self, n, v)
         else:
@@ -128,38 +137,48 @@ class JavaClass(object):
     JClassClass = None
 
     def __init__(self, name):
-        """ mirrors jpype.JClass(name) """
+        """ wraps jpype.JClass(name) """
         self.__name = name
         self.__j_class = None
 
     def __call__(self, *args, **kwargs):
         """
-        mirrors jpype._JavaClass.__new__
+        wraps jpype._JavaClass.__new__
         """
         return self._j_class(*args, **kwargs)
 
     def __getattribute__(self, n):
         """
-        mirrors jpype._JavaClass.__getattribute__, with the addition of
+        wraps jpype._JavaClass.__getattribute__, with the addition of
         constructing a new JClass if it was not already done.
         """
+        # Unlike __getattr__, this method processes ALL attribute invocations,
+        # including ones that are set internally. Handle those separately.
+        # On object attributes that we want to access, call
+        # object.__getattribute__, this is the superclass implementation that
+        # DOES look up the actual attributes.
         if n in ['_JavaClass__j_class', '_JavaClass__name']:
             return object.__getattribute__(self, n)
-        elif n == '__test__':
+        elif n == '__test__':  # avoid pytest inspection
             raise AttributeError('Cannot unit test class {0}'.format(n))
 
         jcl = self.__j_class
+        # fields and some members are part of dict. We include our own dict
+        # and when the java class is initialized, we include the fields and
+        # members of that class as well
         d = object.__getattribute__(self, '__dict__')
         if jcl is None:
-            try:
-                jcl = JavaClass.JClassClass(self.__name)
-            except TypeError:
+            if JavaClass.JClassClass is None:
                 raise EnvironmentError("Xenon is not yet initialized")
+
+            jcl = JavaClass.JClassClass(self.__name)
             self.__j_class = jcl
 
             # static Java functions and fields are stored in the dict
             d.update(jcl.__dict__)
 
+        # handle attributes _j_class, __dict__ and __dict__ members before
+        # calling wrapped class.
         if n == '_j_class':
             return jcl
         elif n == '__dict__':
@@ -170,7 +189,7 @@ class JavaClass(object):
         return jcl.__getattribute__(jcl, n)
 
     def __setattr__(self, n, v, *args, **kwargs):
-        """ mirrors jpype.JClass.__setattr__ """
+        """ wraps jpype._JavaClass.__setattr__ """
         if n in ['_JavaClass__j_class', '_JavaClass__name']:
             object.__setattr__(self, n, v)
         else:
