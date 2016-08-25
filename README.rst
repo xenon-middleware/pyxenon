@@ -1,7 +1,7 @@
 Python interface to Xenon
 =========================
 
-|PyPi version| |Apache 2 License| |Python versions| |Build Status|
+|Python versions| |DOI| |PyPi version| |Apache 2 License||Build Status|
 |Codacy Badge|
 
 Python interface to the `Xenon middleware
@@ -145,6 +145,8 @@ the change didn't break any code. The pull request will be evaluated in
     If different versions of Python are installed locally, modify ``tox.ini``
     to reflect your installed Python versions.
 
+.. |DOI| image:: https://zenodo.org/badge/doi/10.5281/zenodo.60929.svg
+   :target: http://dx.doi.org/10.5281/zenodo.60929
 .. |PyPi version| image:: https://img.shields.io/pypi/v/pyxenon.svg
    :target: https://pypi.python.org/pypi/pyxenon
 .. |Apache 2 License| image:: https://img.shields.io/github/license/NLeSC/pyxenon.svg?branch=master
