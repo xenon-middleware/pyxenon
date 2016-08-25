@@ -107,7 +107,7 @@ For other custom classes or packages the ``xenon.JavaClass`` or
    ``JavaClass``, ``JavaPackage``, ``java``, ``javax`` and ``nl`` can be used
    throughout the code, but functions or attribute access on them can only be
    made AFTER ``xenon.init()`` is called. Before that time, access will raise
-   an ``EnvironmentError``
+   an ``EnvironmentError``.
 
 For limitations on Java with Python see the `JPype
 documentation <http://jpype.readthedocs.io/en/latest/>`__. In
@@ -142,8 +142,8 @@ the change didn't break any code. The pull request will be evaluated in
 `Travis <https://travis-ci.org/NLeSC/pyxenon>`__.
 
 .. note::
-    If different versions of Python are installed locally, modify tox.ini to
-    reflect your installed Python versions.
+    If different versions of Python are installed locally, modify ``tox.ini``
+    to reflect your installed Python versions.
 
 .. |PyPi version| image:: https://img.shields.io/pypi/v/pyxenon.svg
    :target: https://pypi.python.org/pypi/pyxenon

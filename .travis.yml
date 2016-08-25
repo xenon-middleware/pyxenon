@@ -10,7 +10,7 @@ install:
   - pip install -U ".[test]"
 script:
   - coverage run -m pytest --flake8
-  - coverage report
 after_script:
+  - coverage report
   - coverage xml
   - python-codacy-coverage -r coverage.xml
