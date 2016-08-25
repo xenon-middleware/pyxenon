@@ -1,6 +1,5 @@
 import pytest
 import xenon
-import jpype
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -14,5 +13,5 @@ def make_init():
     assert xenon.JavaClass.JClassClass is None
     assert xenon.JavaPackage.JPackageClass is None
     xenon.init()
-    assert xenon.JavaClass.JClassClass == jpype.JClass
-    assert xenon.JavaPackage.JPackageClass == jpype.JPackage
+    assert xenon.JavaClass.JClassClass is not None
+    assert xenon.JavaPackage.JPackageClass is not None
