@@ -136,7 +136,12 @@ class JavaPackage(object):
 
 
 class JavaClass(object):
-    """ Wrapper around jpype.JClass to avoid segmentation faults. """
+    """
+    Wrapper around jpype.JClass to avoid segmentation faults.
+
+    Instead it will raise EnvironmentError if xenon.init has not yet been
+    called.
+    """
     def __init__(self, name):
         """ wraps jpype.JClass(name) """
         self.__name = name
