@@ -87,22 +87,38 @@ API
 The API consists of all methods and classes exported in ``__init__.py``,
 ``xenon.files``, ``xenon.jobs``, ``xenon.exceptions``, and
 ``xenon.conversions``. Of each of the classes, find further
-documentation in the corresponding Xenon class.
+documentation in the corresponding Xenon class. To construct Java classes, use
+``from xenon import java, nl`` to get the ``java`` and ``nl`` root packages.
+For other custom classes or packages the ``xenon.JavaClass`` or
+``xenon.JavaPackage`` classes.
 
-Due to a limitation of Java and Python interactions, classes can
-currently not be imported directly, they need to be called with their
-module name. For example,
-``from xenon.exceptions import XenonException; try: ...; except XenonException: ...``
-will fail. The ``XenonException`` must be called as
-``import xenon; xenon.exceptions.XenonException`` or
-``from xenon import exceptions; exceptions.XenonException``.
+.. code:: python
+    import xenon
+    xenon.init()
 
-For more limitations on Java with Python see the `JPype
+    from xenon import java
+    array = java.util.ArrayList()
+
+    from xenon import JavaClass
+    logger = JavaClass('org.slf4j.LoggerFactory').getLogger('python')
+    logger.debug('Hello world')
+
+.. caution::
+   ``JavaClass``, ``JavaPackage``, ``java``, ``javax`` and ``nl`` can be used
+   throughout the code, but functions or attribute access on them can only be
+   made AFTER ``xenon.init()`` is called. Before that time, access will raise
+   an ``EnvironmentError``
+
+For limitations on Java with Python see the `JPype
 documentation <http://jpype.readthedocs.io/en/latest/>`__. In
 particular, everywhere where in the Java API a varargs is expected as a
 function argument (e.g.
 ``public getJobs(Scheduler scheduler, Job... jobs))``), provide an list
-instead of a variable number of arguments.
+instead of a variable number of arguments. The easiest way to make a Java
+char-array from a Python string is to use
+``java.lang.String(mystring).toCharArray()``. To easily pass a ``dict`` or read
+a ``HashMap``, use the ``xenon.conversions.{dict_to_HashMap, Map_to_dict}``
+functions.
 
 Contributing
 ------------
