@@ -1,10 +1,1 @@
-coverage==4.2
-flake8==3.0.4
 JPype1==0.6.1
-mccabe==0.5.2
-py==1.4.31
-pycodestyle==2.0.0
-pyflakes==1.2.3
-pytest==3.0.1
-pytest-flake8==0.6
-pyxenon==0.2.2

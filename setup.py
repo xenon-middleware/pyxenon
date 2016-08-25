@@ -17,8 +17,6 @@
 
 """
 Internal setup of the xenon package.
-
-Use make install instead for correct dependency detection.
 """
 
 try:
@@ -28,7 +26,7 @@ except ImportError:
 
 
 setup(name='pyxenon',
-      version='0.2.2',
+      version='0.3',
       description='Python wrapper for the Xenon API.',
       author='Joris Borgdorff',
       author_email='j.borgdorff@esciencecenter.nl',

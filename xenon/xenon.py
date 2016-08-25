@@ -20,6 +20,7 @@ Primary Xenon API
 To instantiate and use the Java Xenon API with. The `package` variable stores
 the Java package name of the Xenon jobs API.
 """
+
 from .java import JavaClass
 
 package = 'nl.esciencecenter.xenon'

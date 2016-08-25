@@ -13,12 +13,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 """
 Xenon exception classes
 
 To catch exceptions thrown by Xenon, use the xenon.exceptions.XenonException
 class, reflecting Java class nl.esciencecenter.xenon.XenonException.
 """
+
 import jpype
 
 XenonException = jpype.JavaException
