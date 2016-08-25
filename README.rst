@@ -128,18 +128,22 @@ first install the test requirements
 
 ::
 
-    pip install -U ".[test]"
+    pip install -U tox
 
 and then run
 
 ::
 
-    pytest --flake8
+    tox
 
 until all tests succeed. The command checks against flake8 code
-standards and syntax errors. Then commit, to make sure the change didn't
-break any code. The pull request will be evaluated in
+standards and syntax errors on Python 2.7 and 3.5. Then commit, to make sure
+the change didn't break any code. The pull request will be evaluated in
 `Travis <https://travis-ci.org/NLeSC/pyxenon>`__.
+
+.. note::
+    If different versions of Python are installed locally, modify tox.ini to
+    reflect your installed Python versions.
 
 .. |PyPi version| image:: https://img.shields.io/pypi/v/pyxenon.svg
    :target: https://pypi.python.org/pypi/pyxenon

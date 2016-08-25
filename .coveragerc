@@ -2,6 +2,7 @@
 [run]
 branch = True
 source = xenon/
+parallel = True
 
 [report]
 show_missing = True
