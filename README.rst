@@ -1,7 +1,7 @@
 Python interface to Xenon
 =========================
 
-|Python versions| |DOI| |PyPi version| |Apache 2 License||Build Status|
+|Python versions| |DOI| |PyPi version| |Apache 2 License| |Build Status|
 |Codacy Badge|
 
 Python interface to the `Xenon middleware
