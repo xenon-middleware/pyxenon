@@ -1,8 +1,14 @@
-Python interface to Xenon
-=========================
+Python interface to Xenon, GRPC Branch
+======================================
+
+We're rewriting PyXenon on top of the GRPC API for Xenon. This work will result in version 2.0 of PyXenon.
+
+Old README
+==========
 
 |Python versions| |DOI| |PyPi version| |Apache 2 License| |Build Status|
 |Codacy Badge|
+
 
 Python interface to the `Xenon middleware
 library <http://nlesc.github.io/Xenon/>`__. Xenon provides a simple
