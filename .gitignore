@@ -9,3 +9,12 @@ __pycache__/
 /.idea/
 /.cache/
 /.tox/
+
+# vim
+*.swp
+*~
+
+# temporary entries during development
+/bin
+/lib
+

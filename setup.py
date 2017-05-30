@@ -26,31 +26,35 @@ import os
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as f:
     long_description = f.read()
 
-setup(name='pyxenon',
-      version='0.3',
-      description='Python wrapper for the Xenon API.',
-      long_description=long_description,
-      author='Joris Borgdorff',
-      author_email='j.borgdorff@esciencecenter.nl',
-      url='https://github.com/NLeSC/pyxenon',
-      packages=['xenon'],
-      classifiers=[
-          'License :: OSI Approved :: Apache Software License',
-          'Intended Audience :: Developers',
-          'Intended Audience :: Science/Research',
-          'Environment :: Console',
-          'Development Status :: 4 - Beta',
-          'Programming Language :: Python :: 2',
-          'Programming Language :: Python :: 2.7',
-          'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.3',
-          'Programming Language :: Python :: 3.4',
-          'Programming Language :: Python :: 3.5',
-          'Topic :: System :: Distributed Computing',
-      ],
-      package_data={'xenon': ['libs/*.jar', 'libs/*.xml']},
-      install_requires=['JPype1'],
-      extras_require={
-          'test': ['pytest', 'pytest-flake8', 'coverage'],
-      },
-      )
+setup(
+    name='pyxenon',
+    version='2.0-alpha',
+    description='Python wrapper for the Xenon API.',
+    long_description=long_description,
+    author='Johan Hidding',
+    author_email='j.hididng@esciencecenter.nl',
+    url='https://github.com/NLeSC/pyxenon',
+    packages=['xenon'],
+    classifiers=[
+        'License :: OSI Approved :: Apache Software License',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
+        'Environment :: Console',
+        'Development Status :: 4 - Beta',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Topic :: System :: Distributed Computing',
+    ],
+    package_data={'xenon': [
+        'lib/*.jar',
+        'bin/xenon-grpc',
+        'bin/xenon-grpc.bat']},
+    install_requires=['grpcio', 'grpcio-tools'],
+    extras_require={
+        'test': ['pytest', 'pytest-flake8', 'coverage'],
+    }
+)

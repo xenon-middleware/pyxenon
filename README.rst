@@ -3,6 +3,12 @@ Python interface to Xenon, GRPC Branch
 
 We're rewriting PyXenon on top of the GRPC API for Xenon. This work will result in version 2.0 of PyXenon.
 
+Development
+-----------
+Until we release PyXenon 2.0, we don't ship the `xenon-grpc` `jar` file in this repository. Build it manually, following instructions at `Xenon-GRPC <https://github.com/nlesc/xenon-grpc>`__, and place the contents of the `build/install/xenon-grpc-shadow` folder somewhere findable.
+
+To generate the `grpc` code, run `scripts/protoc.sh` from the project root.
+
 Old README
 ==========
 
