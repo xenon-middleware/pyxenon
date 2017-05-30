@@ -4,3 +4,5 @@ import time
 with Xenon() as xenon:
     print("Now running Xenon!")
     time.sleep(1)
+
+print("Bye")
