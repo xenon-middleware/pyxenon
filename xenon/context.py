@@ -1,4 +1,5 @@
-from .proto import (xenon_pb2_grpc)
+from .proto import (xenon_pb2_grpc, xenon_pb2)
+
 import grpc
 import socket
 import fcntl
@@ -37,7 +38,16 @@ def start_xenon_server():
     return process
 
 
-def print_streams(process, event):
+def print_stream(file, name):
+    logger = logging.getLogger('xenon.{}'.format(name))
+    for line in file:
+        logger.info('[{}] {}'.format(name, line.strip()))
+
+
+def print_streams_posix(process, event):
+    """Reads stdout and stderr of process by settings both files
+    in non-blocking mode, and polling every 0.1 seconds. The loop
+    is broken by setting the event. Only works on POSIX (linux) systems."""
     def set_nonblocking(file):
         fd = file.fileno()
         fl = fcntl.fcntl(fd, fcntl.F_GETFL)
@@ -70,7 +80,19 @@ def print_streams(process, event):
         forward_lines(process.stderr, '[err]')
 
 
-class Xenon:
+class GRPCProxy:
+    def __init__(self, method):
+        self._method = method
+        # ''.join(word.title() for word in method.split('_'))
+
+    def __call__(self, *args, **kwargs):
+        return getattr(xenon_pb2, self._method)(*args, **kwargs)
+
+
+class Xenon(object):
+    """Xenon Context Manager. This tries to find a running Xenon-GRPC server,
+    or start one if not found. This implementation only works on Unix.
+    """
     def __init__(self, port=50051):
         self.port = port
         self.process = None
@@ -80,7 +102,12 @@ class Xenon:
         # Xenon proxies
         self.files = None
         self.jobs = None
-        self.credentials = None
+
+    def __getattr__(self, attr):
+        if attr in dir(self) or attr[0] == '_':
+            return getattr(super(Xenon, self), attr)
+
+        return GRPCProxy(attr)
 
     def __enter__(self):
         if check_socket('localhost', self.port):
@@ -90,13 +117,14 @@ class Xenon:
             self.process = start_xenon_server()
             e = threading.Event()
             t = threading.Thread(
-                target=print_streams,
+                target=print_streams_posix,
                 args=(self.process, e))
             t.start()
             self.threads.append((t, e))
 
         logger.info('Connecting to server')
         self.channel = grpc.insecure_channel('localhost:{}'.format(self.port))
+
         self.files = xenon_pb2_grpc.XenonFilesStub(self.channel)
         self.jobs = xenon_pb2_grpc.XenonJobsStub(self.channel)
 
@@ -105,7 +133,8 @@ class Xenon:
     def __exit__(self, exc_type, exc_value, exc_tb):
         if self.process:
             logger.info('Terminating Xenon-GRPC server.')
-            os.killpg(os.getpgid(self.process.pid), signal.SIGINT)
+            os.kill(self.process.pid, signal.SIGINT)
+            # os.killpg(os.getpgid(self.process.pid), signal.SIGINT)
             self.process.wait()
 
         for (t, e) in self.threads:
