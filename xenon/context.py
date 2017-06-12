@@ -127,6 +127,9 @@ class GRPCProxy:
     def __call__(self, *args, **kwargs):
         return getattr(xenon_pb2, self._method)(*args, **kwargs)
 
+    def __getattr__(self, attr):
+        return getattr(getattr(xenon_pb2, self._method), attr)
+
 
 class Server(object):
     """Xenon Server. This tries to find a running Xenon-GRPC server,
