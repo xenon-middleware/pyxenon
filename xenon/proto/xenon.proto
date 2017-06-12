@@ -69,6 +69,7 @@ message CertificateCredential {
     // Path to certificate file
     string certfile = 1;
     string passphrase = 2;
+    string username = 3;
 }
 
 message PasswordCredential {
@@ -192,6 +193,8 @@ message WriteRequest {
         TRUNCATE = 4;
     }
     // Xenon.OpenOption.WRITE is always passed
+    // One of CREATE, OPEN or OPEN_OR_CREATE the options must be passed
+    // And one of APPEND or TRUNCATE must be passed
     repeated OpenOption options = 3;
 }
 
@@ -205,7 +208,7 @@ message WalkFileTreeRequest {
     uint32 maxDepth = 3;
     // When true then will follow symbolic links
     bool followLinks = 4;
-    // Only files matching regexp will be returned. For example '\.txt$' will only return *.txt files.
+    // Only files matching regexp will be returned. For example '.*\\.txt$' will only return *.txt files.
     string filenameRegexp = 5;
 }
 

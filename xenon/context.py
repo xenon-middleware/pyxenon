@@ -26,11 +26,42 @@ def check_socket(host, port):
         return sock.connect_ex((host, port)) == 0
 
 
+def split_path(path):
+    def do_split(p):
+        while True:
+            p, q = os.path.split(p)
+            if q == '':
+                return
+            yield q
+
+    return list(do_split(path))[::-1]
+
+
+def find_xenon_grpc_jar():
+    logger = logging.getLogger('xenon')
+    which_xenon = subprocess.run(
+            ['which', 'xenon-grpc'],
+            universal_newlines=True,
+            stdout=subprocess.PIPE)
+    if which_xenon.returncode != 0:
+        return None
+
+    xenon_prefix = os.path.join('/', *split_path(which_xenon.stdout)[:-2])
+    xenon_jar_path = os.path.abspath(os.path.join(
+            xenon_prefix,
+            './lib/xenon-grpc-0.0.1-all.jar'))
+    logger.info("Found Xenon-GRPC at: {}".format(xenon_jar_path))
+    return xenon_jar_path
+
+
 def start_xenon_server():
+    jar_file = find_xenon_grpc_jar()
+    if not jar_file:
+        raise RuntimeError("Could not find 'xenon-grpc' jar file.")
+
     process = subprocess.Popen(
-        ['xenon-grpc'],
+        ['java', '-jar', jar_file],
         bufsize=1,
-        shell=True,
         universal_newlines=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
