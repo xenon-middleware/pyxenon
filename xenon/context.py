@@ -22,12 +22,14 @@ logger.addHandler(logger_handler)
 
 
 def check_socket(host, port):
-    """Checks if port is open on host."""
+    """Checks if port is open on host. This is used to check if the
+    Xenon-GRPC server is running."""
     with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
         return sock.connect_ex((host, port)) == 0
 
 
 def split_path(path):
+    """Split a path into a list of directories."""
     def do_split(p):
         while True:
             p, q = os.path.split(p)
@@ -39,6 +41,11 @@ def split_path(path):
 
 
 def find_xenon_grpc_jar():
+    """Find the Xenon-GRPC jar file. This first looks for the `xenon-grpc`
+    shell script by running `which xenon-grcp` and then takes the relative
+    path `../lib/xenon-grpc-0.0.1-all.jar` from there.
+
+    TODO: install xenon-grpc jar-file in the Python distribution."""
     logger = logging.getLogger('xenon')
     which_xenon = subprocess.run(
             ['which', 'xenon-grpc'],
@@ -121,9 +128,13 @@ class GRPCProxy:
         return getattr(xenon_pb2, self._method)(*args, **kwargs)
 
 
-class Xenon(object):
-    """Xenon Context Manager. This tries to find a running Xenon-GRPC server,
+class Server(object):
+    """Xenon Server. This tries to find a running Xenon-GRPC server,
     or start one if not found. This implementation only works on Unix.
+
+    As an added feature, all messages defined in the protocol are grafted
+    onto this class. This allows the user to access all of Xenon through
+    an instance of the Xenon Server object.
     """
     def __init__(self, port=50051):
         self.port = port
@@ -137,7 +148,7 @@ class Xenon(object):
 
     def __getattr__(self, attr):
         if attr in dir(self) or attr[0] == '_':
-            return getattr(super(Xenon, self), attr)
+            return getattr(super(Server, self), attr)
 
         return GRPCProxy(attr)
 

@@ -1,8 +1,7 @@
-from xenon import Xenon
-import time
+from xenon import (Server as Xenon)
+
 
 with Xenon() as xenon:
     print("Now running Xenon!")
-    time.sleep(1)
 
 print("Bye")

@@ -1,9 +1,9 @@
 import pytest
-from xenon import Xenon
+import xenon
 
 
 @pytest.fixture(scope="module")
-def xenon(request):
-    m = Xenon()
+def xenon_server(request):
+    m = xenon.Server()
     request.addfinalizer(lambda: m.__exit__(None, None, None))
     return m.__enter__()

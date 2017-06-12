@@ -1,4 +1,4 @@
-from xenon import Xenon
+from xenon import (Server as Xenon)
 
 
 with Xenon() as xenon:

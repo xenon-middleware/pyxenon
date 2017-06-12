@@ -1,7 +1,9 @@
 import os
 
 
-def test_echo_job(xenon):
+def test_echo_job(xenon_server):
+    xenon = xenon_server
+
     scheduler = xenon.jobs.newScheduler(
         xenon.NewSchedulerRequest(adaptor='local'))
 
