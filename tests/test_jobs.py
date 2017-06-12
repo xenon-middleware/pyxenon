@@ -1,10 +1,13 @@
+import os
+
+
 def test_echo_job(xenon):
     scheduler = xenon.jobs.newScheduler(
         xenon.NewSchedulerRequest(adaptor='local'))
 
     job_description = xenon.JobDescription(
-        executable='echo',
-        arguments=['"Hello, World!"'],
+        executable='/bin/bash',
+        arguments=['-c', 'echo "Hello, World!"'],
         stdOut='hello.txt')
 
     job = xenon.jobs.submitJob(xenon.SubmitJobRequest(
@@ -13,4 +16,9 @@ def test_echo_job(xenon):
     if job_status.exitCode != 0:
         raise Exception(job_status.errorMessage)
     xenon.jobs.deleteJob(job)
-    xenon.jobs.closeScheduler(scheduler)
+    xenon.jobs.close(scheduler)
+
+    assert os.path.isfile('./hello.txt')
+    lines = [l.strip() for l in open('./hello.txt')]
+    assert lines[0] == 'Hello, World!'
+    os.remove('./hello.txt')

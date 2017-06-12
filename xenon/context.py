@@ -8,6 +8,7 @@ import subprocess
 import signal
 import threading
 import os
+import time
 
 from contextlib import closing
 
@@ -152,6 +153,9 @@ class Xenon(object):
                 args=(self.process, e))
             t.start()
             self.threads.append((t, e))
+
+        while not check_socket('localhost', self.port):
+            time.sleep(0.1)
 
         logger.info('Connecting to server')
         self.channel = grpc.insecure_channel('localhost:{}'.format(self.port))
