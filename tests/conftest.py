@@ -2,7 +2,7 @@ import pytest
 import xenon
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def xenon_server(request):
     m = xenon.Server()
     request.addfinalizer(lambda: m.__exit__(None, None, None))
