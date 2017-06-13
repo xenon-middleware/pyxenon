@@ -131,6 +131,33 @@ class GRPCProxy:
         return getattr(getattr(xenon_pb2, self._method), attr)
 
 
+class ProxyBase(object):
+    def __init__(self, stub):
+        self.stub = stub
+
+    def __getattr__(self, attr):
+        if attr in dir(self) or attr[0] == '_':
+            return getattr(super(ProxyBase, self), attr)
+
+        return getattr(self.stub, attr)
+
+
+class JobsProxy(ProxyBase):
+    def __init__(self, channel):
+        super(JobsProxy, self).__init__(
+            xenon_pb2_grpc.XenonJobsStub(channel))
+
+    def newScheduler(self, **kwargs):
+        return self.stub.newScheduler(
+            xenon_pb2.NewSchedulerRequest(**kwargs))
+
+    def submitJob(self, *, scheduler, description):
+        return self.stub.submitJob(
+            xenon_pb2.SubmitJobRequest(
+                scheduler=scheduler,
+                description=description))
+
+
 class Server(object):
     """Xenon Server. This tries to find a running Xenon-GRPC server,
     or start one if not found. This implementation only works on Unix.
@@ -175,7 +202,7 @@ class Server(object):
         self.channel = grpc.insecure_channel('localhost:{}'.format(self.port))
 
         self.files = xenon_pb2_grpc.XenonFilesStub(self.channel)
-        self.jobs = xenon_pb2_grpc.XenonJobsStub(self.channel)
+        self.jobs = JobsProxy(self.channel)
 
         return self
 

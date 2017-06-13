@@ -12,7 +12,7 @@ def read_lines(stream):
         yield from chunk.split('\n')
 
 
-def test_files_reading(xenon_server):
+def test_files_reading(xenon_server, tmpdir):
     xenon = xenon_server
 
     remotefs = xenon.files.newFileSystem(
@@ -20,29 +20,22 @@ def test_files_reading(xenon_server):
 
     test_data = [random.randint(0, 255) for i in range(16)]
 
-    test_id = str(uuid.uuid4())
-    jobdir = '/tmp/pyxenon-{}'.format(test_id)
-    test_file = os.path.join(jobdir, 'test-reading.txt')
+    test_file = str(tmpdir.join('test-reading.txt'))
 
-    os.mkdir(jobdir)
     f = open(test_file, 'w')
     for x in test_data:
         print(x, file=f)
     f.close()
 
-    data_path = xenon.Path(
-            filesystem=remotefs, path=test_file)
+    data_path = xenon.Path(filesystem=remotefs, path=test_file)
     stream = xenon.files.read(data_path)
 
     out_data = [int(line) for line in read_lines(stream) if line != '']
 
     assert test_data == out_data
 
-    os.remove(test_file)
-    os.rmdir(jobdir)
 
-
-def test_files_writing(xenon_server):
+def test_files_writing(xenon_server, tmpdir):
     xenon = xenon_server
 
     remotefs = xenon.files.newFileSystem(
@@ -50,12 +43,7 @@ def test_files_writing(xenon_server):
 
     test_data = [random.randint(0, 255) for i in range(16)]
 
-    test_id = str(uuid.uuid4())
-    jobdir = '/tmp/pyxenon-{}'.format(test_id)
-    test_file = os.path.join(jobdir, 'test-writing.txt')
-
-    jobdir_path = xenon.Path(filesystem=remotefs, path=jobdir)
-    xenon.files.createDirectories(jobdir_path)
+    test_file = str(tmpdir.join('test-writing.txt'))
     file_path = xenon.Path(filesystem=remotefs, path=test_file)
 
     xenon.files.createFile(file_path)
@@ -70,6 +58,3 @@ def test_files_writing(xenon_server):
     out_data = [int(line.strip()) for line in open(test_file) if line != '']
 
     assert test_data == out_data
-
-    os.remove(test_file)
-    os.rmdir(jobdir)
