@@ -131,13 +131,27 @@ class GRPCProxy:
         return getattr(getattr(xenon_pb2, self._method), attr)
 
 
+def request_wrapper(stub, name):
+    request_name = "{first}{rest}Request".format(first=name[0].upper(), rest=name[1:])
+
+    def send_request(**kwargs):
+        request = getattr(xenon_pb2, request_name)(**kwargs)
+        return getattr(stub, name)(request)
+
+    return send_request
+
+
 class ProxyBase(object):
-    def __init__(self, stub):
+    def __init__(self, stub, wrappers):
         self.stub = stub
+        self.wrappers = wrappers
 
     def __getattr__(self, attr):
         if attr in dir(self) or attr[0] == '_':
             return getattr(super(ProxyBase, self), attr)
+
+        if attr in self.wrappers:
+            return request_wrapper(self.stub, attr)
 
         return getattr(self.stub, attr)
 
@@ -145,17 +159,15 @@ class ProxyBase(object):
 class JobsProxy(ProxyBase):
     def __init__(self, channel):
         super(JobsProxy, self).__init__(
-            xenon_pb2_grpc.XenonJobsStub(channel))
+            xenon_pb2_grpc.XenonJobsStub(channel),
+            ['submitJob', 'newScheduler'])
 
-    def newScheduler(self, **kwargs):
-        return self.stub.newScheduler(
-            xenon_pb2.NewSchedulerRequest(**kwargs))
 
-    def submitJob(self, *, scheduler, description):
-        return self.stub.submitJob(
-            xenon_pb2.SubmitJobRequest(
-                scheduler=scheduler,
-                description=description))
+class FilesProxy(ProxyBase):
+    def __init__(self, channel):
+        super(FilesProxy, self).__init__(
+            xenon_pb2_grpc.XenonFilesStub(channel),
+            ['newFileSystem', 'copy'])
 
 
 class Server(object):
@@ -201,7 +213,7 @@ class Server(object):
         logger.info('Connecting to server')
         self.channel = grpc.insecure_channel('localhost:{}'.format(self.port))
 
-        self.files = xenon_pb2_grpc.XenonFilesStub(self.channel)
+        self.files = FilesProxy(self.channel)
         self.jobs = JobsProxy(self.channel)
 
         return self
