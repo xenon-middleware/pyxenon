@@ -15,8 +15,6 @@ def read_lines(stream):
 def test_files_reading(xenon_server):
     xenon = xenon_server
 
-    # localfs = xenon.files.newFileSystem(
-    #         xenon.NewFileSystemRequest(adaptor='file'))
     remotefs = xenon.files.newFileSystem(
             xenon.NewFileSystemRequest(adaptor='sftp', location='localhost'))
 
