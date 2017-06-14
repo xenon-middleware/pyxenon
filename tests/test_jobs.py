@@ -44,7 +44,7 @@ def timeout(delay, call, *args, **kwargs):
     return return_value
 
 
-@pytest.mark.skip(reason="Xenon-GRPC currently does not support interactive jobs.")
+@pytest.mark.skip(reason="Xenon-GRPC does not support interactive jobs yet.")
 def test_online_job(xenon_server):
     xenon = xenon_server
     scheduler = xenon.jobs.newScheduler(adaptor='local')
@@ -52,9 +52,11 @@ def test_online_job(xenon_server):
     job_description = xenon.JobDescription(
         executable='tee',
         arguments=['test.txt'],
+        queueName='multi',
         interactive=True)
 
-    job = xenon.jobs.submitJob(scheduler=scheduler, description=job_description)
+    job = xenon.jobs.submitJob(
+        scheduler=scheduler, description=job_description)
     xenon.jobs.waitUntilRunning(job)
 
     input_queue = Queue()
