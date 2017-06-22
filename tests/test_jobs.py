@@ -44,14 +44,13 @@ def timeout(delay, call, *args, **kwargs):
     return return_value
 
 
-@pytest.mark.skip(reason="Xenon-GRPC does not support interactive jobs yet.")
 def test_online_job(xenon_server):
     xenon = xenon_server
     scheduler = xenon.jobs.newScheduler(adaptor='local')
 
     job_description = xenon.JobDescription(
-        executable='tee',
-        arguments=['test.txt'],
+        executable='cat',
+        arguments=[],
         queueName='multi',
         interactive=True)
 
@@ -73,6 +72,9 @@ def test_online_job(xenon_server):
 
     output_stream = xenon.jobs.getStreams(input_stream())
 
+    def get_line(s):
+        return s.next().stdout.decode().strip()
+
     lines = [
         "Mystic noble gas,",
         "Heavy yet fleeting from grasp,",
@@ -82,7 +84,7 @@ def test_online_job(xenon_server):
     try:
         for line in lines:
             input_queue.put(('msg', line + '\n'))
-            msg = timeout(1.0, lambda: output_stream.next().stdout.strip())
+            msg = timeout(1.0, get_line, output_stream)
             assert msg == line
     finally:
         input_queue.put(('end', None))
