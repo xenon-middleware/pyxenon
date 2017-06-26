@@ -1,4 +1,3 @@
-import pytest
 import os
 from threading import Thread
 from queue import Queue
