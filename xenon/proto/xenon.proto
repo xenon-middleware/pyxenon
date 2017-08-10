@@ -24,6 +24,7 @@ message PropertyDescription {
         DOUBLE = 3;
         LONG = 4;
         SIZE = 5;
+        NATURAL = 6;
     }
     Type type = 4;
 }
@@ -32,33 +33,34 @@ message PropertyDescriptions {
     repeated PropertyDescription properties = 1;
 }
 
-message JobAdaptorDescription {
+message SchedulerAdaptorDescription {
     string name = 1;
     string description = 2;
     repeated string supportedLocations = 3;
     repeated PropertyDescription supportedProperties = 4;
-    bool online = 5;
+    bool isEmbedded = 5;
     bool supportsInteractive = 6;
     bool supportsBatch = 7;
-    // Which version of scheduler (for example slurm) are supported by adaptor
-    repeated string supportedVersions = 8;
 }
 
-message JobAdaptorDescriptions {
-    repeated JobAdaptorDescription descriptions = 1;
+message SchedulerAdaptorDescriptions {
+    repeated SchedulerAdaptorDescription descriptions = 1;
 }
 
-message FileAdaptorDescription {
+message FileSystemAdaptorDescription {
     string name = 1;
     string description = 2;
     repeated string supportedLocations = 3;
     repeated PropertyDescription supportedProperties = 4;
     // copy between remote filesystems directly, without passing bytes through local process
     bool supportsThirdPartyCopy = 5;
+    bool canCreateSymboliclinks = 6;
+    bool canReadSymboliclinks = 7;
+    bool isConnectionLess = 8;
 }
 
-message FileAdaptorDescriptions {
-    repeated FileAdaptorDescription descriptions = 1;
+message FileSystemAdaptorDescriptions {
+    repeated FileSystemAdaptorDescription descriptions = 1;
 }
 
 message AdaptorName {
@@ -77,20 +79,24 @@ message PasswordCredential {
     string password = 2;
 }
 
-message NewFileSystemRequest {
+message DefaultCredential {
+    string username = 1;
+}
+
+message CreateFileSystemRequest {
     string adaptor = 1;
     string location = 2;
     map<string, string> properties = 3;
     oneof credential {
-        CertificateCredential certificate = 4;
-        PasswordCredential password = 5;
+        CertificateCredential certificateCred = 4;
+        PasswordCredential passwordCred = 5;
+        DefaultCredential defaultCred = 6;
     }
 }
 
 // Handle for Xenon FileSystem object
 message FileSystem {
     string id = 1;
-    NewFileSystemRequest request = 2;
 }
 
 message FileSystems {
@@ -99,47 +105,59 @@ message FileSystems {
 
 message Path {
     FileSystem filesystem = 1;
-    // In Xenon it is of class RelativePath
+    // In Xenon it is of class Path
     string path = 2;
+}
+
+message DeleteRequest {
+    Path path = 1;
+    bool recursive = 2;
+}
+
+enum CopyMode {
+    CREATE = 0;
+    REPLACE = 1;
+    IGNORE = 2;
 }
 
 message CopyRequest {
     Path source = 1;
     Path target = 2;
-    enum CopyOption {
-        CREATE = 0;
-        REPLACE = 1;
-        IGNORE = 2;
-        APPEND = 3;
-        RESUME = 4;
-        VERIFY = 5;
-    }
-    repeated CopyOption options = 3;
+    CopyMode mode = 3;
+    bool recursive = 4;
 }
 
-message SourceTarget {
-    Path source = 1;
-    Path target = 2;
+message RenameRequest {
+    FileSystem filesystem = 1;
+    string source = 2;
+    string target = 3;
 }
 
-message Copy {
+message CreateSymbolicLinkRequest {
+    FileSystem filesystem = 1;
+    string link = 2;
+    string target = 3;
+}
+
+message CopyOperation {
     string id = 1;
-    CopyRequest request = 2;
+    FileSystem filesystem = 2;
+}
+
+message CopyOperationWithTimeout {
+    string id = 1;
+    FileSystem filesystem = 2;
+    uint64 timeout = 3;
 }
 
 message CopyStatus {
-    Copy copy = 1;
-    // Get the number of bytes that have been copied.
+    CopyOperation copyOperation = 1;
     uint64 bytesCopied = 2;
     uint64 bytesToCopy = 3;
     bool done = 4;
     bool running = 5;
     string state = 6;
     string error = 7;
-}
-
-message CopyStatuses {
-    repeated CopyStatus statuses = 1;
 }
 
 enum PosixFilePermission {
@@ -155,82 +173,64 @@ enum PosixFilePermission {
     OTHERS_EXECUTE = 9;
 }
 
-message FileAttributes {
-    uint64 creationTime = 1;
-    string group = 2;
-    bool isDirectory = 3;
-    bool isExecutable = 4;
-    bool isHidden = 5;
-    bool isOther = 6;
-    bool isReadable = 7;
-    bool isRegularFile = 8;
-    bool isSymbolicLink = 9;
-    bool isWritable = 10;
-    uint64 lastAccessTime = 11;
-    uint64 lastModifiedTime = 12;
-    string owner = 13;
-    repeated PosixFilePermission permissions = 14;
-    uint64 size = 15;
+message PathAttributes {
+    Path path = 1;
+    uint64 creationTime = 2;
+    string group = 3;
+    bool isDirectory = 4;
+    bool isExecutable = 5;
+    bool isHidden = 6;
+    bool isOther = 7;
+    bool isReadable = 8;
+    bool isRegularFile = 9;
+    bool isSymbolicLink = 10;
+    bool isWritable = 11;
+    uint64 lastAccessTime = 12;
+    uint64 lastModifiedTime = 13;
+    string owner = 14;
+    repeated PosixFilePermission permissions = 15;
+    uint64 size = 16;
 }
 
-message PosixFilePermissionsRequest {
+message SetPosixFilePermissionsRequest {
     Path path = 1;
     repeated PosixFilePermission permissions = 2;
 }
 
-message FileStream {
+message ReadFromFileResponse {
     bytes buffer = 1;
 }
 
-message WriteRequest {
+message WriteToFileRequest {
     Path path = 1;
     bytes buffer = 2;
-    enum OpenOption {
-        CREATE = 0;
-        OPEN = 1;
-        OPEN_OR_CREATE = 2;
-        APPEND = 3;
-        TRUNCATE = 4;
-    }
-    // Xenon.OpenOption.WRITE is always passed
-    // One of CREATE, OPEN or OPEN_OR_CREATE the options must be passed
-    // And one of APPEND or TRUNCATE must be passed
-    repeated OpenOption options = 3;
+    uint64 size = 3;
 }
 
-message WalkFileTreeRequest {
-    // Start directory
-    Path start = 1;
-    // When false attributes will be returned
-    bool withoutAttributes = 2;
-    // When 1 only files/directories/symlinks in start path will be returned.
-    // If not set or 0 will recurse as deep as it can.
-    uint32 maxDepth = 3;
-    // When true then will follow symbolic links
-    bool followLinks = 4;
-    // Only files matching regexp will be returned. For example '.*\\.txt$' will only return *.txt files.
-    string filenameRegexp = 5;
-}
-
-message PathWithAttributes {
+message AppendToFileRequest {
     Path path = 1;
-    FileAttributes attributes = 2;
+    bytes buffer = 2;
 }
 
-message NewSchedulerRequest {
+message ListRequest {
+    Path dir = 1;
+    bool recursive = 2;
+}
+
+message CreateSchedulerRequest {
     string adaptor = 1;
     string location = 2;
     map<string, string> properties = 3;
     oneof credential {
-        CertificateCredential certificate = 4;
-        PasswordCredential password = 5;
+        CertificateCredential certificateCred = 4;
+        PasswordCredential passwordCred = 5;
+        DefaultCredential defaultCred = 6;
     }
 }
 
 // Handle for Xenon Scheduler object
 message Scheduler {
     string id = 1;
-    NewSchedulerRequest request = 2;
 }
 
 message Schedulers {
@@ -238,35 +238,46 @@ message Schedulers {
 }
 
 message JobDescription {
-    Scheduler scheduler = 1;
-    string executable = 2;
-    repeated string arguments = 3;
-    string workingDirectory = 4;
-    map<string, string> environment = 5;
-    string queueName = 6;
-    bool interactive = 7;
-    uint32 maxTime = 8;
-    uint32 nodeCount = 9;
-    uint32 processesPerNode = 10;
-    bool startSingleProcess = 11;
-    string stdErr = 12;
-    string stdIn = 13;
-    string stdOut = 14;
-    map<string, string> options = 15;
+    string executable = 1;
+    repeated string arguments = 2;
+    string workingDirectory = 3;
+    map<string, string> environment = 4;
+    string queueName = 5;
+    uint32 maxTime = 6;
+    uint32 nodeCount = 7;
+    uint32 processesPerNode = 8;
+    bool startSingleProcess = 9;
+    string stderr = 10;
+    string stdin = 11;
+    string stdout = 12;
+    // In Xenon named jobOptions
+    map<string, string> options = 13;
 }
 
-message SubmitJobRequest {
+message SubmitBatchJobRequest {
     Scheduler scheduler = 1;
     JobDescription description = 2;
+}
+
+message SubmitInteractiveJobRequest {
+    Scheduler scheduler = 1;
+    JobDescription description = 2;
+    bytes stdin = 3;
 }
 
 message Job {
     string id = 1;
-    JobDescription description = 2;
+    Scheduler scheduler = 2;
 }
 
 message Jobs {
     repeated Job jobs = 1;
+}
+
+message JobWithTimeout {
+    string id = 1;
+    Scheduler scheduler = 2;
+    uint64 timeout = 3;
 }
 
 message Queue {
@@ -296,10 +307,14 @@ message JobStatus {
     string errorMessage = 7;
     enum ErrorType {
         EMPTY = 0;
+        // NoSuchJobException
         NOT_FOUND = 1;
+        // JobCanceledException
         CANCELLED = 2;
-        SCHEDULER_ERROR = 3;
-        SCHEDULER_NOT_FOUND = 4;
+        // XenonException
+        XENON = 3;
+        // IOException
+        IO = 4;
         OTHER = 5;
     }
     ErrorType errorType = 8;
@@ -311,6 +326,7 @@ message JobStatuses {
 }
 
 message QueueStatus {
+    // In Xenon named queueName
     string name = 1;
     Scheduler scheduler = 2;
     map<string, string> schedulerSpecificInformation = 3;
@@ -321,92 +337,59 @@ message QueueStatuses {
     repeated QueueStatus statuses = 1;
 }
 
-message JobInputStream {
-    Job job = 1;
-    bytes stdin = 2;
-}
-
-message JobOutputStreams {
+message SubmitInteractiveJobResponse {
     bytes stdout = 1;
     bytes stderr = 2;
+    Job job = 3;
 }
 
 message Is {
-    bool is = 1;
+    bool value = 1;
 }
 
-// The functionality of the Xenon XenonFactory class
-service XenonGlobal {
-    // Create a new Xenon instance
-    //
-    // WATCH OUT!!! Must be called before calling any XenonFiles or XenonJob methods
-    // otherwise a Xenon instance is created without properties
-    rpc newXenon(Properties) returns (Empty) {}
-    rpc getSupportedProperties(Empty) returns (PropertyDescriptions) {}
-}
-
-// XenonFactory methods not implemented in grpc
-// - endAll(), stop server to end all Xenon instances
-// - end(), stop server to end all Xenon instances
-
-// XenonFiles represents the Files interface Xenon. This interface contains various methods for creating and closing FileSystems, creating Paths and operations on these Paths.
-service XenonFiles {
-    rpc getAdaptorDescriptions(Empty) returns (FileAdaptorDescriptions) {}
-    rpc getAdaptorDescription(AdaptorName) returns (FileAdaptorDescription) {}
-    rpc newFileSystem(NewFileSystemRequest) returns (FileSystem) {}
+// XenonFiles represents the Xenon nl.esciencecenter.xenon.filesystems.FileSystem class.
+// This interface contains various methods for creating and closing FileSystems, creating Paths and operations on these Paths.
+service XenonFileSystems {
+    rpc getAdaptorDescriptions(Empty) returns (FileSystemAdaptorDescriptions) {}
+    rpc getAdaptorDescription(AdaptorName) returns (FileSystemAdaptorDescription) {}
+    rpc create(CreateFileSystemRequest) returns (FileSystem) {}
     rpc createDirectories(Path) returns (Empty) {}
     rpc createDirectory(Path) returns (Empty) {}
     rpc createFile(Path) returns (Empty) {}
-    // Asynchronous recursive copy of files.
-    // in Xenon it is called copy() with CopyOption.ASYNCHRONOUS
-    rpc backgroundCopy(CopyRequest) returns (Copy) {}
-    rpc cancelBackgroundCopy(Copy) returns (CopyStatus) {}
-    rpc getBackgroundCopyStatus(Copy) returns (CopyStatus) {}
-    // List currently active copy operations
-    // Specific to grpc, not part of Xenon library
-    rpc listBackgroundCopyStatuses(Empty) returns (CopyStatuses) {}
-    // Delete background copy, will also cancel when not done
-    rpc deleteBackgroundCopy(Copy) returns (Empty) {}
-    // Synchronous recursive opy
-    // in Xenon it is called copy() without CopyOption.ASYNCHRONOUS
-    rpc copy(CopyRequest) returns (Empty) {}
-    rpc move(SourceTarget) returns (Empty) {}
-    // delete a file/symlink or recursivly delete a directory
-    rpc delete(Path) returns (Empty) {}
+    rpc createSymbolicLink(CreateSymbolicLinkRequest) returns (Empty) {}
+    rpc copy(CopyRequest) returns (CopyOperation) {}
+    rpc cancel(CopyOperation) returns (CopyStatus) {}
+    rpc getStatus(CopyOperation) returns (CopyStatus) {}
+    rpc rename(RenameRequest) returns (Empty) {}
+    rpc delete(DeleteRequest) returns (Empty) {}
     rpc exists(Path) returns (Is) {}
-    // in Xenon it is called newInputStream()
-    rpc read(Path) returns (stream FileStream) {}
-    // in Xenon it is called newOutputStream()
-    rpc write(stream WriteRequest) returns (Empty) {}
-    // In Xenon its functonality is split into newAttributesDirectoryStream, newDirectoryStream and
-    // utils.walkFileTree methods.
-    // In Xenon a filter object or visitor object can be used, this is not possible in rpc method,
-    // limited filtering is offered as a regexp filter on filename.
-    rpc walkFileTree(WalkFileTreeRequest) returns (stream PathWithAttributes) {}
-    rpc getAttributes(Path) returns (FileAttributes) {}
-    rpc setPosixFilePermissions(PosixFilePermissionsRequest) returns (Empty) {}
+    rpc readFromFile(Path) returns (stream ReadFromFileResponse) {}
+    rpc writeToFile(stream WriteToFileRequest) returns (Empty) {}
+    rpc appendToFile(stream AppendToFileRequest) returns (Empty) {}
+    rpc list(ListRequest) returns (stream PathAttributes) {}
+    rpc getAttributes(Path) returns (PathAttributes) {}
+    rpc getEntryPath(FileSystem) returns (Path) {}
+    rpc setPosixFilePermissions(SetPosixFilePermissionsRequest) returns (Empty) {}
     rpc readSymbolicLink(Path) returns (Path) {}
     rpc isOpen(FileSystem) returns (Is) {}
     // Closes a filestem, any actions running it with this filestystem will be terminated, will also forget the filesystem
+    // Any pending/running copy operations will be killed
     rpc close(FileSystem) returns (Empty) {}
-    // List currently created filesystems
-    // Specific to grpc, not part of Xenon library
-    rpc listFileSystems(Empty) returns (FileSystems) {}
+    rpc waitUntilDone(CopyOperationWithTimeout) returns (CopyStatus) {}
     // Returns filesystems for all local drives
     rpc localFileSystems(Empty) returns (FileSystems) {}
+    // List the created filesystems
+    // Specific to grpc, not part of Xenon library
+    rpc listFileSystems(Empty) returns (FileSystems) {}
 }
 
-// Xenon files methods not implemented in grpc
-// - newAttributesDirectoryStream with filter, filter is a lambda function which can not be used in rpc
-// - newDirectoryStream with filter, filter is a lambda function which can not be used in rpc
-// - newPath, a Xenon Path is contructed by FileSystem + RelativePath, in grpc the message Path has FileSystem + RelativePath, making the Xenon Path hidden from the grpc API
-
 // The Jobs API of Xenon. This interface creates various methods for creating and closing Schedulers, submitting jobs, and retrieving information about schedulers and jobs.
-service XenonJobs {
-    rpc getAdaptorDescriptions(Empty) returns (JobAdaptorDescriptions) {}
-    rpc getAdaptorDescription(AdaptorName) returns (JobAdaptorDescription) {}
-    rpc newScheduler(NewSchedulerRequest) returns (Scheduler) {}
-    rpc submitJob(SubmitJobRequest) returns (Job) {}
+service XenonSchedulers {
+    rpc getAdaptorDescriptions(Empty) returns (SchedulerAdaptorDescriptions) {}
+    rpc getAdaptorDescription(AdaptorName) returns (SchedulerAdaptorDescription) {}
+    rpc create(CreateSchedulerRequest) returns (Scheduler) {}
+    rpc submitBatchJob(SubmitBatchJobRequest) returns (Job) {}
+    rpc submitInteractiveJob(stream SubmitInteractiveJobRequest) returns (stream SubmitInteractiveJobResponse) {}
     rpc getQueues(Scheduler) returns (Queues) {}
     rpc getDefaultQueueName(Scheduler) returns (Queue) {}
     rpc getJobs(SchedulerAndQueues) returns (Jobs) {}
@@ -414,22 +397,17 @@ service XenonJobs {
     rpc getJobStatuses(Jobs) returns (JobStatuses) {}
     rpc getQueueStatus(SchedulerAndQueue) returns (QueueStatus) {}
     rpc getQueueStatuses(SchedulerAndQueues) returns (QueueStatuses) {}
-    rpc waitUntilDone(Job) returns (JobStatus) {}
-    rpc waitUntilRunning(Job) returns (JobStatus) {}
-    rpc getStreams(stream JobInputStream) returns (stream JobOutputStreams) {}
+    rpc waitUntilDone(JobWithTimeout) returns (JobStatus) {}
+    rpc waitUntilRunning(JobWithTimeout) returns (JobStatus) {}
     rpc isOpen(Scheduler) returns (Is) {}
     rpc cancelJob(Job) returns (JobStatus) {}
-    // Specific to grpc, not part of Xenon library
-    rpc deleteJob(Job) returns (Empty) {}
     // Close scheduler and forget it
-    // If scheduler is online then any jobs pending/running will become invalid
+    // If scheduler is embedded then any pending/running jobs will be killed
     rpc close(Scheduler) returns (Empty) {}
+    rpc localScheduler(Empty) returns (Scheduler) {}
+    // List the created schedulers
     // Specific to grpc, not part of Xenon library
     rpc listSchedulers(Empty) returns (Schedulers) {}
-    // Specific to grpc, not part of Xenon library
-    rpc listJobs(Empty) returns (Jobs) {}
-    rpc localScheduler(Empty) returns (Scheduler) {}
 }
 
-// Xenon jobs methods not implemented in grpc
-// timeout argument of waitUntilDone() and waitUntilRunning(), grpc client has timeout argument
+

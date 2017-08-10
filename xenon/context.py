@@ -57,7 +57,7 @@ def find_xenon_grpc_jar():
     xenon_prefix = os.path.join('/', *split_path(which_xenon.stdout)[:-2])
     xenon_jar_path = os.path.abspath(os.path.join(
             xenon_prefix,
-            './lib/xenon-grpc-0.0.1-all.jar'))
+            './lib/xenon-grpc-1.0.0-all.jar'))
     logger.info("Found Xenon-GRPC at: {}".format(xenon_jar_path))
     return xenon_jar_path
 
@@ -75,6 +75,11 @@ def start_xenon_server():
         stderr=subprocess.PIPE,
         preexec_fn=os.setsid)
     return process
+
+
+def to_camel_case(n):
+    words = n.split('_')
+    return words[0] + ''.join([w.title() for w in words[1:]])
 
 
 def print_stream(file, name):
@@ -122,7 +127,7 @@ def print_streams_posix(process, event):
 class GRPCProxy:
     def __init__(self, method):
         self._method = method
-        # ''.join(word.title() for word in method.split('_'))
+        # self._method = to_camel_case(method)
 
     def __call__(self, *args, **kwargs):
         return getattr(xenon_pb2, self._method)(*args, **kwargs)
@@ -131,8 +136,9 @@ class GRPCProxy:
         return getattr(getattr(xenon_pb2, self._method), attr)
 
 
-def request_wrapper(stub, name):
-    request_name = "{first}{rest}Request".format(first=name[0].upper(), rest=name[1:])
+def request_wrapper(stub, name, request_name = None):
+    request_name = request_name or "{first}{rest}Request" \
+        .format(first=name[0].upper(), rest=name[1:])
 
     def send_request(**kwargs):
         request = getattr(xenon_pb2, request_name)(**kwargs)
@@ -142,13 +148,23 @@ def request_wrapper(stub, name):
 
 
 class ProxyBase(object):
-    def __init__(self, stub, wrappers):
+    def __init__(self, stub, object_name, wrappers):
         self.stub = stub
         self.wrappers = wrappers
+        self.object_name = object_name
 
     def __getattr__(self, attr):
         if attr in dir(self) or attr[0] == '_':
             return getattr(super(ProxyBase, self), attr)
+
+        # translate to camelCase
+        if '_' in attr:
+            attr = to_camel_case(attr)
+
+        # create method is special
+        if attr == 'create':
+            request_name = "Create{}Request".format(self.object_name)
+            return request_wrapper(self.stub, attr, request_name)
 
         if attr in self.wrappers:
             return request_wrapper(self.stub, attr)
@@ -156,18 +172,31 @@ class ProxyBase(object):
         return getattr(self.stub, attr)
 
 
-class JobsProxy(ProxyBase):
+class SchedulersProxy(ProxyBase):
     def __init__(self, channel):
-        super(JobsProxy, self).__init__(
-            xenon_pb2_grpc.XenonJobsStub(channel),
-            ['submitJob', 'newScheduler'])
+        super(SchedulersProxy, self).__init__(
+            xenon_pb2_grpc.XenonSchedulersStub(channel),
+            'Scheduler',
+            ['submitBatchJob'])
+
+    def submit_interactive_job(self, scheduler, description, stdin_stream):
+        def input_request_stream():
+            yield xenon_pb2.SubmitInteractiveJobRequest(
+                scheduler=scheduler, description=description, stdin=b'')
+            yield from (xenon_pb2.SubmitInteractiveJobRequest(
+                scheduler=scheduler, description=description, stdin=msg)
+                for msg in stdin_stream)
+
+        return self.stub.submitInteractiveJob(input_request_stream())
 
 
-class FilesProxy(ProxyBase):
+class FileSystemsProxy(ProxyBase):
     def __init__(self, channel):
-        super(FilesProxy, self).__init__(
-            xenon_pb2_grpc.XenonFilesStub(channel),
-            ['newFileSystem', 'copy'])
+        super(FileSystemsProxy, self).__init__(
+            xenon_pb2_grpc.XenonFileSystemsStub(channel),
+            'FileSystem',
+            ['createSymbolicLink', 'copy', 'rename', 'delete',
+             'writeToFile', 'appendToFile', 'list', 'setPosixFilePermissions'])
 
 
 class Server(object):
@@ -185,8 +214,8 @@ class Server(object):
         self.threads = []
 
         # Xenon proxies
-        self.files = None
-        self.jobs = None
+        self.schedulers = None
+        self.file_systems = None
 
     def __getattr__(self, attr):
         if attr in dir(self) or attr[0] == '_':
@@ -213,8 +242,8 @@ class Server(object):
         logger.info('Connecting to server')
         self.channel = grpc.insecure_channel('localhost:{}'.format(self.port))
 
-        self.files = FilesProxy(self.channel)
-        self.jobs = JobsProxy(self.channel)
+        self.file_systems = FileSystemsProxy(self.channel)
+        self.schedulers = SchedulersProxy(self.channel)
 
         return self
 

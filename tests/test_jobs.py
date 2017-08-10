@@ -1,26 +1,26 @@
 import os
 from threading import Thread
 from queue import Queue
+import pytest
 
 
 def test_echo_job(xenon_server, tmpdir):
     xenon = xenon_server
 
-    scheduler = xenon.jobs.newScheduler(adaptor='local')
+    scheduler = xenon.schedulers.create(adaptor='local')
 
     file_name = str(tmpdir.join('hello.txt'))
     job_description = xenon.JobDescription(
         executable='/bin/bash',
         arguments=['-c', 'echo "Hello, World!"'],
-        stdOut=file_name)
+        stdout=file_name)
 
-    job = xenon.jobs.submitJob(
+    job = xenon.schedulers.submitBatchJob(
         scheduler=scheduler, description=job_description)
-    job_status = xenon.jobs.waitUntilDone(job)
+    job_status = xenon.schedulers.waitUntilDone(job)
     if job_status.exitCode != 0:
         raise Exception(job_status.errorMessage)
-    xenon.jobs.deleteJob(job)
-    xenon.jobs.close(scheduler)
+    xenon.schedulers.close(scheduler)
 
     assert os.path.isfile(file_name)
     lines = [l.strip() for l in open(file_name)]
@@ -45,17 +45,12 @@ def timeout(delay, call, *args, **kwargs):
 
 def test_online_job(xenon_server):
     xenon = xenon_server
-    scheduler = xenon.jobs.newScheduler(adaptor='local')
+    scheduler = xenon.schedulers.create(adaptor='local')
 
     job_description = xenon.JobDescription(
         executable='cat',
         arguments=[],
-        queueName='multi',
-        interactive=True)
-
-    job = xenon.jobs.submitJob(
-        scheduler=scheduler, description=job_description)
-    xenon.jobs.waitUntilRunning(job)
+        queueName='multi')
 
     input_queue = Queue()
 
@@ -66,10 +61,15 @@ def test_online_job(xenon_server):
                 input_queue.task_done()
                 return
             else:
-                yield xenon.JobInputStream(job=job, stdin=msg.encode())
+                yield msg.encode()
                 input_queue.task_done()
 
-    output_stream = xenon.jobs.getStreams(input_stream())
+    output_stream = xenon.schedulers.submit_interactive_job(
+        scheduler=scheduler, description=job_description, stdin_stream=input_stream())
+
+    first_response = timeout(1.0, lambda: output_stream.next())
+    # first_response = output_stream.next()
+    job = first_response.job
 
     def get_line(s):
         return s.next().stdout.decode().strip()
@@ -89,6 +89,5 @@ def test_online_job(xenon_server):
         input_queue.put(('end', None))
         input_queue.join()
 
-    xenon.jobs.waitUntilDone(job)
-    xenon.jobs.deleteJob(job)
-    xenon.jobs.close(scheduler)
+    xenon.schedulers.waitUntilDone(job)
+    xenon.schedulers.close(scheduler)
