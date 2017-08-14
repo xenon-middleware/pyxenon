@@ -105,10 +105,15 @@ class XenonFileSystemsStub(object):
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.PathAttributes.FromString,
         )
-    self.getEntryPath = channel.unary_unary(
-        '/xenon.XenonFileSystems/getEntryPath',
+    self.getWorkingDirectory = channel.unary_unary(
+        '/xenon.XenonFileSystems/getWorkingDirectory',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+        )
+    self.setWorkingDirectory = channel.unary_unary(
+        '/xenon.XenonFileSystems/setWorkingDirectory',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.setPosixFilePermissions = channel.unary_unary(
         '/xenon.XenonFileSystems/setPosixFilePermissions',
@@ -278,7 +283,14 @@ class XenonFileSystemsServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def getEntryPath(self, request, context):
+  def getWorkingDirectory(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def setWorkingDirectory(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -429,10 +441,15 @@ def add_XenonFileSystemsServicer_to_server(servicer, server):
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.PathAttributes.SerializeToString,
       ),
-      'getEntryPath': grpc.unary_unary_rpc_method_handler(
-          servicer.getEntryPath,
+      'getWorkingDirectory': grpc.unary_unary_rpc_method_handler(
+          servicer.getWorkingDirectory,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+      ),
+      'setWorkingDirectory': grpc.unary_unary_rpc_method_handler(
+          servicer.setWorkingDirectory,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
       ),
       'setPosixFilePermissions': grpc.unary_unary_rpc_method_handler(
           servicer.setPosixFilePermissions,
@@ -615,8 +632,9 @@ class XenonSchedulersServicer(object):
     raise NotImplementedError('Method not implemented!')
 
   def submitInteractiveJob(self, request_iterator, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """The first response message in the response stream will contain the job identifier and empty stdout and stdout.
+    Other response messages will also contain the job identifier and filled stdout and/or stderr.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')

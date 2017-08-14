@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='xenon/proto/xenon.proto',
   package='xenon',
   syntax='proto3',
-  serialized_pb=_b('\n\x17xenon/proto/xenon.proto\x12\x05xenon\"\x07\n\x05\x45mpty\"v\n\nProperties\x12\x35\n\nproperties\x18\x01 \x03(\x0b\x32!.xenon.Properties.PropertiesEntry\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xd8\x01\n\x13PropertyDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x14\n\x0c\x64\x65\x66\x61ultValue\x18\x03 \x01(\t\x12-\n\x04type\x18\x04 \x01(\x0e\x32\x1f.xenon.PropertyDescription.Type\"Y\n\x04Type\x12\n\n\x06STRING\x10\x00\x12\x0b\n\x07\x42OOLEAN\x10\x01\x12\x0b\n\x07INTEGER\x10\x02\x12\n\n\x06\x44OUBLE\x10\x03\x12\x08\n\x04LONG\x10\x04\x12\x08\n\x04SIZE\x10\x05\x12\x0b\n\x07NATURAL\x10\x06\"F\n\x14PropertyDescriptions\x12.\n\nproperties\x18\x01 \x03(\x0b\x32\x1a.xenon.PropertyDescription\"\xdd\x01\n\x1bSchedulerAdaptorDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1a\n\x12supportedLocations\x18\x03 \x03(\t\x12\x37\n\x13supportedProperties\x18\x04 \x03(\x0b\x32\x1a.xenon.PropertyDescription\x12\x12\n\nisEmbedded\x18\x05 \x01(\x08\x12\x1b\n\x13supportsInteractive\x18\x06 \x01(\x08\x12\x15\n\rsupportsBatch\x18\x07 \x01(\x08\"X\n\x1cSchedulerAdaptorDescriptions\x12\x38\n\x0c\x64\x65scriptions\x18\x01 \x03(\x0b\x32\".xenon.SchedulerAdaptorDescription\"\x8e\x02\n\x1c\x46ileSystemAdaptorDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1a\n\x12supportedLocations\x18\x03 \x03(\t\x12\x37\n\x13supportedProperties\x18\x04 \x03(\x0b\x32\x1a.xenon.PropertyDescription\x12\x1e\n\x16supportsThirdPartyCopy\x18\x05 \x01(\x08\x12\x1e\n\x16\x63\x61nCreateSymboliclinks\x18\x06 \x01(\x08\x12\x1c\n\x14\x63\x61nReadSymboliclinks\x18\x07 \x01(\x08\x12\x18\n\x10isConnectionLess\x18\x08 \x01(\x08\"Z\n\x1d\x46ileSystemAdaptorDescriptions\x12\x39\n\x0c\x64\x65scriptions\x18\x01 \x03(\x0b\x32#.xenon.FileSystemAdaptorDescription\"\x1b\n\x0b\x41\x64\x61ptorName\x12\x0c\n\x04name\x18\x01 \x01(\t\"O\n\x15\x43\x65rtificateCredential\x12\x10\n\x08\x63\x65rtfile\x18\x01 \x01(\t\x12\x12\n\npassphrase\x18\x02 \x01(\t\x12\x10\n\x08username\x18\x03 \x01(\t\"8\n\x12PasswordCredential\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"%\n\x11\x44\x65\x66\x61ultCredential\x12\x10\n\x08username\x18\x01 \x01(\t\"\xde\x02\n\x17\x43reateFileSystemRequest\x12\x0f\n\x07\x61\x64\x61ptor\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x42\n\nproperties\x18\x03 \x03(\x0b\x32..xenon.CreateFileSystemRequest.PropertiesEntry\x12\x37\n\x0f\x63\x65rtificateCred\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x31\n\x0cpasswordCred\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12/\n\x0b\x64\x65\x66\x61ultCred\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\ncredential\"\x18\n\nFileSystem\x12\n\n\x02id\x18\x01 \x01(\t\"5\n\x0b\x46ileSystems\x12&\n\x0b\x66ilesystems\x18\x01 \x03(\x0b\x32\x11.xenon.FileSystem\";\n\x04Path\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x0c\n\x04path\x18\x02 \x01(\t\"=\n\rDeleteRequest\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x11\n\trecursive\x18\x02 \x01(\x08\"y\n\x0b\x43opyRequest\x12\x1b\n\x06source\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x1b\n\x06target\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x1d\n\x04mode\x18\x03 \x01(\x0e\x32\x0f.xenon.CopyMode\x12\x11\n\trecursive\x18\x04 \x01(\x08\"V\n\rRenameRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0e\n\x06target\x18\x03 \x01(\t\"`\n\x19\x43reateSymbolicLinkRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x0c\n\x04link\x18\x02 \x01(\t\x12\x0e\n\x06target\x18\x03 \x01(\t\"B\n\rCopyOperation\x12\n\n\x02id\x18\x01 \x01(\t\x12%\n\nfilesystem\x18\x02 \x01(\x0b\x32\x11.xenon.FileSystem\"^\n\x18\x43opyOperationWithTimeout\x12\n\n\x02id\x18\x01 \x01(\t\x12%\n\nfilesystem\x18\x02 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"\xa0\x01\n\nCopyStatus\x12+\n\rcopyOperation\x18\x01 \x01(\x0b\x32\x14.xenon.CopyOperation\x12\x13\n\x0b\x62ytesCopied\x18\x02 \x01(\x04\x12\x13\n\x0b\x62ytesToCopy\x18\x03 \x01(\x04\x12\x0c\n\x04\x64one\x18\x04 \x01(\x08\x12\x0f\n\x07running\x18\x05 \x01(\x08\x12\r\n\x05state\x18\x06 \x01(\t\x12\r\n\x05\x65rror\x18\x07 \x01(\t\"\xf5\x02\n\x0ePathAttributes\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x14\n\x0c\x63reationTime\x18\x02 \x01(\x04\x12\r\n\x05group\x18\x03 \x01(\t\x12\x13\n\x0bisDirectory\x18\x04 \x01(\x08\x12\x14\n\x0cisExecutable\x18\x05 \x01(\x08\x12\x10\n\x08isHidden\x18\x06 \x01(\x08\x12\x0f\n\x07isOther\x18\x07 \x01(\x08\x12\x12\n\nisReadable\x18\x08 \x01(\x08\x12\x15\n\risRegularFile\x18\t \x01(\x08\x12\x16\n\x0eisSymbolicLink\x18\n \x01(\x08\x12\x12\n\nisWritable\x18\x0b \x01(\x08\x12\x16\n\x0elastAccessTime\x18\x0c \x01(\x04\x12\x18\n\x10lastModifiedTime\x18\r \x01(\x04\x12\r\n\x05owner\x18\x0e \x01(\t\x12/\n\x0bpermissions\x18\x0f \x03(\x0e\x32\x1a.xenon.PosixFilePermission\x12\x0c\n\x04size\x18\x10 \x01(\x04\"l\n\x1eSetPosixFilePermissionsRequest\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12/\n\x0bpermissions\x18\x02 \x03(\x0e\x32\x1a.xenon.PosixFilePermission\"&\n\x14ReadFromFileResponse\x12\x0e\n\x06\x62uffer\x18\x01 \x01(\x0c\"M\n\x12WriteToFileRequest\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x0e\n\x06\x62uffer\x18\x02 \x01(\x0c\x12\x0c\n\x04size\x18\x03 \x01(\x04\"@\n\x13\x41ppendToFileRequest\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x0e\n\x06\x62uffer\x18\x02 \x01(\x0c\":\n\x0bListRequest\x12\x18\n\x03\x64ir\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x11\n\trecursive\x18\x02 \x01(\x08\"\xdc\x02\n\x16\x43reateSchedulerRequest\x12\x0f\n\x07\x61\x64\x61ptor\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x41\n\nproperties\x18\x03 \x03(\x0b\x32-.xenon.CreateSchedulerRequest.PropertiesEntry\x12\x37\n\x0f\x63\x65rtificateCred\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x31\n\x0cpasswordCred\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12/\n\x0b\x64\x65\x66\x61ultCred\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\ncredential\"\x17\n\tScheduler\x12\n\n\x02id\x18\x01 \x01(\t\"2\n\nSchedulers\x12$\n\nschedulers\x18\x01 \x03(\x0b\x32\x10.xenon.Scheduler\"\xc3\x03\n\x0eJobDescription\x12\x12\n\nexecutable\x18\x01 \x01(\t\x12\x11\n\targuments\x18\x02 \x03(\t\x12\x18\n\x10workingDirectory\x18\x03 \x01(\t\x12;\n\x0b\x65nvironment\x18\x04 \x03(\x0b\x32&.xenon.JobDescription.EnvironmentEntry\x12\x11\n\tqueueName\x18\x05 \x01(\t\x12\x0f\n\x07maxTime\x18\x06 \x01(\r\x12\x11\n\tnodeCount\x18\x07 \x01(\r\x12\x18\n\x10processesPerNode\x18\x08 \x01(\r\x12\x1a\n\x12startSingleProcess\x18\t \x01(\x08\x12\x0e\n\x06stderr\x18\n \x01(\t\x12\r\n\x05stdin\x18\x0b \x01(\t\x12\x0e\n\x06stdout\x18\x0c \x01(\t\x12\x33\n\x07options\x18\r \x03(\x0b\x32\".xenon.JobDescription.OptionsEntry\x1a\x32\n\x10\x45nvironmentEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a.\n\x0cOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"h\n\x15SubmitBatchJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12*\n\x0b\x64\x65scription\x18\x02 \x01(\x0b\x32\x15.xenon.JobDescription\"}\n\x1bSubmitInteractiveJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12*\n\x0b\x64\x65scription\x18\x02 \x01(\x0b\x32\x15.xenon.JobDescription\x12\r\n\x05stdin\x18\x03 \x01(\x0c\"6\n\x03Job\x12\n\n\x02id\x18\x01 \x01(\t\x12#\n\tscheduler\x18\x02 \x01(\x0b\x32\x10.xenon.Scheduler\" \n\x04Jobs\x12\x18\n\x04jobs\x18\x01 \x03(\x0b\x32\n.xenon.Job\"R\n\x0eJobWithTimeout\x12\n\n\x02id\x18\x01 \x01(\t\x12#\n\tscheduler\x18\x02 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"\x15\n\x05Queue\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x16\n\x06Queues\x12\x0c\n\x04name\x18\x01 \x03(\t\"I\n\x12SchedulerAndQueues\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x0e\n\x06queues\x18\x02 \x03(\t\"G\n\x11SchedulerAndQueue\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\r\n\x05queue\x18\x02 \x01(\t\"\x9c\x03\n\tJobStatus\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0f\n\x07running\x18\x02 \x01(\x08\x12\x0c\n\x04\x64one\x18\x03 \x01(\x08\x12X\n\x1cschedulerSpecificInformation\x18\x04 \x03(\x0b\x32\x32.xenon.JobStatus.SchedulerSpecificInformationEntry\x12\x10\n\x08\x65xitCode\x18\x06 \x01(\x05\x12\x14\n\x0c\x65rrorMessage\x18\x07 \x01(\t\x12-\n\terrorType\x18\x08 \x01(\x0e\x32\x1a.xenon.JobStatus.ErrorType\x12\x17\n\x03job\x18\t \x01(\x0b\x32\n.xenon.Job\x1a\x43\n!SchedulerSpecificInformationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"R\n\tErrorType\x12\t\n\x05\x45MPTY\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\x12\r\n\tCANCELLED\x10\x02\x12\t\n\x05XENON\x10\x03\x12\x06\n\x02IO\x10\x04\x12\t\n\x05OTHER\x10\x05\"1\n\x0bJobStatuses\x12\"\n\x08statuses\x18\x01 \x03(\x0b\x32\x10.xenon.JobStatus\"\xf0\x01\n\x0bQueueStatus\x12\x0c\n\x04name\x18\x01 \x01(\t\x12#\n\tscheduler\x18\x02 \x01(\x0b\x32\x10.xenon.Scheduler\x12Z\n\x1cschedulerSpecificInformation\x18\x03 \x03(\x0b\x32\x34.xenon.QueueStatus.SchedulerSpecificInformationEntry\x12\r\n\x05\x65rror\x18\x04 \x01(\t\x1a\x43\n!SchedulerSpecificInformationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"5\n\rQueueStatuses\x12$\n\x08statuses\x18\x01 \x03(\x0b\x32\x12.xenon.QueueStatus\"W\n\x1cSubmitInteractiveJobResponse\x12\x0e\n\x06stdout\x18\x01 \x01(\x0c\x12\x0e\n\x06stderr\x18\x02 \x01(\x0c\x12\x17\n\x03job\x18\x03 \x01(\x0b\x32\n.xenon.Job\"\x13\n\x02Is\x12\r\n\x05value\x18\x01 \x01(\x08*/\n\x08\x43opyMode\x12\n\n\x06\x43REATE\x10\x00\x12\x0b\n\x07REPLACE\x10\x01\x12\n\n\x06IGNORE\x10\x02*\xbe\x01\n\x13PosixFilePermission\x12\x08\n\x04NONE\x10\x00\x12\x0e\n\nOWNER_READ\x10\x01\x12\x0f\n\x0bOWNER_WRITE\x10\x02\x12\x11\n\rOWNER_EXECUTE\x10\x03\x12\x0e\n\nGROUP_READ\x10\x04\x12\x0f\n\x0bGROUP_WRITE\x10\x05\x12\x11\n\rGROUP_EXECUTE\x10\x06\x12\x0f\n\x0bOTHERS_READ\x10\x07\x12\x10\n\x0cOTHERS_WRITE\x10\x08\x12\x12\n\x0eOTHERS_EXECUTE\x10\t2\xd5\x0b\n\x10XenonFileSystems\x12N\n\x16getAdaptorDescriptions\x12\x0c.xenon.Empty\x1a$.xenon.FileSystemAdaptorDescriptions\"\x00\x12R\n\x15getAdaptorDescription\x12\x12.xenon.AdaptorName\x1a#.xenon.FileSystemAdaptorDescription\"\x00\x12=\n\x06\x63reate\x12\x1e.xenon.CreateFileSystemRequest\x1a\x11.xenon.FileSystem\"\x00\x12\x30\n\x11\x63reateDirectories\x12\x0b.xenon.Path\x1a\x0c.xenon.Empty\"\x00\x12.\n\x0f\x63reateDirectory\x12\x0b.xenon.Path\x1a\x0c.xenon.Empty\"\x00\x12)\n\ncreateFile\x12\x0b.xenon.Path\x1a\x0c.xenon.Empty\"\x00\x12\x46\n\x12\x63reateSymbolicLink\x12 .xenon.CreateSymbolicLinkRequest\x1a\x0c.xenon.Empty\"\x00\x12\x32\n\x04\x63opy\x12\x12.xenon.CopyRequest\x1a\x14.xenon.CopyOperation\"\x00\x12\x33\n\x06\x63\x61ncel\x12\x14.xenon.CopyOperation\x1a\x11.xenon.CopyStatus\"\x00\x12\x36\n\tgetStatus\x12\x14.xenon.CopyOperation\x1a\x11.xenon.CopyStatus\"\x00\x12.\n\x06rename\x12\x14.xenon.RenameRequest\x1a\x0c.xenon.Empty\"\x00\x12.\n\x06\x64\x65lete\x12\x14.xenon.DeleteRequest\x1a\x0c.xenon.Empty\"\x00\x12\"\n\x06\x65xists\x12\x0b.xenon.Path\x1a\t.xenon.Is\"\x00\x12<\n\x0creadFromFile\x12\x0b.xenon.Path\x1a\x1b.xenon.ReadFromFileResponse\"\x00\x30\x01\x12:\n\x0bwriteToFile\x12\x19.xenon.WriteToFileRequest\x1a\x0c.xenon.Empty\"\x00(\x01\x12<\n\x0c\x61ppendToFile\x12\x1a.xenon.AppendToFileRequest\x1a\x0c.xenon.Empty\"\x00(\x01\x12\x35\n\x04list\x12\x12.xenon.ListRequest\x1a\x15.xenon.PathAttributes\"\x00\x30\x01\x12\x35\n\rgetAttributes\x12\x0b.xenon.Path\x1a\x15.xenon.PathAttributes\"\x00\x12\x30\n\x0cgetEntryPath\x12\x11.xenon.FileSystem\x1a\x0b.xenon.Path\"\x00\x12P\n\x17setPosixFilePermissions\x12%.xenon.SetPosixFilePermissionsRequest\x1a\x0c.xenon.Empty\"\x00\x12.\n\x10readSymbolicLink\x12\x0b.xenon.Path\x1a\x0b.xenon.Path\"\x00\x12(\n\x06isOpen\x12\x11.xenon.FileSystem\x1a\t.xenon.Is\"\x00\x12*\n\x05\x63lose\x12\x11.xenon.FileSystem\x1a\x0c.xenon.Empty\"\x00\x12\x45\n\rwaitUntilDone\x12\x1f.xenon.CopyOperationWithTimeout\x1a\x11.xenon.CopyStatus\"\x00\x12\x36\n\x10localFileSystems\x12\x0c.xenon.Empty\x1a\x12.xenon.FileSystems\"\x00\x12\x35\n\x0flistFileSystems\x12\x0c.xenon.Empty\x1a\x12.xenon.FileSystems\"\x00\x32\x86\t\n\x0fXenonSchedulers\x12M\n\x16getAdaptorDescriptions\x12\x0c.xenon.Empty\x1a#.xenon.SchedulerAdaptorDescriptions\"\x00\x12Q\n\x15getAdaptorDescription\x12\x12.xenon.AdaptorName\x1a\".xenon.SchedulerAdaptorDescription\"\x00\x12;\n\x06\x63reate\x12\x1d.xenon.CreateSchedulerRequest\x1a\x10.xenon.Scheduler\"\x00\x12<\n\x0esubmitBatchJob\x12\x1c.xenon.SubmitBatchJobRequest\x1a\n.xenon.Job\"\x00\x12\x65\n\x14submitInteractiveJob\x12\".xenon.SubmitInteractiveJobRequest\x1a#.xenon.SubmitInteractiveJobResponse\"\x00(\x01\x30\x01\x12.\n\tgetQueues\x12\x10.xenon.Scheduler\x1a\r.xenon.Queues\"\x00\x12\x37\n\x13getDefaultQueueName\x12\x10.xenon.Scheduler\x1a\x0c.xenon.Queue\"\x00\x12\x33\n\x07getJobs\x12\x19.xenon.SchedulerAndQueues\x1a\x0b.xenon.Jobs\"\x00\x12.\n\x0cgetJobStatus\x12\n.xenon.Job\x1a\x10.xenon.JobStatus\"\x00\x12\x33\n\x0egetJobStatuses\x12\x0b.xenon.Jobs\x1a\x12.xenon.JobStatuses\"\x00\x12@\n\x0egetQueueStatus\x12\x18.xenon.SchedulerAndQueue\x1a\x12.xenon.QueueStatus\"\x00\x12\x45\n\x10getQueueStatuses\x12\x19.xenon.SchedulerAndQueues\x1a\x14.xenon.QueueStatuses\"\x00\x12:\n\rwaitUntilDone\x12\x15.xenon.JobWithTimeout\x1a\x10.xenon.JobStatus\"\x00\x12=\n\x10waitUntilRunning\x12\x15.xenon.JobWithTimeout\x1a\x10.xenon.JobStatus\"\x00\x12\'\n\x06isOpen\x12\x10.xenon.Scheduler\x1a\t.xenon.Is\"\x00\x12+\n\tcancelJob\x12\n.xenon.Job\x1a\x10.xenon.JobStatus\"\x00\x12)\n\x05\x63lose\x12\x10.xenon.Scheduler\x1a\x0c.xenon.Empty\"\x00\x12\x32\n\x0elocalScheduler\x12\x0c.xenon.Empty\x1a\x10.xenon.Scheduler\"\x00\x12\x33\n\x0elistSchedulers\x12\x0c.xenon.Empty\x1a\x11.xenon.Schedulers\"\x00\x42*\n\x1cnl.esciencecenter.xenon.grpcB\nXenonProtob\x06proto3')
+  serialized_pb=_b('\n\x17xenon/proto/xenon.proto\x12\x05xenon\"\x07\n\x05\x45mpty\"v\n\nProperties\x12\x35\n\nproperties\x18\x01 \x03(\x0b\x32!.xenon.Properties.PropertiesEntry\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xd8\x01\n\x13PropertyDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x14\n\x0c\x64\x65\x66\x61ultValue\x18\x03 \x01(\t\x12-\n\x04type\x18\x04 \x01(\x0e\x32\x1f.xenon.PropertyDescription.Type\"Y\n\x04Type\x12\n\n\x06STRING\x10\x00\x12\x0b\n\x07\x42OOLEAN\x10\x01\x12\x0b\n\x07INTEGER\x10\x02\x12\n\n\x06\x44OUBLE\x10\x03\x12\x08\n\x04LONG\x10\x04\x12\x08\n\x04SIZE\x10\x05\x12\x0b\n\x07NATURAL\x10\x06\"F\n\x14PropertyDescriptions\x12.\n\nproperties\x18\x01 \x03(\x0b\x32\x1a.xenon.PropertyDescription\"\xdd\x01\n\x1bSchedulerAdaptorDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1a\n\x12supportedLocations\x18\x03 \x03(\t\x12\x37\n\x13supportedProperties\x18\x04 \x03(\x0b\x32\x1a.xenon.PropertyDescription\x12\x12\n\nisEmbedded\x18\x05 \x01(\x08\x12\x1b\n\x13supportsInteractive\x18\x06 \x01(\x08\x12\x15\n\rsupportsBatch\x18\x07 \x01(\x08\"X\n\x1cSchedulerAdaptorDescriptions\x12\x38\n\x0c\x64\x65scriptions\x18\x01 \x03(\x0b\x32\".xenon.SchedulerAdaptorDescription\"\x8e\x02\n\x1c\x46ileSystemAdaptorDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1a\n\x12supportedLocations\x18\x03 \x03(\t\x12\x37\n\x13supportedProperties\x18\x04 \x03(\x0b\x32\x1a.xenon.PropertyDescription\x12\x1e\n\x16supportsThirdPartyCopy\x18\x05 \x01(\x08\x12\x1e\n\x16\x63\x61nCreateSymboliclinks\x18\x06 \x01(\x08\x12\x1c\n\x14\x63\x61nReadSymboliclinks\x18\x07 \x01(\x08\x12\x18\n\x10isConnectionLess\x18\x08 \x01(\x08\"Z\n\x1d\x46ileSystemAdaptorDescriptions\x12\x39\n\x0c\x64\x65scriptions\x18\x01 \x03(\x0b\x32#.xenon.FileSystemAdaptorDescription\"\x1b\n\x0b\x41\x64\x61ptorName\x12\x0c\n\x04name\x18\x01 \x01(\t\"O\n\x15\x43\x65rtificateCredential\x12\x10\n\x08\x63\x65rtfile\x18\x01 \x01(\t\x12\x12\n\npassphrase\x18\x02 \x01(\t\x12\x10\n\x08username\x18\x03 \x01(\t\"8\n\x12PasswordCredential\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"%\n\x11\x44\x65\x66\x61ultCredential\x12\x10\n\x08username\x18\x01 \x01(\t\"\xde\x02\n\x17\x43reateFileSystemRequest\x12\x0f\n\x07\x61\x64\x61ptor\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x42\n\nproperties\x18\x03 \x03(\x0b\x32..xenon.CreateFileSystemRequest.PropertiesEntry\x12\x37\n\x0f\x63\x65rtificateCred\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x31\n\x0cpasswordCred\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12/\n\x0b\x64\x65\x66\x61ultCred\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\ncredential\"\x18\n\nFileSystem\x12\n\n\x02id\x18\x01 \x01(\t\"5\n\x0b\x46ileSystems\x12&\n\x0b\x66ilesystems\x18\x01 \x03(\x0b\x32\x11.xenon.FileSystem\";\n\x04Path\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x0c\n\x04path\x18\x02 \x01(\t\"=\n\rDeleteRequest\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x11\n\trecursive\x18\x02 \x01(\x08\"y\n\x0b\x43opyRequest\x12\x1b\n\x06source\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x1b\n\x06target\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x1d\n\x04mode\x18\x03 \x01(\x0e\x32\x0f.xenon.CopyMode\x12\x11\n\trecursive\x18\x04 \x01(\x08\"V\n\rRenameRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0e\n\x06target\x18\x03 \x01(\t\"`\n\x19\x43reateSymbolicLinkRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x0c\n\x04link\x18\x02 \x01(\t\x12\x0e\n\x06target\x18\x03 \x01(\t\"B\n\rCopyOperation\x12\n\n\x02id\x18\x01 \x01(\t\x12%\n\nfilesystem\x18\x02 \x01(\x0b\x32\x11.xenon.FileSystem\"^\n\x18\x43opyOperationWithTimeout\x12\n\n\x02id\x18\x01 \x01(\t\x12%\n\nfilesystem\x18\x02 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"\xa0\x01\n\nCopyStatus\x12+\n\rcopyOperation\x18\x01 \x01(\x0b\x32\x14.xenon.CopyOperation\x12\x13\n\x0b\x62ytesCopied\x18\x02 \x01(\x04\x12\x13\n\x0b\x62ytesToCopy\x18\x03 \x01(\x04\x12\x0c\n\x04\x64one\x18\x04 \x01(\x08\x12\x0f\n\x07running\x18\x05 \x01(\x08\x12\r\n\x05state\x18\x06 \x01(\t\x12\r\n\x05\x65rror\x18\x07 \x01(\t\"\xf5\x02\n\x0ePathAttributes\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x14\n\x0c\x63reationTime\x18\x02 \x01(\x04\x12\r\n\x05group\x18\x03 \x01(\t\x12\x13\n\x0bisDirectory\x18\x04 \x01(\x08\x12\x14\n\x0cisExecutable\x18\x05 \x01(\x08\x12\x10\n\x08isHidden\x18\x06 \x01(\x08\x12\x0f\n\x07isOther\x18\x07 \x01(\x08\x12\x12\n\nisReadable\x18\x08 \x01(\x08\x12\x15\n\risRegularFile\x18\t \x01(\x08\x12\x16\n\x0eisSymbolicLink\x18\n \x01(\x08\x12\x12\n\nisWritable\x18\x0b \x01(\x08\x12\x16\n\x0elastAccessTime\x18\x0c \x01(\x04\x12\x18\n\x10lastModifiedTime\x18\r \x01(\x04\x12\r\n\x05owner\x18\x0e \x01(\t\x12/\n\x0bpermissions\x18\x0f \x03(\x0e\x32\x1a.xenon.PosixFilePermission\x12\x0c\n\x04size\x18\x10 \x01(\x04\"l\n\x1eSetPosixFilePermissionsRequest\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12/\n\x0bpermissions\x18\x02 \x03(\x0e\x32\x1a.xenon.PosixFilePermission\"&\n\x14ReadFromFileResponse\x12\x0e\n\x06\x62uffer\x18\x01 \x01(\x0c\"M\n\x12WriteToFileRequest\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x0e\n\x06\x62uffer\x18\x02 \x01(\x0c\x12\x0c\n\x04size\x18\x03 \x01(\x04\"@\n\x13\x41ppendToFileRequest\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x0e\n\x06\x62uffer\x18\x02 \x01(\x0c\":\n\x0bListRequest\x12\x18\n\x03\x64ir\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x11\n\trecursive\x18\x02 \x01(\x08\"\xdc\x02\n\x16\x43reateSchedulerRequest\x12\x0f\n\x07\x61\x64\x61ptor\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x41\n\nproperties\x18\x03 \x03(\x0b\x32-.xenon.CreateSchedulerRequest.PropertiesEntry\x12\x37\n\x0f\x63\x65rtificateCred\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x31\n\x0cpasswordCred\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12/\n\x0b\x64\x65\x66\x61ultCred\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\ncredential\"\x17\n\tScheduler\x12\n\n\x02id\x18\x01 \x01(\t\"2\n\nSchedulers\x12$\n\nschedulers\x18\x01 \x03(\x0b\x32\x10.xenon.Scheduler\"\xc3\x03\n\x0eJobDescription\x12\x12\n\nexecutable\x18\x01 \x01(\t\x12\x11\n\targuments\x18\x02 \x03(\t\x12\x18\n\x10workingDirectory\x18\x03 \x01(\t\x12;\n\x0b\x65nvironment\x18\x04 \x03(\x0b\x32&.xenon.JobDescription.EnvironmentEntry\x12\x11\n\tqueueName\x18\x05 \x01(\t\x12\x0f\n\x07maxTime\x18\x06 \x01(\r\x12\x11\n\tnodeCount\x18\x07 \x01(\r\x12\x18\n\x10processesPerNode\x18\x08 \x01(\r\x12\x1a\n\x12startSingleProcess\x18\t \x01(\x08\x12\x0e\n\x06stderr\x18\n \x01(\t\x12\r\n\x05stdin\x18\x0b \x01(\t\x12\x0e\n\x06stdout\x18\x0c \x01(\t\x12\x33\n\x07options\x18\r \x03(\x0b\x32\".xenon.JobDescription.OptionsEntry\x1a\x32\n\x10\x45nvironmentEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a.\n\x0cOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"h\n\x15SubmitBatchJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12*\n\x0b\x64\x65scription\x18\x02 \x01(\x0b\x32\x15.xenon.JobDescription\"}\n\x1bSubmitInteractiveJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12*\n\x0b\x64\x65scription\x18\x02 \x01(\x0b\x32\x15.xenon.JobDescription\x12\r\n\x05stdin\x18\x03 \x01(\x0c\"6\n\x03Job\x12\n\n\x02id\x18\x01 \x01(\t\x12#\n\tscheduler\x18\x02 \x01(\x0b\x32\x10.xenon.Scheduler\" \n\x04Jobs\x12\x18\n\x04jobs\x18\x01 \x03(\x0b\x32\n.xenon.Job\"R\n\x0eJobWithTimeout\x12\n\n\x02id\x18\x01 \x01(\t\x12#\n\tscheduler\x18\x02 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"\x15\n\x05Queue\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x16\n\x06Queues\x12\x0c\n\x04name\x18\x01 \x03(\t\"I\n\x12SchedulerAndQueues\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x0e\n\x06queues\x18\x02 \x03(\t\"G\n\x11SchedulerAndQueue\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\r\n\x05queue\x18\x02 \x01(\t\"\x9c\x03\n\tJobStatus\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0f\n\x07running\x18\x02 \x01(\x08\x12\x0c\n\x04\x64one\x18\x03 \x01(\x08\x12X\n\x1cschedulerSpecificInformation\x18\x04 \x03(\x0b\x32\x32.xenon.JobStatus.SchedulerSpecificInformationEntry\x12\x10\n\x08\x65xitCode\x18\x06 \x01(\x05\x12\x14\n\x0c\x65rrorMessage\x18\x07 \x01(\t\x12-\n\terrorType\x18\x08 \x01(\x0e\x32\x1a.xenon.JobStatus.ErrorType\x12\x17\n\x03job\x18\t \x01(\x0b\x32\n.xenon.Job\x1a\x43\n!SchedulerSpecificInformationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"R\n\tErrorType\x12\t\n\x05\x45MPTY\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\x12\r\n\tCANCELLED\x10\x02\x12\t\n\x05XENON\x10\x03\x12\x06\n\x02IO\x10\x04\x12\t\n\x05OTHER\x10\x05\"1\n\x0bJobStatuses\x12\"\n\x08statuses\x18\x01 \x03(\x0b\x32\x10.xenon.JobStatus\"\xf0\x01\n\x0bQueueStatus\x12\x0c\n\x04name\x18\x01 \x01(\t\x12#\n\tscheduler\x18\x02 \x01(\x0b\x32\x10.xenon.Scheduler\x12Z\n\x1cschedulerSpecificInformation\x18\x03 \x03(\x0b\x32\x34.xenon.QueueStatus.SchedulerSpecificInformationEntry\x12\r\n\x05\x65rror\x18\x04 \x01(\t\x1a\x43\n!SchedulerSpecificInformationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"5\n\rQueueStatuses\x12$\n\x08statuses\x18\x01 \x03(\x0b\x32\x12.xenon.QueueStatus\"W\n\x1cSubmitInteractiveJobResponse\x12\x0e\n\x06stdout\x18\x01 \x01(\x0c\x12\x0e\n\x06stderr\x18\x02 \x01(\x0c\x12\x17\n\x03job\x18\x03 \x01(\x0b\x32\n.xenon.Job\"\x13\n\x02Is\x12\r\n\x05value\x18\x01 \x01(\x08*/\n\x08\x43opyMode\x12\n\n\x06\x43REATE\x10\x00\x12\x0b\n\x07REPLACE\x10\x01\x12\n\n\x06IGNORE\x10\x02*\xbe\x01\n\x13PosixFilePermission\x12\x08\n\x04NONE\x10\x00\x12\x0e\n\nOWNER_READ\x10\x01\x12\x0f\n\x0bOWNER_WRITE\x10\x02\x12\x11\n\rOWNER_EXECUTE\x10\x03\x12\x0e\n\nGROUP_READ\x10\x04\x12\x0f\n\x0bGROUP_WRITE\x10\x05\x12\x11\n\rGROUP_EXECUTE\x10\x06\x12\x0f\n\x0bOTHERS_READ\x10\x07\x12\x10\n\x0cOTHERS_WRITE\x10\x08\x12\x12\n\x0eOTHERS_EXECUTE\x10\t2\x90\x0c\n\x10XenonFileSystems\x12N\n\x16getAdaptorDescriptions\x12\x0c.xenon.Empty\x1a$.xenon.FileSystemAdaptorDescriptions\"\x00\x12R\n\x15getAdaptorDescription\x12\x12.xenon.AdaptorName\x1a#.xenon.FileSystemAdaptorDescription\"\x00\x12=\n\x06\x63reate\x12\x1e.xenon.CreateFileSystemRequest\x1a\x11.xenon.FileSystem\"\x00\x12\x30\n\x11\x63reateDirectories\x12\x0b.xenon.Path\x1a\x0c.xenon.Empty\"\x00\x12.\n\x0f\x63reateDirectory\x12\x0b.xenon.Path\x1a\x0c.xenon.Empty\"\x00\x12)\n\ncreateFile\x12\x0b.xenon.Path\x1a\x0c.xenon.Empty\"\x00\x12\x46\n\x12\x63reateSymbolicLink\x12 .xenon.CreateSymbolicLinkRequest\x1a\x0c.xenon.Empty\"\x00\x12\x32\n\x04\x63opy\x12\x12.xenon.CopyRequest\x1a\x14.xenon.CopyOperation\"\x00\x12\x33\n\x06\x63\x61ncel\x12\x14.xenon.CopyOperation\x1a\x11.xenon.CopyStatus\"\x00\x12\x36\n\tgetStatus\x12\x14.xenon.CopyOperation\x1a\x11.xenon.CopyStatus\"\x00\x12.\n\x06rename\x12\x14.xenon.RenameRequest\x1a\x0c.xenon.Empty\"\x00\x12.\n\x06\x64\x65lete\x12\x14.xenon.DeleteRequest\x1a\x0c.xenon.Empty\"\x00\x12\"\n\x06\x65xists\x12\x0b.xenon.Path\x1a\t.xenon.Is\"\x00\x12<\n\x0creadFromFile\x12\x0b.xenon.Path\x1a\x1b.xenon.ReadFromFileResponse\"\x00\x30\x01\x12:\n\x0bwriteToFile\x12\x19.xenon.WriteToFileRequest\x1a\x0c.xenon.Empty\"\x00(\x01\x12<\n\x0c\x61ppendToFile\x12\x1a.xenon.AppendToFileRequest\x1a\x0c.xenon.Empty\"\x00(\x01\x12\x35\n\x04list\x12\x12.xenon.ListRequest\x1a\x15.xenon.PathAttributes\"\x00\x30\x01\x12\x35\n\rgetAttributes\x12\x0b.xenon.Path\x1a\x15.xenon.PathAttributes\"\x00\x12\x37\n\x13getWorkingDirectory\x12\x11.xenon.FileSystem\x1a\x0b.xenon.Path\"\x00\x12\x32\n\x13setWorkingDirectory\x12\x0b.xenon.Path\x1a\x0c.xenon.Empty\"\x00\x12P\n\x17setPosixFilePermissions\x12%.xenon.SetPosixFilePermissionsRequest\x1a\x0c.xenon.Empty\"\x00\x12.\n\x10readSymbolicLink\x12\x0b.xenon.Path\x1a\x0b.xenon.Path\"\x00\x12(\n\x06isOpen\x12\x11.xenon.FileSystem\x1a\t.xenon.Is\"\x00\x12*\n\x05\x63lose\x12\x11.xenon.FileSystem\x1a\x0c.xenon.Empty\"\x00\x12\x45\n\rwaitUntilDone\x12\x1f.xenon.CopyOperationWithTimeout\x1a\x11.xenon.CopyStatus\"\x00\x12\x36\n\x10localFileSystems\x12\x0c.xenon.Empty\x1a\x12.xenon.FileSystems\"\x00\x12\x35\n\x0flistFileSystems\x12\x0c.xenon.Empty\x1a\x12.xenon.FileSystems\"\x00\x32\x86\t\n\x0fXenonSchedulers\x12M\n\x16getAdaptorDescriptions\x12\x0c.xenon.Empty\x1a#.xenon.SchedulerAdaptorDescriptions\"\x00\x12Q\n\x15getAdaptorDescription\x12\x12.xenon.AdaptorName\x1a\".xenon.SchedulerAdaptorDescription\"\x00\x12;\n\x06\x63reate\x12\x1d.xenon.CreateSchedulerRequest\x1a\x10.xenon.Scheduler\"\x00\x12<\n\x0esubmitBatchJob\x12\x1c.xenon.SubmitBatchJobRequest\x1a\n.xenon.Job\"\x00\x12\x65\n\x14submitInteractiveJob\x12\".xenon.SubmitInteractiveJobRequest\x1a#.xenon.SubmitInteractiveJobResponse\"\x00(\x01\x30\x01\x12.\n\tgetQueues\x12\x10.xenon.Scheduler\x1a\r.xenon.Queues\"\x00\x12\x37\n\x13getDefaultQueueName\x12\x10.xenon.Scheduler\x1a\x0c.xenon.Queue\"\x00\x12\x33\n\x07getJobs\x12\x19.xenon.SchedulerAndQueues\x1a\x0b.xenon.Jobs\"\x00\x12.\n\x0cgetJobStatus\x12\n.xenon.Job\x1a\x10.xenon.JobStatus\"\x00\x12\x33\n\x0egetJobStatuses\x12\x0b.xenon.Jobs\x1a\x12.xenon.JobStatuses\"\x00\x12@\n\x0egetQueueStatus\x12\x18.xenon.SchedulerAndQueue\x1a\x12.xenon.QueueStatus\"\x00\x12\x45\n\x10getQueueStatuses\x12\x19.xenon.SchedulerAndQueues\x1a\x14.xenon.QueueStatuses\"\x00\x12:\n\rwaitUntilDone\x12\x15.xenon.JobWithTimeout\x1a\x10.xenon.JobStatus\"\x00\x12=\n\x10waitUntilRunning\x12\x15.xenon.JobWithTimeout\x1a\x10.xenon.JobStatus\"\x00\x12\'\n\x06isOpen\x12\x10.xenon.Scheduler\x1a\t.xenon.Is\"\x00\x12+\n\tcancelJob\x12\n.xenon.Job\x1a\x10.xenon.JobStatus\"\x00\x12)\n\x05\x63lose\x12\x10.xenon.Scheduler\x1a\x0c.xenon.Empty\"\x00\x12\x32\n\x0elocalScheduler\x12\x0c.xenon.Empty\x1a\x10.xenon.Scheduler\"\x00\x12\x33\n\x0elistSchedulers\x12\x0c.xenon.Empty\x1a\x11.xenon.Schedulers\"\x00\x42*\n\x1cnl.esciencecenter.xenon.grpcB\nXenonProtob\x06proto3')
 )
 
 _COPYMODE = _descriptor.EnumDescriptor(
@@ -3293,10 +3293,15 @@ try:
           request_serializer=Path.SerializeToString,
           response_deserializer=PathAttributes.FromString,
           )
-      self.getEntryPath = channel.unary_unary(
-          '/xenon.XenonFileSystems/getEntryPath',
+      self.getWorkingDirectory = channel.unary_unary(
+          '/xenon.XenonFileSystems/getWorkingDirectory',
           request_serializer=FileSystem.SerializeToString,
           response_deserializer=Path.FromString,
+          )
+      self.setWorkingDirectory = channel.unary_unary(
+          '/xenon.XenonFileSystems/setWorkingDirectory',
+          request_serializer=Path.SerializeToString,
+          response_deserializer=Empty.FromString,
           )
       self.setPosixFilePermissions = channel.unary_unary(
           '/xenon.XenonFileSystems/setPosixFilePermissions',
@@ -3466,7 +3471,14 @@ try:
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
-    def getEntryPath(self, request, context):
+    def getWorkingDirectory(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
+
+    def setWorkingDirectory(self, request, context):
       # missing associated documentation comment in .proto file
       pass
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -3617,10 +3629,15 @@ try:
             request_deserializer=Path.FromString,
             response_serializer=PathAttributes.SerializeToString,
         ),
-        'getEntryPath': grpc.unary_unary_rpc_method_handler(
-            servicer.getEntryPath,
+        'getWorkingDirectory': grpc.unary_unary_rpc_method_handler(
+            servicer.getWorkingDirectory,
             request_deserializer=FileSystem.FromString,
             response_serializer=Path.SerializeToString,
+        ),
+        'setWorkingDirectory': grpc.unary_unary_rpc_method_handler(
+            servicer.setWorkingDirectory,
+            request_deserializer=Path.FromString,
+            response_serializer=Empty.SerializeToString,
         ),
         'setPosixFilePermissions': grpc.unary_unary_rpc_method_handler(
             servicer.setPosixFilePermissions,
@@ -3803,8 +3820,9 @@ try:
       raise NotImplementedError('Method not implemented!')
 
     def submitInteractiveJob(self, request_iterator, context):
-      # missing associated documentation comment in .proto file
-      pass
+      """The first response message in the response stream will contain the job identifier and empty stdout and stdout.
+      Other response messages will also contain the job identifier and filled stdout and/or stderr.
+      """
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
@@ -4094,7 +4112,11 @@ try:
       # missing associated documentation comment in .proto file
       pass
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def getEntryPath(self, request, context):
+    def getWorkingDirectory(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+    def setWorkingDirectory(self, request, context):
       # missing associated documentation comment in .proto file
       pass
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
@@ -4227,11 +4249,16 @@ try:
       pass
       raise NotImplementedError()
     getAttributes.future = None
-    def getEntryPath(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+    def getWorkingDirectory(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       # missing associated documentation comment in .proto file
       pass
       raise NotImplementedError()
-    getEntryPath.future = None
+    getWorkingDirectory.future = None
+    def setWorkingDirectory(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      # missing associated documentation comment in .proto file
+      pass
+      raise NotImplementedError()
+    setWorkingDirectory.future = None
     def setPosixFilePermissions(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       # missing associated documentation comment in .proto file
       pass
@@ -4292,8 +4319,8 @@ try:
       ('xenon.XenonFileSystems', 'getAdaptorDescription'): AdaptorName.FromString,
       ('xenon.XenonFileSystems', 'getAdaptorDescriptions'): Empty.FromString,
       ('xenon.XenonFileSystems', 'getAttributes'): Path.FromString,
-      ('xenon.XenonFileSystems', 'getEntryPath'): FileSystem.FromString,
       ('xenon.XenonFileSystems', 'getStatus'): CopyOperation.FromString,
+      ('xenon.XenonFileSystems', 'getWorkingDirectory'): FileSystem.FromString,
       ('xenon.XenonFileSystems', 'isOpen'): FileSystem.FromString,
       ('xenon.XenonFileSystems', 'list'): ListRequest.FromString,
       ('xenon.XenonFileSystems', 'listFileSystems'): Empty.FromString,
@@ -4302,6 +4329,7 @@ try:
       ('xenon.XenonFileSystems', 'readSymbolicLink'): Path.FromString,
       ('xenon.XenonFileSystems', 'rename'): RenameRequest.FromString,
       ('xenon.XenonFileSystems', 'setPosixFilePermissions'): SetPosixFilePermissionsRequest.FromString,
+      ('xenon.XenonFileSystems', 'setWorkingDirectory'): Path.FromString,
       ('xenon.XenonFileSystems', 'waitUntilDone'): CopyOperationWithTimeout.FromString,
       ('xenon.XenonFileSystems', 'writeToFile'): WriteToFileRequest.FromString,
     }
@@ -4320,8 +4348,8 @@ try:
       ('xenon.XenonFileSystems', 'getAdaptorDescription'): FileSystemAdaptorDescription.SerializeToString,
       ('xenon.XenonFileSystems', 'getAdaptorDescriptions'): FileSystemAdaptorDescriptions.SerializeToString,
       ('xenon.XenonFileSystems', 'getAttributes'): PathAttributes.SerializeToString,
-      ('xenon.XenonFileSystems', 'getEntryPath'): Path.SerializeToString,
       ('xenon.XenonFileSystems', 'getStatus'): CopyStatus.SerializeToString,
+      ('xenon.XenonFileSystems', 'getWorkingDirectory'): Path.SerializeToString,
       ('xenon.XenonFileSystems', 'isOpen'): Is.SerializeToString,
       ('xenon.XenonFileSystems', 'list'): PathAttributes.SerializeToString,
       ('xenon.XenonFileSystems', 'listFileSystems'): FileSystems.SerializeToString,
@@ -4330,6 +4358,7 @@ try:
       ('xenon.XenonFileSystems', 'readSymbolicLink'): Path.SerializeToString,
       ('xenon.XenonFileSystems', 'rename'): Empty.SerializeToString,
       ('xenon.XenonFileSystems', 'setPosixFilePermissions'): Empty.SerializeToString,
+      ('xenon.XenonFileSystems', 'setWorkingDirectory'): Empty.SerializeToString,
       ('xenon.XenonFileSystems', 'waitUntilDone'): CopyStatus.SerializeToString,
       ('xenon.XenonFileSystems', 'writeToFile'): Empty.SerializeToString,
     }
@@ -4348,8 +4377,8 @@ try:
       ('xenon.XenonFileSystems', 'getAdaptorDescription'): face_utilities.unary_unary_inline(servicer.getAdaptorDescription),
       ('xenon.XenonFileSystems', 'getAdaptorDescriptions'): face_utilities.unary_unary_inline(servicer.getAdaptorDescriptions),
       ('xenon.XenonFileSystems', 'getAttributes'): face_utilities.unary_unary_inline(servicer.getAttributes),
-      ('xenon.XenonFileSystems', 'getEntryPath'): face_utilities.unary_unary_inline(servicer.getEntryPath),
       ('xenon.XenonFileSystems', 'getStatus'): face_utilities.unary_unary_inline(servicer.getStatus),
+      ('xenon.XenonFileSystems', 'getWorkingDirectory'): face_utilities.unary_unary_inline(servicer.getWorkingDirectory),
       ('xenon.XenonFileSystems', 'isOpen'): face_utilities.unary_unary_inline(servicer.isOpen),
       ('xenon.XenonFileSystems', 'list'): face_utilities.unary_stream_inline(servicer.list),
       ('xenon.XenonFileSystems', 'listFileSystems'): face_utilities.unary_unary_inline(servicer.listFileSystems),
@@ -4358,6 +4387,7 @@ try:
       ('xenon.XenonFileSystems', 'readSymbolicLink'): face_utilities.unary_unary_inline(servicer.readSymbolicLink),
       ('xenon.XenonFileSystems', 'rename'): face_utilities.unary_unary_inline(servicer.rename),
       ('xenon.XenonFileSystems', 'setPosixFilePermissions'): face_utilities.unary_unary_inline(servicer.setPosixFilePermissions),
+      ('xenon.XenonFileSystems', 'setWorkingDirectory'): face_utilities.unary_unary_inline(servicer.setWorkingDirectory),
       ('xenon.XenonFileSystems', 'waitUntilDone'): face_utilities.unary_unary_inline(servicer.waitUntilDone),
       ('xenon.XenonFileSystems', 'writeToFile'): face_utilities.stream_unary_inline(servicer.writeToFile),
     }
@@ -4386,8 +4416,8 @@ try:
       ('xenon.XenonFileSystems', 'getAdaptorDescription'): AdaptorName.SerializeToString,
       ('xenon.XenonFileSystems', 'getAdaptorDescriptions'): Empty.SerializeToString,
       ('xenon.XenonFileSystems', 'getAttributes'): Path.SerializeToString,
-      ('xenon.XenonFileSystems', 'getEntryPath'): FileSystem.SerializeToString,
       ('xenon.XenonFileSystems', 'getStatus'): CopyOperation.SerializeToString,
+      ('xenon.XenonFileSystems', 'getWorkingDirectory'): FileSystem.SerializeToString,
       ('xenon.XenonFileSystems', 'isOpen'): FileSystem.SerializeToString,
       ('xenon.XenonFileSystems', 'list'): ListRequest.SerializeToString,
       ('xenon.XenonFileSystems', 'listFileSystems'): Empty.SerializeToString,
@@ -4396,6 +4426,7 @@ try:
       ('xenon.XenonFileSystems', 'readSymbolicLink'): Path.SerializeToString,
       ('xenon.XenonFileSystems', 'rename'): RenameRequest.SerializeToString,
       ('xenon.XenonFileSystems', 'setPosixFilePermissions'): SetPosixFilePermissionsRequest.SerializeToString,
+      ('xenon.XenonFileSystems', 'setWorkingDirectory'): Path.SerializeToString,
       ('xenon.XenonFileSystems', 'waitUntilDone'): CopyOperationWithTimeout.SerializeToString,
       ('xenon.XenonFileSystems', 'writeToFile'): WriteToFileRequest.SerializeToString,
     }
@@ -4414,8 +4445,8 @@ try:
       ('xenon.XenonFileSystems', 'getAdaptorDescription'): FileSystemAdaptorDescription.FromString,
       ('xenon.XenonFileSystems', 'getAdaptorDescriptions'): FileSystemAdaptorDescriptions.FromString,
       ('xenon.XenonFileSystems', 'getAttributes'): PathAttributes.FromString,
-      ('xenon.XenonFileSystems', 'getEntryPath'): Path.FromString,
       ('xenon.XenonFileSystems', 'getStatus'): CopyStatus.FromString,
+      ('xenon.XenonFileSystems', 'getWorkingDirectory'): Path.FromString,
       ('xenon.XenonFileSystems', 'isOpen'): Is.FromString,
       ('xenon.XenonFileSystems', 'list'): PathAttributes.FromString,
       ('xenon.XenonFileSystems', 'listFileSystems'): FileSystems.FromString,
@@ -4424,6 +4455,7 @@ try:
       ('xenon.XenonFileSystems', 'readSymbolicLink'): Path.FromString,
       ('xenon.XenonFileSystems', 'rename'): Empty.FromString,
       ('xenon.XenonFileSystems', 'setPosixFilePermissions'): Empty.FromString,
+      ('xenon.XenonFileSystems', 'setWorkingDirectory'): Empty.FromString,
       ('xenon.XenonFileSystems', 'waitUntilDone'): CopyStatus.FromString,
       ('xenon.XenonFileSystems', 'writeToFile'): Empty.FromString,
     }
@@ -4442,8 +4474,8 @@ try:
       'getAdaptorDescription': cardinality.Cardinality.UNARY_UNARY,
       'getAdaptorDescriptions': cardinality.Cardinality.UNARY_UNARY,
       'getAttributes': cardinality.Cardinality.UNARY_UNARY,
-      'getEntryPath': cardinality.Cardinality.UNARY_UNARY,
       'getStatus': cardinality.Cardinality.UNARY_UNARY,
+      'getWorkingDirectory': cardinality.Cardinality.UNARY_UNARY,
       'isOpen': cardinality.Cardinality.UNARY_UNARY,
       'list': cardinality.Cardinality.UNARY_STREAM,
       'listFileSystems': cardinality.Cardinality.UNARY_UNARY,
@@ -4452,6 +4484,7 @@ try:
       'readSymbolicLink': cardinality.Cardinality.UNARY_UNARY,
       'rename': cardinality.Cardinality.UNARY_UNARY,
       'setPosixFilePermissions': cardinality.Cardinality.UNARY_UNARY,
+      'setWorkingDirectory': cardinality.Cardinality.UNARY_UNARY,
       'waitUntilDone': cardinality.Cardinality.UNARY_UNARY,
       'writeToFile': cardinality.Cardinality.STREAM_UNARY,
     }
@@ -4484,8 +4517,9 @@ try:
       pass
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
     def submitInteractiveJob(self, request_iterator, context):
-      # missing associated documentation comment in .proto file
-      pass
+      """The first response message in the response stream will contain the job identifier and empty stdout and stdout.
+      Other response messages will also contain the job identifier and filled stdout and/or stderr.
+      """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
     def getQueues(self, request, context):
       # missing associated documentation comment in .proto file
@@ -4576,8 +4610,9 @@ try:
       raise NotImplementedError()
     submitBatchJob.future = None
     def submitInteractiveJob(self, request_iterator, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
+      """The first response message in the response stream will contain the job identifier and empty stdout and stdout.
+      Other response messages will also contain the job identifier and filled stdout and/or stderr.
+      """
       raise NotImplementedError()
     def getQueues(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       # missing associated documentation comment in .proto file

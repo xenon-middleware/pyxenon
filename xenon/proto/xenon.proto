@@ -368,7 +368,8 @@ service XenonFileSystems {
     rpc appendToFile(stream AppendToFileRequest) returns (Empty) {}
     rpc list(ListRequest) returns (stream PathAttributes) {}
     rpc getAttributes(Path) returns (PathAttributes) {}
-    rpc getEntryPath(FileSystem) returns (Path) {}
+    rpc getWorkingDirectory(FileSystem) returns (Path) {}
+    rpc setWorkingDirectory(Path) returns (Empty) {}
     rpc setPosixFilePermissions(SetPosixFilePermissionsRequest) returns (Empty) {}
     rpc readSymbolicLink(Path) returns (Path) {}
     rpc isOpen(FileSystem) returns (Is) {}
@@ -389,6 +390,8 @@ service XenonSchedulers {
     rpc getAdaptorDescription(AdaptorName) returns (SchedulerAdaptorDescription) {}
     rpc create(CreateSchedulerRequest) returns (Scheduler) {}
     rpc submitBatchJob(SubmitBatchJobRequest) returns (Job) {}
+    // The first response message in the response stream will contain the job identifier and empty stdout and stdout.
+    // Other response messages will also contain the job identifier and filled stdout and/or stderr.
     rpc submitInteractiveJob(stream SubmitInteractiveJobRequest) returns (stream SubmitInteractiveJobResponse) {}
     rpc getQueues(Scheduler) returns (Queues) {}
     rpc getDefaultQueueName(Scheduler) returns (Queue) {}

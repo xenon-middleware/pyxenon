@@ -196,7 +196,7 @@ class FileSystemsProxy(ProxyBase):
             xenon_pb2_grpc.XenonFileSystemsStub(channel),
             'FileSystem',
             ['createSymbolicLink', 'copy', 'rename', 'delete',
-             'writeToFile', 'appendToFile', 'list', 'setPosixFilePermissions'])
+             'list', 'setPosixFilePermissions'])
 
 
 class Server(object):
