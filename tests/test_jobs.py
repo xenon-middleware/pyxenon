@@ -1,9 +1,11 @@
 import os
 from threading import Thread
 from queue import Queue
+from xenon.oop import Scheduler
 import pytest
 
 
+# @pytest.mark.skip(reason="no way of currently testing this")
 def test_echo_job(xenon_server, tmpdir):
     xenon = xenon_server
 
@@ -27,6 +29,25 @@ def test_echo_job(xenon_server, tmpdir):
     assert lines[0] == 'Hello, World!'
 
 
+def test_echo_job_oop(xenon_server, tmpdir):
+    xenon = xenon_server
+    with Scheduler.create(xenon, adaptor='local') as scheduler:
+        file_name = str(tmpdir.join('hello.txt'))
+        job_description = xenon.JobDescription(
+            executable='/bin/bash',
+            arguments=['-c', 'echo "Hello, World!"'],
+            stdout=file_name)
+        job = scheduler.submit_batch_job(job_description)
+        job_status = scheduler.wait_until_done(job, None)
+
+        if job_status.exitCode != 0:
+            raise Exception(job_status.errorMessage)
+
+    assert os.path.isfile(file_name)
+    lines = [l.strip() for l in open(file_name)]
+    assert lines[0] == 'Hello, World!'
+
+
 def timeout(delay, call, *args, **kwargs):
     return_value = None
 
@@ -43,6 +64,7 @@ def timeout(delay, call, *args, **kwargs):
     return return_value
 
 
+# @pytest.mark.skip(reason="no way of currently testing this")
 def test_online_job(xenon_server):
     xenon = xenon_server
     scheduler = xenon.schedulers.create(adaptor='local')
@@ -65,7 +87,8 @@ def test_online_job(xenon_server):
                 input_queue.task_done()
 
     output_stream = xenon.schedulers.submit_interactive_job(
-        scheduler=scheduler, description=job_description, stdin_stream=input_stream())
+        scheduler=scheduler, description=job_description,
+        stdin_stream=input_stream())
 
     first_response = timeout(1.0, lambda: output_stream.next())
     # first_response = output_stream.next()

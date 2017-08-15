@@ -244,7 +244,6 @@ class Server(object):
 
         self.file_systems = FileSystemsProxy(self.channel)
         self.schedulers = SchedulersProxy(self.channel)
-
         return self
 
     def __exit__(self, exc_type, exc_value, exc_tb):
