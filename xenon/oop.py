@@ -217,6 +217,14 @@ class Path(OopProxy):
     def filesystem(self):
         return FileSystem(self.__service__, self.__wrapped__.filesystem)
 
+    def append_to_file(self, data_stream):
+        def append_request_stream():
+            yield xenon_pb2.AppendToFileRequest(path=self.__wrapped__)
+            yield from (xenon_pb2.AppendToFileRequest(buffer=b)
+                        for b in data_stream)
+
+        return self.__service__.appendToFile(append_request_stream())
+
 
 class FileSystem(OopProxy):
     @classmethod
@@ -245,8 +253,16 @@ class FileSystem(OopProxy):
     def __init__(self, service, wrapped):
         super(FileSystem, self).__init__(service, wrapped)
 
-    def path(self, *args):
-        return Path(self.__service__, xenon_pb2.Path(self.__wrapped__, *args))
+    def path(self, path):
+        return Path(
+            self.__service__,
+            xenon_pb2.Path(filesystem=self.__wrapped__, path=path))
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        self.close()
 
 
 class Scheduler(OopProxy):
@@ -267,9 +283,9 @@ class Scheduler(OopProxy):
                 'submit_batch_job',
                 uses_request=True, field_name='scheduler',
                 output_transform=lambda self, x: x.id),
-            GrpcMethod(  # TODO handle streams
-                'submit_interactive_job',
-                output_transform=lambda self, x: x.id),
+            # GrpcMethod(  # TODO handle streams
+            #     'submit_interactive_job',
+            #     output_transform=lambda self, x: x.id),
             GrpcMethod(
                 'wait_until_done',
                 uses_request='JobWithTimeout', field_name='scheduler'),
@@ -286,6 +302,16 @@ class Scheduler(OopProxy):
         return Scheduler(
             server.schedulers.stub,
             server.schedulers.create(*args, **kwargs))
+
+    def submit_interactive_job(self, description, stdin_stream):
+        def input_request_stream():
+            yield xenon_pb2.SubmitInteractiveJobRequest(
+                scheduler=unwrap(self), description=description, stdin=b'')
+            yield from (xenon_pb2.SubmitInteractiveJobRequest(
+                scheduler=None, description=None, stdin=msg)
+                for msg in stdin_stream)
+
+        return self.__service__.submitInteractiveJob(input_request_stream())
 
     def __init__(self, service, wrapped):
         super(Scheduler, self).__init__(service, wrapped)

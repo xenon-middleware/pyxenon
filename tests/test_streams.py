@@ -1,6 +1,7 @@
 import uuid
 import os
 import random
+from xenon.oop import FileSystem
 
 
 def read_lines(stream):
@@ -35,6 +36,28 @@ def test_files_reading(xenon_server, tmpdir):
     xenon.file_systems.close(remotefs)
 
 
+def test_files_reading_oop(xenon_server, tmpdir):
+    xenon = xenon_server
+
+    with FileSystem.create(
+            xenon, adaptor='sftp', location='localhost') as remotefs:
+        test_data = [random.randint(0, 255) for i in range(16)]
+
+        test_file = str(tmpdir.join('test-reading.txt'))
+
+        f = open(test_file, 'w')
+        for x in test_data:
+            print(x, file=f)
+        f.close()
+
+        data_path = remotefs.path(test_file)
+        stream = data_path.read_from_file()
+
+        out_data = [int(line) for line in read_lines(stream) if line != '']
+
+        assert test_data == out_data
+
+
 def test_files_writing(xenon_server, tmpdir):
     xenon = xenon_server
 
@@ -57,3 +80,22 @@ def test_files_writing(xenon_server, tmpdir):
 
     assert test_data == out_data
     xenon.file_systems.close(remotefs)
+
+
+def test_files_writing_oop(xenon_server, tmpdir):
+    xenon = xenon_server
+
+    with FileSystem.create(
+            xenon, adaptor='sftp', location='localhost') as remotefs:
+        test_data = [random.randint(0, 255) for i in range(16)]
+
+        test_file = str(tmpdir.join('test-writing.txt'))
+        file_path = remotefs.path(test_file)
+
+        file_path.create_file()
+        data_stream = iter("{}\n".format(x).encode() for x in test_data)
+        file_path.append_to_file(data_stream)
+
+        out_data = [int(line.strip())
+                    for line in open(test_file) if line != '']
+        assert test_data == out_data
