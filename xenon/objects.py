@@ -1,5 +1,5 @@
 from .oop import (GrpcMethod, OopProxy, transform_map)
-from .proto import xenon_pb2
+from .proto import (xenon_pb2, xenon_pb2_grpc)
 
 
 class PathAttributes(OopProxy):
@@ -15,6 +15,8 @@ def append_request_stream(self, data_stream):
 
 
 class Path(OopProxy):
+    __servicer__ = xenon_pb2_grpc.XenonFileSystemsServicer
+
     @classmethod
     def __methods__(cls):
         return [
@@ -56,6 +58,8 @@ class Path(OopProxy):
 
 
 class FileSystem(OopProxy):
+    __servicer__ = xenon_pb2_grpc.XenonFileSystemsServicer
+
     @classmethod
     def __methods__(cls):
         return [
@@ -103,6 +107,8 @@ def input_request_stream(self, description, stdin_stream):
 
 
 class Scheduler(OopProxy):
+    __servicer__ = xenon_pb2_grpc.XenonSchedulersServicer
+
     @classmethod
     def __methods__(cls):
         return [

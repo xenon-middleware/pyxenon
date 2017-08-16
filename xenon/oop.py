@@ -1,7 +1,7 @@
 from .proto import xenon_pb2
 
 try:
-    from inspect import (Signature, Parameter)
+    from inspect import (Signature, Parameter, signature)
 except ImportError as e:
     use_signature = False
 else:
@@ -37,7 +37,7 @@ class GrpcMethod:
 
     @property
     def request_name(self):
-        if self.uses_request is None:
+        if not self.uses_request:
             return None
 
         if isinstance(self.uses_request, str):
@@ -47,6 +47,9 @@ class GrpcMethod:
 
     @property
     def request_type(self):
+        if not self.uses_request:
+            return None
+
         return getattr(xenon_pb2, self.request_name)
 
     # python 3 only
@@ -57,6 +60,9 @@ class GrpcMethod:
 
         parameters = \
             (Parameter(name='self', kind=Parameter.POSITIONAL_ONLY),)
+
+        if self.input_transform:
+            return signature(self.input_transform)
 
         if self.uses_request:
             fields = get_fields(self.request_type)
@@ -71,11 +77,14 @@ class GrpcMethod:
 
     # TODO extend documentation rendered from proto
     def docstring(self, servicer):
-        s = getattr(servicer, to_lower_camel_case(self.name)).__doc__
-        s += "\n"
-        for field in get_fields(self.request_type):
-            if field != self.field_name:
-                s += "    :param {}: {}\n".format(field, field)
+        s = getattr(servicer, to_lower_camel_case(self.name)).__doc__ or ""
+
+        if self.uses_request:
+            s += "\n"
+            for field in get_fields(self.request_type):
+                if field != self.field_name:
+                    s += "    :param {}: {}\n".format(field, field)
+
         return s
 
 
@@ -148,17 +157,19 @@ def method_wrapper(m):
 class OopMeta(type):
     """Meta class for Grpc Object wrappers."""
     def __new__(cls, name, parents, dct):
-        print("initializing type {}".format(name))
         return super(OopMeta, cls).__new__(cls, name, parents, dct)
 
     def __init__(cls, name, parents, dct):
         super(OopMeta, cls).__init__(name, parents, dct)
 
         for m in cls.__methods__():
-            print("defining {} in class {}".format(m.name, name))
             f = method_wrapper(m)
             if use_signature:
                 f.__signature__ = m.signature
+
+            if cls.__servicer__:
+                f.__doc__ = m.docstring(cls.__servicer__)
+
             setattr(cls, m.name, f)
 
 
@@ -169,6 +180,7 @@ class OopProxy(metaclass=OopMeta):
     from the wrapped instance."""
 
     __is_proxy__ = True
+    __servicer__ = None
 
     @classmethod
     def __methods__(cls):
