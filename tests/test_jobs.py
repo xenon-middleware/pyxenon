@@ -1,7 +1,7 @@
 import os
 from threading import Thread
 from queue import Queue
-from xenon.oop import Scheduler
+from xenon.objects import Scheduler
 
 
 def test_echo_job(xenon_server, tmpdir):

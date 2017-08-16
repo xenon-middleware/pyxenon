@@ -33,7 +33,7 @@ class GrpcMethod:
 
     @property
     def is_simple(self):
-        return not self.uses_request
+        return not self.uses_request and not self.input_transform
 
     @property
     def request_name(self):
@@ -129,6 +129,14 @@ def method_wrapper(m):
     if m.is_simple:
         return simple_method
 
+    def transform_method(self, *args, **kwargs):
+        f = getattr(self.__service__, to_lower_camel_case(m.name))
+        request = m.input_transform(self, *args, **kwargs)
+        return apply_transform(self, m.output_transform, f(request))
+
+    if m.input_transform is not None:
+        return transform_method
+
     def request_method(self, *args, **kwargs):
         f = getattr(self.__service__, to_lower_camel_case(m.name))
         request = make_request(self, m, *args, **kwargs)
@@ -172,152 +180,3 @@ class OopProxy(metaclass=OopMeta):
 
     def __getattr__(self, attr):
         return getattr(self.__wrapped__, attr)
-
-
-class PathAttributes(OopProxy):
-    def __init__(self, service, wrapped):
-        super(PathAttributes, self).__init__(service, wrapped)
-        self.path = Path(service, wrapped.path)
-
-
-class Path(OopProxy):
-    @classmethod
-    def __methods__(cls):
-        return [
-            GrpcMethod('create_directories'),
-            GrpcMethod('create_directory'),
-            GrpcMethod('create_file'),
-            GrpcMethod(
-                'exists',
-                output_transform=lambda self, x: x.value),
-            GrpcMethod('read_from_file'),  # TODO stream response
-            GrpcMethod(
-                'get_attributes',
-                output_transform=PathAttributes),
-            GrpcMethod('set_working_directory'),
-            GrpcMethod(
-                'read_symbolic_link',
-                output_transform=cls),
-            GrpcMethod(
-                'delete', uses_request=True, field_name='path'),
-            GrpcMethod(
-                'copy', uses_request=True, field_name='source'),
-            GrpcMethod(
-                'set_posix_file_permissions',
-                uses_request=True, field_name='path'),
-            GrpcMethod(
-                'list', uses_request=True, field_name='dir',
-                output_transform=transform_map(PathAttributes))
-        ]
-
-    def __init__(self, service, wrapped):
-        super(Path, self).__init__(service, wrapped)
-
-    @property
-    def filesystem(self):
-        return FileSystem(self.__service__, self.__wrapped__.filesystem)
-
-    def append_to_file(self, data_stream):
-        def append_request_stream():
-            yield xenon_pb2.AppendToFileRequest(path=self.__wrapped__)
-            yield from (xenon_pb2.AppendToFileRequest(buffer=b)
-                        for b in data_stream)
-
-        return self.__service__.appendToFile(append_request_stream())
-
-
-class FileSystem(OopProxy):
-    @classmethod
-    def __methods__(cls):
-        return [
-            GrpcMethod(
-                'rename', uses_request=True, field_name='filesystem'),
-            GrpcMethod(
-                'create_symbolic_link', uses_request=True,
-                field_name='filesystem'),
-            GrpcMethod(
-                'get_working_directory',
-                output_transform=Path),
-            GrpcMethod(
-                'is_open',
-                output_transform=lambda self, x: x.value),
-            GrpcMethod('close')
-        ]
-
-    @staticmethod
-    def create(server, *args, **kwargs):
-        return FileSystem(
-            server.file_systems.stub,
-            server.file_systems.create(*args, **kwargs))
-
-    def __init__(self, service, wrapped):
-        super(FileSystem, self).__init__(service, wrapped)
-
-    def path(self, path):
-        return Path(
-            self.__service__,
-            xenon_pb2.Path(filesystem=self.__wrapped__, path=path))
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_value, exc_tb):
-        self.close()
-
-
-class Scheduler(OopProxy):
-    @classmethod
-    def __methods__(cls):
-        return [
-            GrpcMethod(
-                'get_queues',
-                output_transform=lambda self, x: x.name),
-            GrpcMethod(
-                'get_default_queue_name',
-                output_transform=lambda self, x: x.name),
-            GrpcMethod(
-                'is_open',
-                output_transform=lambda self, x: x.value),
-            GrpcMethod('close'),
-            GrpcMethod(
-                'submit_batch_job',
-                uses_request=True, field_name='scheduler',
-                output_transform=lambda self, x: x.id),
-            # GrpcMethod(  # TODO handle streams
-            #     'submit_interactive_job',
-            #     output_transform=lambda self, x: x.id),
-            GrpcMethod(
-                'wait_until_done',
-                uses_request='JobWithTimeout', field_name='scheduler'),
-            GrpcMethod(
-                'get_queue_status',
-                uses_request='SchedulerAndQueue', field_name='scheduler'),
-            GrpcMethod(
-                'get_queue_statuses',
-                uses_request='SchedulerAndQueues', field_name='scheduler')
-        ]
-
-    @staticmethod
-    def create(server, *args, **kwargs):
-        return Scheduler(
-            server.schedulers.stub,
-            server.schedulers.create(*args, **kwargs))
-
-    def submit_interactive_job(self, description, stdin_stream):
-        def input_request_stream():
-            yield xenon_pb2.SubmitInteractiveJobRequest(
-                scheduler=unwrap(self), description=description, stdin=b'')
-            yield from (xenon_pb2.SubmitInteractiveJobRequest(
-                scheduler=None, description=None, stdin=msg)
-                for msg in stdin_stream)
-
-        return self.__service__.submitInteractiveJob(input_request_stream())
-
-    def __init__(self, service, wrapped):
-        super(Scheduler, self).__init__(service, wrapped)
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_value, exc_tb):
-        self.close()
