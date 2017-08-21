@@ -1,4 +1,5 @@
 from .proto import (xenon_pb2_grpc, xenon_pb2)
+from .objects import (FileSystem, Scheduler)
 
 import grpc
 import socket
@@ -136,7 +137,7 @@ class GRPCProxy:
         return getattr(getattr(xenon_pb2, self._method), attr)
 
 
-def request_wrapper(stub, name, request_name = None):
+def request_wrapper(stub, name, request_name=None):
     request_name = request_name or "{first}{rest}Request" \
         .format(first=name[0].upper(), rest=name[1:])
 
@@ -216,6 +217,12 @@ class Server(object):
         # Xenon proxies
         self.schedulers = None
         self.file_systems = None
+
+    def create_file_system(self, *args, **kwargs):
+        return FileSystem.create(self, *args, **kwargs)
+
+    def create_scheduler(self, *args, **kwargs):
+        return Scheduler.create(self, *args, **kwargs)
 
     def __getattr__(self, attr):
         if attr in dir(self) or attr[0] == '_':

@@ -1,11 +1,30 @@
 from .proto import xenon_pb2
 
 try:
+    from enum import Enum
+except ImportError as e:
+    use_enum = False
+
+    class Enum(object):
+        """Minimal Enum replacement."""
+        def __init__(self, name, items):
+            for k, v in items:
+                setattr(self, k, v)
+
+else:
+    use_enum = True
+
+try:
     from inspect import (Signature, Parameter, signature)
 except ImportError as e:
     use_signature = False
 else:
     use_signature = True
+
+
+def mirror_enum(name):
+    grpc_enum = getattr(xenon_pb2, name)
+    return Enum(name, grpc_enum.items())
 
 
 def to_camel_case(name):
@@ -104,9 +123,19 @@ def make_request(self, method, *args, **kwargs):
     if use_signature:
         new_args = tuple(unwrap(value) for value in args)
         bound_args = method.signature.bind(
-                unwrap(self), *new_args, **new_kwargs)
+                unwrap(self), *new_args, **new_kwargs).arguments
+
+        # if we encounter any Enum arguments, replace them with their value
+        for k in bound_args:
+            if isinstance(bound_args[k], Enum):
+                bound_args[k] = bound_args[k].value
+
+        # replace `self` with the correct keyword
         new_kwargs = {(kw if kw != 'self' else method.field_name): v
-                      for kw, v in bound_args.arguments.items()}
+                      for kw, v in bound_args.items()}
+
+        args = tuple(x.value if isinstance(x, Enum) else x for x in args)
+
     else:
         new_kwargs[self.field_name] = unwrap(self)
 
