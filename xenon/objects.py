@@ -59,6 +59,10 @@ def copy_request(self, source, dest_filesystem, dest_path,
 
 
 class Path(os.PathLike):
+    """Wrapper around `pathlib.PosixPath`. This class reveals a string
+    representation of the underlying path object to GRPC. You may use
+    this class like a `pathlib.PosixPath`, including using it as an
+    argument to `open` calls as it derives from `os.PathLike`."""
     __is_proxy__ = True
     __servicer__ = xenon_pb2_grpc.XenonFileSystemsServicer
 
@@ -98,6 +102,8 @@ class Path(os.PathLike):
         return dir(self._pathlib_path)
 
     def is_hidden(self):
+        """Checks if a file is hidden. Just compares the first character in the
+        filename with `'.'`."""
         return self.name[0] == '.'
 
 
@@ -108,6 +114,7 @@ class Path(os.PathLike):
 
 
 class FileSystem(OopProxy):
+    """Wraps the FileSystems sub-system."""
     __servicer__ = xenon_pb2_grpc.XenonFileSystemsServicer
 
     @classmethod
@@ -223,11 +230,16 @@ def input_request_stream(self, description, stdin_stream):
 
 
 class Scheduler(OopProxy):
+    """Wraps the Schedulers subsystem."""
     __servicer__ = xenon_pb2_grpc.XenonSchedulersServicer
 
     @classmethod
     def __methods__(cls):
         return [
+            GrpcMethod(
+                'get_jobs',
+                uses_request='SchedulerAndQueues', field_name='scheduler',
+                output_transform=lambda self, x: x.jobs),
             GrpcMethod(
                 'get_queues',
                 output_transform=lambda self, x: x.name),

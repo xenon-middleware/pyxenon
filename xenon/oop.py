@@ -42,6 +42,18 @@ def get_fields(msg_type):
 
 
 class GrpcMethod:
+    """Data container for a GRPC method.
+
+    :ivar name: underscore style of method name
+    :ivar uses_request: wether this method has a request, if this value is
+        `True`, the name is generated from `name`, if it is a string the
+        contents of this string are used.
+    :ivar field_name: name of `self` within the request.
+    :ivar input_transform: custom method to generate a request from the
+        method's arguments.
+    :ivar output_transform: custom method to extract the return value from
+        the return value.
+    """
     def __init__(self, name, uses_request=False, field_name=None,
                  input_transform=None, output_transform=None):
         self.name = name
@@ -56,6 +68,7 @@ class GrpcMethod:
 
     @property
     def request_name(self):
+        """Generate the name of the request."""
         if not self.uses_request:
             return None
 
@@ -66,6 +79,8 @@ class GrpcMethod:
 
     @property
     def request_type(self):
+        """Retrieve the type of the request, by fetching it from
+        `xenon.proto.xenon_pb2`."""
         if not self.uses_request:
             return None
 
@@ -74,6 +89,7 @@ class GrpcMethod:
     # python 3 only
     @property
     def signature(self):
+        """Create a signature for this method, only in Python > 3.4"""
         if not use_signature:
             raise NotImplementedError("Python 3 only.")
 
@@ -96,6 +112,7 @@ class GrpcMethod:
 
     # TODO extend documentation rendered from proto
     def docstring(self, servicer):
+        """Generate a doc-string."""
         s = getattr(servicer, to_lower_camel_case(self.name)).__doc__ or ""
 
         if self.uses_request:
@@ -115,6 +132,7 @@ def unwrap(arg):
 
 
 def make_request(self, method, *args, **kwargs):
+    """Creates a request from a method function call."""
     if args and not use_signature:
         raise NotImplementedError("Only keyword arguments allowed in Python2")
 
@@ -206,13 +224,21 @@ class OopProxy(metaclass=OopMeta):
     """Base class for Grpc Object wrappers. Ensures basic object sanity,
     namely the existence of `__service__` and `__wrapped__` members and
     the using of `OopMeta` meta-class. Also manages retrieving attributes
-    from the wrapped instance."""
+    from the wrapped instance.
+
+    :ivar __is_proxy__: if True, this value represents a wrapped value,
+        from which the GRPC message can be extraced by getting the
+        `__wrapped__` attribute.
+    :ivar __servicer__: if applicable, this gives the GRPC servicer class
+        associated with the proxy object; this is used to retrieve doc-strings.
+    """
 
     __is_proxy__ = True
     __servicer__ = None
 
     @classmethod
     def __methods__(cls):
+        """This method should return a list of GRPCMethod objects."""
         return []
 
     def __init__(self, service, wrapped):
@@ -220,4 +246,5 @@ class OopProxy(metaclass=OopMeta):
         self.__wrapped__ = wrapped
 
     def __getattr__(self, attr):
+        """Accesses fields of the corresponding GRPC message."""
         return getattr(self.__wrapped__, attr)
