@@ -1,7 +1,6 @@
 import os
 from threading import Thread
 from queue import Queue
-from xenon.objects import Scheduler
 
 
 def test_echo_job(xenon_server, tmpdir):
@@ -29,7 +28,7 @@ def test_echo_job(xenon_server, tmpdir):
 
 def test_echo_job_oop(xenon_server, tmpdir):
     xenon = xenon_server
-    with Scheduler.create(xenon, adaptor='local') as scheduler:
+    with xenon.create_scheduler(adaptor='local') as scheduler:
         file_name = str(tmpdir.join('hello.txt'))
         job_description = xenon.JobDescription(
             executable='/bin/bash',
@@ -115,7 +114,7 @@ def test_online_job(xenon_server):
 
 def test_online_job_oop(xenon_server):
     xenon = xenon_server
-    with Scheduler.create(xenon, adaptor='local') as scheduler:
+    with xenon.create_scheduler(adaptor='local') as scheduler:
         job_description = xenon.JobDescription(
             executable='cat',
             arguments=[],

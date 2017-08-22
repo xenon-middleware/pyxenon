@@ -1,4 +1,4 @@
-from xenon.objects import CopyMode
+from xenon.objects import CopyMode, Path
 
 import os
 
@@ -18,14 +18,15 @@ def test_copy_local_absolute(xenon_server, tmpdir):
     with open(source_file_name, 'w') as f:
         print("Hello, World!", file=f)
 
-    source_file = filesystem.path(str(tmpdir.join('thefile.txt')))
-    dest_file = filesystem.path(dest_file_name)
+    source_path = Path(source_file_name)
+    dest_path = Path(dest_file_name)
 
     # create the destination file only if the destination path doesn't
     # exist yet; perform the copy and wait 1000 ms for the successful or
     # otherwise completion of the operation
-    copy_id = source_file.copy(
-            dest_file, mode=CopyMode.CREATE, recursive=False)
+    copy_id = filesystem.copy(
+        source_path, filesystem, dest_path,
+        mode=CopyMode.CREATE, recursive=False)
     timeout_milli_secs = 1000
     copy_status = filesystem.wait_until_done(copy_id, timeout_milli_secs)
 
@@ -47,7 +48,7 @@ def test_copy_local_relative(xenon_server, tmpdir):
     # use the local file system adaptor to create a file system
     # representation
     filesystem = xenon.create_file_system(adaptor='file')
-    filesystem.set_working_directory(str(tmpdir))
+    filesystem.set_working_directory(Path(str(tmpdir)))
 
     # create Paths for the source and destination files, using absolute
     # paths
@@ -58,8 +59,9 @@ def test_copy_local_relative(xenon_server, tmpdir):
     # create the destination file only if the destination path doesn't
     # exist yet; perform the copy and wait 1000 ms for the successful or
     # otherwise completion of the operation
-    copy_id = source_file.copy(
-            dest_file, mode=CopyMode.CREATE, recursive=False)
+    copy_id = filesystem.copy(
+        source_file, filesystem, dest_file,
+        mode=CopyMode.CREATE, recursive=False)
     timeout_milli_secs = 1000
     copy_status = filesystem.wait_until_done(copy_id, timeout_milli_secs)
 
