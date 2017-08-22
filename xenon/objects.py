@@ -3,6 +3,7 @@ from .proto import (xenon_pb2, xenon_pb2_grpc)
 import pathlib
 import inspect
 import functools
+import os
 
 
 CopyMode = mirror_enum('CopyMode')
@@ -57,7 +58,7 @@ def copy_request(self, source, dest_filesystem, dest_path,
         mode=mode.value, recursive=recursive)
 
 
-class Path(object):
+class Path(os.PathLike):
     __is_proxy__ = True
     __servicer__ = xenon_pb2_grpc.XenonFileSystemsServicer
 
@@ -69,7 +70,10 @@ class Path(object):
 
     @property
     def __wrapped__(self):
-        return str(self._pathlib_path)
+        return self._pathlib_path.__fspath__()
+
+    def __fspath__(self):
+        return self._pathlib_path.__fspath__()
 
     def __getattr__(self, attr):
         member = getattr(self._pathlib_path, attr)
@@ -83,11 +87,18 @@ class Path(object):
                     return value
 
             return wrapped_member
+
+        elif isinstance(member, pathlib.PosixPath):
+            return Path(member)
+
         else:
             return member
 
     def __dir__(self):
         return dir(self._pathlib_path)
+
+    def is_hidden(self):
+        return self.name[0] == '.'
 
 
 # GrpcMethod('get_adaptor_descriptions', static=True),
