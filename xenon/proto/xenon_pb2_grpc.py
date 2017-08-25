@@ -4,7 +4,7 @@ import grpc
 from xenon.proto import xenon_pb2 as xenon_dot_proto_dot_xenon__pb2
 
 
-class XenonFileSystemsStub(object):
+class FileSystemServiceStub(object):
   """XenonFiles represents the Xenon nl.esciencecenter.xenon.filesystems.FileSystem class.
   This interface contains various methods for creating and closing FileSystems, creating Paths and operations on these Paths.
   """
@@ -16,325 +16,378 @@ class XenonFileSystemsStub(object):
       channel: A grpc.Channel.
     """
     self.getAdaptorDescriptions = channel.unary_unary(
-        '/xenon.XenonFileSystems/getAdaptorDescriptions',
+        '/xenon.FileSystemService/getAdaptorDescriptions',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystemAdaptorDescriptions.FromString,
         )
+    self.getAdaptorNames = channel.unary_unary(
+        '/xenon.FileSystemService/getAdaptorNames',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.AdaptorNames.FromString,
+        )
     self.getAdaptorDescription = channel.unary_unary(
-        '/xenon.XenonFileSystems/getAdaptorDescription',
+        '/xenon.FileSystemService/getAdaptorDescription',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.AdaptorName.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystemAdaptorDescription.FromString,
         )
     self.create = channel.unary_unary(
-        '/xenon.XenonFileSystems/create',
+        '/xenon.FileSystemService/create',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.CreateFileSystemRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
         )
+    self.getAdaptorName = channel.unary_unary(
+        '/xenon.FileSystemService/getAdaptorName',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.AdaptorName.FromString,
+        )
+    self.getLocation = channel.unary_unary(
+        '/xenon.FileSystemService/getLocation',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.Location.FromString,
+        )
+    self.getProperties = channel.unary_unary(
+        '/xenon.FileSystemService/getProperties',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.Properties.FromString,
+        )
     self.createDirectories = channel.unary_unary(
-        '/xenon.XenonFileSystems/createDirectories',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+        '/xenon.FileSystemService/createDirectories',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.createDirectory = channel.unary_unary(
-        '/xenon.XenonFileSystems/createDirectory',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+        '/xenon.FileSystemService/createDirectory',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.createFile = channel.unary_unary(
-        '/xenon.XenonFileSystems/createFile',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+        '/xenon.FileSystemService/createFile',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.createSymbolicLink = channel.unary_unary(
-        '/xenon.XenonFileSystems/createSymbolicLink',
+        '/xenon.FileSystemService/createSymbolicLink',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.CreateSymbolicLinkRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.copy = channel.unary_unary(
-        '/xenon.XenonFileSystems/copy',
+        '/xenon.FileSystemService/copy',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.CopyRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.CopyOperation.FromString,
         )
     self.cancel = channel.unary_unary(
-        '/xenon.XenonFileSystems/cancel',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.CopyOperation.SerializeToString,
+        '/xenon.FileSystemService/cancel',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.CopyOperationRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.CopyStatus.FromString,
         )
     self.getStatus = channel.unary_unary(
-        '/xenon.XenonFileSystems/getStatus',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.CopyOperation.SerializeToString,
+        '/xenon.FileSystemService/getStatus',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.CopyOperationRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.CopyStatus.FromString,
         )
     self.rename = channel.unary_unary(
-        '/xenon.XenonFileSystems/rename',
+        '/xenon.FileSystemService/rename',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.RenameRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.delete = channel.unary_unary(
-        '/xenon.XenonFileSystems/delete',
+        '/xenon.FileSystemService/delete',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.DeleteRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.exists = channel.unary_unary(
-        '/xenon.XenonFileSystems/exists',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+        '/xenon.FileSystemService/exists',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Is.FromString,
         )
     self.readFromFile = channel.unary_stream(
-        '/xenon.XenonFileSystems/readFromFile',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+        '/xenon.FileSystemService/readFromFile',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.ReadFromFileResponse.FromString,
         )
     self.writeToFile = channel.stream_unary(
-        '/xenon.XenonFileSystems/writeToFile',
+        '/xenon.FileSystemService/writeToFile',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.WriteToFileRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.appendToFile = channel.stream_unary(
-        '/xenon.XenonFileSystems/appendToFile',
+        '/xenon.FileSystemService/appendToFile',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.AppendToFileRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.list = channel.unary_stream(
-        '/xenon.XenonFileSystems/list',
+        '/xenon.FileSystemService/list',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.ListRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.PathAttributes.FromString,
         )
     self.getAttributes = channel.unary_unary(
-        '/xenon.XenonFileSystems/getAttributes',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+        '/xenon.FileSystemService/getAttributes',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.PathAttributes.FromString,
         )
     self.getWorkingDirectory = channel.unary_unary(
-        '/xenon.XenonFileSystems/getWorkingDirectory',
+        '/xenon.FileSystemService/getWorkingDirectory',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
         )
     self.setWorkingDirectory = channel.unary_unary(
-        '/xenon.XenonFileSystems/setWorkingDirectory',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+        '/xenon.FileSystemService/setWorkingDirectory',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.setPosixFilePermissions = channel.unary_unary(
-        '/xenon.XenonFileSystems/setPosixFilePermissions',
+        '/xenon.FileSystemService/setPosixFilePermissions',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.SetPosixFilePermissionsRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.readSymbolicLink = channel.unary_unary(
-        '/xenon.XenonFileSystems/readSymbolicLink',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
+        '/xenon.FileSystemService/readSymbolicLink',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
         )
     self.isOpen = channel.unary_unary(
-        '/xenon.XenonFileSystems/isOpen',
+        '/xenon.FileSystemService/isOpen',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Is.FromString,
         )
     self.close = channel.unary_unary(
-        '/xenon.XenonFileSystems/close',
+        '/xenon.FileSystemService/close',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.waitUntilDone = channel.unary_unary(
-        '/xenon.XenonFileSystems/waitUntilDone',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.CopyOperationWithTimeout.SerializeToString,
+        '/xenon.FileSystemService/waitUntilDone',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.WaitUntilDoneRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.CopyStatus.FromString,
         )
     self.localFileSystems = channel.unary_unary(
-        '/xenon.XenonFileSystems/localFileSystems',
+        '/xenon.FileSystemService/localFileSystems',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystems.FromString,
         )
     self.listFileSystems = channel.unary_unary(
-        '/xenon.XenonFileSystems/listFileSystems',
+        '/xenon.FileSystemService/listFileSystems',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystems.FromString,
         )
 
 
-class XenonFileSystemsServicer(object):
+class FileSystemServiceServicer(object):
   """XenonFiles represents the Xenon nl.esciencecenter.xenon.filesystems.FileSystem class.
   This interface contains various methods for creating and closing FileSystems, creating Paths and operations on these Paths.
   """
 
   def getAdaptorDescriptions(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Gives a list of the descriptions of the available adaptors.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getAdaptorNames(self, request, context):
+    """Gives a list names of the available adaptors.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getAdaptorDescription(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Gives the description of the adaptor with the given name.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def create(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Create a new FileSystem using the adaptor that connects to a data store at location using the credentials to get access.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getAdaptorName(self, request, context):
+    """Get the name of the adaptor that created this FileSystem.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getLocation(self, request, context):
+    """Get the location that this FileSystem is connected to.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getProperties(self, request, context):
+    """Get the properties used to create this FileSystem.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def createDirectories(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Creates a new directory, including parent directories, failing if the directory already exists.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def createDirectory(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Creates a new directory, failing if the directory already exists.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def createFile(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Creates a new empty file, failing if the file already exists.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def createSymbolicLink(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Creates a new symbolic link, failing if the link already exists
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def copy(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Asynchronously Copy an existing source path to a target path on a different file system.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def cancel(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Cancel a copy operation.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getStatus(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Retrieve the status of an copy.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def rename(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Rename an existing source path to a non-existing target path
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def delete(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Deletes an existing path.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def exists(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Tests if a path exists.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def readFromFile(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Open an existing file and return an InputStream to read from this file.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def writeToFile(self, request_iterator, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Open a file and return an OutputStream to write to this file.
+    In Xenon library if request is missing size field then FileSystem.writeToFile(Path file) is used
+    else FileSystem.writeToFile(Path path, long size) is used
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def appendToFile(self, request_iterator, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Open an existing file and return an OutputStream to append data to this file.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def list(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """List all entries in the directory dir.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getAttributes(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Get the PathAttributes of an existing path.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getWorkingDirectory(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Get the current working directory of this file system.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def setWorkingDirectory(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Set the current working directory of this file system to directory.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def setPosixFilePermissions(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Sets the POSIX permissions of a path
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def readSymbolicLink(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Reads the target of a symbolic link
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def isOpen(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Return if the connection to the FileSystem is open.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def close(self, request, context):
-    """Closes a filestem, any actions running it with this filestystem will be terminated, will also forget the filesystem
-    Any pending/running copy operations will be killed
+    """Close this filestem
+    Any pending/running copy operations of this filestystem will be terminated
+    Will also forget this filesystem
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def waitUntilDone(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Wait until a copy operation is done or until a timeout expires.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def localFileSystems(self, request, context):
     """Returns filesystems for all local drives
+    Not part of FileSystem class in Xenon library
+    In Xenon library available as LocalFileSystemUtils.getLocalFileSystems()
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
@@ -349,12 +402,17 @@ class XenonFileSystemsServicer(object):
     raise NotImplementedError('Method not implemented!')
 
 
-def add_XenonFileSystemsServicer_to_server(servicer, server):
+def add_FileSystemServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'getAdaptorDescriptions': grpc.unary_unary_rpc_method_handler(
           servicer.getAdaptorDescriptions,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystemAdaptorDescriptions.SerializeToString,
+      ),
+      'getAdaptorNames': grpc.unary_unary_rpc_method_handler(
+          servicer.getAdaptorNames,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.AdaptorNames.SerializeToString,
       ),
       'getAdaptorDescription': grpc.unary_unary_rpc_method_handler(
           servicer.getAdaptorDescription,
@@ -366,19 +424,34 @@ def add_XenonFileSystemsServicer_to_server(servicer, server):
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.CreateFileSystemRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
       ),
+      'getAdaptorName': grpc.unary_unary_rpc_method_handler(
+          servicer.getAdaptorName,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.AdaptorName.SerializeToString,
+      ),
+      'getLocation': grpc.unary_unary_rpc_method_handler(
+          servicer.getLocation,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.Location.SerializeToString,
+      ),
+      'getProperties': grpc.unary_unary_rpc_method_handler(
+          servicer.getProperties,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.Properties.SerializeToString,
+      ),
       'createDirectories': grpc.unary_unary_rpc_method_handler(
           servicer.createDirectories,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
       ),
       'createDirectory': grpc.unary_unary_rpc_method_handler(
           servicer.createDirectory,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
       ),
       'createFile': grpc.unary_unary_rpc_method_handler(
           servicer.createFile,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
       ),
       'createSymbolicLink': grpc.unary_unary_rpc_method_handler(
@@ -393,12 +466,12 @@ def add_XenonFileSystemsServicer_to_server(servicer, server):
       ),
       'cancel': grpc.unary_unary_rpc_method_handler(
           servicer.cancel,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.CopyOperation.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.CopyOperationRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.CopyStatus.SerializeToString,
       ),
       'getStatus': grpc.unary_unary_rpc_method_handler(
           servicer.getStatus,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.CopyOperation.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.CopyOperationRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.CopyStatus.SerializeToString,
       ),
       'rename': grpc.unary_unary_rpc_method_handler(
@@ -413,12 +486,12 @@ def add_XenonFileSystemsServicer_to_server(servicer, server):
       ),
       'exists': grpc.unary_unary_rpc_method_handler(
           servicer.exists,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Is.SerializeToString,
       ),
       'readFromFile': grpc.unary_stream_rpc_method_handler(
           servicer.readFromFile,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.ReadFromFileResponse.SerializeToString,
       ),
       'writeToFile': grpc.stream_unary_rpc_method_handler(
@@ -438,7 +511,7 @@ def add_XenonFileSystemsServicer_to_server(servicer, server):
       ),
       'getAttributes': grpc.unary_unary_rpc_method_handler(
           servicer.getAttributes,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.PathAttributes.SerializeToString,
       ),
       'getWorkingDirectory': grpc.unary_unary_rpc_method_handler(
@@ -448,7 +521,7 @@ def add_XenonFileSystemsServicer_to_server(servicer, server):
       ),
       'setWorkingDirectory': grpc.unary_unary_rpc_method_handler(
           servicer.setWorkingDirectory,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
       ),
       'setPosixFilePermissions': grpc.unary_unary_rpc_method_handler(
@@ -458,7 +531,7 @@ def add_XenonFileSystemsServicer_to_server(servicer, server):
       ),
       'readSymbolicLink': grpc.unary_unary_rpc_method_handler(
           servicer.readSymbolicLink,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
       ),
       'isOpen': grpc.unary_unary_rpc_method_handler(
@@ -473,7 +546,7 @@ def add_XenonFileSystemsServicer_to_server(servicer, server):
       ),
       'waitUntilDone': grpc.unary_unary_rpc_method_handler(
           servicer.waitUntilDone,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.CopyOperationWithTimeout.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.WaitUntilDoneRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.CopyStatus.SerializeToString,
       ),
       'localFileSystems': grpc.unary_unary_rpc_method_handler(
@@ -488,11 +561,11 @@ def add_XenonFileSystemsServicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'xenon.XenonFileSystems', rpc_method_handlers)
+      'xenon.FileSystemService', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))
 
 
-class XenonSchedulersStub(object):
+class SchedulerServiceStub(object):
   """The Jobs API of Xenon. This interface creates various methods for creating and closing Schedulers, submitting jobs, and retrieving information about schedulers and jobs.
   """
 
@@ -503,230 +576,282 @@ class XenonSchedulersStub(object):
       channel: A grpc.Channel.
     """
     self.getAdaptorDescriptions = channel.unary_unary(
-        '/xenon.XenonSchedulers/getAdaptorDescriptions',
+        '/xenon.SchedulerService/getAdaptorDescriptions',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.SchedulerAdaptorDescriptions.FromString,
         )
+    self.getAdaptorNames = channel.unary_unary(
+        '/xenon.SchedulerService/getAdaptorNames',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.AdaptorNames.FromString,
+        )
     self.getAdaptorDescription = channel.unary_unary(
-        '/xenon.XenonSchedulers/getAdaptorDescription',
+        '/xenon.SchedulerService/getAdaptorDescription',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.AdaptorName.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.SchedulerAdaptorDescription.FromString,
         )
     self.create = channel.unary_unary(
-        '/xenon.XenonSchedulers/create',
+        '/xenon.SchedulerService/create',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.CreateSchedulerRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
         )
+    self.getAdaptorName = channel.unary_unary(
+        '/xenon.SchedulerService/getAdaptorName',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.AdaptorName.FromString,
+        )
+    self.getLocation = channel.unary_unary(
+        '/xenon.SchedulerService/getLocation',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.Location.FromString,
+        )
+    self.getProperties = channel.unary_unary(
+        '/xenon.SchedulerService/getProperties',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.Properties.FromString,
+        )
     self.submitBatchJob = channel.unary_unary(
-        '/xenon.XenonSchedulers/submitBatchJob',
+        '/xenon.SchedulerService/submitBatchJob',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.SubmitBatchJobRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Job.FromString,
         )
     self.submitInteractiveJob = channel.stream_stream(
-        '/xenon.XenonSchedulers/submitInteractiveJob',
+        '/xenon.SchedulerService/submitInteractiveJob',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.SubmitInteractiveJobRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.SubmitInteractiveJobResponse.FromString,
         )
-    self.getQueues = channel.unary_unary(
-        '/xenon.XenonSchedulers/getQueues',
+    self.getQueueNames = channel.unary_unary(
+        '/xenon.SchedulerService/getQueueNames',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Queues.FromString,
         )
     self.getDefaultQueueName = channel.unary_unary(
-        '/xenon.XenonSchedulers/getDefaultQueueName',
+        '/xenon.SchedulerService/getDefaultQueueName',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Queue.FromString,
         )
     self.getJobs = channel.unary_unary(
-        '/xenon.XenonSchedulers/getJobs',
+        '/xenon.SchedulerService/getJobs',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.SchedulerAndQueues.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Jobs.FromString,
         )
     self.getJobStatus = channel.unary_unary(
-        '/xenon.XenonSchedulers/getJobStatus',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Job.SerializeToString,
+        '/xenon.SchedulerService/getJobStatus',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.JobRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.FromString,
         )
     self.getJobStatuses = channel.unary_unary(
-        '/xenon.XenonSchedulers/getJobStatuses',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Jobs.SerializeToString,
-        response_deserializer=xenon_dot_proto_dot_xenon__pb2.JobStatuses.FromString,
+        '/xenon.SchedulerService/getJobStatuses',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.GetJobStatusesRequest.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.GetJobStatusesResponse.FromString,
         )
     self.getQueueStatus = channel.unary_unary(
-        '/xenon.XenonSchedulers/getQueueStatus',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.SchedulerAndQueue.SerializeToString,
+        '/xenon.SchedulerService/getQueueStatus',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.GetQueueStatusRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.QueueStatus.FromString,
         )
     self.getQueueStatuses = channel.unary_unary(
-        '/xenon.XenonSchedulers/getQueueStatuses',
+        '/xenon.SchedulerService/getQueueStatuses',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.SchedulerAndQueues.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.QueueStatuses.FromString,
         )
     self.waitUntilDone = channel.unary_unary(
-        '/xenon.XenonSchedulers/waitUntilDone',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.JobWithTimeout.SerializeToString,
+        '/xenon.SchedulerService/waitUntilDone',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.WaitRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.FromString,
         )
     self.waitUntilRunning = channel.unary_unary(
-        '/xenon.XenonSchedulers/waitUntilRunning',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.JobWithTimeout.SerializeToString,
+        '/xenon.SchedulerService/waitUntilRunning',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.WaitRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.FromString,
         )
     self.isOpen = channel.unary_unary(
-        '/xenon.XenonSchedulers/isOpen',
+        '/xenon.SchedulerService/isOpen',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Is.FromString,
         )
     self.cancelJob = channel.unary_unary(
-        '/xenon.XenonSchedulers/cancelJob',
-        request_serializer=xenon_dot_proto_dot_xenon__pb2.Job.SerializeToString,
+        '/xenon.SchedulerService/cancelJob',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.JobRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.FromString,
         )
     self.close = channel.unary_unary(
-        '/xenon.XenonSchedulers/close',
+        '/xenon.SchedulerService/close',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
         )
     self.localScheduler = channel.unary_unary(
-        '/xenon.XenonSchedulers/localScheduler',
+        '/xenon.SchedulerService/localScheduler',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
         )
     self.listSchedulers = channel.unary_unary(
-        '/xenon.XenonSchedulers/listSchedulers',
+        '/xenon.SchedulerService/listSchedulers',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Empty.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Schedulers.FromString,
         )
 
 
-class XenonSchedulersServicer(object):
+class SchedulerServiceServicer(object):
   """The Jobs API of Xenon. This interface creates various methods for creating and closing Schedulers, submitting jobs, and retrieving information about schedulers and jobs.
   """
 
   def getAdaptorDescriptions(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Gives a list of the descriptions of the available adaptors.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getAdaptorNames(self, request, context):
+    """Gives a list names of the available adaptors.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getAdaptorDescription(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Gives the description of the adaptor with the given name.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def create(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Create a new Scheduler using the adaptor connecting to the location using credentials to get access.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getAdaptorName(self, request, context):
+    """Get the name of the adaptor that created this Scheduler.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getLocation(self, request, context):
+    """Get the location that this Scheduler is connected to.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getProperties(self, request, context):
+    """Get the properties used to create this Scheduler.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def submitBatchJob(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Submit a batch job.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def submitInteractiveJob(self, request_iterator, context):
-    """The first response message in the response stream will contain the job identifier and empty stdout and stdout.
+    """Submit an interactive job
+    The first response message in the response stream will contain the job identifier and empty stdout and stdout.
     Other response messages will also contain the job identifier and filled stdout and/or stderr.
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def getQueues(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+  def getQueueNames(self, request, context):
+    """Get the queue names supported by this Scheduler.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getDefaultQueueName(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Get the name of the default queue.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getJobs(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Get all job identifier of jobs currently in (one ore more) queues.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getJobStatus(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Get the status of a Job.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getJobStatuses(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Get the status of all specified jobs.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getQueueStatus(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Get the status of the queue.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def getQueueStatuses(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Get the status of all queues.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def waitUntilDone(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Wait until a job is done or until a timeout expires.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def waitUntilRunning(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Wait until a job starts running, or until a timeout expires.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def isOpen(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Test if the connection of this Scheduler is open.
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def cancelJob(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Cancel a job
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def close(self, request, context):
-    """Close scheduler and forget it
+    """Close this Scheduler.
     If scheduler is embedded then any pending/running jobs will be killed
+    Will also forget this scheduler
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def localScheduler(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Get scheduler on local filesystem with default location, credential and no properties
+    Not part of Scheduler class in Xenon library
+    In Xenon library available as Scheduler.create("local")
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -740,12 +865,17 @@ class XenonSchedulersServicer(object):
     raise NotImplementedError('Method not implemented!')
 
 
-def add_XenonSchedulersServicer_to_server(servicer, server):
+def add_SchedulerServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'getAdaptorDescriptions': grpc.unary_unary_rpc_method_handler(
           servicer.getAdaptorDescriptions,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.SchedulerAdaptorDescriptions.SerializeToString,
+      ),
+      'getAdaptorNames': grpc.unary_unary_rpc_method_handler(
+          servicer.getAdaptorNames,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Empty.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.AdaptorNames.SerializeToString,
       ),
       'getAdaptorDescription': grpc.unary_unary_rpc_method_handler(
           servicer.getAdaptorDescription,
@@ -757,6 +887,21 @@ def add_XenonSchedulersServicer_to_server(servicer, server):
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.CreateSchedulerRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
       ),
+      'getAdaptorName': grpc.unary_unary_rpc_method_handler(
+          servicer.getAdaptorName,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.AdaptorName.SerializeToString,
+      ),
+      'getLocation': grpc.unary_unary_rpc_method_handler(
+          servicer.getLocation,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.Location.SerializeToString,
+      ),
+      'getProperties': grpc.unary_unary_rpc_method_handler(
+          servicer.getProperties,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.Properties.SerializeToString,
+      ),
       'submitBatchJob': grpc.unary_unary_rpc_method_handler(
           servicer.submitBatchJob,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.SubmitBatchJobRequest.FromString,
@@ -767,8 +912,8 @@ def add_XenonSchedulersServicer_to_server(servicer, server):
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.SubmitInteractiveJobRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.SubmitInteractiveJobResponse.SerializeToString,
       ),
-      'getQueues': grpc.unary_unary_rpc_method_handler(
-          servicer.getQueues,
+      'getQueueNames': grpc.unary_unary_rpc_method_handler(
+          servicer.getQueueNames,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Queues.SerializeToString,
       ),
@@ -784,17 +929,17 @@ def add_XenonSchedulersServicer_to_server(servicer, server):
       ),
       'getJobStatus': grpc.unary_unary_rpc_method_handler(
           servicer.getJobStatus,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Job.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.JobRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.SerializeToString,
       ),
       'getJobStatuses': grpc.unary_unary_rpc_method_handler(
           servicer.getJobStatuses,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Jobs.FromString,
-          response_serializer=xenon_dot_proto_dot_xenon__pb2.JobStatuses.SerializeToString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.GetJobStatusesRequest.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.GetJobStatusesResponse.SerializeToString,
       ),
       'getQueueStatus': grpc.unary_unary_rpc_method_handler(
           servicer.getQueueStatus,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.SchedulerAndQueue.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.GetQueueStatusRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.QueueStatus.SerializeToString,
       ),
       'getQueueStatuses': grpc.unary_unary_rpc_method_handler(
@@ -804,12 +949,12 @@ def add_XenonSchedulersServicer_to_server(servicer, server):
       ),
       'waitUntilDone': grpc.unary_unary_rpc_method_handler(
           servicer.waitUntilDone,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.JobWithTimeout.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.WaitRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.SerializeToString,
       ),
       'waitUntilRunning': grpc.unary_unary_rpc_method_handler(
           servicer.waitUntilRunning,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.JobWithTimeout.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.WaitRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.SerializeToString,
       ),
       'isOpen': grpc.unary_unary_rpc_method_handler(
@@ -819,7 +964,7 @@ def add_XenonSchedulersServicer_to_server(servicer, server):
       ),
       'cancelJob': grpc.unary_unary_rpc_method_handler(
           servicer.cancelJob,
-          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Job.FromString,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.JobRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.SerializeToString,
       ),
       'close': grpc.unary_unary_rpc_method_handler(
@@ -839,5 +984,5 @@ def add_XenonSchedulersServicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'xenon.XenonSchedulers', rpc_method_handlers)
+      'xenon.SchedulerService', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))

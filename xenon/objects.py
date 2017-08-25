@@ -6,7 +6,7 @@ import functools
 import os
 
 
-CopyMode = mirror_enum('CopyMode')
+# CopyMode = mirror_enum('CopyMode')
 PosixFilePermission = mirror_enum('PosixFilePermission')
 
 
@@ -19,67 +19,68 @@ class PathAttributes(OopProxy):
         return Path(self.__wrapped__.path.path)
 
 
+class CopyOperation(OopProxy):
+    pass
+
+
+class Job(OopProxy):
+    pass
+
+
+class Is(OopProxy):
+    def __bool__(self):
+        return self.value
+
+
 def append_request_stream(self, path, data_stream):
     yield xenon_pb2.AppendToFileRequest(
-        path=xenon_pb2.Path(filesystem=self.__wrapped__,
-                            path=unwrap(path)))
+            filesystem=unwrap(self), path=unwrap(path))
     yield from (xenon_pb2.AppendToFileRequest(buffer=b)
                 for b in data_stream)
 
 
 def write_request_stream(self, path, data_stream):
     yield xenon_pb2.WriteToFileRequest(
-        path=xenon_pb2.Path(filesystem=self.__wrapped__,
-                            path=unwrap(path)))
+            filesystem=unwrap(self), path=unwrap(path))
     yield from (xenon_pb2.WriteToFileRequest(buffer=b)
                 for b in data_stream)
 
 
-def path_transform(request_name, field_name='path'):
-    request_type = getattr(xenon_pb2, request_name)
-
-    def message_with_path(self, path, **kwargs):
-        return request_type(
-            path=xenon_pb2.Path(
-                filesystem=self.__wrapped__,
-                path=unwrap(path)),
-            **kwargs)
-
-    return message_with_path
-
-
-def copy_request(self, source, dest_filesystem, dest_path,
-                 mode=None, recursive=None):
-    return xenon_pb2.CopyRequest(
-        source=xenon_pb2.Path(filesystem=self.__wrapped__,
-                              path=unwrap(source)),
-        target=xenon_pb2.Path(filesystem=dest_filesystem.__wrapped__,
-                              path=unwrap(dest_path)),
-        mode=mode.value, recursive=recursive)
-
-
-class Path(os.PathLike):
+class Path(object):
     """Wrapper around `pathlib.PosixPath`. This class reveals a string
     representation of the underlying path object to GRPC. You may use
     this class like a `pathlib.PosixPath`, including using it as an
     argument to `open` calls as it derives from `os.PathLike`."""
     __is_proxy__ = True
-    __servicer__ = xenon_pb2_grpc.XenonFileSystemsServicer
+    __servicer__ = xenon_pb2_grpc.FileSystemServiceServicer
 
     def __init__(self, path):
         if isinstance(path, pathlib.PosixPath):
             self._pathlib_path = path
+        elif isinstance(path, xenon_pb2.Path):
+            self._pathlib_path = pathlib.PosixPath(path.path)
         else:
             self._pathlib_path = pathlib.PosixPath(path)
 
+    def __str__(self):
+        return str(self._pathlib_path)
+
     @property
     def __wrapped__(self):
-        return self._pathlib_path.__fspath__()
+        return xenon_pb2.Path(
+            path=str(self._pathlib_path),  # .__fspath__(),
+            separator='/')
 
     def __fspath__(self):
         return self._pathlib_path.__fspath__()
 
     def __getattr__(self, attr):
+        if attr == '__wrapped__':
+            print("Warning: faulty Python behaviour.")
+            return xenon_pb2.Path(
+                path=str(self._pathlib_path),  # .__fspath__(),
+                separator='/')
+
         member = getattr(self._pathlib_path, attr)
         if inspect.ismethod(member):
             @functools.wraps(member)
@@ -99,7 +100,7 @@ class Path(os.PathLike):
             return member
 
     def __dir__(self):
-        return dir(self._pathlib_path)
+        return dir(self._pathlib_path) + dir(self)
 
     def is_hidden(self):
         """Checks if a file is hidden. Just compares the first character in the
@@ -107,70 +108,64 @@ class Path(os.PathLike):
         return self.name[0] == '.'
 
 
-# GrpcMethod('get_adaptor_descriptions', static=True),
-# GrpcMethod(
-#     'get_adaptor_description', static=True,
-#     uses_request='AdaptorName'),
-
-
 class FileSystem(OopProxy):
     """Wraps the FileSystems sub-system."""
-    __servicer__ = xenon_pb2_grpc.XenonFileSystemsServicer
+    __servicer__ = xenon_pb2_grpc.FileSystemServiceServicer
+    __field_name__ = 'filesystem'
 
     @classmethod
     def __methods__(cls):
         return [
+            GrpcMethod('get_adaptor_name', output_transform=lambda self, x: x.name),
             GrpcMethod(
-                'rename', uses_request=True, field_name='filesystem'),
+                'rename', uses_request=True),
             GrpcMethod(
-                'create_symbolic_link', uses_request=True,
-                field_name='filesystem'),
+                'create_symbolic_link', uses_request=True),
             GrpcMethod(
                 'get_working_directory',
-                output_transform=lambda self, x: Path(x.path)),
+                output_transform=Path),
             GrpcMethod(
                 'set_working_directory',
-                uses_request='Path', field_name='filesystem'),
+                uses_request='PathRequest'),
             GrpcMethod(
                 'is_open',
-                output_transform=lambda self, x: x.value),
+                output_transform=Is),
             GrpcMethod('close'),
             GrpcMethod(
                 'cancel',
-                uses_request='CopyOperation', field_name='filesystem'),
+                uses_request='CopyOperationRequest'),
             GrpcMethod(
                 'get_status',
-                uses_request='CopyOperation', field_name='filesystem'),
+                uses_request='CopyOperationRequest'),
             GrpcMethod(
                 'wait_until_done',
-                uses_request='CopyOperationWithTimeout',
-                field_name='filesystem'),
+                uses_request=True),
 
             # Path methods
             GrpcMethod(
                 'create_directories',
-                uses_request='Path', field_name='filesystem'),
+                uses_request='PathRequest'),
             GrpcMethod(
                 'create_directory',
-                uses_request='Path', field_name='filesystem'),
+                uses_request='PathRequest'),
             GrpcMethod(
                 'create_file',
-                uses_request='Path', field_name='filesystem'),
+                uses_request='PathRequest'),
             GrpcMethod(
                 'exists',
-                uses_request='Path', field_name='filesystem',
-                output_transform=lambda self, x: x.value),
+                uses_request='PathRequest',
+                output_transform=Is),
             GrpcMethod(
                 'read_from_file',
-                uses_request='Path', field_name='filesystem'),
+                uses_request='PathRequest'),
             GrpcMethod(
                 'get_attributes',
-                uses_request='Path', field_name='filesystem',
+                uses_request='PathRequest',
                 output_transform=PathAttributes),
             GrpcMethod(
                 'read_symbolic_link',
-                uses_request='Path', field_name='filesystem',
-                output_transform=lambda self, x: Path(x.path)),
+                uses_request='PathRequest',
+                output_transform=Path),
 
             GrpcMethod(
                 'write_to_file',
@@ -179,21 +174,13 @@ class FileSystem(OopProxy):
                 'append_to_file',
                 input_transform=append_request_stream),
 
+            GrpcMethod('delete', uses_request=True),
             GrpcMethod(
-                'delete',
-                input_transform=path_transform('DeleteRequest')),
+                'copy', uses_request=True,
+                output_transform=CopyOperation),
+            GrpcMethod('set_posix_file_permissions', uses_request=True),
             GrpcMethod(
-                'copy',
-                input_transform=copy_request,
-                output_transform=lambda self, x: x.id),
-            GrpcMethod(
-                'set_posix_file_permissions',
-                input_transform=path_transform(
-                    'SetPosixFilePermissionsRequest')),
-            GrpcMethod(
-                'list',
-                input_transform=path_transform(
-                    'ListRequest', field_name='dir'),
+                'list', uses_request=True,
                 output_transform=transform_map(PathAttributes))
         ]
 
@@ -223,25 +210,35 @@ class FileSystem(OopProxy):
 
 def input_request_stream(self, description, stdin_stream):
     yield xenon_pb2.SubmitInteractiveJobRequest(
-        scheduler=self.__wrapped__, description=description, stdin=b'')
+        scheduler=unwrap(self), description=description, stdin=b'')
     yield from (xenon_pb2.SubmitInteractiveJobRequest(
         scheduler=None, description=None, stdin=msg)
         for msg in stdin_stream)
 
 
+def interactive_job_response(self, stream):
+    job = stream.next().job
+    return job, stream
+
+
 class Scheduler(OopProxy):
     """Wraps the Schedulers subsystem."""
-    __servicer__ = xenon_pb2_grpc.XenonSchedulersServicer
+    __servicer__ = xenon_pb2_grpc.SchedulerServiceServicer
+    __field_name__ = 'scheduler'
 
     @classmethod
     def __methods__(cls):
         return [
+            GrpcMethod('get_adaptor_name', output_transform=lambda self, x: x.name),
+            GrpcMethod('get_location', output_transform=lambda self, x: x.location),
+            GrpcMethod('get_properties', output_transform=lambda self, x: x.properties),
+
             GrpcMethod(
                 'get_jobs',
-                uses_request='SchedulerAndQueues', field_name='scheduler',
+                uses_request='SchedulerAndQueues',
                 output_transform=lambda self, x: x.jobs),
             GrpcMethod(
-                'get_queues',
+                'get_queue_names',
                 output_transform=lambda self, x: x.name),
             GrpcMethod(
                 'get_default_queue_name',
@@ -252,20 +249,17 @@ class Scheduler(OopProxy):
             GrpcMethod('close'),
             GrpcMethod(
                 'submit_batch_job',
-                uses_request=True, field_name='scheduler',
-                output_transform=lambda self, x: x.id),
+                uses_request=True,
+                output_transform=Job),
             GrpcMethod(
                 'submit_interactive_job',
-                input_transform=input_request_stream),
-            GrpcMethod(
-                'wait_until_done',
-                uses_request='JobWithTimeout', field_name='scheduler'),
-            GrpcMethod(
-                'get_queue_status',
-                uses_request='SchedulerAndQueue', field_name='scheduler'),
-            GrpcMethod(
-                'get_queue_statuses',
-                uses_request='SchedulerAndQueues', field_name='scheduler')
+                input_transform=input_request_stream,
+                output_transform=interactive_job_response),
+            GrpcMethod('cancel_job', uses_request='JobRequest'),
+            GrpcMethod('wait_until_done', uses_request='WaitRequest'),
+            GrpcMethod('wait_until_running', uses_request='WaitRequest'),
+            GrpcMethod('get_queue_status', uses_request=True),
+            GrpcMethod('get_queue_statuses', uses_request='SchedulerAndQueues')
         ]
 
     @staticmethod

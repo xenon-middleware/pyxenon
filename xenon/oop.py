@@ -151,8 +151,8 @@ def make_request(self, method, *args, **kwargs):
         # replace `self` with the correct keyword
         new_kwargs = {(kw if kw != 'self' else method.field_name): v
                       for kw, v in bound_args.items()}
-
-        args = tuple(x.value if isinstance(x, Enum) else x for x in args)
+        print("Calling {} with {}".format(method.name, bound_args))
+        # args = tuple(x.value if isinstance(x, Enum) else x for x in args)
 
     else:
         new_kwargs[self.field_name] = unwrap(self)
@@ -210,6 +210,9 @@ class OopMeta(type):
         super(OopMeta, cls).__init__(name, parents, dct)
 
         for m in cls.__methods__():
+            if m.uses_request and not m.field_name:
+                m.field_name = cls.__field_name__
+
             f = method_wrapper(m)
             if use_signature:
                 f.__signature__ = m.signature
@@ -235,6 +238,7 @@ class OopProxy(metaclass=OopMeta):
 
     __is_proxy__ = True
     __servicer__ = None
+    __field_name__ = None
 
     @classmethod
     def __methods__(cls):
