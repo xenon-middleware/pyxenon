@@ -43,7 +43,7 @@ def test_files_writing_oop(xenon_server, tmpdir):
         remotefs.create_file(Path(test_file))
 
         data_stream = iter("{}\n".format(x).encode() for x in test_data)
-        remotefs.append_to_file(test_file, data_stream)
+        remotefs.append_to_file(Path(test_file), data_stream)
 
         out_data = [int(line.strip())
                     for line in open(test_file) if line != '']

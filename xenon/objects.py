@@ -68,8 +68,8 @@ class Path(object):
     @property
     def __wrapped__(self):
         return xenon_pb2.Path(
-            path=str(self._pathlib_path),  # .__fspath__(),
-            separator='/')
+            path=str(self._pathlib_path))  # .__fspath__(),
+            # separator='/')
 
     def __fspath__(self):
         return self._pathlib_path.__fspath__()
@@ -78,8 +78,8 @@ class Path(object):
         if attr == '__wrapped__':
             print("Warning: faulty Python behaviour.")
             return xenon_pb2.Path(
-                path=str(self._pathlib_path),  # .__fspath__(),
-                separator='/')
+                path=str(self._pathlib_path))  # .__fspath__(),
+                # separator='/')
 
         member = getattr(self._pathlib_path, attr)
         if inspect.ismethod(member):
@@ -100,7 +100,7 @@ class Path(object):
             return member
 
     def __dir__(self):
-        return dir(self._pathlib_path) + dir(self)
+        return list(set(dir(self._pathlib_path) + dir(self)))
 
     def is_hidden(self):
         """Checks if a file is hidden. Just compares the first character in the
@@ -123,7 +123,7 @@ class FileSystem(OopProxy):
                 'create_symbolic_link', uses_request=True),
             GrpcMethod(
                 'get_working_directory',
-                output_transform=Path),
+                output_transform=lambda self, x: Path(x)),
             GrpcMethod(
                 'set_working_directory',
                 uses_request='PathRequest'),
@@ -165,7 +165,7 @@ class FileSystem(OopProxy):
             GrpcMethod(
                 'read_symbolic_link',
                 uses_request='PathRequest',
-                output_transform=Path),
+                output_transform=lambda self, x: Path(x)),
 
             GrpcMethod(
                 'write_to_file',
