@@ -68,8 +68,8 @@ class Path(object):
     @property
     def __wrapped__(self):
         return xenon_pb2.Path(
-            path=str(self._pathlib_path))  # .__fspath__(),
-            # separator='/')
+            path=str(self._pathlib_path),  # .__fspath__(),
+            separator='/')
 
     def __fspath__(self):
         return self._pathlib_path.__fspath__()
@@ -78,8 +78,8 @@ class Path(object):
         if attr == '__wrapped__':
             print("Warning: faulty Python behaviour.")
             return xenon_pb2.Path(
-                path=str(self._pathlib_path))  # .__fspath__(),
-                # separator='/')
+                path=str(self._pathlib_path),  # .__fspath__(),
+                separator='/')
 
         member = getattr(self._pathlib_path, attr)
         if inspect.ismethod(member):
@@ -108,6 +108,10 @@ class Path(object):
         return self.name[0] == '.'
 
 
+def t_getattr(name):
+    return lambda self, x: getattr(x, name)
+
+
 class FileSystem(OopProxy):
     """Wraps the FileSystems sub-system."""
     __servicer__ = xenon_pb2_grpc.FileSystemServiceServicer
@@ -116,7 +120,8 @@ class FileSystem(OopProxy):
     @classmethod
     def __methods__(cls):
         return [
-            GrpcMethod('get_adaptor_name', output_transform=lambda self, x: x.name),
+            GrpcMethod(
+                'get_adaptor_name', output_transform=t_getattr('name')),
             GrpcMethod(
                 'rename', uses_request=True),
             GrpcMethod(
@@ -125,60 +130,44 @@ class FileSystem(OopProxy):
                 'get_working_directory',
                 output_transform=lambda self, x: Path(x)),
             GrpcMethod(
-                'set_working_directory',
-                uses_request='PathRequest'),
+                'set_working_directory', uses_request='PathRequest'),
             GrpcMethod(
-                'is_open',
-                output_transform=Is),
-            GrpcMethod('close'),
+                'is_open', output_transform=Is),
             GrpcMethod(
-                'cancel',
-                uses_request='CopyOperationRequest'),
+                'close'),
             GrpcMethod(
-                'get_status',
-                uses_request='CopyOperationRequest'),
+                'cancel', uses_request='CopyOperationRequest'),
             GrpcMethod(
-                'wait_until_done',
-                uses_request=True),
-
-            # Path methods
+                'get_status', uses_request='CopyOperationRequest'),
             GrpcMethod(
-                'create_directories',
-                uses_request='PathRequest'),
+                'wait_until_done', uses_request=True),
             GrpcMethod(
-                'create_directory',
-                uses_request='PathRequest'),
+                'create_directories', uses_request='PathRequest'),
             GrpcMethod(
-                'create_file',
-                uses_request='PathRequest'),
+                'create_directory', uses_request='PathRequest'),
             GrpcMethod(
-                'exists',
-                uses_request='PathRequest',
+                'create_file', uses_request='PathRequest'),
+            GrpcMethod(
+                'exists', uses_request='PathRequest',
                 output_transform=Is),
             GrpcMethod(
-                'read_from_file',
-                uses_request='PathRequest'),
+                'read_from_file', uses_request='PathRequest'),
             GrpcMethod(
-                'get_attributes',
-                uses_request='PathRequest',
+                'get_attributes', uses_request='PathRequest',
                 output_transform=PathAttributes),
             GrpcMethod(
-                'read_symbolic_link',
-                uses_request='PathRequest',
+                'read_symbolic_link', uses_request='PathRequest',
                 output_transform=lambda self, x: Path(x)),
-
             GrpcMethod(
-                'write_to_file',
-                input_transform=write_request_stream),
+                'write_to_file', input_transform=write_request_stream),
             GrpcMethod(
-                'append_to_file',
-                input_transform=append_request_stream),
-
-            GrpcMethod('delete', uses_request=True),
+                'append_to_file', input_transform=append_request_stream),
             GrpcMethod(
-                'copy', uses_request=True,
-                output_transform=CopyOperation),
-            GrpcMethod('set_posix_file_permissions', uses_request=True),
+                'delete', uses_request=True),
+            GrpcMethod(
+                'copy', uses_request=True, output_transform=CopyOperation),
+            GrpcMethod(
+                'set_posix_file_permissions', uses_request=True),
             GrpcMethod(
                 'list', uses_request=True,
                 output_transform=transform_map(PathAttributes))
@@ -229,37 +218,39 @@ class Scheduler(OopProxy):
     @classmethod
     def __methods__(cls):
         return [
-            GrpcMethod('get_adaptor_name', output_transform=lambda self, x: x.name),
-            GrpcMethod('get_location', output_transform=lambda self, x: x.location),
-            GrpcMethod('get_properties', output_transform=lambda self, x: x.properties),
-
             GrpcMethod(
-                'get_jobs',
-                uses_request='SchedulerAndQueues',
-                output_transform=lambda self, x: x.jobs),
+                'get_adaptor_name', output_transform=t_getattr('name')),
             GrpcMethod(
-                'get_queue_names',
-                output_transform=lambda self, x: x.name),
+                'get_location', output_transform=t_getattr('location')),
             GrpcMethod(
-                'get_default_queue_name',
-                output_transform=lambda self, x: x.name),
+                'get_properties', output_transform=t_getattr('properties')),
             GrpcMethod(
-                'is_open',
-                output_transform=lambda self, x: x.value),
-            GrpcMethod('close'),
+                'get_jobs', uses_request='SchedulerAndQueues',
+                output_transform=t_getattr('jobs')),
             GrpcMethod(
-                'submit_batch_job',
-                uses_request=True,
+                'get_queue_names', output_transform=t_getattr('name')),
+            GrpcMethod(
+                'get_default_queue_name', output_transform=t_getattr('name')),
+            GrpcMethod(
+                'is_open', output_transform=t_getattr('value')),
+            GrpcMethod(
+                'close'),
+            GrpcMethod(
+                'submit_batch_job', uses_request=True,
                 output_transform=Job),
             GrpcMethod(
-                'submit_interactive_job',
-                input_transform=input_request_stream,
+                'submit_interactive_job', input_transform=input_request_stream,
                 output_transform=interactive_job_response),
-            GrpcMethod('cancel_job', uses_request='JobRequest'),
-            GrpcMethod('wait_until_done', uses_request='WaitRequest'),
-            GrpcMethod('wait_until_running', uses_request='WaitRequest'),
-            GrpcMethod('get_queue_status', uses_request=True),
-            GrpcMethod('get_queue_statuses', uses_request='SchedulerAndQueues')
+            GrpcMethod(
+                'cancel_job', uses_request='JobRequest'),
+            GrpcMethod(
+                'wait_until_done', uses_request='WaitRequest'),
+            GrpcMethod(
+                'wait_until_running', uses_request='WaitRequest'),
+            GrpcMethod(
+                'get_queue_status', uses_request=True),
+            GrpcMethod(
+                'get_queue_statuses', uses_request='SchedulerAndQueues')
         ]
 
     @staticmethod
