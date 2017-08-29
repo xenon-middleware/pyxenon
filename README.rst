@@ -9,6 +9,16 @@ Until we release PyXenon 2.0, we don't ship the `xenon-grpc` `jar` file in this 
 
 To generate the `grpc` code, run `scripts/protoc.sh` from the project root.
 
+Testing
+-------
+
+Run the following docker container to test against remote slurm
+
+.. code-block:: bash
+
+    docker run --detach --publish 10022:22 nlesc/xenon-slurm:17
+
+
 Old README
 ==========
 
@@ -65,7 +75,7 @@ running after python has finished execution.
 See `JPype documentation <https://jpype.readthedocs.io>`__ for how to
 use Java classes in Python.
 
-.. code:: python
+.. code-block:: python
 
     import xenon
     import os
@@ -104,7 +114,8 @@ documentation in the corresponding Xenon class. To construct Java classes, use
 For other custom classes or packages the ``xenon.JavaClass`` or
 ``xenon.JavaPackage`` classes.
 
-.. code:: python
+.. code-block:: python
+
     import xenon
     xenon.init()
 

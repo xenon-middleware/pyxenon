@@ -70,6 +70,9 @@ class Path(object):
             path=str(self._pathlib_path),  # .__fspath__(),
             separator='/')
 
+    def __truediv__(self, other):
+        return Path(self._pathlib_path / other)
+
     def __fspath__(self):
         return self._pathlib_path.__fspath__()
 
