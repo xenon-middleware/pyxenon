@@ -1,8 +1,23 @@
 from xenon import (
     PasswordCredential, FileSystem, CopyRequest, Path, CopyStatus,
     Scheduler, JobDescription)
+from functools import wraps
 
 
+def repeat(n):
+    def repeater(f):
+        @wraps(f)
+        def repeated_test(*args, **kwargs):
+            for i in range(1, n+1):
+                print("repeating {} : {}".format(f.__name__, i))
+                f(*args, **kwargs)
+
+        return repeated_test
+
+    return repeater
+
+
+@repeat(10)
 def test_rse_tutorial(xenon_server, tmpdir, slurm_container):
     xenon = xenon_server
     tmpdir = Path(str(tmpdir))

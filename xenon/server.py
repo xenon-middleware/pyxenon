@@ -13,7 +13,7 @@ import time
 from contextlib import closing
 
 logger = logging.getLogger('xenon')
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.ERROR)
 
 logger_handler = logging.StreamHandler()
 logger_handler.setLevel(logging.INFO)
