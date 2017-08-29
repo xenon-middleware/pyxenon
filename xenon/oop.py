@@ -55,12 +55,14 @@ class GrpcMethod:
         the return value.
     """
     def __init__(self, name, uses_request=False, field_name=None,
-                 input_transform=None, output_transform=None):
+                 input_transform=None, output_transform=None,
+                 static=False):
         self.name = name
         self.uses_request = uses_request
         self.field_name = field_name
         self.input_transform = input_transform
         self.output_transform = output_transform
+        self.static = static
 
     @property
     def is_simple(self):
@@ -178,27 +180,28 @@ def transform_map(f):
 def method_wrapper(m):
     """Generates a method from a `GrpcMethod` definition."""
 
-    def simple_method(self):
-        f = getattr(self.__service__, to_lower_camel_case(m.name))
-        return apply_transform(self, m.output_transform, f(unwrap(self)))
-
     if m.is_simple:
+        def simple_method(self):
+            f = getattr(self.__service__, to_lower_camel_case(m.name))
+            return apply_transform(self, m.output_transform, f(unwrap(self)))
+
         return simple_method
 
-    def transform_method(self, *args, **kwargs):
-        f = getattr(self.__service__, to_lower_camel_case(m.name))
-        request = m.input_transform(self, *args, **kwargs)
-        return apply_transform(self, m.output_transform, f(request))
+    elif m.input_transform is not None:
+        def transform_method(self, *args, **kwargs):
+            f = getattr(self.__service__, to_lower_camel_case(m.name))
+            request = m.input_transform(self, *args, **kwargs)
+            return apply_transform(self, m.output_transform, f(request))
 
-    if m.input_transform is not None:
         return transform_method
 
-    def request_method(self, *args, **kwargs):
-        f = getattr(self.__service__, to_lower_camel_case(m.name))
-        request = make_request(self, m, *args, **kwargs)
-        return apply_transform(self, m.output_transform, f(request))
+    else:
+        def request_method(self, *args, **kwargs):
+            f = getattr(self.__service__, to_lower_camel_case(m.name))
+            request = make_request(self, m, *args, **kwargs)
+            return apply_transform(self, m.output_transform, f(request))
 
-    return request_method
+        return request_method
 
 
 class OopMeta(type):
