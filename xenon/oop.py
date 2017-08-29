@@ -66,11 +66,15 @@ class GrpcMethod:
 
     @property
     def is_simple(self):
-        return not self.uses_request and not self.input_transform
+        return not self.uses_request and not self.input_transform \
+                and not self.static
 
     @property
     def request_name(self):
         """Generate the name of the request."""
+        if self.static and not self.uses_request:
+            return 'Empty'
+
         if not self.uses_request:
             return None
 
@@ -83,6 +87,9 @@ class GrpcMethod:
     def request_type(self):
         """Retrieve the type of the request, by fetching it from
         `xenon.proto.xenon_pb2`."""
+        if self.static and not self.uses_request:
+            return getattr(xenon_pb2, 'Empty')
+
         if not self.uses_request:
             return None
 
@@ -95,16 +102,25 @@ class GrpcMethod:
         if not use_signature:
             raise NotImplementedError("Python 3 only.")
 
-        parameters = \
-            (Parameter(name='self', kind=Parameter.POSITIONAL_ONLY),)
+        if self.static:
+            parameters = \
+                (Parameter(name='server',
+                           kind=Parameter.POSITIONAL_OR_KEYWORD),)
+        else:
+            parameters = \
+                (Parameter(name='self',
+                           kind=Parameter.POSITIONAL_ONLY),)
 
         if self.input_transform:
             return signature(self.input_transform)
 
         if self.uses_request:
             fields = get_fields(self.request_type)
-            assert self.field_name in fields
-            fields.remove(self.field_name)
+            if not self.static:
+                assert self.field_name in fields, \
+                    "field '{}' not found in {}".format(
+                        self.field_name, self.request_name)
+                fields.remove(self.field_name)
             parameters += tuple(
                 Parameter(name=name, kind=Parameter.POSITIONAL_OR_KEYWORD,
                           default=None)
@@ -115,7 +131,8 @@ class GrpcMethod:
     # TODO extend documentation rendered from proto
     def docstring(self, servicer):
         """Generate a doc-string."""
-        s = getattr(servicer, to_lower_camel_case(self.name)).__doc__ or ""
+        s = getattr(servicer, to_lower_camel_case(self.name)).__doc__ \
+            or "TODO: no docstring in .proto file"
 
         if self.uses_request:
             s += "\n"
@@ -131,6 +148,30 @@ def unwrap(arg):
         return arg.__wrapped__
     else:
         return arg
+
+
+def make_static_request(method, *args, **kwargs):
+    """Creates a request from a static method function call."""
+    if args and not use_signature:
+        raise NotImplementedError("Only keyword arguments allowed in Python2")
+
+    if use_signature:
+        new_kwargs = {kw: unwrap(value) for kw, value in kwargs.items()}
+        new_args = tuple(unwrap(value) for value in args)
+        bound_args = method.signature.bind(
+                None, *new_args, **new_kwargs).arguments
+
+        # if we encounter any Enum arguments, replace them with their value
+        for k in bound_args:
+            if isinstance(bound_args[k], Enum):
+                bound_args[k] = bound_args[k].value
+
+        new_kwargs = {kw: v for kw, v in bound_args.items() if kw != 'server'}
+
+    else:
+        new_kwargs = {kw: unwrap(value) for kw, value in kwargs.items()}
+
+    return method.request_type(**new_kwargs)
 
 
 def make_request(self, method, *args, **kwargs):
@@ -153,21 +194,20 @@ def make_request(self, method, *args, **kwargs):
         # replace `self` with the correct keyword
         new_kwargs = {(kw if kw != 'self' else method.field_name): v
                       for kw, v in bound_args.items()}
-        print("Calling {} with {}".format(method.name, bound_args))
         # args = tuple(x.value if isinstance(x, Enum) else x for x in args)
 
     else:
         new_kwargs[self.field_name] = unwrap(self)
 
-    return getattr(xenon_pb2, method.request_name)(**new_kwargs)
+    return method.request_type(**new_kwargs)
 
 
-def apply_transform(self, t, x):
+def apply_transform(service, t, x):
     """Apply a transformation using `self` as object reference."""
     if t is None:
         return x
     else:
-        return t(self.__service__, x)
+        return t(service, x)
 
 
 def transform_map(f):
@@ -182,24 +222,40 @@ def method_wrapper(m):
 
     if m.is_simple:
         def simple_method(self):
+            """TODO: no docstring!"""
             f = getattr(self.__service__, to_lower_camel_case(m.name))
-            return apply_transform(self, m.output_transform, f(unwrap(self)))
+            return apply_transform(
+                    self.__service__, m.output_transform, f(unwrap(self)))
 
         return simple_method
 
     elif m.input_transform is not None:
         def transform_method(self, *args, **kwargs):
+            """TODO: no docstring!"""
             f = getattr(self.__service__, to_lower_camel_case(m.name))
             request = m.input_transform(self, *args, **kwargs)
-            return apply_transform(self, m.output_transform, f(request))
+            return apply_transform(
+                    self.__service__, m.output_transform, f(request))
 
         return transform_method
 
+    elif m.static:
+        def static_method(cls, server, *args, **kwargs):
+            """TODO: no docstring!"""
+            f = getattr(cls.__stub__(server), to_lower_camel_case(m.name))
+            request = make_static_request(m, *args, **kwargs)
+            return apply_transform(
+                    cls.__stub__(server), m.output_transform, f(request))
+
+        return static_method
+
     else:
         def request_method(self, *args, **kwargs):
+            """TODO: no docstring!"""
             f = getattr(self.__service__, to_lower_camel_case(m.name))
             request = make_request(self, m, *args, **kwargs)
-            return apply_transform(self, m.output_transform, f(request))
+            return apply_transform(
+                    self.__service__, m.output_transform, f(request))
 
         return request_method
 
@@ -223,7 +279,12 @@ class OopMeta(type):
             if cls.__servicer__:
                 f.__doc__ = m.docstring(cls.__servicer__)
 
-            setattr(cls, m.name, f)
+            f.__name__ = m.name
+
+            if m.static:
+                setattr(cls, m.name, classmethod(f))
+            else:
+                setattr(cls, m.name, f)
 
 
 class OopProxy(metaclass=OopMeta):
@@ -251,6 +312,10 @@ class OopProxy(metaclass=OopMeta):
     def __init__(self, service, wrapped):
         self.__service__ = service
         self.__wrapped__ = wrapped
+
+    @staticmethod
+    def __stub__(server):
+        raise NotImplementedError()
 
     def __getattr__(self, attr):
         """Accesses fields of the corresponding GRPC message."""

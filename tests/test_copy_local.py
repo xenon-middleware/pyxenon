@@ -1,5 +1,4 @@
-from xenon.objects import Path
-from xenon.proto.xenon_pb2 import CopyRequest
+from xenon import (FileSystem, Path, CopyRequest)
 
 import os
 
@@ -7,11 +6,9 @@ import os
 def test_copy_local_absolute(xenon_server, tmpdir):
     xenon = xenon_server
 
-    with xenon.create_file_system(adaptor='file') as filesystem:
-        # use the local file system adaptor to create a file system
-        # representation
-        filesystem = xenon.create_file_system(adaptor='file')
-
+    # use the local file system adaptor to create a file system
+    # representation
+    with FileSystem.create(xenon, adaptor='file') as filesystem:
         # create Paths for the source and destination files, using absolute
         # paths
         dest_file_name = str(tmpdir.join('thefile.bak'))
@@ -48,7 +45,7 @@ def test_copy_local_relative(xenon_server, tmpdir):
 
     # use the local file system adaptor to create a file system
     # representation
-    filesystem = xenon.create_file_system(adaptor='file')
+    filesystem = FileSystem.create(xenon, adaptor='file')
     filesystem.set_working_directory(Path(str(tmpdir)))
 
     # create Paths for the source and destination files, using absolute

@@ -3,7 +3,6 @@ from .proto import (xenon_pb2, xenon_pb2_grpc)
 import pathlib
 import inspect
 import functools
-import os
 
 
 # CopyMode = mirror_enum('CopyMode')
@@ -121,6 +120,29 @@ class FileSystem(OopProxy):
     def __methods__(cls):
         return [
             GrpcMethod(
+                'get_adaptor_descriptions', static=True,
+                output_transform=t_getattr('descriptions')),
+            GrpcMethod(
+                'get_adaptor_names', static=True,
+                output_transform=t_getattr('name')),
+            GrpcMethod(
+                'get_adaptor_description', uses_request='AdaptorName',
+                static=True),
+            GrpcMethod(
+                'create', static=True,
+                uses_request='CreateFileSystemRequest',
+                output_transform=cls),
+
+            GrpcMethod(
+                'local_file_systems', static=True,
+                output_transform=lambda s, xs:
+                    (cls(s, x) for x in xs.filesystems)),
+            GrpcMethod(
+                'list_file_systems', static=True,
+                output_transform=lambda s, xs:
+                    (cls(s, x) for x in xs.filesystems)),
+
+            GrpcMethod(
                 'get_adaptor_name', output_transform=t_getattr('name')),
             GrpcMethod(
                 'rename', uses_request=True),
@@ -174,10 +196,8 @@ class FileSystem(OopProxy):
         ]
 
     @staticmethod
-    def create(server, *args, **kwargs):
-        return FileSystem(
-            server.file_systems.stub,
-            server.file_systems.create(*args, **kwargs))
+    def __stub__(server):
+        return server.file_system_stub
 
     def __init__(self, service, wrapped):
         super(FileSystem, self).__init__(service, wrapped)
@@ -219,6 +239,24 @@ class Scheduler(OopProxy):
     def __methods__(cls):
         return [
             GrpcMethod(
+                'local_scheduler', static=True, output_transform=cls),
+            GrpcMethod(
+                'list_schedulers', static=True,
+                output_transform=lambda s, xs:
+                    (cls(s, x) for x in xs.schedulers)),
+
+            GrpcMethod(
+                'get_adaptor_descriptions', static=True),
+            GrpcMethod(
+                'get_adaptor_names', static=True),
+            GrpcMethod(
+                'get_adaptor_description', static=True,
+                uses_request='AdaptorName'),
+            GrpcMethod(
+                'create', static=True, uses_request='CreateSchedulerRequest',
+                output_transform=cls),
+
+            GrpcMethod(
                 'get_adaptor_name', output_transform=t_getattr('name')),
             GrpcMethod(
                 'get_location', output_transform=t_getattr('location')),
@@ -253,14 +291,12 @@ class Scheduler(OopProxy):
                 'get_queue_statuses', uses_request='SchedulerAndQueues')
         ]
 
-    @staticmethod
-    def create(server, *args, **kwargs):
-        return Scheduler(
-            server.schedulers.stub,
-            server.schedulers.create(*args, **kwargs))
-
     def __init__(self, service, wrapped):
         super(Scheduler, self).__init__(service, wrapped)
+
+    @staticmethod
+    def __stub__(server):
+        return server.scheduler_stub
 
     def __enter__(self):
         return self

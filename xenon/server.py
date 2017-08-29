@@ -1,5 +1,4 @@
 from .proto import (xenon_pb2_grpc, xenon_pb2)
-from .objects import (FileSystem, Scheduler)
 
 import grpc
 import socket
@@ -137,52 +136,6 @@ class GRPCProxy:
         return getattr(getattr(xenon_pb2, self._method), attr)
 
 
-def request_wrapper(stub, name, request_name=None):
-    request_name = request_name or "{first}{rest}Request" \
-        .format(first=name[0].upper(), rest=name[1:])
-
-    def send_request(**kwargs):
-        request = getattr(xenon_pb2, request_name)(**kwargs)
-        return getattr(stub, name)(request)
-
-    return send_request
-
-
-class ProxyBase(object):
-    def __init__(self, stub, object_name):
-        self.stub = stub
-        self.object_name = object_name
-
-    def __getattr__(self, attr):
-        if attr in dir(self) or attr[0] == '_':
-            return getattr(super(ProxyBase, self), attr)
-
-        # translate to camelCase
-        if '_' in attr:
-            attr = to_camel_case(attr)
-
-        # create method is special
-        if attr == 'create':
-            request_name = "Create{}Request".format(self.object_name)
-            return request_wrapper(self.stub, attr, request_name)
-
-        return getattr(self.stub, attr)
-
-
-class SchedulerServiceProxy(ProxyBase):
-    def __init__(self, channel):
-        super(SchedulerServiceProxy, self).__init__(
-            xenon_pb2_grpc.SchedulerServiceStub(channel),
-            'Scheduler')
-
-
-class FileSystemServiceProxy(ProxyBase):
-    def __init__(self, channel):
-        super(FileSystemServiceProxy, self).__init__(
-            xenon_pb2_grpc.FileSystemServiceStub(channel),
-            'FileSystem')
-
-
 class Server(object):
     """Xenon Server. This tries to find a running Xenon-GRPC server,
     or start one if not found. This implementation only works on Unix.
@@ -201,17 +154,12 @@ class Server(object):
         self.schedulers = None
         self.file_systems = None
 
-    def create_file_system(self, *args, **kwargs):
-        return FileSystem.create(self, *args, **kwargs)
+    # def __getattr__(self, attr):
+    #     logger.warning('depricated interface used: Server.__getattr__')
+    #     if attr in dir(self) or attr[0] == '_':
+    #         return getattr(super(Server, self), attr)
 
-    def create_scheduler(self, *args, **kwargs):
-        return Scheduler.create(self, *args, **kwargs)
-
-    def __getattr__(self, attr):
-        if attr in dir(self) or attr[0] == '_':
-            return getattr(super(Server, self), attr)
-
-        return GRPCProxy(attr)
+    #     return GRPCProxy(attr)
 
     def __enter__(self):
         if check_socket('localhost', self.port):
@@ -232,8 +180,10 @@ class Server(object):
         logger.info('Connecting to server')
         self.channel = grpc.insecure_channel('localhost:{}'.format(self.port))
 
-        self.file_systems = FileSystemServiceProxy(self.channel)
-        self.schedulers = SchedulerServiceProxy(self.channel)
+        self.file_system_stub = xenon_pb2_grpc.FileSystemServiceStub(
+                self.channel)
+        self.scheduler_stub = xenon_pb2_grpc.SchedulerServiceStub(
+                self.channel)
         return self
 
     def __exit__(self, exc_type, exc_value, exc_tb):

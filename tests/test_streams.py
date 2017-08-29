@@ -1,5 +1,5 @@
 import random
-from xenon.objects import Path
+from xenon import (FileSystem, Path)
 
 
 def read_lines(stream):
@@ -14,7 +14,8 @@ def read_lines(stream):
 def test_files_reading_oop(xenon_server, tmpdir):
     xenon = xenon_server
 
-    with xenon.create_file_system(
+    with FileSystem.create(
+            xenon,
             adaptor='sftp', location='localhost') as remotefs:
         test_data = [random.randint(0, 255) for i in range(16)]
 
@@ -35,7 +36,8 @@ def test_files_reading_oop(xenon_server, tmpdir):
 def test_files_writing_oop(xenon_server, tmpdir):
     xenon = xenon_server
 
-    with xenon.create_file_system(
+    with FileSystem.create(
+            xenon,
             adaptor='sftp', location='localhost') as remotefs:
         test_data = [random.randint(0, 255) for i in range(16)]
 

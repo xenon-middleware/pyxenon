@@ -2,12 +2,14 @@ import os
 from threading import Thread
 from queue import Queue
 
+from xenon import (Scheduler, JobDescription)
+
 
 def test_echo_job_oop(xenon_server, tmpdir):
     xenon = xenon_server
-    with xenon.create_scheduler(adaptor='local') as scheduler:
+    with Scheduler.create(xenon, adaptor='local') as scheduler:
         file_name = str(tmpdir.join('hello.txt'))
-        job_description = xenon.JobDescription(
+        job_description = JobDescription(
             executable='/bin/bash',
             arguments=['-c', 'echo "Hello, World!"'],
             stdout=file_name)
@@ -40,8 +42,8 @@ def timeout(delay, call, *args, **kwargs):
 
 def test_online_job_oop(xenon_server):
     xenon = xenon_server
-    with xenon.create_scheduler(adaptor='local') as scheduler:
-        job_description = xenon.JobDescription(
+    with Scheduler.create(xenon, adaptor='local') as scheduler:
+        job_description = JobDescription(
             executable='cat',
             arguments=[],
             queue_name='multi')

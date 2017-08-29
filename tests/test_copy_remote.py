@@ -1,7 +1,7 @@
 import random
 import filecmp
-from xenon.proto.xenon_pb2 import CopyRequest
-from xenon.objects import Path
+
+from xenon import (FileSystem, CopyRequest, Path)
 
 
 def test_download_remote(xenon_server, tmpdir):
@@ -15,13 +15,15 @@ def test_download_remote(xenon_server, tmpdir):
         print(x, file=f)
     f.close()
 
-    remote_fs = xenon.create_file_system(
+    remote_fs = FileSystem.create(
+            xenon,
             adaptor='sftp',
             location='localhost')
 
     # use the local file system adaptor to create a file system
     # representation
-    local_fs = xenon.create_file_system(
+    local_fs = FileSystem.create(
+            xenon,
             adaptor='file')
 
     # define which file to download
