@@ -1,6 +1,7 @@
 import random
 import filecmp
-from xenon.objects import Path, CopyMode
+from xenon.proto.xenon_pb2 import CopyRequest
+from xenon.objects import Path
 
 
 def test_download_remote(xenon_server, tmpdir):
@@ -9,7 +10,7 @@ def test_download_remote(xenon_server, tmpdir):
 
     test_data = [random.randint(0, 255) for i in range(16)]
     test_file = tmpdir.joinpath('random.txt')
-    f = open(test_file, 'w')
+    f = open(str(test_file), 'w')
     for x in test_data:
         print(x, file=f)
     f.close()
@@ -33,7 +34,7 @@ def test_download_remote(xenon_server, tmpdir):
 
     # create the destination file only if the destination path doesn't
     # exist yet
-    mode = CopyMode.CREATE
+    mode = CopyRequest.CREATE
 
     # no need to recurse, we're just downloading a file
     recursive = False
@@ -45,12 +46,12 @@ def test_download_remote(xenon_server, tmpdir):
             mode=mode, recursive=recursive)
     copy_status = remote_fs.wait_until_done(copy_id, timeout=1000)
 
-    if copy_status.error:
-        print(copy_status.error)
+    if copy_status.error_message:
+        print(copy_status.error_message)
     else:
         print('Done')
 
-    assert filecmp.cmp(local_file, remote_file)
+    assert filecmp.cmp(str(local_file), str(remote_file))
 
     # remember to close the FileSystem instances, or use them as
     # context managers

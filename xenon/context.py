@@ -149,9 +149,8 @@ def request_wrapper(stub, name, request_name=None):
 
 
 class ProxyBase(object):
-    def __init__(self, stub, object_name, wrappers):
+    def __init__(self, stub, object_name):
         self.stub = stub
-        self.wrappers = wrappers
         self.object_name = object_name
 
     def __getattr__(self, attr):
@@ -167,37 +166,21 @@ class ProxyBase(object):
             request_name = "Create{}Request".format(self.object_name)
             return request_wrapper(self.stub, attr, request_name)
 
-        if attr in self.wrappers:
-            return request_wrapper(self.stub, attr)
-
         return getattr(self.stub, attr)
 
 
-class SchedulersProxy(ProxyBase):
+class SchedulerServiceProxy(ProxyBase):
     def __init__(self, channel):
-        super(SchedulersProxy, self).__init__(
-            xenon_pb2_grpc.XenonSchedulersStub(channel),
-            'Scheduler',
-            ['submitBatchJob'])
-
-    def submit_interactive_job(self, scheduler, description, stdin_stream):
-        def input_request_stream():
-            yield xenon_pb2.SubmitInteractiveJobRequest(
-                scheduler=scheduler, description=description, stdin=b'')
-            yield from (xenon_pb2.SubmitInteractiveJobRequest(
-                scheduler=scheduler, description=description, stdin=msg)
-                for msg in stdin_stream)
-
-        return self.stub.submitInteractiveJob(input_request_stream())
+        super(SchedulerServiceProxy, self).__init__(
+            xenon_pb2_grpc.SchedulerServiceStub(channel),
+            'Scheduler')
 
 
-class FileSystemsProxy(ProxyBase):
+class FileSystemServiceProxy(ProxyBase):
     def __init__(self, channel):
-        super(FileSystemsProxy, self).__init__(
-            xenon_pb2_grpc.XenonFileSystemsStub(channel),
-            'FileSystem',
-            ['createSymbolicLink', 'copy', 'rename', 'delete',
-             'list', 'setPosixFilePermissions'])
+        super(FileSystemServiceProxy, self).__init__(
+            xenon_pb2_grpc.FileSystemServiceStub(channel),
+            'FileSystem')
 
 
 class Server(object):
@@ -249,8 +232,8 @@ class Server(object):
         logger.info('Connecting to server')
         self.channel = grpc.insecure_channel('localhost:{}'.format(self.port))
 
-        self.file_systems = FileSystemsProxy(self.channel)
-        self.schedulers = SchedulersProxy(self.channel)
+        self.file_systems = FileSystemServiceProxy(self.channel)
+        self.schedulers = SchedulerServiceProxy(self.channel)
         return self
 
     def __exit__(self, exc_type, exc_value, exc_tb):
