@@ -9,3 +9,8 @@ __pycache__/
 /.idea/
 /.cache/
 /.tox/
+
+# vim
+*.swp
+*~
+

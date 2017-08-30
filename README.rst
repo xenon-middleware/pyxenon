@@ -1,8 +1,30 @@
-Python interface to Xenon
-=========================
+Python interface to Xenon, GRPC Branch
+======================================
+
+We're rewriting PyXenon on top of the GRPC API for Xenon. This work will result in version 2.0 of PyXenon.
+
+Development
+-----------
+Until we release PyXenon 2.0, we don't ship the `xenon-grpc` `jar` file in this repository. Build it manually, following instructions at `Xenon-GRPC <https://github.com/nlesc/xenon-grpc>`__, and place the contents of the `build/install/xenon-grpc-shadow` folder somewhere findable.
+
+To generate the `grpc` code, run `scripts/protoc.sh` from the project root.
+
+Testing
+-------
+
+Run the following docker container to test against remote slurm
+
+.. code-block:: bash
+
+    docker run --detach --publish 10022:22 nlesc/xenon-slurm:17
+
+
+Old README
+==========
 
 |Python versions| |DOI| |PyPi version| |Apache 2 License| |Build Status|
 |Codacy Badge|
+
 
 Python interface to the `Xenon middleware
 library <http://nlesc.github.io/Xenon/>`__. Xenon provides a simple
@@ -53,7 +75,7 @@ running after python has finished execution.
 See `JPype documentation <https://jpype.readthedocs.io>`__ for how to
 use Java classes in Python.
 
-.. code:: python
+.. code-block:: python
 
     import xenon
     import os
@@ -92,7 +114,8 @@ documentation in the corresponding Xenon class. To construct Java classes, use
 For other custom classes or packages the ``xenon.JavaClass`` or
 ``xenon.JavaPackage`` classes.
 
-.. code:: python
+.. code-block:: python
+
     import xenon
     xenon.init()
 

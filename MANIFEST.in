@@ -1,7 +1,0 @@
-include setup.py
-include LICENSE
-include NOTICE
-include README.rst
-include requirements.txt
-recursive-include notices
-recursive-include xenon/libs *.jar *.xml
