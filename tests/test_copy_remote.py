@@ -18,8 +18,7 @@ def test_download_remote(xenon_server, tmpdir):
 
     # use the local file system adaptor to create a file system
     # representation
-    local_fs = FileSystem.create(
-            adaptor='file')
+    local_fs = FileSystem.create(adaptor='file')
 
     # define which file to download
     remote_file = tmpdir.joinpath('random.txt')
@@ -39,8 +38,8 @@ def test_download_remote(xenon_server, tmpdir):
     # perform the copy/download and wait 1000 ms for the successful or
     # otherwise completion of the operation
     copy_id = remote_fs.copy(
-            remote_file, local_fs, local_file,
-            mode=mode, recursive=recursive)
+        remote_file, local_fs, local_file,
+        mode=mode, recursive=recursive)
     copy_status = remote_fs.wait_until_done(copy_id, timeout=1000)
 
     if copy_status.error_message:
