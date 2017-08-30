@@ -1,19 +1,23 @@
-from xenon import (Server as Xenon)
+import xenon
+from xenon import (Scheduler, JobDescription, JobStatus, Path)
 
 
-with Xenon() as xenon:
-    scheduler = xenon.jobs.newScheduler(
-        xenon.NewSchedulerRequest(adaptor='local'))
+xenon.init()
 
-    job_description = xenon.JobDescription(
+with Scheduler.create(adaptor='local') as scheduler:
+    target = Path('hello.txt')
+    if target.exists():
+        target.unlink()
+
+    job_description = JobDescription(
         executable='/bin/bash',
         arguments=['-c', 'echo "Hello, World!"'],
-        stdOut='hello.txt')
+        stdout='hello.txt')
 
-    job = xenon.jobs.submitJob(xenon.SubmitJobRequest(
-        scheduler=scheduler, description=job_description))
-    job_status = xenon.jobs.waitUntilDone(job)
-    if job_status.exitCode != 0:
-        raise Exception(job_status.errorMessage)
-    xenon.jobs.deleteJob(job)
-    xenon.jobs.close(scheduler)
+    job = scheduler.submit_batch_job(job_description)
+    job_status = scheduler.wait_until_done(job)
+
+    if job_status.error_type != JobStatus.NONE:
+        raise Exception(job_status.error_message)
+
+    print(''.join(open('hello.txt', 'r')))

@@ -1,6 +1,9 @@
-from xenon import (Server as Xenon)
+import xenon
 from queue import Queue
 from threading import Thread
+
+
+xenon.init()
 
 
 def timeout(delay, call, *args, **kwargs):
@@ -19,13 +22,11 @@ def timeout(delay, call, *args, **kwargs):
     return return_value
 
 
-with Xenon() as xenon:
-    scheduler = xenon.schedulers.create(adaptor='local')
-
+with xenon.Scheduler.create(adaptor='local') as scheduler:
     job_description = xenon.JobDescription(
         executable='cat',
         arguments=[],
-        queueName='multi')
+        queue_name='multi')
 
     input_queue = Queue()
 
@@ -39,12 +40,8 @@ with Xenon() as xenon:
                 yield msg.encode()
                 input_queue.task_done()
 
-    output_stream = xenon.schedulers.submit_interactive_job(
-        scheduler=scheduler, description=job_description, stdin_stream=input_stream())
-
-    first_response = timeout(1.0, lambda: output_stream.next())
-    # first_response = output_stream.next()
-    job = first_response.job
+    job, output_stream = scheduler.submit_interactive_job(
+        description=job_description, stdin_stream=input_stream())
 
     def get_line(s):
         return s.next().stdout.decode().strip()
@@ -65,5 +62,4 @@ with Xenon() as xenon:
         input_queue.put(('end', None))
         input_queue.join()
 
-    xenon.schedulers.waitUntilDone(job)
-    xenon.schedulers.close(scheduler)
+    scheduler.wait_until_done(job)

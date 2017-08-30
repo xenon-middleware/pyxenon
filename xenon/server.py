@@ -166,7 +166,8 @@ class Server(object):
             e = threading.Event()
             t = threading.Thread(
                 target=print_streams_posix,
-                args=(self.process, e))
+                args=(self.process, e),
+                daemon=True)
             t.start()
             self.threads.append((t, e))
 
