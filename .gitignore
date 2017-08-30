@@ -14,7 +14,3 @@ __pycache__/
 *.swp
 *~
 
-# temporary entries during development
-/bin
-/lib
-
