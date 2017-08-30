@@ -1,9 +1,12 @@
 from xenon import (
     PasswordCredential, FileSystem, CopyRequest, Path, CopyStatus,
     Scheduler, JobDescription)
+import xenon
 
 
-tmpdir = Path('.')
+xenon.init()
+
+tmpdir = Path('/tmp/')
 location = '0.0.0.0:10022'
 
 #
@@ -15,7 +18,7 @@ sleep_script = [
     "sleep $1"
 ]
 
-with open(tmpdir / 'sleep.sh', 'w') as f:
+with open(str(tmpdir / 'sleep.sh'), 'w') as f:
     for line in sleep_script:
         print(line, file=f)
 
@@ -52,7 +55,7 @@ copy_id = local_fs.copy(local_file, remote_fs, remote_file,
 # wait for the copy operation to complete (successfully or otherwise)
 copy_status = local_fs.wait_until_done(copy_id, WAIT_INDEFINITELY)
 if copy_status.error_message:
-    raise RuntimeError(copy_status.error)
+    raise RuntimeError(copy_status.error_message)
 
 #
 # step 2: submit job and capture its job identifier
@@ -89,7 +92,7 @@ scheduler.wait_until_done(job_id)
 # specify the path of the stdout file on the remote and on the local
 # machine
 remote_file = Path('/home/xenon/sleep.stdout.txt')
-local_file = Path(tmpdir / 'sleep.stdout.txt')
+local_file = tmpdir / 'sleep.stdout.txt'
 
 # start the copy operation; no recursion, we're just copying a file
 copy_id = remote_fs.copy(remote_file, local_fs, local_file,
@@ -108,5 +111,5 @@ remote_fs.close()
 scheduler.close()
 
 assert (tmpdir / 'sleep.stdout.txt').exists()
-lines = [l.strip() for l in open(tmpdir / 'sleep.stdout.txt', 'r')]
+lines = [l.strip() for l in open(str(tmpdir / 'sleep.stdout.txt'), 'r')]
 assert lines == ["Sleeping for 0 second(s)."]
