@@ -126,8 +126,6 @@ def test_rse_tutorial(xenon_server, tmpdir, slurm_container):
     remote_fs.close()
     scheduler.close()
 
-    print('Done')
-
     assert (tmpdir / 'sleep.stdout.txt').exists()
     lines = [l.strip() for l in open(tmpdir / 'sleep.stdout.txt', 'r')]
     assert lines == ["Sleeping for 0 second(s)."]
