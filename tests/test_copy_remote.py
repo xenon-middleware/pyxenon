@@ -14,9 +14,7 @@ def test_download_remote(xenon_server, tmpdir):
         print(x, file=f)
     f.close()
 
-    remote_fs = FileSystem.create(
-            adaptor='sftp',
-            location='localhost')
+    remote_fs = FileSystem.create(adaptor='file')
 
     # use the local file system adaptor to create a file system
     # representation

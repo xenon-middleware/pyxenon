@@ -12,8 +12,7 @@ def read_lines(stream):
 
 
 def test_files_reading_oop(xenon_server, tmpdir):
-    with FileSystem.create(
-            adaptor='sftp', location='localhost') as remotefs:
+    with FileSystem.create(adaptor='file') as remotefs:
         test_data = [random.randint(0, 255) for i in range(16)]
 
         test_file = str(tmpdir.join('test-reading.txt'))
@@ -31,8 +30,7 @@ def test_files_reading_oop(xenon_server, tmpdir):
 
 
 def test_files_writing_oop(xenon_server, tmpdir):
-    with FileSystem.create(
-            adaptor='sftp', location='localhost') as remotefs:
+    with FileSystem.create(adaptor='file') as remotefs:
         test_data = [random.randint(0, 255) for i in range(16)]
 
         test_file = str(tmpdir.join('test-writing.txt'))
