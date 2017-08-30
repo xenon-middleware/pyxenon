@@ -2,6 +2,7 @@ from xenon import (
     PasswordCredential, FileSystem, CopyRequest, Path, CopyStatus,
     Scheduler, JobDescription)
 from functools import wraps
+import pytest
 
 
 def repeat(n):
@@ -17,6 +18,7 @@ def repeat(n):
     return repeater
 
 
+@pytest.mark.skip(reason="This test takes too long")
 @repeat(10)
 def test_rse_tutorial(xenon_server, tmpdir, slurm_container):
     xenon = xenon_server
