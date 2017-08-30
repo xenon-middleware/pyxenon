@@ -1,4 +1,4 @@
-from .proto import (xenon_pb2_grpc, xenon_pb2)
+from .proto import (xenon_pb2_grpc)
 
 import grpc
 import socket
@@ -9,6 +9,7 @@ import signal
 import threading
 import os
 import time
+import atexit
 
 from contextlib import closing
 
@@ -124,25 +125,20 @@ def print_streams_posix(process, event):
         forward_lines(process.stderr, '[err]')
 
 
-class GRPCProxy:
-    def __init__(self, method):
-        self._method = method
-        # self._method = to_camel_case(method)
-
-    def __call__(self, *args, **kwargs):
-        return getattr(xenon_pb2, self._method)(*args, **kwargs)
-
-    def __getattr__(self, attr):
-        return getattr(getattr(xenon_pb2, self._method), attr)
-
+# class GRPCProxy:
+#     def __init__(self, method):
+#         self._method = method
+#         # self._method = to_camel_case(method)
+#
+#     def __call__(self, *args, **kwargs):
+#         return getattr(xenon_pb2, self._method)(*args, **kwargs)
+#
+#     def __getattr__(self, attr):
+#         return getattr(getattr(xenon_pb2, self._method), attr)
 
 class Server(object):
     """Xenon Server. This tries to find a running Xenon-GRPC server,
-    or start one if not found. This implementation only works on Unix.
-
-    As an added feature, all messages defined in the protocol are grafted
-    onto this class. This allows the user to access all of Xenon through
-    an instance of the Xenon Server object.
+    or start one if not found. This implementation may only work on Unix.
     """
     def __init__(self, port=50051):
         self.port = port
@@ -196,3 +192,21 @@ class Server(object):
         for (t, e) in self.threads:
             e.set()
             t.join()
+
+
+__server__ = Server()
+
+
+def init(port=50051, do_not_exit=False):
+    if __server__.process is not None:
+        logger.warning(
+            "You tried to run init(), but the server is already running.")
+        return
+
+    __server__.port = port
+    __server__.__enter__()
+
+    if not do_not_exit:
+        atexit.register(__server__.__exit__, None, None, None)
+
+    return __server__

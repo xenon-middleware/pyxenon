@@ -1,4 +1,4 @@
-from .server import (Server)
+from .server import (init)
 
 from .objects import (
     FileSystem, Scheduler, Path,
@@ -11,7 +11,7 @@ from .proto.xenon_pb2 import (
 
 __version__ = "2.0.0-alpha"
 __all__ = [
-    'Server',
+    'init',
     'FileSystem', 'Scheduler', 'Path',
     'PosixFilePermission',
     'JobDescription', 'CopyRequest', 'QueueStatus', 'JobStatus',

@@ -1,4 +1,5 @@
 from .proto import xenon_pb2
+from .server import __server__
 
 try:
     from enum import Enum
@@ -103,9 +104,8 @@ class GrpcMethod:
             raise NotImplementedError("Python 3 only.")
 
         if self.static:
-            parameters = \
-                (Parameter(name='server',
-                           kind=Parameter.POSITIONAL_OR_KEYWORD),)
+            parameters = ()
+
         else:
             parameters = \
                 (Parameter(name='self',
@@ -159,14 +159,14 @@ def make_static_request(method, *args, **kwargs):
         new_kwargs = {kw: unwrap(value) for kw, value in kwargs.items()}
         new_args = tuple(unwrap(value) for value in args)
         bound_args = method.signature.bind(
-                None, *new_args, **new_kwargs).arguments
+                *new_args, **new_kwargs).arguments
 
         # if we encounter any Enum arguments, replace them with their value
         for k in bound_args:
             if isinstance(bound_args[k], Enum):
                 bound_args[k] = bound_args[k].value
 
-        new_kwargs = {kw: v for kw, v in bound_args.items() if kw != 'server'}
+        new_kwargs = {kw: v for kw, v in bound_args.items()}
 
     else:
         new_kwargs = {kw: unwrap(value) for kw, value in kwargs.items()}
@@ -240,12 +240,12 @@ def method_wrapper(m):
         return transform_method
 
     elif m.static:
-        def static_method(cls, server, *args, **kwargs):
+        def static_method(cls, *args, **kwargs):
             """TODO: no docstring!"""
-            f = getattr(cls.__stub__(server), to_lower_camel_case(m.name))
+            f = getattr(cls.__stub__(__server__), to_lower_camel_case(m.name))
             request = make_static_request(m, *args, **kwargs)
             return apply_transform(
-                    cls.__stub__(server), m.output_transform, f(request))
+                    cls.__stub__(__server__), m.output_transform, f(request))
 
         return static_method
 

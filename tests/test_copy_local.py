@@ -4,11 +4,9 @@ import os
 
 
 def test_copy_local_absolute(xenon_server, tmpdir):
-    xenon = xenon_server
-
     # use the local file system adaptor to create a file system
     # representation
-    with FileSystem.create(xenon, adaptor='file') as filesystem:
+    with FileSystem.create(adaptor='file') as filesystem:
         # create Paths for the source and destination files, using absolute
         # paths
         dest_file_name = str(tmpdir.join('thefile.bak'))
@@ -41,11 +39,9 @@ def test_copy_local_relative(xenon_server, tmpdir):
     with open(str(tmpdir.join('thefile.txt')), 'w') as f:
         print("Hello, World!", file=f)
 
-    xenon = xenon_server
-
     # use the local file system adaptor to create a file system
     # representation
-    filesystem = FileSystem.create(xenon, adaptor='file')
+    filesystem = FileSystem.create(adaptor='file')
     filesystem.set_working_directory(Path(str(tmpdir)))
 
     # create Paths for the source and destination files, using absolute

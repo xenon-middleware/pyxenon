@@ -25,6 +25,5 @@ def slurm_container(request):
 @pytest.fixture(scope="session")
 def xenon_server(request):
     print("============== Starting Xenon-GRPC server ================")
-    m = xenon.Server()
+    m = xenon.init(do_not_exit=True)
     request.addfinalizer(lambda: m.__exit__(None, None, None))
-    return m.__enter__()

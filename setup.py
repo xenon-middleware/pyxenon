@@ -56,5 +56,6 @@ setup(
     install_requires=['grpcio', 'grpcio-tools'],
     extras_require={
         'test': ['pytest', 'pytest-flake8', 'coverage'],
+        'develop': ['sphinx']
     }
 )

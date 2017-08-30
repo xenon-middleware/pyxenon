@@ -21,7 +21,6 @@ def repeat(n):
 @pytest.mark.skip(reason="This test takes too long")
 @repeat(10)
 def test_rse_tutorial(xenon_server, tmpdir, slurm_container):
-    xenon = xenon_server
     tmpdir = Path(str(tmpdir))
     location = '0.0.0.0:10022'
 
@@ -42,7 +41,7 @@ def test_rse_tutorial(xenon_server, tmpdir, slurm_container):
     # step 1: upload input  files
     #
     # create the local filesystem representation
-    local_fs = FileSystem.create(xenon, adaptor='file')
+    local_fs = FileSystem.create(adaptor='file')
 
     # the remote system requires credentials, create them here:
     credential = PasswordCredential(
@@ -52,7 +51,6 @@ def test_rse_tutorial(xenon_server, tmpdir, slurm_container):
     # create the remote filesystem representation and specify the
     # executable's path
     remote_fs = FileSystem.create(
-            xenon,
             adaptor='sftp',
             location=location,
             password_credential=credential)
@@ -78,7 +76,6 @@ def test_rse_tutorial(xenon_server, tmpdir, slurm_container):
     # step 2: submit job and capture its job identifier
     #
     scheduler = Scheduler.create(
-            xenon,
             adaptor='slurm',
             location=location,
             password_credential=credential)
