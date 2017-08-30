@@ -41,18 +41,14 @@ setup(
         'Intended Audience :: Science/Research',
         'Environment :: Console',
         'Development Status :: 4 - Beta',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: System :: Distributed Computing',
     ],
-    package_data={'xenon': [
-        'lib/*.jar',
-        'bin/xenon-grpc',
-        'bin/xenon-grpc.bat']},
+    data_files=[
+        ('lib', ['lib/xenon-grpc-1.0.0-all.jar']),
+        ('bin', ['bin/xenon-grpc'])],
     install_requires=['grpcio', 'grpcio-tools'],
     extras_require={
         'test': ['pytest', 'pytest-flake8', 'coverage'],
