@@ -171,8 +171,12 @@ class Server(object):
             t.start()
             self.threads.append((t, e))
 
-            while not check_socket('localhost', self.port):
+            for i in range(50):
+                if check_socket('localhost', self.port):
+                    break
                 time.sleep(0.1)
+            else:
+                raise RuntimeError("GRPC started, but still can't connect.")
 
         logger.info('Connecting to server')
         self.channel = grpc.insecure_channel('localhost:{}'.format(self.port))
