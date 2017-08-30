@@ -5,7 +5,7 @@ from xenon import (FileSystem, Path)
 def read_lines(stream):
     def read_chunks():
         for chunk in stream:
-            yield chunk.buffer.decode()
+            yield chunk.decode()
 
     for chunk in read_chunks():
         yield from chunk.split('\n')

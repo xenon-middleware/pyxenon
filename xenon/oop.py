@@ -104,7 +104,9 @@ class GrpcMethod:
             raise NotImplementedError("Python 3 only.")
 
         if self.static:
-            parameters = ()
+            parameters = \
+                (Parameter(name='cls',
+                           kind=Parameter.POSITIONAL_ONLY),)
 
         else:
             parameters = \
@@ -159,14 +161,14 @@ def make_static_request(method, *args, **kwargs):
         new_kwargs = {kw: unwrap(value) for kw, value in kwargs.items()}
         new_args = tuple(unwrap(value) for value in args)
         bound_args = method.signature.bind(
-                *new_args, **new_kwargs).arguments
+                None, *new_args, **new_kwargs).arguments
 
         # if we encounter any Enum arguments, replace them with their value
         for k in bound_args:
             if isinstance(bound_args[k], Enum):
                 bound_args[k] = bound_args[k].value
 
-        new_kwargs = {kw: v for kw, v in bound_args.items()}
+        new_kwargs = {kw: v for kw, v in bound_args.items() if kw != 'cls'}
 
     else:
         new_kwargs = {kw: unwrap(value) for kw, value in kwargs.items()}
@@ -293,11 +295,15 @@ class OopProxy(metaclass=OopMeta):
     the using of `OopMeta` meta-class. Also manages retrieving attributes
     from the wrapped instance.
 
-    :ivar __is_proxy__: if True, this value represents a wrapped value,
+    :ivar __is_proxy__: If True, this value represents a wrapped value,
         from which the GRPC message can be extraced by getting the
         `__wrapped__` attribute.
-    :ivar __servicer__: if applicable, this gives the GRPC servicer class
+    :ivar __servicer__: If applicable, this gives the GRPC servicer class
         associated with the proxy object; this is used to retrieve doc-strings.
+    :ivar __field_name__: The default name to which an object of this class
+        should be bound in a request. This can be overridden by specifying
+        the `field_name` property in the `GRPCMethod` definition. For a
+        well-designed API this should not be necessary though.
     """
 
     __is_proxy__ = True
@@ -315,6 +321,7 @@ class OopProxy(metaclass=OopMeta):
 
     @staticmethod
     def __stub__(server):
+        """Return the GRPC stub class to which this object interfaces."""
         raise NotImplementedError()
 
     def __getattr__(self, attr):

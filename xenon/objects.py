@@ -4,6 +4,10 @@ import pathlib
 import inspect
 import functools
 
+try:
+    from os import PathLike
+except ImportError:
+    PathLike = object
 
 # CopyMode = mirror_enum('CopyMode')
 PosixFilePermission = mirror_enum('PosixFilePermission')
@@ -45,11 +49,13 @@ def write_request_stream(self, path, data_stream):
                 for b in data_stream)
 
 
-class Path(object):
-    """Wrapper around `pathlib.PosixPath`. This class reveals a string
-    representation of the underlying path object to GRPC. You may use
-    this class like a `pathlib.PosixPath`, including using it as an
-    argument to `open` calls as it derives from `os.PathLike`."""
+class Path(PathLike):
+    """Wrapper around :py:class:`PosixPath` form the :py:mod:`pathlib` module.
+    This class reveals a string representation of the underlying path object to
+    GRPC. You may use this class like a `pathlib.PosixPath`, including using it
+    as an argument to `open` calls as it derives from `os.PathLike` (Python >
+    3.6). For more information see `the Python documentation on pathlib
+    <https://docs.python.org/3/library/pathlib.html>`_."""
     __is_proxy__ = True
     __servicer__ = xenon_pb2_grpc.FileSystemServiceServicer
 
@@ -114,8 +120,12 @@ def t_getattr(name):
     return lambda self, x: getattr(x, name)
 
 
+def read_response_stream(self, stream):
+    yield from (chunk.buffer for chunk in stream)
+
+
 class FileSystem(OopProxy):
-    """Wraps the FileSystems sub-system."""
+    """The Xenon `FileSystem` subsystem."""
     __servicer__ = xenon_pb2_grpc.FileSystemServiceServicer
     __field_name__ = 'filesystem'
 
@@ -176,7 +186,8 @@ class FileSystem(OopProxy):
                 'exists', uses_request='PathRequest',
                 output_transform=Is),
             GrpcMethod(
-                'read_from_file', uses_request='PathRequest'),
+                'read_from_file', uses_request='PathRequest',
+                output_transform=read_response_stream),
             GrpcMethod(
                 'get_attributes', uses_request='PathRequest',
                 output_transform=PathAttributes),
@@ -205,11 +216,6 @@ class FileSystem(OopProxy):
     def __init__(self, service, wrapped):
         super(FileSystem, self).__init__(service, wrapped)
 
-    def path(self, path):
-        return Path(
-            self.__service__,
-            xenon_pb2.Path(filesystem=self.__wrapped__, path=path))
-
     def __enter__(self):
         return self
 
@@ -234,7 +240,7 @@ def interactive_job_response(self, stream):
 
 
 class Scheduler(OopProxy):
-    """Wraps the Schedulers subsystem."""
+    """The Xenon Schedulers subsystem."""
     __servicer__ = xenon_pb2_grpc.SchedulerServiceServicer
     __field_name__ = 'scheduler'
 

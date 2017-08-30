@@ -185,19 +185,28 @@ class Server(object):
     def __exit__(self, exc_type, exc_value, exc_tb):
         if self.process:
             logger.info('Terminating Xenon-GRPC server.')
-            os.kill(self.process.pid, signal.SIGINT)
-            # os.killpg(os.getpgid(self.process.pid), signal.SIGINT)
+            # os.kill(self.process.pid, signal.SIGINT)
+            os.killpg(os.getpgid(self.process.pid), signal.SIGINT)
             self.process.wait()
 
         for (t, e) in self.threads:
             e.set()
             t.join()
 
+        self.process = None
+
 
 __server__ = Server()
 
 
 def init(port=50051, do_not_exit=False):
+    """Start the Xenon GRPC server on the specified port, or, if a service
+    is already running on that port, connect to that.
+
+    :param port: the port number
+    :param do_not_exit: by default the GRPC server is shut down after Python
+        exits (through the `atexit` module), setting this value to `True` will
+        prevent that from happening."""
     if __server__.process is not None:
         logger.warning(
             "You tried to run init(), but the server is already running.")

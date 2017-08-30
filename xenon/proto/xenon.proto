@@ -277,6 +277,8 @@ message Schedulers {
     repeated Scheduler schedulers = 1;
 }
 
+// Gives a description of a Job to be submitted to using
+// Scheduler.submit_batch_job or Scheduler.submit_online_job
 message JobDescription {
     string executable = 1;
     repeated string arguments = 2;
