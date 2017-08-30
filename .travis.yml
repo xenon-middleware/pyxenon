@@ -4,7 +4,7 @@ python:
   - "3.5"
   - "3.6"
 install:
-  - pip install -U pip codacy-coverage
+  - pip install -U pip codacy-coverage setuptools
   - pip install -U ".[test]"
 script:
   - coverage run -m pytest --flake8
