@@ -11,10 +11,12 @@ import os
 import time
 import atexit
 
+from pathlib import Path
+from xdg import (XDG_CONFIG_HOME)
 from contextlib import closing
 
 logger = logging.getLogger('xenon')
-logger.setLevel(logging.ERROR)
+logger.setLevel(logging.INFO)
 
 logger_handler = logging.StreamHandler()
 logger_handler.setLevel(logging.INFO)
@@ -63,13 +65,54 @@ def find_xenon_grpc_jar():
     return xenon_jar_path
 
 
-def start_xenon_server(port=50051):
+def generate_keys():
+    config_dir = Path(XDG_CONFIG_HOME) / 'xenon-grpc'
+    config_dir.mkdir(parents=True, exist_ok=True)
+
+    if (config_dir / 'server.key').exists():
+        return
+
+    logging.info("Creating authentication keys for xenon-grpc.")
+    subprocess.run(
+        ['openssl', 'req', '-new', '-x509', '-nodes',
+         '-out', 'client.crt', '-keyout', 'client.key',
+         '-subj', '/CN={}'.format(socket.gethostname()), '-batch'],
+        cwd=str(config_dir), check=True)
+
+
+def get_secure_channel(port=50051):
+    crt_file = Path(XDG_CONFIG_HOME) / 'xenon-grpc' / 'client.crt'
+    key_file = Path(XDG_CONFIG_HOME) / 'xenon-grpc' / 'client.key'
+
+    creds = grpc.ssl_channel_credentials(
+        root_certificates=open(str(crt_file), 'rb').read(),
+        private_key=open(str(key_file), 'rb').read(),
+        certificate_chain=open(str(crt_file), 'rb').read())
+
+    address = "{}:{}".format(socket.gethostname(), port)
+    channel = grpc.secure_channel(address, creds)
+    return channel
+
+
+def start_xenon_server(port=50051, disable_tls=False):
     jar_file = find_xenon_grpc_jar()
     if not jar_file:
         raise RuntimeError("Could not find 'xenon-grpc' jar file.")
 
+    cmd = ['java', '-jar', jar_file, '-p', str(port)]
+
+    if not disable_tls:
+        generate_keys()
+        crt_file = Path(XDG_CONFIG_HOME) / 'xenon-grpc' / 'client.crt'
+        key_file = Path(XDG_CONFIG_HOME) / 'xenon-grpc' / 'client.key'
+
+        cmd.extend([
+            '--server-cert-chain', str(crt_file),
+            '--server-private-key', str(key_file),
+            '--client-cert-chain', str(crt_file)])
+
     process = subprocess.Popen(
-        ['java', '-jar', jar_file, '-p', str(port)],
+        cmd,
         bufsize=1,
         universal_newlines=True,
         stdout=subprocess.PIPE,
@@ -132,44 +175,27 @@ def print_streams_posix(process, event):
         forward_lines(process.stderr, '[err]')
 
 
-# class GRPCProxy:
-#     def __init__(self, method):
-#         self._method = method
-#         # self._method = to_camel_case(method)
-#
-#     def __call__(self, *args, **kwargs):
-#         return getattr(xenon_pb2, self._method)(*args, **kwargs)
-#
-#     def __getattr__(self, attr):
-#         return getattr(getattr(xenon_pb2, self._method), attr)
-
 class Server(object):
     """Xenon Server. This tries to find a running Xenon-GRPC server,
     or start one if not found. This implementation may only work on Unix.
     """
-    def __init__(self, port=50051):
+    def __init__(self, port=50051, disable_tls=False):
         self.port = port
         self.process = None
         self.channel = None
         self.threads = []
+        self.disable_tls = disable_tls
 
         # Xenon proxies
         self.schedulers = None
         self.file_systems = None
 
-    # def __getattr__(self, attr):
-    #     logger.warning('depricated interface used: Server.__getattr__')
-    #     if attr in dir(self) or attr[0] == '_':
-    #         return getattr(super(Server, self), attr)
-
-    #     return GRPCProxy(attr)
-
     def __enter__(self):
-        if check_socket('localhost', self.port):
+        if check_socket(socket.gethostname(), self.port):
             logger.info('Xenon-GRPC servers seems to be running.')
         else:
             logger.info('Starting Xenon-GRPC server.')
-            self.process = start_xenon_server(self.port)
+            self.process = start_xenon_server(self.port, self.disable_tls)
             e = threading.Event()
             t = threading.Thread(
                 target=print_streams_posix,
@@ -179,14 +205,18 @@ class Server(object):
             self.threads.append((t, e))
 
             for i in range(50):
-                if check_socket('localhost', self.port):
+                if check_socket(socket.gethostname(), self.port):
                     break
                 time.sleep(0.1)
             else:
                 raise RuntimeError("GRPC started, but still can't connect.")
 
         logger.info('Connecting to server')
-        self.channel = grpc.insecure_channel('localhost:{}'.format(self.port))
+        if self.disable_tls:
+            self.channel = grpc.insecure_channel(
+                '{}:{}'.format(socket.gethostname(), self.port))
+        else:
+            self.channel = get_secure_channel(self.port)
 
         self.file_system_stub = xenon_pb2_grpc.FileSystemServiceStub(
                 self.channel)
@@ -211,7 +241,7 @@ class Server(object):
 __server__ = Server()
 
 
-def init(port=None, do_not_exit=False):
+def init(port=None, do_not_exit=False, disable_tls=False):
     """Start the Xenon GRPC server on the specified port, or, if a service
     is already running on that port, connect to that.
 
@@ -232,6 +262,7 @@ def init(port=None, do_not_exit=False):
         return
 
     __server__.port = port
+    __server__.disable_tls = disable_tls
     __server__.__enter__()
 
     if not do_not_exit:
