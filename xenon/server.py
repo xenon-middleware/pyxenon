@@ -15,7 +15,7 @@ import grpc
 from xdg import (XDG_CONFIG_HOME)
 
 from .proto import (xenon_pb2_grpc)
-from .compat import (print_streams, start_xenon_server, kill_process)
+from .compat import (start_xenon_server, kill_process)
 
 
 def check_socket(host, port):
@@ -47,17 +47,11 @@ def find_free_port():
         return sock.getsockname()[1]
 
 
-def to_camel_case(name):
-    """Translate an underscore variable name to camel-case."""
-    words = name.split('_')
-    return words[0] + ''.join([w.title() for w in words[1:]])
-
-
 def print_stream(file, name):
     """Print stream from file to logger."""
     logger = logging.getLogger('xenon.{}'.format(name))
     for line in file:
-        logger.info('[{}] {}', name, line.strip())
+        logger.info('[{}] {}'.format(name, line.strip()))
 
 
 class Server(object):
@@ -83,13 +77,14 @@ class Server(object):
         else:
             logger.info('Starting Xenon-GRPC server.')
             self.process = start_xenon_server(self.port, self.disable_tls)
-            event = threading.Event()
-            thread = threading.Thread(
-                target=print_streams,
-                args=(self.process, event),
-                daemon=True)
-            thread.start()
-            self.threads.append((thread, event))
+
+            for name, output in [('out', self.process.stdout),
+                                 ('err', self.process.stderr)]:
+                thread = threading.Thread(
+                    target=print_stream,
+                    args=(output, name),
+                    daemon=True)
+                thread.start()
 
             for _ in range(50):
                 if check_socket(socket.gethostname(), self.port):
@@ -115,17 +110,13 @@ class Server(object):
         if self.process:
             kill_process(self.process)
 
-        for (thread, event) in self.threads:
-            event.set()
-            thread.join()
-
         self.process = None
 
 
 __server__ = Server()
 
 
-def init(port=None, do_not_exit=False, disable_tls=False):
+def init(port=None, do_not_exit=False, disable_tls=False, log_level='WARNING'):
     """Start the Xenon GRPC server on the specified port, or, if a service
     is already running on that port, connect to that.
 
@@ -142,7 +133,7 @@ def init(port=None, do_not_exit=False, disable_tls=False):
 
     logger_handler = logging.StreamHandler()
     logger_handler.setFormatter(logging.Formatter(style='{'))
-    logger_handler.setLevel(logging.INFO)
+    logger_handler.setLevel(getattr(logging, log_level))
     logger.addHandler(logger_handler)
 
     if port is None:

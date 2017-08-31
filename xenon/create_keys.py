@@ -1,9 +1,7 @@
 import logging
 from xdg import XDG_CONFIG_HOME
-from OpenSSL import crypto, SSL
+from OpenSSL import crypto
 from socket import gethostname
-from pprint import pprint
-from time import gmtime, mktime
 from pathlib import Path
 
 
