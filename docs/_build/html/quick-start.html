@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quick Start &mdash; PyXenon 2.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="PyXenon 2.0.0 documentation" href="index.html"/>
+        <link rel="next" title="API" href="api.html"/>
+        <link rel="prev" title="Welcome to PyXenon’s documentation!" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PyXenon
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#starting-the-server">Starting the server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-to-a-remote-filesystem">Writing to a remote filesystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-a-script">Running a script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#retrieving-the-result">Retrieving the result</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyXenon</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Quick Start</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/quick-start.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<p>We like to test Xenon against a <a class="reference external" href="https://www.docker.com/">Docker</a> image: <a class="reference external" href="https://hub.docker.com/r/nlesc/xenon-slurm/">nlesc/xenon-slurm</a>.
+If you have docker all setup, you can run this image as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ docker pull nlesc/xenon-slurm
+...
+$ docker run --detach --publish 10022:22 nlesc/xenon-slurm
+</pre></div>
+</div>
+<p>Try logging onto this image by <cite>ssh</cite>, to make sure everything works. The
+username is <cite>xenon</cite>, the password <cite>javagat</cite>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh localhost -p 10022 -l xenon
+xenon@localhost&#39;s password: &lt;javagat&gt;
+$ exit
+Connection to localhost closed.
+</pre></div>
+</div>
+<div class="section" id="starting-the-server">
+<h2>Starting the server<a class="headerlink" href="#starting-the-server" title="Permalink to this headline">¶</a></h2>
+<p>To get anything done in PyXenon, we need to start the GRPC server:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xenon</span>
+
+<span class="n">xenon</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing-to-a-remote-filesystem">
+<h2>Writing to a remote filesystem<a class="headerlink" href="#writing-to-a-remote-filesystem" title="Permalink to this headline">¶</a></h2>
+<p>Next, let’s try to copy a file to the container. We need credentials to
+access anything on the remote side.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xenon</span> <span class="kn">import</span> <span class="n">PasswordCredential</span><span class="p">,</span> <span class="n">FileSystem</span>
+
+<span class="n">credential</span> <span class="o">=</span> <span class="n">PasswordCredential</span><span class="p">(</span>
+    <span class="n">username</span><span class="o">=</span><span class="s1">&#39;xenon&#39;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s1">&#39;javagat&#39;</span><span class="p">)</span>
+
+<span class="n">remotefs</span> <span class="o">=</span> <span class="n">FileSystem</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="s1">&#39;sftp&#39;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;localhost:10022&#39;</span><span class="p">,</span>
+    <span class="n">password_credential</span><span class="o">=</span><span class="n">credential</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can write to a file by streaming. The second argument to
+<code class="xref py py-meth docutils literal"><span class="pre">write_to_file()</span></code> should be an iterable. It will be read in a separate
+thread, so it is allowed to be blocking. Here we’ll do nothing so fancy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xenon</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">target</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;hello.sh&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">remotefs</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+    <span class="n">remotefs</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+<span class="n">remotefs</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span>
+    <span class="n">target</span><span class="p">,</span>
+    <span class="p">[</span><span class="sa">b</span><span class="s1">&#39;#!/bin/sh</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+     <span class="sa">b</span><span class="s1">&#39;echo &quot;Hello, World!&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-a-script">
+<h2>Running a script<a class="headerlink" href="#running-a-script" title="Permalink to this headline">¶</a></h2>
+<p>The remote machine runs a SLURM job scheduler. We describe a job in a
+<code class="xref py py-class docutils literal"><span class="pre">JobDescription</span></code> object. This seems a bit long-winded, but in
+practice you’ll be reusing the descriptions a lot.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xenon</span> <span class="kn">import</span> <span class="n">Scheduler</span>
+
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">Scheduler</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">adaptor</span><span class="o">=</span><span class="s1">&#39;slurm&#39;</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s1">&#39;localhost:10022&#39;</span><span class="p">,</span>
+    <span class="n">password_credential</span><span class="o">=</span><span class="n">credential</span><span class="p">)</span>
+
+<span class="n">job_description</span> <span class="o">=</span> <span class="n">JobDescription</span><span class="p">(</span>
+    <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">,</span>
+    <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;hello.sh&#39;</span><span class="p">],</span>
+    <span class="n">stdout</span><span class="o">=</span><span class="s1">&#39;result.txt&#39;</span><span class="p">)</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">submit_batch_job</span><span class="p">(</span><span class="n">job_description</span><span class="p">)</span>
+
+<span class="n">state</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">wait_until_done</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieving-the-result">
+<h2>Retrieving the result<a class="headerlink" href="#retrieving-the-result" title="Permalink to this headline">¶</a></h2>
+<p>Just as we can write data by sending an iterable, we can read data from a file
+and recieve a generator yielding bytes objects. Here we realize the transfer by
+joining the data chunks into a string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span>
+    <span class="n">remotefs</span><span class="o">.</span><span class="n">read_from_file</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;result.txt&#39;</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to PyXenon’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Netherlands eScience Center.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'2.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
