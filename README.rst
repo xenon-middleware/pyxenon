@@ -222,6 +222,6 @@ the change didn't break any code. The pull request will be evaluated in
    :target: https://travis-ci.org/NLeSC/pyxenon
 .. |CodacyBadge| image:: https://api.codacy.com/project/badge/grade/35e155e3bb08459aa2c24622d5fdb0d3
    :target: https://www.codacy.com/app/NLeSC/pyxenon
-.. |ReadTheDocsBagde| image:: https://readthedocs.org/projects/pyxenon/badge/?version=latest
+.. |ReadTheDocsBadge| image:: https://readthedocs.org/projects/pyxenon/badge/?version=latest
    :target: http://pyxenon.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
