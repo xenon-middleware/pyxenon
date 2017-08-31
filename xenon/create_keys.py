@@ -25,7 +25,7 @@ def create_self_signed_cert():
 
     # create a self-signed cert
     cert = crypto.X509()
-    cert.get_subject().CN = "localhost"
+    cert.get_subject().CN = gethostname()
     cert.set_serial_number(1000)
     cert.gmtime_adj_notBefore(0)
     cert.gmtime_adj_notAfter(10*365*24*60*60)

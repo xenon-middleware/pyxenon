@@ -31,11 +31,10 @@ if os.name == 'posix':
         if which_xenon.returncode != 0:
             return None
 
-        xenon_prefix = Path(which_xenon).parent.parent
+        xenon_prefix = Path(which_xenon.stdout).parent.parent
         xenon_jar_path = xenon_prefix / 'lib' / 'xenon-grpc-1.0.0-all.jar'
         logger.info("Found Xenon-GRPC at: {}".format(xenon_jar_path))
         return str(xenon_jar_path)
-
 
     def start_xenon_server(port=50051, disable_tls=False):
         """Start the server."""
@@ -64,7 +63,6 @@ if os.name == 'posix':
             preexec_fn=os.setsid)
         return process
 
-
     def kill_process(process):
         """Kill the process group associated with the given process. (posix)"""
         logger = logging.getLogger('xenon')
@@ -73,16 +71,17 @@ if os.name == 'posix':
         os.killpg(os.getpgid(process.pid), signal.SIGINT)
         process.wait()
 
-
     def print_streams(process, event):
         """Reads stdout and stderr of process by settings both files
         in non-blocking mode, and polling every 0.1 seconds. The loop
         is broken by setting the event. Only works on POSIX (linux) systems."""
         def set_nonblocking(file):
-            """Sets the file io to non-blocking using fcntl calls. (posix only)"""
+            """Sets the file io to non-blocking using fcntl calls. (posix
+            only)"""
             file_descriptor = file.fileno()
             file_flags = fcntl.fcntl(file_descriptor, fcntl.F_GETFL)
-            fcntl.fcntl(file_descriptor, fcntl.F_SETFL, file_flags | os.O_NONBLOCK)
+            fcntl.fcntl(
+                file_descriptor, fcntl.F_SETFL, file_flags | os.O_NONBLOCK)
 
         def forward_lines(file, name):
             """Forward lines from file to logger."""
@@ -122,7 +121,6 @@ elif os.name == 'nt':
             return None
         else:
             return str(jar_file)
-    
 
     def start_xenon_server(port=50051, disable_tls=False):
         """Start the server, windows version."""
