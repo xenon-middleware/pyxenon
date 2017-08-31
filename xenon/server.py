@@ -63,19 +63,26 @@ def find_xenon_grpc_jar():
     return xenon_jar_path
 
 
-def start_xenon_server():
+def start_xenon_server(port=50051):
     jar_file = find_xenon_grpc_jar()
     if not jar_file:
         raise RuntimeError("Could not find 'xenon-grpc' jar file.")
 
     process = subprocess.Popen(
-        ['java', '-jar', jar_file],
+        ['java', '-jar', jar_file, '-p', str(port)],
         bufsize=1,
         universal_newlines=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         preexec_fn=os.setsid)
     return process
+
+
+def find_free_port():
+    """Finds a free port."""
+    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
+        s.bind(('', 0))
+        return s.getsockname()[1]
 
 
 def to_camel_case(n):
@@ -162,7 +169,7 @@ class Server(object):
             logger.info('Xenon-GRPC servers seems to be running.')
         else:
             logger.info('Starting Xenon-GRPC server.')
-            self.process = start_xenon_server()
+            self.process = start_xenon_server(self.port)
             e = threading.Event()
             t = threading.Thread(
                 target=print_streams_posix,
@@ -204,14 +211,21 @@ class Server(object):
 __server__ = Server()
 
 
-def init(port=50051, do_not_exit=False):
+def init(port=None, do_not_exit=False):
     """Start the Xenon GRPC server on the specified port, or, if a service
     is already running on that port, connect to that.
+
+    If no port is given, a random port is selected. This means that, by
+    default, every python instance will start its own instance of a xenon-grpc
+    process.
 
     :param port: the port number
     :param do_not_exit: by default the GRPC server is shut down after Python
         exits (through the `atexit` module), setting this value to `True` will
         prevent that from happening."""
+    if port is None:
+        port = find_free_port()
+
     if __server__.process is not None:
         logger.warning(
             "You tried to run init(), but the server is already running.")
