@@ -1,5 +1,6 @@
 Python interface to Xenon 2.0
 =============================
+|ReadTheDocsBadge| |Apache2License| |BuildStatus| |CodacyBadge|
 
 We're rewriting PyXenon on top of the GRPC API for Xenon. This work will result in version 2.0 of PyXenon.
 
@@ -64,8 +65,8 @@ Example
 Old README (Version 1.2)
 ========================
 
-|Python versions| |DOI| |PyPi version| |Apache 2 License| |Build Status|
-|Codacy Badge|
+|Python versions| |DOI| |PyPi version| |Apache2License| |BuildStatus|
+|CodacyBadge|
 
 
 Python interface to the `Xenon middleware
@@ -214,10 +215,13 @@ the change didn't break any code. The pull request will be evaluated in
    :target: http://dx.doi.org/10.5281/zenodo.60929
 .. |PyPi version| image:: https://img.shields.io/pypi/v/pyxenon.svg
    :target: https://pypi.python.org/pypi/pyxenon
-.. |Apache 2 License| image:: https://img.shields.io/github/license/NLeSC/pyxenon.svg?branch=master
+.. |Apache2License| image:: https://img.shields.io/github/license/NLeSC/pyxenon.svg?branch=master
    :target: https://raw.githubusercontent.com/NLeSC/pyxenon/master/LICENSE
 .. |Python versions| image:: https://img.shields.io/pypi/pyversions/pyxenon.svg
-.. |Build Status| image:: https://travis-ci.org/NLeSC/pyxenon.svg?branch=master
+.. |BuildStatus| image:: https://travis-ci.org/NLeSC/pyxenon.svg?branch=master
    :target: https://travis-ci.org/NLeSC/pyxenon
-.. |Codacy Badge| image:: https://api.codacy.com/project/badge/grade/35e155e3bb08459aa2c24622d5fdb0d3
+.. |CodacyBadge| image:: https://api.codacy.com/project/badge/grade/35e155e3bb08459aa2c24622d5fdb0d3
    :target: https://www.codacy.com/app/NLeSC/pyxenon
+.. |ReadTheDocsBagde| image:: https://readthedocs.org/projects/pyxenon/badge/?version=latest
+   :target: http://pyxenon.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
