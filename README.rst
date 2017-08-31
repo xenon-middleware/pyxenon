@@ -6,12 +6,17 @@ We're rewriting PyXenon on top of the GRPC API for Xenon. This work will result 
 
 Installing
 ----------
-
 Clone this repository, and do::
 
     pip install .
 
 The code will appear on PyPI when it is ready for release.
+
+Documentation
+-------------
+The compiled documentation is hosted on `Read the Docs
+<http://pyxenon.readthedocs.io/en/latest>`__. This includes a quick-start
+guide.
 
 Development
 -----------
@@ -24,8 +29,17 @@ To generate the `GRPC` code, run ``scripts/protoc.sh`` from the project root.
 
 Testing
 -------
+Unit tests all run against the `local` scheduler and the `file` adaptor for
+filesystems. To run them, just do::
 
-Run the following docker container to test against remote slurm
+    $ pytest ./tests
+
+For faster testing it may be useful to start the ``xenon-grpc`` daemon
+manually; start it in a separate terminal as it may give useful output for
+debugging.
+
+For integration testing, run the following docker container to test against
+remote slurm
 
 .. code-block:: bash
 
