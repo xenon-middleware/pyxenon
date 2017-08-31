@@ -50,7 +50,7 @@ setup(
         ('lib', ['lib/xenon-grpc-1.0.0-all.jar']),
         ('bin', [{'posix': 'bin/xenon-grpc',
                   'nt': 'bin/xenon-grpc.bat'}[os.name]])],
-    install_requires=['grpcio', 'grpcio-tools', 'xdg'],
+    install_requires=['grpcio', 'grpcio-tools', 'xdg', 'pyopenssl'],
     extras_require={
         'test': ['pytest', 'pytest-flake8', 'coverage'],
         'develop': ['sphinx']
