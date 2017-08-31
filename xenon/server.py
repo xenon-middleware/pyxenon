@@ -12,7 +12,7 @@ from pathlib import Path
 from contextlib import closing
 
 import grpc
-from xdg import (XDG_CONFIG_HOME)
+from xdg import BaseDirectory
 
 from .proto import (xenon_pb2_grpc)
 from .compat import (start_xenon_server, kill_process)
@@ -27,8 +27,9 @@ def check_socket(host, port):
 
 def get_secure_channel(port=50051):
     """Try to connect over a secure channel."""
-    crt_file = Path(XDG_CONFIG_HOME) / 'xenon-grpc' / 'server.crt'
-    key_file = Path(XDG_CONFIG_HOME) / 'xenon-grpc' / 'server.key'
+    config_dir = Path(BaseDirectory.xdg_config_home) / 'xenon-grpc'
+    crt_file = config_dir / 'server.crt'
+    key_file = config_dir / 'server.key'
 
     creds = grpc.ssl_channel_credentials(
         root_certificates=open(str(crt_file), 'rb').read(),

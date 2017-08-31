@@ -50,9 +50,9 @@ def write_request_stream(self, path, data_stream):
 
 
 class Path(PathLike):
-    """Wrapper around :py:class:`PosixPath` form the :py:mod:`pathlib` module.
+    """Wrapper around :py:class:`PurePosixPath` form the :py:mod:`pathlib` module.
     This class reveals a string representation of the underlying path object to
-    GRPC. You may use this class like a `pathlib.PosixPath`, including using it
+    GRPC. You may use this class like a `pathlib.PurePosixPath`, including using it
     as an argument to `open` calls as it derives from `os.PathLike` (Python >
     3.6). For more information see `the Python documentation on pathlib
     <https://docs.python.org/3/library/pathlib.html>`_."""
@@ -60,12 +60,12 @@ class Path(PathLike):
     __servicer__ = xenon_pb2_grpc.FileSystemServiceServicer
 
     def __init__(self, path):
-        if isinstance(path, pathlib.PosixPath):
+        if isinstance(path, pathlib.PurePosixPath):
             self._pathlib_path = path
         elif isinstance(path, xenon_pb2.Path):
-            self._pathlib_path = pathlib.PosixPath(path.path)
+            self._pathlib_path = pathlib.PurePosixPath(path.path)
         else:
-            self._pathlib_path = pathlib.PosixPath(path)
+            self._pathlib_path = pathlib.PurePosixPath(path)
 
     def __str__(self):
         return str(self._pathlib_path)
@@ -94,14 +94,14 @@ class Path(PathLike):
             @functools.wraps(member)
             def wrapped_member(*args, **kwargs):
                 value = member(*args, **kwargs)
-                if isinstance(value, pathlib.PosixPath):
+                if isinstance(value, pathlib.PurePosixPath):
                     return Path(value)
                 else:
                     return value
 
             return wrapped_member
 
-        elif isinstance(member, pathlib.PosixPath):
+        elif isinstance(member, pathlib.PurePosixPath):
             return Path(member)
 
         else:

@@ -1,12 +1,18 @@
+"""
+Certificate creation.
+"""
+
 import logging
-from xdg import XDG_CONFIG_HOME
-from OpenSSL import crypto
 from socket import gethostname
 from pathlib import Path
 
+from xdg import BaseDirectory
+from OpenSSL import crypto
+
 
 def create_self_signed_cert():
-    config_dir = Path(XDG_CONFIG_HOME) / 'xenon-grpc'
+    """Creates a self-signed certificate key pair."""
+    config_dir = Path(BaseDirectory.xdg_config_home) / 'xenon-grpc'
     config_dir.mkdir(parents=True, exist_ok=True)
     crt_file = config_dir / 'server.crt'
     key_file = config_dir / 'server.key'

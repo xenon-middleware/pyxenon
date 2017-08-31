@@ -9,7 +9,7 @@ import os
 import sys
 import signal
 
-from xdg import XDG_CONFIG_HOME
+from xdg import BaseDirectory
 
 from .create_keys import create_self_signed_cert
 
@@ -42,8 +42,9 @@ def start_xenon_server(port=50051, disable_tls=False):
 
     if not disable_tls:
         create_self_signed_cert()
-        crt_file = Path(XDG_CONFIG_HOME) / 'xenon-grpc' / 'server.crt'
-        key_file = Path(XDG_CONFIG_HOME) / 'xenon-grpc' / 'server.key'
+        config_dir = Path(BaseDirectory.xdg_config_home) / 'xenon-grpc'
+        crt_file = config_dir / 'server.crt'
+        key_file = config_dir / 'server.key'
 
         cmd.extend([
             '--server-cert-chain', str(crt_file),
