@@ -1,13 +1,25 @@
-Python interface to Xenon, GRPC Branch
-======================================
+Python interface to Xenon 2.0
+=============================
 
 We're rewriting PyXenon on top of the GRPC API for Xenon. This work will result in version 2.0 of PyXenon.
 
+Installing
+----------
+
+Clone this repository, and do::
+
+    pip install .
+
+The code will appear on PyPI when it is ready for release.
+
 Development
 -----------
-Until we release PyXenon 2.0, we don't ship the `xenon-grpc` `jar` file in this repository. Build it manually, following instructions at `Xenon-GRPC <https://github.com/nlesc/xenon-grpc>`__, and place the contents of the `build/install/xenon-grpc-shadow` folder somewhere findable.
+PyXenon ships with the `Xenon-GRPC` jar-file and command-line executable. If
+these need upgrading, build them manually, following instructions at
+`Xenon-GRPC <https://github.com/nlesc/xenon-grpc>`__, and place the contents of the
+``build/install/xenon-grpc-shadow`` folder (``lib`` and ``bin``) here.
 
-To generate the `grpc` code, run `scripts/protoc.sh` from the project root.
+To generate the `GRPC` code, run ``scripts/protoc.sh`` from the project root.
 
 Testing
 -------
@@ -18,9 +30,39 @@ Run the following docker container to test against remote slurm
 
     docker run --detach --publish 10022:22 nlesc/xenon-slurm:17
 
+An example of some code running against this container is in
+``examples/tutorial.py``.
 
-Old README
-==========
+Example
+-------
+
+.. code-block:: python
+
+    import xenon
+    import os
+
+    xenon.init()
+
+    # create a new job scheduler, using SSH to localhost to submit new jobs.
+    with xenon.Scheduler.create(
+            adaptor='ssh', location='localhost') as scheduler:
+
+        # make a new job description. The executable must already be present on the target host.
+        desc = xenon.JobDescription(
+            executable='hostname',
+            stdout=os.getcwd() + 'stdout.txt')
+
+        # submit a job
+        job = scheduler.submit_batch_job(desc)
+        status = scheduler.wait_until_done(job, 1000)
+
+        # read the standard output of the job. We can do this directly because
+        # we ran on localhost, otherwise, we need to transfer the file first.
+        with open(desc.stdout) as f:
+            print(f.read())
+
+Old README (Version 1.2)
+========================
 
 |Python versions| |DOI| |PyPi version| |Apache 2 License| |Build Status|
 |Codacy Badge|

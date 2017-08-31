@@ -327,3 +327,6 @@ class OopProxy(metaclass=OopMeta):
     def __getattr__(self, attr):
         """Accesses fields of the corresponding GRPC message."""
         return getattr(self.__wrapped__, attr)
+
+    def __str__(self):
+        return str(self.__wrapped__)

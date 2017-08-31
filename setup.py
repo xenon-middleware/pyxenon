@@ -48,7 +48,8 @@ setup(
     ],
     data_files=[
         ('lib', ['lib/xenon-grpc-1.0.0-all.jar']),
-        ('bin', ['bin/xenon-grpc'])],
+        ('bin', [{'posix': 'bin/xenon-grpc',
+                  'nt': 'bin/xenon-grpc.bat'}[os.name]])],
     install_requires=['grpcio', 'grpcio-tools'],
     extras_require={
         'test': ['pytest', 'pytest-flake8', 'coverage'],
