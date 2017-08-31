@@ -67,7 +67,7 @@ def find_xenon_grpc_jar():
 
 def generate_keys():
     config_dir = Path(XDG_CONFIG_HOME) / 'xenon-grpc'
-    config_dir.mkdir(exist_ok=True)
+    config_dir.mkdir(parents=True, exist_ok=True)
 
     if (config_dir / 'server.key').exists():
         return
