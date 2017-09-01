@@ -1,5 +1,6 @@
 import random
 import filecmp
+import pathlib
 
 from xenon import (FileSystem, CopyRequest, Path)
 
@@ -25,7 +26,7 @@ def test_download_remote(xenon_server, tmpdir):
 
     # define what file to download to
     local_dir = tmpdir.joinpath('local')
-    local_dir.mkdir()
+    pathlib.Path(str(local_dir)).mkdir()
     local_file = local_dir.joinpath(remote_file.name)
 
     # create the destination file only if the destination path doesn't
