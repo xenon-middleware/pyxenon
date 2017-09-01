@@ -119,9 +119,9 @@ class GrpcMethod:
         if self.uses_request:
             fields = get_fields(self.request_type)
             if not self.static:
-                assert self.field_name in fields, \
-                    "field '{}' not found in {}".format(
-                        self.field_name, self.request_name)
+                if self.field_name not in fields:
+                    raise NameError("field '{}' not found in {}".format(
+                        self.field_name, self.request_name))
                 fields.remove(self.field_name)
             parameters += tuple(
                 Parameter(name=name, kind=Parameter.POSITIONAL_OR_KEYWORD,

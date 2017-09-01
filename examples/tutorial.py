@@ -2,7 +2,6 @@ from xenon import (
     PasswordCredential, FileSystem, CopyRequest, Path, CopyStatus,
     Scheduler, JobDescription)
 import xenon
-import pathlib
 
 
 xenon.init(log_level='INFO')
@@ -101,18 +100,14 @@ copy_id = remote_fs.copy(remote_file, local_fs, local_file,
                          mode=CopyRequest.REPLACE, recursive=False)
 
 # wait for the copy operation to complete (successfully or otherwise)
-copy_status = remote_fs.wait_until_done(copy_id, 1000)
-assert copy_status.done
+copy_status = remote_fs.wait_until_done(copy_id)
 
 # rethrow the Exception if we got one
-assert copy_status.error_type == CopyStatus.NONE, \
-    copy_status.error_message
+if copy_status.error_type != CopyStatus.NONE:
+    raise RuntimeError(copy_status.error_message)
 
 local_fs.close()
 remote_fs.close()
 scheduler.close()
 
-result_file = pathlib.Path(tmpdir / 'sleep.stdout.txt')
-assert result_file.exists()
-lines = [l.strip() for l in open(result_file, 'r')]
-assert lines == ["Sleeping for 0 second(s)."]
+print(open(local_file, 'r').read(), end='')
