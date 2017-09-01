@@ -37,24 +37,25 @@ class Is(OopProxy):
 
 def append_request_stream(self, path, data_stream):
     yield xenon_pb2.AppendToFileRequest(
-            filesystem=unwrap(self), path=unwrap(path))
+        filesystem=unwrap(self), path=unwrap(path))
     yield from (xenon_pb2.AppendToFileRequest(buffer=b)
                 for b in data_stream)
 
 
 def write_request_stream(self, path, data_stream):
     yield xenon_pb2.WriteToFileRequest(
-            filesystem=unwrap(self), path=unwrap(path))
+        filesystem=unwrap(self), path=unwrap(path))
     yield from (xenon_pb2.WriteToFileRequest(buffer=b)
                 for b in data_stream)
 
 
 class Path(PathLike):
-    """Wrapper around :py:class:`PurePosixPath` form the :py:mod:`pathlib` module.
-    This class reveals a string representation of the underlying path object to
-    GRPC. You may use this class like a `pathlib.PurePosixPath`, including using it
-    as an argument to `open` calls as it derives from `os.PathLike` (Python >
-    3.6). For more information see `the Python documentation on pathlib
+    """Wrapper around :py:class:`PurePosixPath` form the :py:mod:`pathlib`
+    module.  This class reveals a string representation of the underlying path
+    object to GRPC. You may use this class like a `pathlib.PurePosixPath`,
+    including using it as an argument to `open` calls as it derives from
+    `os.PathLike` (Python > 3.6). For more information see `the Python
+    documentation on pathlib
     <https://docs.python.org/3/library/pathlib.html>`_."""
     __is_proxy__ = True
     __servicer__ = xenon_pb2_grpc.FileSystemServiceServicer

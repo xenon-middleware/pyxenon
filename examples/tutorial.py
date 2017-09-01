@@ -31,15 +31,15 @@ local_fs = FileSystem.create(adaptor='file')
 
 # the remote system requires credentials, create them here:
 credential = PasswordCredential(
-        username='xenon',
-        password='javagat')
+    username='xenon',
+    password='javagat')
 
 # create the remote filesystem representation and specify the
 # executable's path
 remote_fs = FileSystem.create(
-        adaptor='sftp',
-        location=location,
-        password_credential=credential)
+    adaptor='sftp',
+    location=location,
+    password_credential=credential)
 
 # when waiting for jobs or copy operations to complete, wait
 # indefinitely
@@ -62,15 +62,15 @@ if copy_status.error_message:
 # step 2: submit job and capture its job identifier
 #
 scheduler = Scheduler.create(
-        adaptor='slurm',
-        location=location,
-        password_credential=credential)
+    adaptor='slurm',
+    location=location,
+    password_credential=credential)
 
 # compose the job description:
 job_description = JobDescription(
-        executable='bash',
-        arguments=['sleep.sh', '0'],
-        stdout='sleep.stdout.txt')
+    executable='bash',
+    arguments=['sleep.sh', '0'],
+    stdout='sleep.stdout.txt')
 
 job_id = scheduler.submit_batch_job(job_description)
 
@@ -84,7 +84,7 @@ if job_status.error_message:
 
 # make sure to synchronize the remote filesystem
 job_id = scheduler.submit_batch_job(JobDescription(
-        executable='sync'))
+    executable='sync'))
 scheduler.wait_until_done(job_id)
 
 #

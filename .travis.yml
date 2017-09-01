@@ -11,7 +11,7 @@ install:
   - pip install -U pip codacy-coverage setuptools
   - pip install -U ".[test]"
 script:
-  - coverage run -m pytest ./tests --flake8
+  - coverage run -m pytest --flake8
 after_script:
   - coverage report
   - coverage xml

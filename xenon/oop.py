@@ -68,7 +68,7 @@ class GrpcMethod:
     @property
     def is_simple(self):
         return not self.uses_request and not self.input_transform \
-                and not self.static
+            and not self.static
 
     @property
     def request_name(self):
@@ -161,7 +161,7 @@ def make_static_request(method, *args, **kwargs):
         new_kwargs = {kw: unwrap(value) for kw, value in kwargs.items()}
         new_args = tuple(unwrap(value) for value in args)
         bound_args = method.signature.bind(
-                None, *new_args, **new_kwargs).arguments
+            None, *new_args, **new_kwargs).arguments
 
         # if we encounter any Enum arguments, replace them with their value
         for k in bound_args:
@@ -186,7 +186,7 @@ def make_request(self, method, *args, **kwargs):
     if use_signature:
         new_args = tuple(unwrap(value) for value in args)
         bound_args = method.signature.bind(
-                unwrap(self), *new_args, **new_kwargs).arguments
+            unwrap(self), *new_args, **new_kwargs).arguments
 
         # if we encounter any Enum arguments, replace them with their value
         for k in bound_args:
@@ -227,7 +227,7 @@ def method_wrapper(m):
             """TODO: no docstring!"""
             f = getattr(self.__service__, to_lower_camel_case(m.name))
             return apply_transform(
-                    self.__service__, m.output_transform, f(unwrap(self)))
+                self.__service__, m.output_transform, f(unwrap(self)))
 
         return simple_method
 
@@ -237,7 +237,7 @@ def method_wrapper(m):
             f = getattr(self.__service__, to_lower_camel_case(m.name))
             request = m.input_transform(self, *args, **kwargs)
             return apply_transform(
-                    self.__service__, m.output_transform, f(request))
+                self.__service__, m.output_transform, f(request))
 
         return transform_method
 
@@ -247,7 +247,7 @@ def method_wrapper(m):
             f = getattr(cls.__stub__(__server__), to_lower_camel_case(m.name))
             request = make_static_request(m, *args, **kwargs)
             return apply_transform(
-                    cls.__stub__(__server__), m.output_transform, f(request))
+                cls.__stub__(__server__), m.output_transform, f(request))
 
         return static_method
 
@@ -257,7 +257,7 @@ def method_wrapper(m):
             f = getattr(self.__service__, to_lower_camel_case(m.name))
             request = make_request(self, m, *args, **kwargs)
             return apply_transform(
-                    self.__service__, m.output_transform, f(request))
+                self.__service__, m.output_transform, f(request))
 
         return request_method
 

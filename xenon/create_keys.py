@@ -32,7 +32,8 @@ def create_self_signed_cert():
     cert.get_subject().CN = gethostname()
     cert.set_serial_number(1000)
     cert.gmtime_adj_notBefore(0)
-    cert.gmtime_adj_notAfter(10*365*24*60*60)
+    # valid for almost ten years!
+    cert.gmtime_adj_notAfter(10 * 365 * 24 * 3600)
     cert.set_issuer(cert.get_subject())
     cert.set_pubkey(k)
     cert.sign(k, 'sha256')
