@@ -2,12 +2,13 @@ from xenon import (
     PasswordCredential, FileSystem, CopyRequest, Path, CopyStatus,
     Scheduler, JobDescription)
 import xenon
+import pathlib
 
 
-xenon.init()
+xenon.init(log_level='INFO')
 
-tmpdir = Path('/tmp/')
-location = '0.0.0.0:10022'
+tmpdir = Path('.')
+location = '10.0.2.2:10022'
 
 #
 # step 0: write our script
@@ -91,10 +92,11 @@ scheduler.wait_until_done(job_id)
 #
 # specify the path of the stdout file on the remote and on the local
 # machine
-remote_file = Path('/home/xenon/sleep.stdout.txt')
+remote_file = Path('./sleep.stdout.txt')
 local_file = tmpdir / 'sleep.stdout.txt'
 
 # start the copy operation; no recursion, we're just copying a file
+print("Copying from {} to {}".format(remote_file, local_file))
 copy_id = remote_fs.copy(remote_file, local_fs, local_file,
                          mode=CopyRequest.REPLACE, recursive=False)
 
@@ -110,6 +112,7 @@ local_fs.close()
 remote_fs.close()
 scheduler.close()
 
-assert (tmpdir / 'sleep.stdout.txt').exists()
-lines = [l.strip() for l in open(str(tmpdir / 'sleep.stdout.txt'), 'r')]
+result_file = pathlib.Path(tmpdir / 'sleep.stdout.txt')
+assert result_file.exists()
+lines = [l.strip() for l in open(result_file, 'r')]
 assert lines == ["Sleeping for 0 second(s)."]

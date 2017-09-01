@@ -1,6 +1,7 @@
 import xenon
 from queue import Queue
 from threading import Thread
+import os
 
 
 xenon.init()
@@ -21,13 +22,20 @@ def timeout(delay, call, *args, **kwargs):
 
     return return_value
 
-
-with xenon.Scheduler.create(adaptor='local') as scheduler:
+if os.name == 'posix':
     job_description = xenon.JobDescription(
         executable='cat',
         arguments=[],
         queue_name='multi')
+elif os.name == 'nt':
+    job_description = xenon.JobDescription(
+        executable='cmd.exe',
+        arguments=['/c', 'type', 'con'],
+        queue_name='multi')
+else:
+    raise RuntimeError("Unknown OS")
 
+with xenon.Scheduler.create(adaptor='local') as scheduler:
     input_queue = Queue()
 
     def input_stream():
@@ -37,6 +45,7 @@ with xenon.Scheduler.create(adaptor='local') as scheduler:
                 input_queue.task_done()
                 return
             else:
+                print("[yo] " + msg)
                 yield msg.encode()
                 input_queue.task_done()
 
@@ -56,7 +65,7 @@ with xenon.Scheduler.create(adaptor='local') as scheduler:
         for line in lines:
             input_queue.put(('msg', line + '\n'))
             msg = timeout(1.0, get_line, output_stream)
-            assert msg == line
+            assert msg == line, "{} and {} should be equal".format(repr(msg), repr(line))
             print(msg)
     finally:
         input_queue.put(('end', None))
