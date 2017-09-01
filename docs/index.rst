@@ -9,7 +9,9 @@ Welcome to PyXenon's documentation!
 .. toctree::
    :maxdepth: 2
 
+   self
    quick-start
+   streaming
    api
 
 The PyXenon module interfaces with Xenon-GRPC to get an interface to the Xenon
