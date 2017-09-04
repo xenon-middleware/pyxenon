@@ -1,7 +1,6 @@
 Python interface to Xenon 2.0
 =============================
 |ReadTheDocsBadge| |Apache2License| |BuildStatus| |CodacyBadge|
-.. c |PythonVersions| |DOI| |PyPi version|
 
 Python interface to the `Xenon middleware library, v. 2.0
 <http://nlesc.github.io/Xenon/>`__. Xenon provides a simple programming
