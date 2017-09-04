@@ -103,7 +103,7 @@ and then run
     tox
 
 until all tests succeed. The command checks against flake8 code
-standards and syntax errors on Python 2.7 and 3.5. Then commit, to make sure
+standards and syntax errors on Python 3.5 and 3.6. Then commit, to make sure
 the change didn't break any code. The pull request will be evaluated in
 `Travis <https://travis-ci.org/NLeSC/pyxenon>`__.
 
