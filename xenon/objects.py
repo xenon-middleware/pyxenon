@@ -207,7 +207,10 @@ class FileSystem(OopProxy):
                 'set_posix_file_permissions', uses_request=True),
             GrpcMethod(
                 'list', uses_request=True,
-                output_transform=transform_map(PathAttributes))
+                output_transform=transform_map(PathAttributes)),
+
+            GrpcMethod(
+                'get_path_separator', output_transform=t_getattr('separator'))
         ]
 
     @staticmethod
@@ -298,7 +301,10 @@ class Scheduler(OopProxy):
             GrpcMethod(
                 'get_queue_status', uses_request=True),
             GrpcMethod(
-                'get_queue_statuses', uses_request='SchedulerAndQueues')
+                'get_queue_statuses', uses_request='SchedulerAndQueues'),
+
+            GrpcMethod(
+                'get_file_system', output_transform=FileSystem)
         ]
 
     def __init__(self, service, wrapped):
