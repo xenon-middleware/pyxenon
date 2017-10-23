@@ -1,5 +1,7 @@
 from .oop import (GrpcMethod, OopProxy, transform_map, mirror_enum, unwrap)
 from .proto import (xenon_pb2, xenon_pb2_grpc)
+from .server import __server__
+
 import pathlib
 import inspect
 import functools
@@ -304,7 +306,8 @@ class Scheduler(OopProxy):
                 'get_queue_statuses', uses_request='SchedulerAndQueues'),
 
             GrpcMethod(
-                'get_file_system', output_transform=FileSystem)
+                'get_file_system', output_transform=
+                lambda s, x: FileSystem(FileSystem.__stub__(__server__), x))
         ]
 
     def __init__(self, service, wrapped):
