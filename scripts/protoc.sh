@@ -11,7 +11,7 @@ then
 fi
 
 echo "Obtaining \`xenon.proto\` file."
-xenon-grpc --proto > xenon/proto/xenon.proto
+./bin/xenon-grpc --proto > ./xenon/proto/xenon.proto
 
 echo "Generating Python code."
 python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. xenon/proto/xenon.proto

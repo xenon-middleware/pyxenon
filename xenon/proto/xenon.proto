@@ -41,6 +41,7 @@ message SchedulerAdaptorDescription {
     bool is_embedded = 5;
     bool supports_interactive = 6;
     bool supports_batch = 7;
+    bool uses_file_system = 8;
 }
 
 message SchedulerAdaptorDescriptions {
@@ -105,8 +106,6 @@ message CreateFileSystemRequest {
 // Handle for Xenon FileSystem object
 message FileSystem {
     string id = 1;
-    // name of the adaptor that created this FileSystem
-    string adaptor = 2;
 }
 
 message FileSystems {
@@ -257,6 +256,10 @@ message ListRequest {
     bool recursive = 3;
 }
 
+message GetPathSeparatorResponse {
+    string separator = 1;
+}
+
 message CreateSchedulerRequest {
     string adaptor = 1;
     string location = 2;
@@ -277,15 +280,13 @@ message Schedulers {
     repeated Scheduler schedulers = 1;
 }
 
-// Gives a description of a Job to be submitted to using
-// Scheduler.submit_batch_job or Scheduler.submit_online_job
 message JobDescription {
     string executable = 1;
     repeated string arguments = 2;
     string working_directory = 3;
     map<string, string> environment = 4;
     string queue_name = 5;
-    uint32 max_time = 6;
+    uint32 max_runtime = 6;
     uint32 node_count = 7;
     uint32 processes_per_node = 8;
     bool start_single_process = 9;
@@ -471,6 +472,8 @@ service FileSystemService {
     rpc setPosixFilePermissions(SetPosixFilePermissionsRequest) returns (Empty) {}
     // Reads the target of a symbolic link
     rpc readSymbolicLink(PathRequest) returns (Path) {}
+    // Get the path separator used by this file system.
+    rpc getPathSeparator(FileSystem) returns (GetPathSeparatorResponse) {}
     // Return if the connection to the FileSystem is open.
     rpc isOpen(FileSystem) returns (Is) {}
     // Close this filestem
@@ -532,6 +535,8 @@ service SchedulerService {
     rpc isOpen(Scheduler) returns (Is) {}
     // Cancel a job
     rpc cancelJob(JobRequest) returns (JobStatus) {}
+    // Retrieve the FileSystem used internally by this Scheduler.
+    rpc getFileSystem(Scheduler) returns (FileSystem) {}
     // Close this Scheduler.
     // If scheduler is embedded then any pending/running jobs will be killed
     // Will also forget this scheduler

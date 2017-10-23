@@ -145,6 +145,11 @@ class FileSystemServiceStub(object):
         request_serializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Path.FromString,
         )
+    self.getPathSeparator = channel.unary_unary(
+        '/xenon.FileSystemService/getPathSeparator',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.GetPathSeparatorResponse.FromString,
+        )
     self.isOpen = channel.unary_unary(
         '/xenon.FileSystemService/isOpen',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
@@ -361,6 +366,13 @@ class FileSystemServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def getPathSeparator(self, request, context):
+    """Get the path separator used by this file system.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def isOpen(self, request, context):
     """Return if the connection to the FileSystem is open.
     """
@@ -534,6 +546,11 @@ def add_FileSystemServiceServicer_to_server(servicer, server):
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.PathRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Path.SerializeToString,
       ),
+      'getPathSeparator': grpc.unary_unary_rpc_method_handler(
+          servicer.getPathSeparator,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.GetPathSeparatorResponse.SerializeToString,
+      ),
       'isOpen': grpc.unary_unary_rpc_method_handler(
           servicer.isOpen,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
@@ -674,6 +691,11 @@ class SchedulerServiceStub(object):
         '/xenon.SchedulerService/cancelJob',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.JobRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.FromString,
+        )
+    self.getFileSystem = channel.unary_unary(
+        '/xenon.SchedulerService/getFileSystem',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
         )
     self.close = channel.unary_unary(
         '/xenon.SchedulerService/close',
@@ -838,6 +860,13 @@ class SchedulerServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def getFileSystem(self, request, context):
+    """Retrieve the FileSystem used internally by this Scheduler.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def close(self, request, context):
     """Close this Scheduler.
     If scheduler is embedded then any pending/running jobs will be killed
@@ -966,6 +995,11 @@ def add_SchedulerServiceServicer_to_server(servicer, server):
           servicer.cancelJob,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.JobRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.SerializeToString,
+      ),
+      'getFileSystem': grpc.unary_unary_rpc_method_handler(
+          servicer.getFileSystem,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
       ),
       'close': grpc.unary_unary_rpc_method_handler(
           servicer.close,
