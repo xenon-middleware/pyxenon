@@ -88,6 +88,26 @@ message DefaultCredential {
     string username = 1;
 }
 
+message UserCredential {
+    // Values of CredentialMap entries
+    oneof entry {
+        CertificateCredential certificate_credential = 1;
+        PasswordCredential password_credential = 2;
+        DefaultCredential default_credential = 3;
+    }
+}
+
+message CredentialMap {
+    // In Xenon accessible by get(), put() and containsCredential() on object directly
+    map<string, UserCredential> entries = 1;
+    // In Xenon the
+    oneof fallback {
+        CertificateCredential certificate_credential = 2;
+        PasswordCredential password_credential = 3;
+        DefaultCredential default_credential = 4;
+    }
+}
+
 message Location {
     string location = 1;
 }
@@ -100,6 +120,7 @@ message CreateFileSystemRequest {
         CertificateCredential certificate_credential = 4;
         PasswordCredential password_credential = 5;
         DefaultCredential default_credential = 6;
+        CredentialMap credential_map = 7;
     }
 }
 
@@ -268,6 +289,7 @@ message CreateSchedulerRequest {
         CertificateCredential certificate_credential = 4;
         PasswordCredential password_credential = 5;
         DefaultCredential default_credential = 6;
+        CredentialMap credential_map = 7;
     }
 }
 
