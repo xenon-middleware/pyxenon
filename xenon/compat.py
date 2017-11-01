@@ -16,7 +16,7 @@ from .create_keys import create_self_signed_cert
 
 def find_xenon_grpc_jar():
     """Find the Xenon-GRPC jar-file, windows version."""
-    jar_file = Path(sys.prefix) / 'lib' / 'xenon-grpc-1.0.0-all.jar'
+    jar_file = Path(sys.prefix) / 'lib' / 'xenon-grpc-2.0.0-all.jar'
 
     if not jar_file.exists():
         return None
