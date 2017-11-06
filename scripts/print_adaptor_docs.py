@@ -20,20 +20,20 @@ class Table:
         ]
         return Table(headings, data)
 
-    def print_rst(self, fmt_width=70):
+    def print_rst(self, fmt_width=100):
         column_max = [
             max(max(len(row[c]) for row in self.data), len(self.headings[c]))
             for c in range(self.n_cols)
         ]
 
         # take all columns that are less than 10 characters max, and see how much space we have left
-        space_left = fmt_width - sum(n for n in column_max if n <= 25)
-        space_needed = sum(n > 25 for n in column_max) * 25
+        space_left = fmt_width - sum(n for n in column_max if n <= 30)
+        space_needed = sum(n > 30 for n in column_max) * 30
 
         if space_needed > space_left:
             raise ValueError("Table is too wide.")
 
-        large_column_width = space_left // max(1, sum(n > 25 for n in column_max))
+        large_column_width = space_left // max(1, sum(n > 30 for n in column_max))
         aimed_column_width = [
             min(large_column_width, n) for n in column_max
         ]
@@ -45,9 +45,9 @@ class Table:
 
         def column_min_widths():
             return [
-                max(
+                max(max(
                     max_width(row[i], aimed_column_width[i])
-                    for row in self.data)
+                    for row in self.data), aimed_column_width[i])
                 for i in range(self.n_cols)]
 
         column_width = column_min_widths()
@@ -97,7 +97,7 @@ def property_table(d):
 
     return Table.from_sequence(
         d.supported_properties,
-        name=lambda p: '.'.join(p.name.split('.')[4:]),
+        name=lambda p: '.'.join(p.name.split('.')[2:]),
         description=lambda p: p.description,
         data_type=prop_typename,
         default=lambda p: '`{}`'.format(p.default_value) if p.default_value else '(empty)')

@@ -31,14 +31,11 @@ location string:
 
 supported properties:
 
-+------------+-------------------------------------------+------+-------+
-| name       | description                               | data | defau |
-|            |                                           | _typ | lt    |
-|            |                                           | e    |       |
-+============+===========================================+======+=======+
-| bufferSize | The buffer size to use when copying files | size | `64K` |
-|            | (in bytes).                               |      |       |
-+------------+-------------------------------------------+------+-------+
++-----------------------------+-------------------------------------------------------+-----------+---------+
+| name                        | description                                           | data_type | default |
++=============================+=======================================================+===========+=========+
+| filesystems.file.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
++-----------------------------+-------------------------------------------------------+-----------+---------+
 
 Ftp
 ~~~
@@ -61,14 +58,11 @@ location string:
 
 supported properties:
 
-+------------+-------------------------------------------+------+-------+
-| name       | description                               | data | defau |
-|            |                                           | _typ | lt    |
-|            |                                           | e    |       |
-+============+===========================================+======+=======+
-| bufferSize | The buffer size to use when copying files | size | `64K` |
-|            | (in bytes).                               |      |       |
-+------------+-------------------------------------------+------+-------+
++----------------------------+-------------------------------------------------------+-----------+---------+
+| name                       | description                                           | data_type | default |
++============================+=======================================================+===========+=========+
+| filesystems.ftp.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
++----------------------------+-------------------------------------------------------+-----------+---------+
 
 Sftp
 ~~~~
@@ -92,34 +86,32 @@ location string:
 
 supported properties:
 
-+-----------------------+----------------------------------+---------+---------+
-| name                  | description                      | data_ty | default |
-|                       |                                  | pe      |         |
-+=======================+==================================+=========+=========+
-| autoAddHostKey        | Automatically add unknown host   | boolean | `true`  |
-|                       | keys to known_hosts.             |         |         |
-+-----------------------+----------------------------------+---------+---------+
-| strictHostKeyChecking | Enable strict host key checking. | boolean | `true`  |
-+-----------------------+----------------------------------+---------+---------+
-| loadKnownHosts        | Load the standard known_hosts    | boolean | `true`  |
-|                       | file.                            |         |         |
-+-----------------------+----------------------------------+---------+---------+
-| loadSshConfig         | Load the OpenSSH config file.    | boolean | `true`  |
-+-----------------------+----------------------------------+---------+---------+
-| sshConfigFile         | OpenSSH config filename.         | string  | (empty) |
-+-----------------------+----------------------------------+---------+---------+
-| agent                 | Use a (local) ssh-agent.         | boolean | `false` |
-+-----------------------+----------------------------------+---------+---------+
-| agentForwarding       | Use ssh-agent forwarding when    | boolean | `false` |
-|                       | setting up a connection.         |         |         |
-+-----------------------+----------------------------------+---------+---------+
-| connection.timeout    | The timeout for creating and     | natural | `10000` |
-|                       | authenticating connections (in   |         |         |
-|                       | milliseconds).                   |         |         |
-+-----------------------+----------------------------------+---------+---------+
-| bufferSize            | The buffer size to use when      | size    | `64K`   |
-|                       | copying files (in bytes).        |         |         |
-+-----------------------+----------------------------------+---------+---------+
++----------------------------------------+--------------------------------------------+-----------+---------+
+| name                                   | description                                | data_type | default |
++========================================+============================================+===========+=========+
+| filesystems.sftp.autoAddHostKey        | Automatically add unknown host keys to     | boolean   | `true`  |
+|                                        | known_hosts.                               |           |         |
++----------------------------------------+--------------------------------------------+-----------+---------+
+| filesystems.sftp.strictHostKeyChecking | Enable strict host key checking.           | boolean   | `true`  |
++----------------------------------------+--------------------------------------------+-----------+---------+
+| filesystems.sftp.loadKnownHosts        | Load the standard known_hosts file.        | boolean   | `true`  |
++----------------------------------------+--------------------------------------------+-----------+---------+
+| filesystems.sftp.loadSshConfig         | Load the OpenSSH config file.              | boolean   | `true`  |
++----------------------------------------+--------------------------------------------+-----------+---------+
+| filesystems.sftp.sshConfigFile         | OpenSSH config filename.                   | string    | (empty) |
++----------------------------------------+--------------------------------------------+-----------+---------+
+| filesystems.sftp.agent                 | Use a (local) ssh-agent.                   | boolean   | `false` |
++----------------------------------------+--------------------------------------------+-----------+---------+
+| filesystems.sftp.agentForwarding       | Use ssh-agent forwarding when setting up a | boolean   | `false` |
+|                                        | connection.                                |           |         |
++----------------------------------------+--------------------------------------------+-----------+---------+
+| filesystems.sftp.connection.timeout    | The timeout for creating and               | natural   | `10000` |
+|                                        | authenticating connections (in             |           |         |
+|                                        | milliseconds).                             |           |         |
++----------------------------------------+--------------------------------------------+-----------+---------+
+| filesystems.sftp.bufferSize            | The buffer size to use when copying files  | size      | `64K`   |
+|                                        | (in bytes).                                |           |         |
++----------------------------------------+--------------------------------------------+-----------+---------+
 
 Webdav
 ~~~~~~
@@ -144,14 +136,11 @@ location string:
 
 supported properties:
 
-+------------+-------------------------------------------+------+-------+
-| name       | description                               | data | defau |
-|            |                                           | _typ | lt    |
-|            |                                           | e    |       |
-+============+===========================================+======+=======+
-| bufferSize | The buffer size to use when copying files | size | `64K` |
-|            | (in bytes).                               |      |       |
-+------------+-------------------------------------------+------+-------+
++-------------------------------+-------------------------------------------------------+-----------+---------+
+| name                          | description                                           | data_type | default |
++===============================+=======================================================+===========+=========+
+| filesystems.webdav.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
++-------------------------------+-------------------------------------------------------+-----------+---------+
 
 S3
 ~~
@@ -174,14 +163,11 @@ location string:
 
 supported properties:
 
-+------------+-------------------------------------------+------+-------+
-| name       | description                               | data | defau |
-|            |                                           | _typ | lt    |
-|            |                                           | e    |       |
-+============+===========================================+======+=======+
-| bufferSize | The buffer size to use when copying files | size | `64K` |
-|            | (in bytes).                               |      |       |
-+------------+-------------------------------------------+------+-------+
++---------------------------+-------------------------------------------------------+-----------+---------+
+| name                      | description                                           | data_type | default |
++===========================+=======================================================+===========+=========+
+| filesystems.s3.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
++---------------------------+-------------------------------------------------------+-----------+---------+
 
 
 Scheduler
@@ -192,99 +178,85 @@ Local
 The local jobs adaptor implements all functionality by emulating a
 local queue.
 
-+----------------------+------+
-| field                | valu |
-|                      | e    |
-+======================+======+
-| is_embedded          | True |
-+----------------------+------+
-| supports_interactive | True |
-+----------------------+------+
-| supports_batch       | True |
-+----------------------+------+
-| uses_file_system     | True |
-+----------------------+------+
++----------------------+-------+
+| field                | value |
++======================+=======+
+| is_embedded          | True  |
++----------------------+-------+
+| supports_interactive | True  |
++----------------------+-------+
+| supports_batch       | True  |
++----------------------+-------+
+| uses_file_system     | True  |
++----------------------+-------+
 
 location string:
     * `[/workdir]`
 
 supported properties:
 
-+-------------------------------+-----------------------------+---------+--------+
-| name                          | description                 | data_ty | defaul |
-|                               |                             | pe      | t      |
-+===============================+=============================+=========+========+
-| queue.pollingDelay            | The polling delay for       | long    | `1000` |
-|                               | monitoring running jobs (in |         |        |
-|                               | milliseconds).              |         |        |
-+-------------------------------+-----------------------------+---------+--------+
-| queue.multi.maxConcurrentJobs | The maximum number of       | integer | `4`    |
-|                               | concurrent jobs in the      |         |        |
-|                               | multiq.                     |         |        |
-+-------------------------------+-----------------------------+---------+--------+
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| name                                           | description                                | data_type | default |
++================================================+============================================+===========+=========+
+| schedulers.local.queue.pollingDelay            | The polling delay for monitoring running   | long      | `1000`  |
+|                                                | jobs (in milliseconds).                    |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.local.queue.multi.maxConcurrentJobs | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                                | the multiq.                                |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
 
 Ssh
 ~~~
 The SSH job adaptor implements all functionality to start jobs on ssh
 servers.
 
-+----------------------+------+
-| field                | valu |
-|                      | e    |
-+======================+======+
-| is_embedded          | True |
-+----------------------+------+
-| supports_interactive | True |
-+----------------------+------+
-| supports_batch       | True |
-+----------------------+------+
-| uses_file_system     | True |
-+----------------------+------+
++----------------------+-------+
+| field                | value |
++======================+=======+
+| is_embedded          | True  |
++----------------------+-------+
+| supports_interactive | True  |
++----------------------+-------+
+| supports_batch       | True  |
++----------------------+-------+
+| uses_file_system     | True  |
++----------------------+-------+
 
 location string:
     * `host[:port][/workdir][ via:otherhost[:port]]*`
 
 supported properties:
 
-+-------------------------------+-----------------------------+---------+---------+
-| name                          | description                 | data_ty | default |
-|                               |                             | pe      |         |
-+===============================+=============================+=========+=========+
-| autoAddHostKey                | Automatically add unknown   | boolean | `true`  |
-|                               | host keys to known_hosts.   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| strictHostKeyChecking         | Enable strict host key      | boolean | `true`  |
-|                               | checking.                   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| loadKnownHosts                | Load the standard           | boolean | `true`  |
-|                               | known_hosts file.           |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| loadSshConfig                 | Load the OpenSSH config     | boolean | `true`  |
-|                               | file.                       |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| sshConfigFile                 | OpenSSH config filename.    | string  | (empty) |
-+-------------------------------+-----------------------------+---------+---------+
-| agent                         | Use a (local) ssh-agent.    | boolean | `false` |
-+-------------------------------+-----------------------------+---------+---------+
-| agentForwarding               | Use ssh-agent forwarding    | boolean | `false` |
-+-------------------------------+-----------------------------+---------+---------+
-| timeout                       | The timeout for the         | long    | `10000` |
-|                               | connection setup and        |         |         |
-|                               | authetication (in           |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.pollingDelay            | The polling delay for       | long    | `1000`  |
-|                               | monitoring running jobs (in |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.multi.maxConcurrentJobs | The maximum number of       | integer | `4`     |
-|                               | concurrent jobs in the      |         |         |
-|                               | multiq..                    |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| gateway                       | The gateway machine used to | string  | (empty) |
-|                               | create an SSH tunnel to the |         |         |
-|                               | target.                     |         |         |
-+-------------------------------+-----------------------------+---------+---------+
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| name                                         | description                                | data_type | default |
++==============================================+============================================+===========+=========+
+| schedulers.ssh.autoAddHostKey                | Automatically add unknown host keys to     | boolean   | `true`  |
+|                                              | known_hosts.                               |           |         |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.strictHostKeyChecking         | Enable strict host key checking.           | boolean   | `true`  |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.loadKnownHosts                | Load the standard known_hosts file.        | boolean   | `true`  |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.loadSshConfig                 | Load the OpenSSH config file.              | boolean   | `true`  |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.sshConfigFile                 | OpenSSH config filename.                   | string    | (empty) |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.agent                         | Use a (local) ssh-agent.                   | boolean   | `false` |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.agentForwarding               | Use ssh-agent forwarding                   | boolean   | `false` |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.timeout                       | The timeout for the connection setup and   | long      | `10000` |
+|                                              | authetication (in milliseconds).           |           |         |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.queue.pollingDelay            | The polling delay for monitoring running   | long      | `1000`  |
+|                                              | jobs (in milliseconds).                    |           |         |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.queue.multi.maxConcurrentJobs | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                              | the multiq..                               |           |         |
++----------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.gateway                       | The gateway machine used to create an SSH  | string    | (empty) |
+|                                              | tunnel to the target.                      |           |         |
++----------------------------------------------+--------------------------------------------+-----------+---------+
 
 Gridengine
 ~~~~~~~~~~
@@ -312,69 +284,54 @@ location string:
 
 supported properties:
 
-+-------------------------------+-----------------------------+---------+---------+
-| name                          | description                 | data_ty | default |
-|                               |                             | pe      |         |
-+===============================+=============================+=========+=========+
-| ignore.version                | Skip version check is       | boolean | `false` |
-|                               | skipped when connecting to  |         |         |
-|                               | remote machines. WARNING:   |         |         |
-|                               | it is not recommended to    |         |         |
-|                               | use this setting in         |         |         |
-|                               | production environments!    |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| accounting.grace.time         | Number of milliseconds a    | long    | `60000` |
-|                               | job is allowed to take      |         |         |
-|                               | going from the queue to the |         |         |
-|                               | qacct output.               |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| poll.delay                    | Number of milliseconds      | long    | `1000`  |
-|                               | between polling the status  |         |         |
-|                               | of a job.                   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| autoAddHostKey                | Automatically add unknown   | boolean | `true`  |
-|                               | host keys to known_hosts.   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| strictHostKeyChecking         | Enable strict host key      | boolean | `true`  |
-|                               | checking.                   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| loadKnownHosts                | Load the standard           | boolean | `true`  |
-|                               | known_hosts file.           |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| loadSshConfig                 | Load the OpenSSH config     | boolean | `true`  |
-|                               | file.                       |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| sshConfigFile                 | OpenSSH config filename.    | string  | (empty) |
-+-------------------------------+-----------------------------+---------+---------+
-| agent                         | Use a (local) ssh-agent.    | boolean | `false` |
-+-------------------------------+-----------------------------+---------+---------+
-| agentForwarding               | Use ssh-agent forwarding    | boolean | `false` |
-+-------------------------------+-----------------------------+---------+---------+
-| timeout                       | The timeout for the         | long    | `10000` |
-|                               | connection setup and        |         |         |
-|                               | authetication (in           |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.pollingDelay            | The polling delay for       | long    | `1000`  |
-|                               | monitoring running jobs (in |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.multi.maxConcurrentJobs | The maximum number of       | integer | `4`     |
-|                               | concurrent jobs in the      |         |         |
-|                               | multiq..                    |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| gateway                       | The gateway machine used to | string  | (empty) |
-|                               | create an SSH tunnel to the |         |         |
-|                               | target.                     |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.pollingDelay            | The polling delay for       | long    | `1000`  |
-|                               | monitoring running jobs (in |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.multi.maxConcurrentJobs | The maximum number of       | integer | `4`     |
-|                               | concurrent jobs in the      |         |         |
-|                               | multiq.                     |         |         |
-+-------------------------------+-----------------------------+---------+---------+
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| name                                           | description                                | data_type | default |
++================================================+============================================+===========+=========+
+| schedulers.gridengine.ignore.version           | Skip version check is skipped when         | boolean   | `false` |
+|                                                | connecting to remote machines. WARNING: it |           |         |
+|                                                | is not recommended to use this setting in  |           |         |
+|                                                | production environments!                   |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.gridengine.accounting.grace.time    | Number of milliseconds a job is allowed to | long      | `60000` |
+|                                                | take going from the queue to the qacct     |           |         |
+|                                                | output.                                    |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.gridengine.poll.delay               | Number of milliseconds between polling the | long      | `1000`  |
+|                                                | status of a job.                           |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.autoAddHostKey                  | Automatically add unknown host keys to     | boolean   | `true`  |
+|                                                | known_hosts.                               |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.strictHostKeyChecking           | Enable strict host key checking.           | boolean   | `true`  |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.loadKnownHosts                  | Load the standard known_hosts file.        | boolean   | `true`  |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.loadSshConfig                   | Load the OpenSSH config file.              | boolean   | `true`  |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.sshConfigFile                   | OpenSSH config filename.                   | string    | (empty) |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.agent                           | Use a (local) ssh-agent.                   | boolean   | `false` |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.agentForwarding                 | Use ssh-agent forwarding                   | boolean   | `false` |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.timeout                         | The timeout for the connection setup and   | long      | `10000` |
+|                                                | authetication (in milliseconds).           |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.queue.pollingDelay              | The polling delay for monitoring running   | long      | `1000`  |
+|                                                | jobs (in milliseconds).                    |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.queue.multi.maxConcurrentJobs   | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                                | the multiq..                               |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.gateway                         | The gateway machine used to create an SSH  | string    | (empty) |
+|                                                | tunnel to the target.                      |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.local.queue.pollingDelay            | The polling delay for monitoring running   | long      | `1000`  |
+|                                                | jobs (in milliseconds).                    |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.local.queue.multi.maxConcurrentJobs | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                                | the multiq.                                |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
 
 Slurm
 ~~~~~
@@ -401,62 +358,49 @@ location string:
 
 supported properties:
 
-+-------------------------------+-----------------------------+---------+---------+
-| name                          | description                 | data_ty | default |
-|                               |                             | pe      |         |
-+===============================+=============================+=========+=========+
-| disable.accounting.usage      | Do not use accounting info  | boolean | `false` |
-|                               | of slurm, even when         |         |         |
-|                               | available. Mostly for       |         |         |
-|                               | testing purposes            |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| poll.delay                    | Number of milliseconds      | long    | `1000`  |
-|                               | between polling the status  |         |         |
-|                               | of a job.                   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| autoAddHostKey                | Automatically add unknown   | boolean | `true`  |
-|                               | host keys to known_hosts.   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| strictHostKeyChecking         | Enable strict host key      | boolean | `true`  |
-|                               | checking.                   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| loadKnownHosts                | Load the standard           | boolean | `true`  |
-|                               | known_hosts file.           |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| loadSshConfig                 | Load the OpenSSH config     | boolean | `true`  |
-|                               | file.                       |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| sshConfigFile                 | OpenSSH config filename.    | string  | (empty) |
-+-------------------------------+-----------------------------+---------+---------+
-| agent                         | Use a (local) ssh-agent.    | boolean | `false` |
-+-------------------------------+-----------------------------+---------+---------+
-| agentForwarding               | Use ssh-agent forwarding    | boolean | `false` |
-+-------------------------------+-----------------------------+---------+---------+
-| timeout                       | The timeout for the         | long    | `10000` |
-|                               | connection setup and        |         |         |
-|                               | authetication (in           |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.pollingDelay            | The polling delay for       | long    | `1000`  |
-|                               | monitoring running jobs (in |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.multi.maxConcurrentJobs | The maximum number of       | integer | `4`     |
-|                               | concurrent jobs in the      |         |         |
-|                               | multiq..                    |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| gateway                       | The gateway machine used to | string  | (empty) |
-|                               | create an SSH tunnel to the |         |         |
-|                               | target.                     |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.pollingDelay            | The polling delay for       | long    | `1000`  |
-|                               | monitoring running jobs (in |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.multi.maxConcurrentJobs | The maximum number of       | integer | `4`     |
-|                               | concurrent jobs in the      |         |         |
-|                               | multiq.                     |         |         |
-+-------------------------------+-----------------------------+---------+---------+
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| name                                           | description                                | data_type | default |
++================================================+============================================+===========+=========+
+| schedulers.slurm.disable.accounting.usage      | Do not use accounting info of slurm, even  | boolean   | `false` |
+|                                                | when available. Mostly for testing         |           |         |
+|                                                | purposes                                   |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.slurm.poll.delay                    | Number of milliseconds between polling the | long      | `1000`  |
+|                                                | status of a job.                           |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.autoAddHostKey                  | Automatically add unknown host keys to     | boolean   | `true`  |
+|                                                | known_hosts.                               |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.strictHostKeyChecking           | Enable strict host key checking.           | boolean   | `true`  |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.loadKnownHosts                  | Load the standard known_hosts file.        | boolean   | `true`  |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.loadSshConfig                   | Load the OpenSSH config file.              | boolean   | `true`  |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.sshConfigFile                   | OpenSSH config filename.                   | string    | (empty) |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.agent                           | Use a (local) ssh-agent.                   | boolean   | `false` |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.agentForwarding                 | Use ssh-agent forwarding                   | boolean   | `false` |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.timeout                         | The timeout for the connection setup and   | long      | `10000` |
+|                                                | authetication (in milliseconds).           |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.queue.pollingDelay              | The polling delay for monitoring running   | long      | `1000`  |
+|                                                | jobs (in milliseconds).                    |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.queue.multi.maxConcurrentJobs   | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                                | the multiq..                               |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.gateway                         | The gateway machine used to create an SSH  | string    | (empty) |
+|                                                | tunnel to the target.                      |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.local.queue.pollingDelay            | The polling delay for monitoring running   | long      | `1000`  |
+|                                                | jobs (in milliseconds).                    |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.local.queue.multi.maxConcurrentJobs | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                                | the multiq.                                |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
 
 Torque
 ~~~~~~
@@ -483,67 +427,52 @@ location string:
 
 supported properties:
 
-+-------------------------------+-----------------------------+---------+---------+
-| name                          | description                 | data_ty | default |
-|                               |                             | pe      |         |
-+===============================+=============================+=========+=========+
-| ignore.version                | Skip version check is       | boolean | `false` |
-|                               | skipped when connecting to  |         |         |
-|                               | remote machines. WARNING:   |         |         |
-|                               | it is not recommended to    |         |         |
-|                               | use this setting in         |         |         |
-|                               | production environments!    |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| accounting.grace.time         | Number of milliseconds a    | long    | `60000` |
-|                               | job is allowed to take      |         |         |
-|                               | going from the queue to the |         |         |
-|                               | accinfo output.             |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| poll.delay                    | Number of milliseconds      | long    | `1000`  |
-|                               | between polling the status  |         |         |
-|                               | of a job.                   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| autoAddHostKey                | Automatically add unknown   | boolean | `true`  |
-|                               | host keys to known_hosts.   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| strictHostKeyChecking         | Enable strict host key      | boolean | `true`  |
-|                               | checking.                   |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| loadKnownHosts                | Load the standard           | boolean | `true`  |
-|                               | known_hosts file.           |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| loadSshConfig                 | Load the OpenSSH config     | boolean | `true`  |
-|                               | file.                       |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| sshConfigFile                 | OpenSSH config filename.    | string  | (empty) |
-+-------------------------------+-----------------------------+---------+---------+
-| agent                         | Use a (local) ssh-agent.    | boolean | `false` |
-+-------------------------------+-----------------------------+---------+---------+
-| agentForwarding               | Use ssh-agent forwarding    | boolean | `false` |
-+-------------------------------+-----------------------------+---------+---------+
-| timeout                       | The timeout for the         | long    | `10000` |
-|                               | connection setup and        |         |         |
-|                               | authetication (in           |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.pollingDelay            | The polling delay for       | long    | `1000`  |
-|                               | monitoring running jobs (in |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.multi.maxConcurrentJobs | The maximum number of       | integer | `4`     |
-|                               | concurrent jobs in the      |         |         |
-|                               | multiq..                    |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| gateway                       | The gateway machine used to | string  | (empty) |
-|                               | create an SSH tunnel to the |         |         |
-|                               | target.                     |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.pollingDelay            | The polling delay for       | long    | `1000`  |
-|                               | monitoring running jobs (in |         |         |
-|                               | milliseconds).              |         |         |
-+-------------------------------+-----------------------------+---------+---------+
-| queue.multi.maxConcurrentJobs | The maximum number of       | integer | `4`     |
-|                               | concurrent jobs in the      |         |         |
-|                               | multiq.                     |         |         |
-+-------------------------------+-----------------------------+---------+---------+
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| name                                           | description                                | data_type | default |
++================================================+============================================+===========+=========+
+| schedulers.torque.ignore.version               | Skip version check is skipped when         | boolean   | `false` |
+|                                                | connecting to remote machines. WARNING: it |           |         |
+|                                                | is not recommended to use this setting in  |           |         |
+|                                                | production environments!                   |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.torque.accounting.grace.time        | Number of milliseconds a job is allowed to | long      | `60000` |
+|                                                | take going from the queue to the accinfo   |           |         |
+|                                                | output.                                    |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.torque.poll.delay                   | Number of milliseconds between polling the | long      | `1000`  |
+|                                                | status of a job.                           |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.autoAddHostKey                  | Automatically add unknown host keys to     | boolean   | `true`  |
+|                                                | known_hosts.                               |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.strictHostKeyChecking           | Enable strict host key checking.           | boolean   | `true`  |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.loadKnownHosts                  | Load the standard known_hosts file.        | boolean   | `true`  |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.loadSshConfig                   | Load the OpenSSH config file.              | boolean   | `true`  |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.sshConfigFile                   | OpenSSH config filename.                   | string    | (empty) |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.agent                           | Use a (local) ssh-agent.                   | boolean   | `false` |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.agentForwarding                 | Use ssh-agent forwarding                   | boolean   | `false` |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.timeout                         | The timeout for the connection setup and   | long      | `10000` |
+|                                                | authetication (in milliseconds).           |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.queue.pollingDelay              | The polling delay for monitoring running   | long      | `1000`  |
+|                                                | jobs (in milliseconds).                    |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.queue.multi.maxConcurrentJobs   | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                                | the multiq..                               |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.ssh.gateway                         | The gateway machine used to create an SSH  | string    | (empty) |
+|                                                | tunnel to the target.                      |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.local.queue.pollingDelay            | The polling delay for monitoring running   | long      | `1000`  |
+|                                                | jobs (in milliseconds).                    |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
+| schedulers.local.queue.multi.maxConcurrentJobs | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                                | the multiq.                                |           |         |
++------------------------------------------------+--------------------------------------------+-----------+---------+
 
