@@ -261,7 +261,8 @@ class Scheduler(OopProxy):
                     (cls(s, x) for x in xs.schedulers)),
 
             GrpcMethod(
-                'get_adaptor_descriptions', static=True),
+                'get_adaptor_descriptions', static=True,
+                output_transform=t_getattr('descriptions')),
             GrpcMethod(
                 'get_adaptor_names', static=True),
             GrpcMethod(
