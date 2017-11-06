@@ -34,9 +34,23 @@ class Table:
             raise ValueError("Table is too wide.")
 
         large_column_width = space_left // max(1, sum(n > 25 for n in column_max))
-        column_width = [
+        aimed_column_width = [
             min(large_column_width, n) for n in column_max
         ]
+
+        def max_width(text, aimed_width):
+            return max(
+                len(l)
+                for l in textwrap.wrap(text, width=aimed_width, break_long_words=False))
+
+        def column_min_widths():
+            return [
+                max(
+                    max_width(row[i], aimed_column_width[i])
+                    for row in self.data)
+                for i in range(self.n_cols)]
+
+        column_width = column_min_widths()
 
         def hline(c):
             return '+' + c + (c + '+' + c).join(c*w for w in column_width) + c + '+'
@@ -83,7 +97,7 @@ def property_table(d):
 
     return Table.from_sequence(
         d.supported_properties,
-        name=lambda p: p.name.split('.')[-1],
+        name=lambda p: '.'.join(p.name.split('.')[4:]),
         description=lambda p: p.description,
         data_type=prop_typename,
         default=lambda p: '`{}`'.format(p.default_value) if p.default_value else '(empty)')
