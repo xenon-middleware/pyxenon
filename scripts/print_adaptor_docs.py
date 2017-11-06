@@ -97,7 +97,7 @@ def property_table(d):
 
     return Table.from_sequence(
         d.supported_properties,
-        name=lambda p: '.'.join(p.name.split('.')[2:]),
+        name=lambda p: '.'.join(p.name.split('.')[3:]),
         description=lambda p: p.description,
         data_type=prop_typename,
         default=lambda p: '`{}`'.format(p.default_value) if p.default_value else '(empty)')
@@ -143,15 +143,16 @@ print("""Adaptors
 This section contains the adaptor documentation which is generated from the
 information provided by the adaptors themselves.
 
-.. note:: All supported property names should be prefixed with ``"xenon.adaptors."``.
-    We've left this prefix out for readability of the tables.
-
 .. contents::
 
 """)
 
 print("File System")
 print("-----------")
+print("""
+.. note:: Supported property names should be prefixed with ``"xenon.adaptors.filesystems"``.
+    We've left this prefix out to improve readability of the tables.
+""")
 print()
 print_adaptor_descriptions(
     xenon.FileSystem.get_adaptor_descriptions(),
@@ -160,6 +161,10 @@ print()
 
 print("Scheduler")
 print("---------")
+print("""
+.. note:: Supported property names should be prefixed with ``"xenon.adaptors.schedulers"``.
+    We've left this prefix out to improve readability of the tables.
+""")
 print()
 print_adaptor_descriptions(
     xenon.Scheduler.get_adaptor_descriptions(),
