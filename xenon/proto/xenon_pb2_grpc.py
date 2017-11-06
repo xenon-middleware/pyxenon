@@ -45,6 +45,11 @@ class FileSystemServiceStub(object):
         request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Location.FromString,
         )
+    self.getCredential = channel.unary_unary(
+        '/xenon.FileSystemService/getCredential',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.GetCredentialResponse.FromString,
+        )
     self.getProperties = channel.unary_unary(
         '/xenon.FileSystemService/getProperties',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.SerializeToString,
@@ -219,6 +224,13 @@ class FileSystemServiceServicer(object):
 
   def getLocation(self, request, context):
     """Get the location that this FileSystem is connected to.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getCredential(self, request, context):
+    """Get the credential used to create this FileSystem.
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
@@ -446,6 +458,11 @@ def add_FileSystemServiceServicer_to_server(servicer, server):
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Location.SerializeToString,
       ),
+      'getCredential': grpc.unary_unary_rpc_method_handler(
+          servicer.getCredential,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.GetCredentialResponse.SerializeToString,
+      ),
       'getProperties': grpc.unary_unary_rpc_method_handler(
           servicer.getProperties,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.FileSystem.FromString,
@@ -622,6 +639,11 @@ class SchedulerServiceStub(object):
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.Location.FromString,
         )
+    self.getCredential = channel.unary_unary(
+        '/xenon.SchedulerService/getCredential',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.GetCredentialResponse.FromString,
+        )
     self.getProperties = channel.unary_unary(
         '/xenon.SchedulerService/getProperties',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
@@ -755,6 +777,13 @@ class SchedulerServiceServicer(object):
 
   def getLocation(self, request, context):
     """Get the location that this Scheduler is connected to.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def getCredential(self, request, context):
+    """Get the credential used to create this Scheduler.
     """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
@@ -925,6 +954,11 @@ def add_SchedulerServiceServicer_to_server(servicer, server):
           servicer.getLocation,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.Location.SerializeToString,
+      ),
+      'getCredential': grpc.unary_unary_rpc_method_handler(
+          servicer.getCredential,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.GetCredentialResponse.SerializeToString,
       ),
       'getProperties': grpc.unary_unary_rpc_method_handler(
           servicer.getProperties,

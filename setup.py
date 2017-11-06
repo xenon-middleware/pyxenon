@@ -28,7 +28,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as f:
 
 setup(
     name='pyxenon',
-    version='2.0-alpha',
+    version='2.2',
     description='Python wrapper for the Xenon API.',
     long_description=long_description,
     author='Johan Hidding',
