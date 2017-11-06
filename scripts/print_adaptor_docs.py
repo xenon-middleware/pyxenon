@@ -143,6 +143,8 @@ print("""Adaptors
 This section contains the adaptor documentation which is generated from the
 information provided by the adaptors themselves.
 
+.. note:: All supported property names should be prefixed with ``"xenon.adaptors."``.
+    We've left this prefix out for readability of the tables.
 
 .. contents::
 
