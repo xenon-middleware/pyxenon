@@ -3,6 +3,10 @@ Adaptors
 This section contains the adaptor documentation which is generated from the
 information provided by the adaptors themselves.
 
+
+.. contents::
+
+
 File System
 -----------
 
