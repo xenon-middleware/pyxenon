@@ -7,7 +7,7 @@ import xenon
 xenon.init(log_level='INFO')
 
 tmpdir = Path('.')
-location = '10.0.2.2:10022'
+location = 'localhost:10022'
 
 #
 # step 0: write our script

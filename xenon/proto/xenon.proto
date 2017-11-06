@@ -88,8 +88,37 @@ message DefaultCredential {
     string username = 1;
 }
 
+message UserCredential {
+    // Values of CredentialMap entries
+    oneof entry {
+        CertificateCredential certificate_credential = 1;
+        PasswordCredential password_credential = 2;
+        DefaultCredential default_credential = 3;
+    }
+}
+
+message CredentialMap {
+    // In Xenon accessible by get(), put() and containsCredential() on object directly
+    map<string, UserCredential> entries = 1;
+    // In Xenon it is called default instead of fallback.
+    oneof fallback {
+        CertificateCredential certificate_credential = 2;
+        PasswordCredential password_credential = 3;
+        DefaultCredential default_credential = 4;
+    }
+}
+
 message Location {
     string location = 1;
+}
+
+message GetCredentialResponse {
+    oneof credential {
+        CertificateCredential certificate_credential = 4;
+        PasswordCredential password_credential = 5;
+        DefaultCredential default_credential = 6;
+        CredentialMap credential_map = 7;
+    }
 }
 
 message CreateFileSystemRequest {
@@ -100,6 +129,7 @@ message CreateFileSystemRequest {
         CertificateCredential certificate_credential = 4;
         PasswordCredential password_credential = 5;
         DefaultCredential default_credential = 6;
+        CredentialMap credential_map = 7;
     }
 }
 
@@ -268,6 +298,7 @@ message CreateSchedulerRequest {
         CertificateCredential certificate_credential = 4;
         PasswordCredential password_credential = 5;
         DefaultCredential default_credential = 6;
+        CredentialMap credential_map = 7;
     }
 }
 
@@ -430,6 +461,8 @@ service FileSystemService {
     rpc getAdaptorName(FileSystem) returns (AdaptorName) {}
     // Get the location that this FileSystem is connected to.
     rpc getLocation(FileSystem) returns (Location) {}
+    // Get the credential used to create this FileSystem.
+    rpc getCredential(FileSystem) returns (GetCredentialResponse) {}
     // Get the properties used to create this FileSystem.
     rpc getProperties(FileSystem) returns (Properties) {}
     // Creates a new directory, including parent directories, failing if the directory already exists.
@@ -505,6 +538,8 @@ service SchedulerService {
     rpc getAdaptorName(Scheduler) returns (AdaptorName) {}
     // Get the location that this Scheduler is connected to.
     rpc getLocation(Scheduler) returns (Location) {}
+    // Get the credential used to create this Scheduler.
+    rpc getCredential(Scheduler) returns (GetCredentialResponse) {}
     // Get the properties used to create this Scheduler.
     rpc getProperties(Scheduler) returns (Properties) {}
     // Submit a batch job.

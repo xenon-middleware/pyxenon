@@ -261,7 +261,8 @@ class Scheduler(OopProxy):
                     (cls(s, x) for x in xs.schedulers)),
 
             GrpcMethod(
-                'get_adaptor_descriptions', static=True),
+                'get_adaptor_descriptions', static=True,
+                output_transform=t_getattr('descriptions')),
             GrpcMethod(
                 'get_adaptor_names', static=True),
             GrpcMethod(
@@ -305,9 +306,11 @@ class Scheduler(OopProxy):
             GrpcMethod(
                 'get_queue_statuses', uses_request='SchedulerAndQueues'),
 
+            # smells like tenenkaas
             GrpcMethod(
-                'get_file_system', output_transform=
-                lambda s, x: FileSystem(FileSystem.__stub__(__server__), x))
+                'get_file_system',
+                output_transform=lambda s, x:
+                    FileSystem(FileSystem.__stub__(__server__), x))
         ]
 
     def __init__(self, service, wrapped):

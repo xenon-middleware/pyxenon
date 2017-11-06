@@ -12,6 +12,7 @@ Welcome to PyXenon's documentation!
    self
    quick-start
    streaming
+   adaptors
    api
 
 The PyXenon module interfaces with Xenon-GRPC to get an interface to the Xenon

@@ -7,7 +7,8 @@ from .objects import (
 from .proto.xenon_pb2 import (
     JobDescription, CopyRequest, QueueStatus, JobStatus,
     CopyStatus, CertificateCredential, PasswordCredential,
-    PropertyDescription)
+    PropertyDescription, CredentialMap, DefaultCredential,
+    UserCredential)
 
 __version__ = "2.0.0-alpha"
 __all__ = [
@@ -16,4 +17,5 @@ __all__ = [
     'PosixFilePermission',
     'JobDescription', 'CopyRequest', 'QueueStatus', 'JobStatus',
     'CopyStatus', 'CertificateCredential', 'PasswordCredential',
-    'PropertyDescription']
+    'PropertyDescription', 'CredentialMap', 'DefaultCredential',
+    'UserCredential']

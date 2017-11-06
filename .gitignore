@@ -1,5 +1,6 @@
 *.pyc
-__pycache__/
+**/__pycache__/
+**/.ipynb_checkpoints/
 /build
 /.coverage
 /coverage.xml
@@ -14,3 +15,4 @@ __pycache__/
 *.swp
 *~
 
+xenon-grpc-shadow*
