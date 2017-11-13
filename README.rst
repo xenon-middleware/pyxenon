@@ -1,6 +1,6 @@
 Python interface to Xenon 2.0
 =============================
-|ReadTheDocsBadge| |Apache2License| |BuildStatus| |CodacyBadge|
+|ZenodoBadge| |ReadTheDocsBadge| |Apache2License| |BuildStatus| |CodacyBadge|
 
 Python interface to the `Xenon middleware library, v. 2.0
 <http://nlesc.github.io/Xenon/>`__. Xenon provides a simple programming
@@ -121,3 +121,5 @@ the change didn't break any code. The pull request will be evaluated in
 .. |ReadTheDocsBadge| image:: https://readthedocs.org/projects/pyxenon/badge/?version=latest
    :target: http://pyxenon.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
+.. |ZenodoBadge| image:: https://zenodo.org/badge/47132292.svg
+   :target: https://zenodo.org/badge/latestdoi/47132292
