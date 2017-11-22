@@ -10,6 +10,9 @@ from .proto.xenon_pb2 import (
     PropertyDescription, CredentialMap, DefaultCredential,
     UserCredential)
 
+from .exceptions import (
+    UnknownRpcError, XenonException, PathAlreadyExistsException)
+
 __version__ = "2.0.0-alpha"
 __all__ = [
     'init',
@@ -18,4 +21,6 @@ __all__ = [
     'JobDescription', 'CopyRequest', 'QueueStatus', 'JobStatus',
     'CopyStatus', 'CertificateCredential', 'PasswordCredential',
     'PropertyDescription', 'CredentialMap', 'DefaultCredential',
-    'UserCredential']
+    'UserCredential',
+
+    'UnknownRpcError', 'XenonException', 'PathAlreadyExistsException']

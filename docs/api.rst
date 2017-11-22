@@ -45,3 +45,7 @@ Credentials
 .. autoclass:: PasswordCredential
     :members:
 
+Exceptions
+----------
+.. automodule:: xenon.exceptions
+    :members:

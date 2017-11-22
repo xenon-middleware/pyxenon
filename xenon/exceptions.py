@@ -30,3 +30,6 @@ def make_exception(method, e):
     if method.name == "create_directory" and \
             e.code() == grpc.StatusCode.ALREADY_EXISTS:
         return PathAlreadyExistsException(method, e)
+
+    else:
+        return UnknownRpcError(method, e)
