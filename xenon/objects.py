@@ -301,10 +301,18 @@ class Scheduler(OopProxy):
                 'wait_until_done', uses_request='WaitRequest'),
             GrpcMethod(
                 'wait_until_running', uses_request='WaitRequest'),
+
             GrpcMethod(
                 'get_queue_status', uses_request=True),
             GrpcMethod(
-                'get_queue_statuses', uses_request='SchedulerAndQueues'),
+                'get_queue_statuses', uses_request='SchedulerAndQueues',
+                output_transform=t_getattr('statuses')),
+
+            GrpcMethod(
+                'get_job_status', uses_request='JobRequest'),
+            GrpcMethod(
+                'get_job_statuses', uses_request=True,
+                output_transform=t_getattr('statuses')),
 
             # smells like tenenkaas
             GrpcMethod(
