@@ -8,7 +8,8 @@ def test_path_separator(xenon_server, tmpdir):
 
 
 def test_path_already_exists_error(xenon_server, tmpdir):
+    tmpdir = Path(tmpdir)
     with FileSystem.create(adaptor='file') as filesystem:
         with pytest.raises(PathAlreadyExistsException):
-            filesystem.create_directory(Path('test'))
-            filesystem.create_directory(Path('test'))
+            filesystem.create_directory(tmpdir / 'test')
+            filesystem.create_directory(tmpdir / 'test')

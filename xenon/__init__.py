@@ -11,7 +11,7 @@ from .proto.xenon_pb2 import (
     UserCredential)
 
 from .exceptions import (
-    UnknownRpcError, XenonException, PathAlreadyExistsException)
+    UnknownRpcException, XenonException, PathAlreadyExistsException)
 
 __version__ = "2.0.0-alpha"
 __all__ = [
@@ -23,4 +23,4 @@ __all__ = [
     'PropertyDescription', 'CredentialMap', 'DefaultCredential',
     'UserCredential',
 
-    'UnknownRpcError', 'XenonException', 'PathAlreadyExistsException']
+    'UnknownRpcException', 'XenonException', 'PathAlreadyExistsException']
