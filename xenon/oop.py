@@ -1,5 +1,8 @@
 from .proto import xenon_pb2
 from .server import __server__
+from .exceptions import make_exception
+import grpc
+
 
 try:
     from enum import Enum
@@ -219,45 +222,55 @@ def transform_map(f):
     return t
 
 
+def grpc_call(service, method, request):
+    f = getattr(service, to_lower_camel_case(method.name))
+    try:
+        result = f(request)
+    except grpc.RpcError as e:
+        raise make_exception(method, e) from None
+
+    return result
+
+
 def method_wrapper(m):
     """Generates a method from a `GrpcMethod` definition."""
 
     if m.is_simple:
         def simple_method(self):
             """TODO: no docstring!"""
-            f = getattr(self.__service__, to_lower_camel_case(m.name))
             return apply_transform(
-                self.__service__, m.output_transform, f(unwrap(self)))
+                self.__service__, m.output_transform,
+                grpc_call(self.__service__, m, unwrap(self)))
 
         return simple_method
 
     elif m.input_transform is not None:
         def transform_method(self, *args, **kwargs):
             """TODO: no docstring!"""
-            f = getattr(self.__service__, to_lower_camel_case(m.name))
             request = m.input_transform(self, *args, **kwargs)
             return apply_transform(
-                self.__service__, m.output_transform, f(request))
+                self.__service__, m.output_transform,
+                grpc_call(self.__service__, m, request))
 
         return transform_method
 
     elif m.static:
         def static_method(cls, *args, **kwargs):
             """TODO: no docstring!"""
-            f = getattr(cls.__stub__(__server__), to_lower_camel_case(m.name))
             request = make_static_request(m, *args, **kwargs)
             return apply_transform(
-                cls.__stub__(__server__), m.output_transform, f(request))
+                cls.__stub__(__server__), m.output_transform,
+                grpc_call(cls.__stub__(__server__), m, request))
 
         return static_method
 
     else:
         def request_method(self, *args, **kwargs):
             """TODO: no docstring!"""
-            f = getattr(self.__service__, to_lower_camel_case(m.name))
             request = make_request(self, m, *args, **kwargs)
             return apply_transform(
-                self.__service__, m.output_transform, f(request))
+                self.__service__, m.output_transform,
+                grpc_call(self.__service__, m, request))
 
         return request_method
 
