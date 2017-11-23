@@ -1,26 +1,25 @@
-import grpc
-
-
 class XenonException(Exception):
     """Xenon base exception."""
-    def __init__(self, method, msg):
+    def __init__(self, method, code, msg):
         super(XenonException, self).__init__(
-            "Xenon: \"{}\" in {}".format(msg, method.name))
+            "Xenon ({}): \"{}\" in {}".format(code, msg, method.name))
 
 
 def make_exception(method, e):
     """Creates an exception for a given method, and RpcError."""
-    if method.name == "create_directory" and \
-            e.code() == grpc.StatusCode.ALREADY_EXISTS:
-        return PathAlreadyExistsException(method, e.details())  # noqa
-
+    x = e.details()
+    name = x[:x.find(':')].split('.')[-1]
+    if name in globals():
+        cls = globals()[name]
     else:
-        return UnknownRpcException(method, e.details())  # noqa
+        cls = UnknownRpcException  # noqa
+
+    return cls(method, e.code(), e.details())
 
 
 def exception_factory(name, docstring, BaseClass=XenonException):
-    def __init__(self, method, exc_msg):
-        BaseClass.__init__(self, method, exc_msg)
+    def __init__(self, method, exc_code, exc_msg):
+        BaseClass.__init__(self, method, exc_code, exc_msg)
 
     newclass = type(name, (BaseClass,), {"__init__": __init__})
     newclass.__doc__ = docstring

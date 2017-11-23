@@ -26,8 +26,8 @@ else:
     use_signature = True
 
 
-def mirror_enum(name):
-    grpc_enum = getattr(xenon_pb2, name)
+def mirror_enum(parent, name):
+    grpc_enum = getattr(parent, name)
     return Enum(name, grpc_enum.items())
 
 
@@ -312,6 +312,17 @@ class OopMeta(type):
             else:
                 setattr(cls, m.name, f)
 
+        try:
+            grpc_cls = getattr(xenon_pb2, name)
+            if cls.__doc__ is None:
+                cls.__doc__ = "Wrapped proto message."
+            cls.__doc__ += "\n\n"
+            for f in grpc_cls.DESCRIPTOR.fields:
+                cls.__doc__ += "    .. py:attribute:: {0}\n\n".format(f.name)
+
+        except AttributeError:
+            pass
+
 
 class OopProxy(metaclass=OopMeta):
     """Base class for Grpc Object wrappers. Ensures basic object sanity,
@@ -354,3 +365,7 @@ class OopProxy(metaclass=OopMeta):
 
     def __str__(self):
         return str(self.__wrapped__)
+
+    def __dir__(self):
+        members = [f.name for f in self.__wrapped__.DESCRIPTOR.fields]
+        return dir(super(OopProxy, self)) + members

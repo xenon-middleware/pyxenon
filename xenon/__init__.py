@@ -2,11 +2,11 @@ from .server import (init)
 
 from .objects import (
     FileSystem, Scheduler, Path,
-    PosixFilePermission)
+    PosixFilePermission, CopyMode, CopyStatus, JobStatus, QueueStatus)
 
 from .proto.xenon_pb2 import (
-    JobDescription, CopyRequest, QueueStatus, JobStatus,
-    CopyStatus, CertificateCredential, PasswordCredential,
+    JobDescription,
+    CopyRequest, CertificateCredential, PasswordCredential,
     PropertyDescription, CredentialMap, DefaultCredential,
     UserCredential)
 
@@ -21,6 +21,6 @@ __all__ = [
     'JobDescription', 'CopyRequest', 'QueueStatus', 'JobStatus',
     'CopyStatus', 'CertificateCredential', 'PasswordCredential',
     'PropertyDescription', 'CredentialMap', 'DefaultCredential',
-    'UserCredential',
+    'UserCredential', 'CopyMode',
 
     'UnknownRpcException', 'XenonException', 'PathAlreadyExistsException']

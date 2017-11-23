@@ -11,8 +11,24 @@ try:
 except ImportError:
     PathLike = object
 
-# CopyMode = mirror_enum('CopyMode')
-PosixFilePermission = mirror_enum('PosixFilePermission')
+
+CopyMode = mirror_enum(xenon_pb2.CopyRequest, 'CopyMode')
+PosixFilePermission = mirror_enum(xenon_pb2, 'PosixFilePermission')
+Type = mirror_enum(xenon_pb2.PropertyDescription, 'Type')
+
+
+class CopyStatus(OopProxy):
+    """Status of a copy operation."""
+    ErrorType = mirror_enum(xenon_pb2.CopyStatus, 'ErrorType')
+
+
+class JobStatus(OopProxy):
+    """Status of a job."""
+    ErrorType = mirror_enum(xenon_pb2.JobStatus, 'ErrorType')
+
+
+class QueueStatus(OopProxy):
+    ErrorType = mirror_enum(xenon_pb2.QueueStatus, 'ErrorType')
 
 
 class PathAttributes(OopProxy):
@@ -29,6 +45,10 @@ class CopyOperation(OopProxy):
 
 
 class Job(OopProxy):
+    pass
+
+
+class JobDescription(OopProxy):
     pass
 
 
@@ -174,11 +194,14 @@ class FileSystem(OopProxy):
             GrpcMethod(
                 'close'),
             GrpcMethod(
-                'cancel', uses_request='CopyOperationRequest'),
+                'cancel', uses_request='CopyOperationRequest',
+                output_transform=CopyStatus),
             GrpcMethod(
-                'get_status', uses_request='CopyOperationRequest'),
+                'get_status', uses_request='CopyOperationRequest',
+                output_transform=CopyStatus),
             GrpcMethod(
-                'wait_until_done', uses_request=True),
+                'wait_until_done', uses_request=True,
+                output_transform=CopyStatus),
             GrpcMethod(
                 'create_directories', uses_request='PathRequest'),
             GrpcMethod(
@@ -296,11 +319,14 @@ class Scheduler(OopProxy):
                 'submit_interactive_job', input_transform=input_request_stream,
                 output_transform=interactive_job_response),
             GrpcMethod(
-                'cancel_job', uses_request='JobRequest'),
+                'cancel_job', uses_request='JobRequest',
+                output_transform=JobStatus),
             GrpcMethod(
-                'wait_until_done', uses_request='WaitRequest'),
+                'wait_until_done', uses_request='WaitRequest',
+                output_transform=JobStatus),
             GrpcMethod(
-                'wait_until_running', uses_request='WaitRequest'),
+                'wait_until_running', uses_request='WaitRequest',
+                output_transform=JobStatus),
 
             GrpcMethod(
                 'get_queue_status', uses_request=True),
@@ -309,10 +335,12 @@ class Scheduler(OopProxy):
                 output_transform=t_getattr('statuses')),
 
             GrpcMethod(
-                'get_job_status', uses_request='JobRequest'),
+                'get_job_status', uses_request='JobRequest',
+                output_transform=JobStatus),
             GrpcMethod(
                 'get_job_statuses', uses_request=True,
-                output_transform=t_getattr('statuses')),
+                output_transform=lambda s, x:
+                    [JobStatus(s, j) for j in x.statuses]),
 
             # smells like tenenkaas
             GrpcMethod(

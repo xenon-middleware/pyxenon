@@ -143,7 +143,7 @@ def init(port=None, do_not_exit=False, disable_tls=False, log_level='WARNING'):
     if __server__.process is not None:
         logger.warning(
             "You tried to run init(), but the server is already running.")
-        return
+        return __server__
 
     __server__.port = port
     __server__.disable_tls = disable_tls

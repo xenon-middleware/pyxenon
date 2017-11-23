@@ -1,6 +1,8 @@
 API
 ===
 
+.. contents::
+
 .. automodule:: xenon
 
 The Server
@@ -17,25 +19,38 @@ File Systems
 .. autoclass:: Path
     :members:
 
+Message classes
+~~~~~~~~~~~~~~~
 .. autoclass:: PosixFilePermission
     :members:
+    :undoc-members:
 
-.. autoclass:: CopyRequest
+.. autoclass:: CopyMode
     :members:
+    :undoc-members:
 
 .. autoclass:: CopyStatus
     :members:
+    :undoc-members:
 
 Schedulers
 ----------
 .. autoclass:: Scheduler
     :members:
 
+Message classes
+~~~~~~~~~~~~~~~
 .. autoclass:: JobDescription
     :members:
+    :undoc-members:
 
 .. autoclass:: JobStatus
     :members:
+    :undoc-members:
+
+.. autoclass:: QueueStatus
+    :members:
+    :undoc-members:
 
 Credentials
 -----------

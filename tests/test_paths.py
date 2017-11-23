@@ -15,6 +15,13 @@ def test_path_already_exists_error(local_filesystem, tmpdir):
         local_filesystem.create_directory(tmpdir / 'test')
 
 
+def test_path_already_exists_error_2(local_filesystem, tmpdir):
+    tmpdir = Path(str(tmpdir))
+    with pytest.raises(PathAlreadyExistsException):
+        local_filesystem.create_directories(tmpdir / 'test' / '123')
+        local_filesystem.create_directories(tmpdir / 'test' / '123')
+
+
 def test_posix_file_permissions(local_filesystem, tmpdir):
     tmpdir = Path(str(tmpdir))
     filename = tmpdir / 'test.dat'
