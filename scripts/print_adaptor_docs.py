@@ -26,14 +26,16 @@ class Table:
             for c in range(self.n_cols)
         ]
 
-        # take all columns that are less than 10 characters max, and see how much space we have left
+        # take all columns that are less than 10 characters max, and see how
+        # much space we have left
         space_left = fmt_width - sum(n for n in column_max if n <= 30)
         space_needed = sum(n > 30 for n in column_max) * 30
 
         if space_needed > space_left:
             raise ValueError("Table is too wide.")
 
-        large_column_width = space_left // max(1, sum(n > 30 for n in column_max))
+        large_column_width = space_left \
+            // max(1, sum(n > 30 for n in column_max))
         aimed_column_width = [
             min(large_column_width, n) for n in column_max
         ]
@@ -41,7 +43,8 @@ class Table:
         def max_width(text, aimed_width):
             return max(
                 len(l)
-                for l in textwrap.wrap(text, width=aimed_width, break_long_words=False))
+                for l in textwrap.wrap(
+                    text, width=aimed_width, break_long_words=False))
 
         def column_min_widths():
             return [
@@ -53,7 +56,8 @@ class Table:
         column_width = column_min_widths()
 
         def hline(c):
-            return '+' + c + (c + '+' + c).join(c*w for w in column_width) + c + '+'
+            return '+' + c + (c + '+' + c).join(c*w for w in column_width) \
+                + c + '+'
 
         def row_height(row):
             return max(
@@ -92,7 +96,7 @@ class Table:
 
 def property_table(d):
     def prop_typename(p):
-        typemap = { v: k for k, v in p.Type.items() }
+        typemap = {v: k for k, v in p.Type.items()}
         return typemap[p.type].lower()
 
     return Table.from_sequence(
@@ -100,7 +104,8 @@ def property_table(d):
         name=lambda p: '.'.join(p.name.split('.')[3:]),
         description=lambda p: p.description,
         data_type=prop_typename,
-        default=lambda p: '`{}`'.format(p.default_value) if p.default_value else '(empty)')
+        default=lambda p: ('`{}`'.format(p.default_value)
+                           if p.default_value else '(empty)'))
 
 
 def print_adaptor_descriptions(desc, extra=[]):
@@ -150,8 +155,9 @@ information provided by the adaptors themselves.
 print("File System")
 print("-----------")
 print("""
-.. note:: Supported property names should be prefixed with ``"xenon.adaptors.filesystems"``.
-    We've left this prefix out to improve readability of the tables.
+.. note:: Supported property names should be prefixed with
+``"xenon.adaptors.filesystems"``.  We've left this prefix out to improve
+readability of the tables.
 """)
 print()
 print_adaptor_descriptions(
@@ -162,8 +168,9 @@ print()
 print("Scheduler")
 print("---------")
 print("""
-.. note:: Supported property names should be prefixed with ``"xenon.adaptors.schedulers"``.
-    We've left this prefix out to improve readability of the tables.
+.. note:: Supported property names should be prefixed with
+``"xenon.adaptors.schedulers"``.  We've left this prefix out to improve
+readability of the tables.
 """)
 print()
 print_adaptor_descriptions(

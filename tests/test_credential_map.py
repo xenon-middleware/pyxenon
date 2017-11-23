@@ -1,7 +1,6 @@
 import pytest
 from xenon import (
-    FileSystem, Path, CredentialMap, PasswordCredential,
-    DefaultCredential, UserCredential)
+    FileSystem, CredentialMap, PasswordCredential, UserCredential)
 
 import socket
 from contextlib import closing
@@ -22,7 +21,7 @@ def test_password_credential(xenon_server, tmpdir):
     username = 'xenon'
     password = 'javagat'
 
-    credential=PasswordCredential(
+    credential = PasswordCredential(
         username=username,
         password=password)
 
