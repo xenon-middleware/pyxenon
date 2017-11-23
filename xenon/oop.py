@@ -192,9 +192,15 @@ def make_request(self, method, *args, **kwargs):
             unwrap(self), *new_args, **new_kwargs).arguments
 
         # if we encounter any Enum arguments, replace them with their value
+        def translate_enum(arg):
+            return arg.value if isinstance(arg, Enum) else arg
+
         for k in bound_args:
-            if isinstance(bound_args[k], Enum):
-                bound_args[k] = bound_args[k].value
+            try:
+                x = [translate_enum(arg) for arg in bound_args[k]]
+                bound_args[k] = x
+            except TypeError:
+                bound_args[k] = translate_enum(bound_args[k])
 
         # replace `self` with the correct keyword
         new_kwargs = {(kw if kw != 'self' else method.field_name): v
