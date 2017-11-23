@@ -196,6 +196,11 @@ def make_request(self, method, *args, **kwargs):
             return arg.value if isinstance(arg, Enum) else arg
 
         for k in bound_args:
+            if isinstance(bound_args[k], str):
+                continue
+            if isinstance(bound_args[k], dict):
+                continue
+
             try:
                 x = [translate_enum(arg) for arg in bound_args[k]]
                 bound_args[k] = x

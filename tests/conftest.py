@@ -10,7 +10,14 @@ def xenon_server(request):
 
 
 @pytest.fixture
-def local_fs(request, xenon_server):
+def local_filesystem(request, xenon_server):
     fs = xenon.FileSystem.create(adaptor='file')
     yield fs
     fs.close()
+
+
+@pytest.fixture
+def local_scheduler(request, xenon_server):
+    scheduler = xenon.Scheduler.create(adaptor='local')
+    yield scheduler
+    scheduler.close()
