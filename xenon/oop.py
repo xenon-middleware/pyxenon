@@ -363,8 +363,26 @@ class OopProxy(metaclass=OopMeta):
         """Accesses fields of the corresponding GRPC message."""
         return getattr(self.__wrapped__, attr)
 
+    def _repr_html_(self):
+        members = [f.name for f in self.__wrapped__.DESCRIPTOR.fields]
+        s = type(self).__name__ + ": <ul>"
+        for m in members:
+            s += "<li><b>{}:</b> {}".format(m, getattr(self, m))
+            if m not in dir(self.__wrapped__):
+                s += " <i>(default)</i>"
+            s += "</li>"
+        s += "</ul>"
+        return s
+
     def __str__(self):
-        return str(self.__wrapped__)
+        members = [f.name for f in self.__wrapped__.DESCRIPTOR.fields]
+        s = type(self).__name__ + ":\n"
+        for m in members:
+            s += "    {}: {}".format(m, getattr(self, m))
+            if m not in dir(self.__wrapped__):
+                s += " (default)"
+            s += "\n"
+        return s
 
     def __dir__(self):
         members = [f.name for f in self.__wrapped__.DESCRIPTOR.fields]
