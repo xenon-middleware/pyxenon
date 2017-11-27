@@ -42,7 +42,6 @@ Message classes
 ~~~~~~~~~~~~~~~
 .. autoclass:: JobDescription
     :members:
-    :undoc-members:
 
 .. autoclass:: JobStatus
     :members:

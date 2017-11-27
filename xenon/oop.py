@@ -286,6 +286,33 @@ def method_wrapper(m):
         return request_method
 
 
+def get_field_type(f):
+    """Obtain the type name of a GRPC Message field."""
+    types = (t[5:] for t in dir(f) if t[:4] == 'TYPE' and
+             getattr(f, t) == f.type)
+    return next(types)
+
+
+def get_field_description(f):
+    """Get the type description of a GRPC Message field."""
+    type_name = get_field_type(f)
+    if type_name == 'MESSAGE' and \
+            {sf.name for sf in f.message_type.fields} == {'key', 'value'}:
+        return 'map<string, string>'
+    elif type_name == 'MESSAGE':
+        return f.message_type.full_name
+    elif type_name == 'ENUM':
+        return f.enum_type.full_name
+    else:
+        return type_name.lower()
+
+
+def list_attributes(msg_type):
+    """List all attributes with type description of a GRPC Message class."""
+    return [(f.name, get_field_description(f))
+            for f in msg_type.fields]
+
+
 class OopMeta(type):
     """Meta class for Grpc Object wrappers."""
     def __new__(cls, name, parents, dct):
@@ -317,8 +344,9 @@ class OopMeta(type):
             if cls.__doc__ is None:
                 cls.__doc__ = "Wrapped proto message."
             cls.__doc__ += "\n\n"
-            for f in grpc_cls.DESCRIPTOR.fields:
-                cls.__doc__ += "    .. py:attribute:: {0}\n\n".format(f.name)
+            for attr in list_attributes(grpc_cls.DESCRIPTOR):
+                cls.__doc__ += \
+                    "    :ivar {0}: {0}\n    :vartype {0}: {1}\n".format(*attr)
 
         except AttributeError:
             pass

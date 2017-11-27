@@ -28,6 +28,7 @@ class JobStatus(OopProxy):
 
 
 class QueueStatus(OopProxy):
+    """Status of a queue."""
     ErrorType = mirror_enum(xenon_pb2.QueueStatus, 'ErrorType')
 
 
@@ -45,10 +46,6 @@ class CopyOperation(OopProxy):
 
 
 class Job(OopProxy):
-    pass
-
-
-class JobDescription(OopProxy):
     pass
 
 
