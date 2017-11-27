@@ -45,6 +45,33 @@ def get_fields(msg_type):
     return list(f.name for f in msg_type.DESCRIPTOR.fields)
 
 
+def get_field_type(f):
+    """Obtain the type name of a GRPC Message field."""
+    types = (t[5:] for t in dir(f) if t[:4] == 'TYPE' and
+             getattr(f, t) == f.type)
+    return next(types)
+
+
+def get_field_description(f):
+    """Get the type description of a GRPC Message field."""
+    type_name = get_field_type(f)
+    if type_name == 'MESSAGE' and \
+            {sf.name for sf in f.message_type.fields} == {'key', 'value'}:
+        return 'map<string, string>'
+    elif type_name == 'MESSAGE':
+        return f.message_type.full_name
+    elif type_name == 'ENUM':
+        return f.enum_type.full_name
+    else:
+        return type_name.lower()
+
+
+def list_attributes(msg_type):
+    """List all attributes with type description of a GRPC Message class."""
+    return [(f.name, get_field_description(f))
+            for f in msg_type.fields]
+
+
 class GrpcMethod:
     """Data container for a GRPC method.
 
@@ -144,6 +171,9 @@ class GrpcMethod:
             for field in get_fields(self.request_type):
                 if field != self.field_name:
                     s += "    :param {}: {}\n".format(field, field)
+                    s += "    :type {0}: {1}\n".format(
+                        field, get_field_description(
+                            self.request_type.DESCRIPTOR.fields_by_name[field]))
 
         return s
 
@@ -284,33 +314,6 @@ def method_wrapper(m):
                 grpc_call(self.__service__, m, request))
 
         return request_method
-
-
-def get_field_type(f):
-    """Obtain the type name of a GRPC Message field."""
-    types = (t[5:] for t in dir(f) if t[:4] == 'TYPE' and
-             getattr(f, t) == f.type)
-    return next(types)
-
-
-def get_field_description(f):
-    """Get the type description of a GRPC Message field."""
-    type_name = get_field_type(f)
-    if type_name == 'MESSAGE' and \
-            {sf.name for sf in f.message_type.fields} == {'key', 'value'}:
-        return 'map<string, string>'
-    elif type_name == 'MESSAGE':
-        return f.message_type.full_name
-    elif type_name == 'ENUM':
-        return f.enum_type.full_name
-    else:
-        return type_name.lower()
-
-
-def list_attributes(msg_type):
-    """List all attributes with type description of a GRPC Message class."""
-    return [(f.name, get_field_description(f))
-            for f in msg_type.fields]
 
 
 class OopMeta(type):
