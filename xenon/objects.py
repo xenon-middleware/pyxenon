@@ -57,8 +57,21 @@ class CopyOperation(OopProxy):
     pass
 
 
-class Job(OopProxy):
-    pass
+class Job(object):
+    """Job.
+
+    :ivar id: the Xenon job identifyer.
+    :vartype id: string
+    """
+    __is_proxy__ = True
+    __servicer__ = None
+
+    def __init__(self, id_):
+        self.id = id_
+
+    @property
+    def __wrapped__(self):
+        return xenon_pb2.Job(id=self.id)
 
 
 class Is(OopProxy):
@@ -323,7 +336,7 @@ class Scheduler(OopProxy):
                 'close'),
             GrpcMethod(
                 'submit_batch_job', uses_request=True,
-                output_transform=Job),
+                output_transform=lambda s, x: Job(x.id)),
             GrpcMethod(
                 'submit_interactive_job', input_transform=input_request_stream,
                 output_transform=interactive_job_response),

@@ -4,7 +4,7 @@ from .oop import (
     list_attributes)
 
 from .objects import (
-    FileSystem, Scheduler, Path,
+    FileSystem, Scheduler, Path, Job,
     PosixFilePermission, CopyMode, CopyStatus, JobStatus, QueueStatus)
 
 from .proto.xenon_pb2 import (
@@ -28,7 +28,7 @@ __version__ = "2.0.0-alpha"
 __all__ = [
     'init',
     'FileSystem', 'Scheduler', 'Path',
-    'PosixFilePermission',
+    'PosixFilePermission', 'Job',
     'JobDescription', 'CopyRequest', 'QueueStatus', 'JobStatus',
     'CopyStatus', 'CertificateCredential', 'PasswordCredential',
     'PropertyDescription', 'CredentialMap', 'DefaultCredential',

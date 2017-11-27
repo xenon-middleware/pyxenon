@@ -40,6 +40,9 @@ Schedulers
 
 Message classes
 ~~~~~~~~~~~~~~~
+.. autoclass:: Job
+    :members:
+
 .. autoclass:: JobDescription
     :members:
 
