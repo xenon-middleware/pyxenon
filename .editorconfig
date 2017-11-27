@@ -1,0 +1,17 @@
+root = false
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+
+[*.tex]
+indent_size = 2
+indent_style = space
+
+[*.{cc,hh,py}]
+indent_size = 4
+indent_style = space
+
+

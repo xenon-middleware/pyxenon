@@ -21,15 +21,27 @@ class CopyStatus(OopProxy):
     """Status of a copy operation."""
     ErrorType = mirror_enum(xenon_pb2.CopyStatus, 'ErrorType')
 
+    @property
+    def error_type(self):
+        return CopyStatus.ErrorType(self.__wrapped__.error_type)
+
 
 class JobStatus(OopProxy):
     """Status of a job."""
     ErrorType = mirror_enum(xenon_pb2.JobStatus, 'ErrorType')
 
+    @property
+    def error_type(self):
+        return JobStatus.ErrorType(self.__wrapped__.error_type)
+
 
 class QueueStatus(OopProxy):
     """Status of a queue."""
     ErrorType = mirror_enum(xenon_pb2.QueueStatus, 'ErrorType')
+
+    @property
+    def error_type(self):
+        return QueueStatus.ErrorType(self.__wrapped__.error_type)
 
 
 class PathAttributes(OopProxy):
