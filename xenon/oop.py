@@ -170,10 +170,10 @@ class GrpcMethod:
             s += "\n"
             for field in get_fields(self.request_type):
                 if field != self.field_name:
+                    type_info = get_field_description(
+                        self.request_type.DESCRIPTOR.fields_by_name[field])
                     s += "    :param {}: {}\n".format(field, field)
-                    s += "    :type {0}: {1}\n".format(
-                        field, get_field_description(
-                            self.request_type.DESCRIPTOR.fields_by_name[field]))
+                    s += "    :type {0}: {1}\n".format(field, type_info)
 
         return s
 
