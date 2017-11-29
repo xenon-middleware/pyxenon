@@ -12,16 +12,28 @@ import signal
 from xdg import BaseDirectory
 
 from .create_keys import create_self_signed_cert
+from .version import xenon_grpc_version
 
 
 def find_xenon_grpc_jar():
     """Find the Xenon-GRPC jar-file, windows version."""
-    jar_file = Path(sys.prefix) / 'lib' / 'xenon-grpc-2.0.1-all.jar'
+    prefix = Path(sys.prefix)
 
-    if not jar_file.exists():
-        return None
-    else:
-        return str(jar_file)
+    locations = [
+        prefix / 'lib',
+        prefix / 'local' / 'lib'
+    ]
+
+    for location in locations:
+        jar_file = location / 'xenon-grpc-{}-all.jar'.format(
+                xenon_grpc_version)
+
+        if not jar_file.exists():
+            continue
+        else:
+            return str(jar_file)
+
+    return None
 
 
 def kill_process(process):
