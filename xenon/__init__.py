@@ -16,6 +16,9 @@ from .proto.xenon_pb2 import (
 from .exceptions import (
     UnknownRpcException, XenonException, PathAlreadyExistsException)
 
+from .version import (
+    pyxenon_version)
+
 
 JobDescription.__doc__ = \
     """This class describes a job to a Scheduler instance.\n\n""" \
@@ -24,7 +27,7 @@ JobDescription.__doc__ = \
              for x in list_attributes(JobDescription.DESCRIPTOR)])
 
 
-__version__ = "2.0.0-alpha"
+__version__ = pyxenon_version
 __all__ = [
     'init',
     'FileSystem', 'Scheduler', 'Path',
