@@ -4,11 +4,11 @@ from .oop import (
     list_attributes)
 
 from .objects import (
+    JobDescription,
     FileSystem, Scheduler, Path, Job,
     PosixFilePermission, CopyMode, CopyStatus, JobStatus, QueueStatus)
 
 from .proto.xenon_pb2 import (
-    JobDescription,
     CopyRequest, CertificateCredential, PasswordCredential,
     PropertyDescription, CredentialMap, DefaultCredential,
     UserCredential)
