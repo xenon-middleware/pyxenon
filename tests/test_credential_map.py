@@ -29,7 +29,9 @@ def test_password_credential(xenon_server, tmpdir):
         adaptor='sftp',
         location=location,
         password_credential=credential,
-        properties={})
+        properties={
+                'xenon.adaptors.filesystems.sftp.strictHostKeyChecking': 'false'
+            })
 
     assert fs.get_adaptor_name() == 'sftp'
     fs.close()
@@ -55,7 +57,9 @@ def test_credential_map(xenon_server, tmpdir):
         adaptor='sftp',
         location=location,
         credential_map=credential,
-        properties={})
+        properties={
+                'xenon.adaptors.filesystems.sftp.strictHostKeyChecking': 'false'
+            })
 
     assert fs.get_adaptor_name() == 'sftp'
     fs.close()

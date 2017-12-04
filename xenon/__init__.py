@@ -1,8 +1,5 @@
 from .server import (init)
 
-from .oop import (
-    list_attributes)
-
 from .objects import (
     JobDescription,
     FileSystem, Scheduler, Path, Job,
@@ -15,13 +12,6 @@ from .proto.xenon_pb2 import (
 
 from .exceptions import (
     UnknownRpcException, XenonException, PathAlreadyExistsException)
-
-
-JobDescription.__doc__ = \
-    """This class describes a job to a Scheduler instance.\n\n""" \
-    + "\n".join(
-            ["    :ivar {0}: {0}\n    :vartype {0}: {1}\n".format(*x)
-             for x in list_attributes(JobDescription.DESCRIPTOR)])
 
 
 __version__ = "2.0.0-alpha"

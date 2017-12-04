@@ -1,5 +1,6 @@
 from .oop import (
-    GrpcMethod, OopProxy, transform_map, mirror_enum, unwrap)
+    GrpcMethod, OopProxy, transform_map, mirror_enum, unwrap,
+    list_attributes, get_fields)
 
 from .proto import (xenon_pb2, xenon_pb2_grpc)
 from .server import __server__
@@ -62,25 +63,35 @@ class CopyOperation(OopProxy):
 class JobDescription(object):
     __is_proxy__ = True
     __servicer__ = None
+    __fields__ = get_fields(xenon_pb2.JobDescription)
 
     def __init__(self, **kwargs):
-        self.__wrapped__ = xenon_pb2.JobDescription()
         for k, v in kwargs.items():
+            if k not in self.__fields__:
+                raise AttributeError(
+                    "{} is not a valid field in JobDescription.".format(k))
+
             setattr(self, k, v)
 
-    def __setattr__(self, attr, value):
-        setattr(self.__wrapped__, attr, value)
-
-    def __getattr__(self, attr):
-        return getattr(self.__wrapped__, attr)
-
     @property
-    def working_directory(self):
-        return Path(self.__wrapped__.working_directory)
+    def __wrapped__(self):
+        def get(k):
+            if k == "working_directory":
+                return str(getattr(self, k))
+            else:
+                return getattr(self, k)
 
-    @working_directory.setter
-    def working_directory(self, value):
-        self.__wrapped__.working_directory = str(value)
+        args = {
+            k: get(k) for k in self.__fields__ if k in dir(self) }
+
+        return xenon_pb2.JobDescription(**args)
+
+
+JobDescription.__doc__ = \
+    """This class describes a job to a Scheduler instance.\n\n""" \
+    + "\n".join(
+            ["    :ivar {0}: {0}\n    :vartype {0}: {1}\n".format(*x)
+             for x in list_attributes(xenon_pb2.JobDescription.DESCRIPTOR)])
 
 
 class Job(object):
@@ -305,7 +316,7 @@ class FileSystem(OopProxy):
 
 def input_request_stream(self, description, stdin_stream):
     yield xenon_pb2.SubmitInteractiveJobRequest(
-        scheduler=unwrap(self), description=description, stdin=b'')
+        scheduler=unwrap(self), description=unwrap(description), stdin=b'')
     yield from (xenon_pb2.SubmitInteractiveJobRequest(
         scheduler=None, description=None, stdin=msg)
         for msg in stdin_stream)
