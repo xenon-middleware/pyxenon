@@ -82,7 +82,7 @@ class JobDescription(object):
                 return getattr(self, k)
 
         args = {
-            k: get(k) for k in self.__fields__ if k in dir(self) }
+            k: get(k) for k in self.__fields__ if k in dir(self)}
 
         return xenon_pb2.JobDescription(**args)
 
