@@ -13,8 +13,12 @@ from .proto.xenon_pb2 import (
 from .exceptions import (
     UnknownRpcException, XenonException, PathAlreadyExistsException)
 
+from .version import (
+    pyxenon_version)
 
-__version__ = "2.0.0-alpha"
+
+__version__ = pyxenon_version
+
 __all__ = [
     'init',
     'FileSystem', 'Scheduler', 'Path',

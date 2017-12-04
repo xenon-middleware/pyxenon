@@ -22,13 +22,15 @@ Internal setup of the xenon package.
 from setuptools import setup
 import os
 
+exec(open('xenon/version.py').read())
+
 # Get the long description from the README file
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as f:
     long_description = f.read()
 
 setup(
     name='pyxenon',
-    version='2.2',
+    version=pyxenon_version,  # noqa
     description='Python wrapper for the Xenon API.',
     long_description=long_description,
     author='Johan Hidding',
@@ -47,7 +49,7 @@ setup(
         'Topic :: System :: Distributed Computing',
     ],
     data_files=[
-        ('lib', ['lib/xenon-grpc-2.0.1-all.jar']),
+        ('lib', ['lib/xenon-grpc-{}-all.jar'.format(xenon_grpc_version)]),  # noqa
         ('bin', [{'posix': 'bin/xenon-grpc',
                   'nt': 'bin/xenon-grpc.bat'}[os.name]])],
     install_requires=['grpcio', 'grpcio-tools', 'pyxdg', 'pyopenssl'],
