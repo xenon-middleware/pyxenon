@@ -1,4 +1,6 @@
-from .oop import (GrpcMethod, OopProxy, transform_map, mirror_enum, unwrap)
+from .oop import (
+    GrpcMethod, OopProxy, transform_map, mirror_enum, unwrap)
+
 from .proto import (xenon_pb2, xenon_pb2_grpc)
 from .server import __server__
 
@@ -55,6 +57,30 @@ class PathAttributes(OopProxy):
 
 class CopyOperation(OopProxy):
     pass
+
+
+class JobDescription(object):
+    __is_proxy__ = True
+    __servicer__ = None
+
+    def __init__(self, **kwargs):
+        self.__wrapped__ = xenon_pb2.JobDescription()
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+    def __setattr__(self, attr, value):
+        setattr(self.__wrapped__, attr, value)
+
+    def __getattr__(self, attr):
+        return getattr(self.__wrapped__, attr)
+
+    @property
+    def working_directory(self):
+        return Path(self.__wrapped__.working_directory)
+
+    @working_directory.setter
+    def working_directory(self, value):
+        self.__wrapped__.working_directory = str(value)
 
 
 class Job(object):
