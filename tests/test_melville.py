@@ -1,7 +1,6 @@
-import os
-import io
 import sys
 from pathlib import Path
+import pytest
 
 from threading import Thread
 from queue import Queue
@@ -83,6 +82,7 @@ def make_input_queue():
     return queue, stream
 
 
+@pytest.mark.skip(True, "Test takes very long")
 def test_moby_dick_cat(local_scheduler, tmpdir):
     tmpdir = Path(str(tmpdir))
     source = Path('./tests/moby-dick.txt')
@@ -140,7 +140,7 @@ def test_moby_dick_spliced(local_scheduler, tmpdir):
     data = source.open().readlines()
     queue, stream = make_input_queue()
 
-    expected_word_count = [(i+1, len(line)) for i, line in enumerate(data)]
+    expected_word_count = [(i+1, len(line.split(' '))) for i, line in enumerate(data)]
 
     job, output_stream = local_scheduler.submit_interactive_job(
         description=job_description,
@@ -153,7 +153,7 @@ def test_moby_dick_spliced(local_scheduler, tmpdir):
 
     @sink_map
     def parse_ints(line):
-        return [int(x) for x in line.split(' ')]
+        return tuple(int(x) for x in line.split(' '))
 
     t = Thread(
         target=redirect_output,
@@ -169,6 +169,7 @@ def test_moby_dick_spliced(local_scheduler, tmpdir):
     queue.put(EndOfWork)
 
     local_scheduler.wait_until_done(job)
+    t.join()
 
     result = [line[13:] for line in sorted(numbered_lines)]
     of = file2.open('w')
