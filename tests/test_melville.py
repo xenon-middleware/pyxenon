@@ -57,7 +57,7 @@ def redirect_output(byte_stream, stdout_sink, stderr_sink):
 
 
 @coroutine
-def list_lines(result):
+def list_sink(result):
     while True:
         line = yield
         result.append(line)
@@ -98,7 +98,7 @@ def test_moby_dick_cat(local_scheduler, tmpdir):
         stdin_stream=(d.encode() for d in data))
 
     result = []
-    accumulator = list_lines(result)
+    accumulator = list_sink(result)
 
     @coroutine
     def echo_stderr():
@@ -117,6 +117,16 @@ def test_moby_dick_cat(local_scheduler, tmpdir):
     assert data == result
 
 
+def sink_map(f):
+    @coroutine
+    def g(sink):
+        while True:
+            x = yield
+            sink.send(f(x))
+
+    return g
+
+
 def test_moby_dick_spliced(local_scheduler, tmpdir):
     tmpdir = Path(str(tmpdir))
     source = Path('./tests/moby-dick.txt')
@@ -130,19 +140,27 @@ def test_moby_dick_spliced(local_scheduler, tmpdir):
     data = source.open().readlines()
     queue, stream = make_input_queue()
 
+    expected_word_count = [(i+1, len(line)) for i, line in enumerate(data)]
+
     job, output_stream = local_scheduler.submit_interactive_job(
         description=job_description,
         stdin_stream=stream())
 
-    spliced_result = []
-    accumulator = list_lines(spliced_result)
+    numbered_lines = []
+    accumulator = list_sink(numbered_lines)
+    word_count = []
+    wc_accumulator = list_sink(word_count)
+
+    @sink_map
+    def parse_ints(line):
+        return [int(x) for x in line.split(' ')]
 
     t = Thread(
         target=redirect_output,
         args=(
             output_stream,
             bytes_to_lines(accumulator),
-            bytes_to_lines(accumulator)),
+            bytes_to_lines(parse_ints(wc_accumulator))),
         daemon=True)
     t.start()
 
@@ -152,7 +170,7 @@ def test_moby_dick_spliced(local_scheduler, tmpdir):
 
     local_scheduler.wait_until_done(job)
 
-    result = [line[13:] for line in sorted(spliced_result)]
+    result = [line[13:] for line in sorted(numbered_lines)]
     of = file2.open('w')
     for line in result:
         of.write(line)
@@ -160,3 +178,6 @@ def test_moby_dick_spliced(local_scheduler, tmpdir):
 
     assert len(data) == len(result)
     assert data == result
+
+    assert len(expected_word_count) == len(word_count)
+    assert expected_word_count == word_count

@@ -5,10 +5,8 @@ try:
     while True:
         line = input()
         out = "{:10} | {}".format(i, line)
-        if len(line) % 2 == 0:
-            print(out, file=sys.stdout)
-        else:
-            print(out, file=sys.stderr)
+        print(out, file=sys.stdout, flush=True)
+        print(i, len(line.split(' ')), file=sys.stderr, flush=True)
         i += 1
 
 except EOFError:
