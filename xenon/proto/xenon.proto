@@ -42,6 +42,7 @@ message SchedulerAdaptorDescription {
     bool supports_interactive = 6;
     bool supports_batch = 7;
     bool uses_file_system = 8;
+    repeated string supported_credentials = 9;
 }
 
 message SchedulerAdaptorDescriptions {
@@ -58,6 +59,12 @@ message FileSystemAdaptorDescription {
     bool can_create_symboliclinks = 6;
     bool can_read_symboliclinks = 7;
     bool is_connectionless = 8;
+    repeated string supported_credentials = 9;
+    bool supports_reading_posix_permissions = 10;
+    bool supports_setting_posix_permissions = 11;
+    bool supports_rename = 12;
+    bool can_append = 13;
+    bool needs_size_beforehand = 14;
 }
 
 message FileSystemAdaptorDescriptions {
@@ -88,12 +95,18 @@ message DefaultCredential {
     string username = 1;
 }
 
+message KeytabCredential {
+    string username = 1;
+    string keytabfile = 2;
+}
+
 message UserCredential {
     // Values of CredentialMap entries
     oneof entry {
         CertificateCredential certificate_credential = 1;
         PasswordCredential password_credential = 2;
         DefaultCredential default_credential = 3;
+        KeytabCredential keytab_credential = 4;
     }
 }
 
@@ -105,6 +118,7 @@ message CredentialMap {
         CertificateCredential certificate_credential = 2;
         PasswordCredential password_credential = 3;
         DefaultCredential default_credential = 4;
+        KeytabCredential keytab_credential = 5;
     }
 }
 
@@ -118,6 +132,7 @@ message GetCredentialResponse {
         PasswordCredential password_credential = 5;
         DefaultCredential default_credential = 6;
         CredentialMap credential_map = 7;
+        KeytabCredential keytab_credential = 8;
     }
 }
 
@@ -130,6 +145,7 @@ message CreateFileSystemRequest {
         PasswordCredential password_credential = 5;
         DefaultCredential default_credential = 6;
         CredentialMap credential_map = 7;
+        KeytabCredential keytab_credential = 8;
     }
 }
 
@@ -299,6 +315,7 @@ message CreateSchedulerRequest {
         PasswordCredential password_credential = 5;
         DefaultCredential default_credential = 6;
         CredentialMap credential_map = 7;
+        KeytabCredential keytab_credential = 8;
     }
 }
 
@@ -326,6 +343,8 @@ message JobDescription {
     string stdout = 12;
     // In Xenon named jobOptions
     map<string, string> options = 13;
+    string name = 14;
+    uint32 max_memory = 15;
 }
 
 message SubmitBatchJobRequest {
@@ -405,6 +424,7 @@ message JobStatus {
         OTHER = 6;
     }
     ErrorType error_type = 8;
+    string name = 9;
 }
 
 message GetJobStatusesResponse {
