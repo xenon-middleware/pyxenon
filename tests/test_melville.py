@@ -1,5 +1,3 @@
-import os
-import io
 import sys
 from pathlib import Path
 

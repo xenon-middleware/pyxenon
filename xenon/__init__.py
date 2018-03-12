@@ -25,6 +25,7 @@ __all__ = [
     'PosixFilePermission', 'Job',
     'JobDescription', 'CopyRequest', 'QueueStatus', 'JobStatus',
     'CopyStatus', 'CertificateCredential', 'PasswordCredential',
+    'KeytabCredential',
     'PropertyDescription', 'CredentialMap', 'DefaultCredential',
     'UserCredential', 'CopyMode',
 

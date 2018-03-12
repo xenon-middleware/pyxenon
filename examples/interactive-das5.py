@@ -49,7 +49,6 @@ input_lines = [
 job_description = xenon.JobDescription(
     executable='python3',
     arguments=['rot13.py'])
-    #queue_name='multi')
 
 # start the xenon-grpc server
 xenon.init()
