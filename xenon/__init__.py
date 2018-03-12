@@ -6,7 +6,7 @@ from .objects import (
     PosixFilePermission, CopyMode, CopyStatus, JobStatus, QueueStatus)
 
 from .proto.xenon_pb2 import (
-    CopyRequest, CertificateCredential, PasswordCredential,
+    CopyRequest, CertificateCredential, PasswordCredential, KeytabCredential,
     PropertyDescription, CredentialMap, DefaultCredential,
     UserCredential)
 

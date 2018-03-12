@@ -9,8 +9,9 @@ information provided by the adaptors themselves.
 File System
 -----------
 
-.. note:: Supported property names should be prefixed with ``"xenon.adaptors.filesystems"``.
-    We've left this prefix out to improve readability of the tables.
+.. note:: Supported property names should be prefixed with
+``"xenon.adaptors.filesystems"``.  We've left this prefix out to improve
+readability of the tables.
 
 
 File
@@ -18,17 +19,29 @@ File
 This is the local file adaptor that implements file functionality for
 local access.
 
-+---------------------------+-------+
-| field                     | value |
-+===========================+=======+
-| supports_third_party_copy | False |
-+---------------------------+-------+
-| can_create_symboliclinks  | False |
-+---------------------------+-------+
-| can_read_symboliclinks    | False |
-+---------------------------+-------+
-| is_connectionless         | False |
-+---------------------------+-------+
++------------------------------------+---------------------+
+| field                              | value               |
++====================================+=====================+
+| supports_third_party_copy          | False               |
++------------------------------------+---------------------+
+| can_create_symboliclinks           | True                |
++------------------------------------+---------------------+
+| can_read_symboliclinks             | True                |
++------------------------------------+---------------------+
+| is_connectionless                  | True                |
++------------------------------------+---------------------+
+| supported_credentials              | `DefaultCredential` |
++------------------------------------+---------------------+
+| can_append                         | True                |
++------------------------------------+---------------------+
+| supports_reading_posix_permissions | True                |
++------------------------------------+---------------------+
+| supports_setting_posix_permissions | True                |
++------------------------------------+---------------------+
+| supports_rename                    | True                |
++------------------------------------+---------------------+
+| needs_size_beforehand              | False               |
++------------------------------------+---------------------+
 
 location string:
     * `(null)`
@@ -48,17 +61,29 @@ Ftp
 ~~~
 The FTP adaptor implements file access on remote ftp servers.
 
-+---------------------------+-------+
-| field                     | value |
-+===========================+=======+
-| supports_third_party_copy | False |
-+---------------------------+-------+
-| can_create_symboliclinks  | False |
-+---------------------------+-------+
-| can_read_symboliclinks    | False |
-+---------------------------+-------+
-| is_connectionless         | False |
-+---------------------------+-------+
++------------------------------------+-------------------------------------------+
+| field                              | value                                     |
++====================================+===========================================+
+| supports_third_party_copy          | False                                     |
++------------------------------------+-------------------------------------------+
+| can_create_symboliclinks           | False                                     |
++------------------------------------+-------------------------------------------+
+| can_read_symboliclinks             | True                                      |
++------------------------------------+-------------------------------------------+
+| is_connectionless                  | False                                     |
++------------------------------------+-------------------------------------------+
+| supported_credentials              | `DefaultCredential`, `PasswordCredential` |
++------------------------------------+-------------------------------------------+
+| can_append                         | True                                      |
++------------------------------------+-------------------------------------------+
+| supports_reading_posix_permissions | True                                      |
++------------------------------------+-------------------------------------------+
+| supports_setting_posix_permissions | False                                     |
++------------------------------------+-------------------------------------------+
+| supports_rename                    | True                                      |
++------------------------------------+-------------------------------------------+
+| needs_size_beforehand              | False                                     |
++------------------------------------+-------------------------------------------+
 
 location string:
     * `host[:port][/workdir]`
@@ -76,17 +101,30 @@ Sftp
 The SFTP adaptor implements all file access functionality to remote
 SFTP servers
 
-+---------------------------+-------+
-| field                     | value |
-+===========================+=======+
-| supports_third_party_copy | False |
-+---------------------------+-------+
-| can_create_symboliclinks  | False |
-+---------------------------+-------+
-| can_read_symboliclinks    | False |
-+---------------------------+-------+
-| is_connectionless         | False |
-+---------------------------+-------+
++------------------------------------+----------------------------------------------------+
+| field                              | value                                              |
++====================================+====================================================+
+| supports_third_party_copy          | False                                              |
++------------------------------------+----------------------------------------------------+
+| can_create_symboliclinks           | True                                               |
++------------------------------------+----------------------------------------------------+
+| can_read_symboliclinks             | True                                               |
++------------------------------------+----------------------------------------------------+
+| is_connectionless                  | False                                              |
++------------------------------------+----------------------------------------------------+
+| supported_credentials              | `DefaultCredential`, `CertificateCredential`,      |
+|                                    | `PasswordCredential`, `CredentialMap`              |
++------------------------------------+----------------------------------------------------+
+| can_append                         | True                                               |
++------------------------------------+----------------------------------------------------+
+| supports_reading_posix_permissions | True                                               |
++------------------------------------+----------------------------------------------------+
+| supports_setting_posix_permissions | True                                               |
++------------------------------------+----------------------------------------------------+
+| supports_rename                    | True                                               |
++------------------------------------+----------------------------------------------------+
+| needs_size_beforehand              | False                                              |
++------------------------------------+----------------------------------------------------+
 
 location string:
     * `host[:port][/workdir]`
@@ -96,15 +134,11 @@ supported properties:
 +----------------------------+------------------------------------------------------------+-----------+---------+
 | name                       | description                                                | data_type | default |
 +============================+============================================================+===========+=========+
-| sftp.autoAddHostKey        | Automatically add unknown host keys to known_hosts.        | boolean   | `true`  |
-+----------------------------+------------------------------------------------------------+-----------+---------+
 | sftp.strictHostKeyChecking | Enable strict host key checking.                           | boolean   | `true`  |
 +----------------------------+------------------------------------------------------------+-----------+---------+
 | sftp.loadKnownHosts        | Load the standard known_hosts file.                        | boolean   | `true`  |
 +----------------------------+------------------------------------------------------------+-----------+---------+
 | sftp.loadSshConfig         | Load the OpenSSH config file.                              | boolean   | `true`  |
-+----------------------------+------------------------------------------------------------+-----------+---------+
-| sftp.sshConfigFile         | OpenSSH config filename.                                   | string    | (empty) |
 +----------------------------+------------------------------------------------------------+-----------+---------+
 | sftp.agent                 | Use a (local) ssh-agent.                                   | boolean   | `false` |
 +----------------------------+------------------------------------------------------------+-----------+---------+
@@ -121,17 +155,29 @@ Webdav
 The webdav file adaptor implements file access to remote webdav
 servers.
 
-+---------------------------+-------+
-| field                     | value |
-+===========================+=======+
-| supports_third_party_copy | False |
-+---------------------------+-------+
-| can_create_symboliclinks  | False |
-+---------------------------+-------+
-| can_read_symboliclinks    | False |
-+---------------------------+-------+
-| is_connectionless         | False |
-+---------------------------+-------+
++------------------------------------+-------------------------------------------+
+| field                              | value                                     |
++====================================+===========================================+
+| supports_third_party_copy          | False                                     |
++------------------------------------+-------------------------------------------+
+| can_create_symboliclinks           | False                                     |
++------------------------------------+-------------------------------------------+
+| can_read_symboliclinks             | False                                     |
++------------------------------------+-------------------------------------------+
+| is_connectionless                  | True                                      |
++------------------------------------+-------------------------------------------+
+| supported_credentials              | `DefaultCredential`, `PasswordCredential` |
++------------------------------------+-------------------------------------------+
+| can_append                         | False                                     |
++------------------------------------+-------------------------------------------+
+| supports_reading_posix_permissions | False                                     |
++------------------------------------+-------------------------------------------+
+| supports_setting_posix_permissions | False                                     |
++------------------------------------+-------------------------------------------+
+| supports_rename                    | True                                      |
++------------------------------------+-------------------------------------------+
+| needs_size_beforehand              | False                                     |
++------------------------------------+-------------------------------------------+
 
 location string:
     * `http://host[:port][/workdir]`
@@ -149,17 +195,29 @@ S3
 ~~
 The JClouds adaptor uses Apache JClouds to talk to s3 and others
 
-+---------------------------+-------+
-| field                     | value |
-+===========================+=======+
-| supports_third_party_copy | False |
-+---------------------------+-------+
-| can_create_symboliclinks  | False |
-+---------------------------+-------+
-| can_read_symboliclinks    | False |
-+---------------------------+-------+
-| is_connectionless         | False |
-+---------------------------+-------+
++------------------------------------+----------------------+
+| field                              | value                |
++====================================+======================+
+| supports_third_party_copy          | False                |
++------------------------------------+----------------------+
+| can_create_symboliclinks           | False                |
++------------------------------------+----------------------+
+| can_read_symboliclinks             | False                |
++------------------------------------+----------------------+
+| is_connectionless                  | True                 |
++------------------------------------+----------------------+
+| supported_credentials              | `PasswordCredential` |
++------------------------------------+----------------------+
+| can_append                         | False                |
++------------------------------------+----------------------+
+| supports_reading_posix_permissions | False                |
++------------------------------------+----------------------+
+| supports_setting_posix_permissions | False                |
++------------------------------------+----------------------+
+| supports_rename                    | False                |
++------------------------------------+----------------------+
+| needs_size_beforehand              | True                 |
++------------------------------------+----------------------+
 
 location string:
     * `[http://host[:port]]/bucketname[/workdir]`
@@ -172,12 +230,56 @@ supported properties:
 | s3.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
 +---------------+-------------------------------------------------------+-----------+---------+
 
+Hdfs
+~~~~
+Adaptor for the Apache Hadoop file system
+
++------------------------------------+----------------------------------------------------+
+| field                              | value                                              |
++====================================+====================================================+
+| supports_third_party_copy          | False                                              |
++------------------------------------+----------------------------------------------------+
+| can_create_symboliclinks           | False                                              |
++------------------------------------+----------------------------------------------------+
+| can_read_symboliclinks             | False                                              |
++------------------------------------+----------------------------------------------------+
+| is_connectionless                  | False                                              |
++------------------------------------+----------------------------------------------------+
+| supported_credentials              | `DefaultCredential`, `PasswordCredential`,         |
+|                                    | `KeytabCredential`                                 |
++------------------------------------+----------------------------------------------------+
+| can_append                         | True                                               |
++------------------------------------+----------------------------------------------------+
+| supports_reading_posix_permissions | False                                              |
++------------------------------------+----------------------------------------------------+
+| supports_setting_posix_permissions | False                                              |
++------------------------------------+----------------------------------------------------+
+| supports_rename                    | True                                               |
++------------------------------------+----------------------------------------------------+
+| needs_size_beforehand              | False                                              |
++------------------------------------+----------------------------------------------------+
+
+location string:
+    * `hdfs://host[:port]`
+
+supported properties:
+
++-------------------------+---------------------------------------------------------------+-----------+---------+
+| name                    | description                                                   | data_type | default |
++=========================+===============================================================+===========+=========+
+| hdfs.bufferSize         | The buffer size to use when copying files (in bytes).         | size      | `64K`   |
++-------------------------+---------------------------------------------------------------+-----------+---------+
+| hdfs.hadoopSettingsFile | The path to the file with the hadoop settings, i.e.           | string    | (empty) |
+|                         | "/home/xenon/core-site.xml".                                  |           |         |
++-------------------------+---------------------------------------------------------------+-----------+---------+
+
 
 Scheduler
 ---------
 
-.. note:: Supported property names should be prefixed with ``"xenon.adaptors.schedulers"``.
-    We've left this prefix out to improve readability of the tables.
+.. note:: Supported property names should be prefixed with
+``"xenon.adaptors.schedulers"``.  We've left this prefix out to improve
+readability of the tables.
 
 
 Local
@@ -185,17 +287,19 @@ Local
 The local jobs adaptor implements all functionality by emulating a
 local queue.
 
-+----------------------+-------+
-| field                | value |
-+======================+=======+
-| is_embedded          | True  |
-+----------------------+-------+
-| supports_interactive | True  |
-+----------------------+-------+
-| supports_batch       | True  |
-+----------------------+-------+
-| uses_file_system     | True  |
-+----------------------+-------+
++-----------------------+---------------------+
+| field                 | value               |
++=======================+=====================+
+| is_embedded           | True                |
++-----------------------+---------------------+
+| supports_interactive  | True                |
++-----------------------+---------------------+
+| supports_batch        | True                |
++-----------------------+---------------------+
+| uses_file_system      | True                |
++-----------------------+---------------------+
+| supported_credentials | `DefaultCredential` |
++-----------------------+---------------------+
 
 location string:
     * `[/workdir]`
@@ -217,17 +321,20 @@ Ssh
 The SSH job adaptor implements all functionality to start jobs on ssh
 servers.
 
-+----------------------+-------+
-| field                | value |
-+======================+=======+
-| is_embedded          | True  |
-+----------------------+-------+
-| supports_interactive | True  |
-+----------------------+-------+
-| supports_batch       | True  |
-+----------------------+-------+
-| uses_file_system     | True  |
-+----------------------+-------+
++-----------------------+---------------------------------------------------------------------------------+
+| field                 | value                                                                           |
++=======================+=================================================================================+
+| is_embedded           | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_interactive  | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_batch        | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| uses_file_system      | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| supported_credentials | `DefaultCredential`, `CertificateCredential`, `PasswordCredential`,             |
+|                       | `CredentialMap`                                                                 |
++-----------------------+---------------------------------------------------------------------------------+
 
 location string:
     * `host[:port][/workdir][ via:otherhost[:port]]*`
@@ -237,16 +344,11 @@ supported properties:
 +-----------------------------------+--------------------------------------------+-----------+---------+
 | name                              | description                                | data_type | default |
 +===================================+============================================+===========+=========+
-| ssh.autoAddHostKey                | Automatically add unknown host keys to     | boolean   | `true`  |
-|                                   | known_hosts.                               |           |         |
-+-----------------------------------+--------------------------------------------+-----------+---------+
 | ssh.strictHostKeyChecking         | Enable strict host key checking.           | boolean   | `true`  |
 +-----------------------------------+--------------------------------------------+-----------+---------+
 | ssh.loadKnownHosts                | Load the standard known_hosts file.        | boolean   | `true`  |
 +-----------------------------------+--------------------------------------------+-----------+---------+
 | ssh.loadSshConfig                 | Load the OpenSSH config file.              | boolean   | `true`  |
-+-----------------------------------+--------------------------------------------+-----------+---------+
-| ssh.sshConfigFile                 | OpenSSH config filename.                   | string    | (empty) |
 +-----------------------------------+--------------------------------------------+-----------+---------+
 | ssh.agent                         | Use a (local) ssh-agent.                   | boolean   | `false` |
 +-----------------------------------+--------------------------------------------+-----------+---------+
@@ -261,29 +363,29 @@ supported properties:
 | ssh.queue.multi.maxConcurrentJobs | The maximum number of concurrent jobs in   | integer   | `4`     |
 |                                   | the multiq..                               |           |         |
 +-----------------------------------+--------------------------------------------+-----------+---------+
-| ssh.gateway                       | The gateway machine used to create an SSH  | string    | (empty) |
-|                                   | tunnel to the target.                      |           |         |
-+-----------------------------------+--------------------------------------------+-----------+---------+
 
 Gridengine
 ~~~~~~~~~~
-The SGE Adaptor submits jobs to a (Sun/Ocacle/Univa) Grid Engine
+The SGE Adaptor submits jobs to a (Sun/Oracle/Univa) Grid Engine
 scheduler. This adaptor uses either the local or the ssh scheduler
 adaptor to run commands on the machine running Grid Engine,  and the
 file or the stfp filesystem adaptor to gain access to the filesystem
 of that machine.
 
-+----------------------+-------+
-| field                | value |
-+======================+=======+
-| is_embedded          | False |
-+----------------------+-------+
-| supports_interactive | False |
-+----------------------+-------+
-| supports_batch       | True  |
-+----------------------+-------+
-| uses_file_system     | True  |
-+----------------------+-------+
++-----------------------+---------------------------------------------------------------------------------+
+| field                 | value                                                                           |
++=======================+=================================================================================+
+| is_embedded           | False                                                                           |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_interactive  | False                                                                           |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_batch        | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| uses_file_system      | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| supported_credentials | `DefaultCredential`, `CertificateCredential`, `PasswordCredential`,             |
+|                       | `CredentialMap`                                                                 |
++-----------------------+---------------------------------------------------------------------------------+
 
 location string:
     * `local://[/workdir]`
@@ -306,16 +408,11 @@ supported properties:
 | gridengine.poll.delay               | Number of milliseconds between polling the | long      | `1000`  |
 |                                     | status of a job.                           |           |         |
 +-------------------------------------+--------------------------------------------+-----------+---------+
-| ssh.autoAddHostKey                  | Automatically add unknown host keys to     | boolean   | `true`  |
-|                                     | known_hosts.                               |           |         |
-+-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.strictHostKeyChecking           | Enable strict host key checking.           | boolean   | `true`  |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.loadKnownHosts                  | Load the standard known_hosts file.        | boolean   | `true`  |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.loadSshConfig                   | Load the OpenSSH config file.              | boolean   | `true`  |
-+-------------------------------------+--------------------------------------------+-----------+---------+
-| ssh.sshConfigFile                   | OpenSSH config filename.                   | string    | (empty) |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.agent                           | Use a (local) ssh-agent.                   | boolean   | `false` |
 +-------------------------------------+--------------------------------------------+-----------+---------+
@@ -329,9 +426,6 @@ supported properties:
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.queue.multi.maxConcurrentJobs   | The maximum number of concurrent jobs in   | integer   | `4`     |
 |                                     | the multiq..                               |           |         |
-+-------------------------------------+--------------------------------------------+-----------+---------+
-| ssh.gateway                         | The gateway machine used to create an SSH  | string    | (empty) |
-|                                     | tunnel to the target.                      |           |         |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | local.queue.pollingDelay            | The polling delay for monitoring running   | long      | `1000`  |
 |                                     | jobs (in milliseconds).                    |           |         |
@@ -347,17 +441,20 @@ uses either the local or the ssh scheduler adaptor to run commands on
 the machine running Slurm,  and the file or the stfp filesystem
 adaptor to gain access to the filesystem of that machine.
 
-+----------------------+-------+
-| field                | value |
-+======================+=======+
-| is_embedded          | False |
-+----------------------+-------+
-| supports_interactive | True  |
-+----------------------+-------+
-| supports_batch       | True  |
-+----------------------+-------+
-| uses_file_system     | True  |
-+----------------------+-------+
++-----------------------+---------------------------------------------------------------------------------+
+| field                 | value                                                                           |
++=======================+=================================================================================+
+| is_embedded           | False                                                                           |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_interactive  | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_batch        | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| uses_file_system      | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| supported_credentials | `DefaultCredential`, `CertificateCredential`, `PasswordCredential`,             |
+|                       | `CredentialMap`                                                                 |
++-----------------------+---------------------------------------------------------------------------------+
 
 location string:
     * `local://[/workdir]`
@@ -375,16 +472,11 @@ supported properties:
 | slurm.poll.delay                    | Number of milliseconds between polling the | long      | `1000`  |
 |                                     | status of a job.                           |           |         |
 +-------------------------------------+--------------------------------------------+-----------+---------+
-| ssh.autoAddHostKey                  | Automatically add unknown host keys to     | boolean   | `true`  |
-|                                     | known_hosts.                               |           |         |
-+-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.strictHostKeyChecking           | Enable strict host key checking.           | boolean   | `true`  |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.loadKnownHosts                  | Load the standard known_hosts file.        | boolean   | `true`  |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.loadSshConfig                   | Load the OpenSSH config file.              | boolean   | `true`  |
-+-------------------------------------+--------------------------------------------+-----------+---------+
-| ssh.sshConfigFile                   | OpenSSH config filename.                   | string    | (empty) |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.agent                           | Use a (local) ssh-agent.                   | boolean   | `false` |
 +-------------------------------------+--------------------------------------------+-----------+---------+
@@ -398,9 +490,6 @@ supported properties:
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.queue.multi.maxConcurrentJobs   | The maximum number of concurrent jobs in   | integer   | `4`     |
 |                                     | the multiq..                               |           |         |
-+-------------------------------------+--------------------------------------------+-----------+---------+
-| ssh.gateway                         | The gateway machine used to create an SSH  | string    | (empty) |
-|                                     | tunnel to the target.                      |           |         |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | local.queue.pollingDelay            | The polling delay for monitoring running   | long      | `1000`  |
 |                                     | jobs (in milliseconds).                    |           |         |
@@ -416,17 +505,20 @@ uses either the local or the ssh scheduler adaptor to run commands on
 the machine running TORQUE,  and the file or the stfp filesystem
 adaptor to gain access to the filesystem of that machine.
 
-+----------------------+-------+
-| field                | value |
-+======================+=======+
-| is_embedded          | False |
-+----------------------+-------+
-| supports_interactive | False |
-+----------------------+-------+
-| supports_batch       | True  |
-+----------------------+-------+
-| uses_file_system     | True  |
-+----------------------+-------+
++-----------------------+---------------------------------------------------------------------------------+
+| field                 | value                                                                           |
++=======================+=================================================================================+
+| is_embedded           | False                                                                           |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_interactive  | False                                                                           |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_batch        | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| uses_file_system      | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| supported_credentials | `DefaultCredential`, `CertificateCredential`, `PasswordCredential`,             |
+|                       | `CredentialMap`                                                                 |
++-----------------------+---------------------------------------------------------------------------------+
 
 location string:
     * `local://[/workdir]`
@@ -449,16 +541,11 @@ supported properties:
 | torque.poll.delay                   | Number of milliseconds between polling the | long      | `1000`  |
 |                                     | status of a job.                           |           |         |
 +-------------------------------------+--------------------------------------------+-----------+---------+
-| ssh.autoAddHostKey                  | Automatically add unknown host keys to     | boolean   | `true`  |
-|                                     | known_hosts.                               |           |         |
-+-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.strictHostKeyChecking           | Enable strict host key checking.           | boolean   | `true`  |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.loadKnownHosts                  | Load the standard known_hosts file.        | boolean   | `true`  |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.loadSshConfig                   | Load the OpenSSH config file.              | boolean   | `true`  |
-+-------------------------------------+--------------------------------------------+-----------+---------+
-| ssh.sshConfigFile                   | OpenSSH config filename.                   | string    | (empty) |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.agent                           | Use a (local) ssh-agent.                   | boolean   | `false` |
 +-------------------------------------+--------------------------------------------+-----------+---------+
@@ -472,9 +559,6 @@ supported properties:
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.queue.multi.maxConcurrentJobs   | The maximum number of concurrent jobs in   | integer   | `4`     |
 |                                     | the multiq..                               |           |         |
-+-------------------------------------+--------------------------------------------+-----------+---------+
-| ssh.gateway                         | The gateway machine used to create an SSH  | string    | (empty) |
-|                                     | tunnel to the target.                      |           |         |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | local.queue.pollingDelay            | The polling delay for monitoring running   | long      | `1000`  |
 |                                     | jobs (in milliseconds).                    |           |         |
