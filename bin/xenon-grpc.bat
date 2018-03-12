@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\xenon-grpc-2.2.0-all.jar
+set CLASSPATH=%APP_HOME%\lib\xenon-grpc-2.2.1-all.jar
 
 @rem Execute xenon-grpc
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %XENON_GRPC_OPTS%  -jar "%CLASSPATH%" %CMD_LINE_ARGS%

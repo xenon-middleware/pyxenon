@@ -345,6 +345,7 @@ message JobDescription {
     map<string, string> options = 13;
     string name = 14;
     uint32 max_memory = 15;
+    repeated string scheduler_arguments = 16;
 }
 
 message SubmitBatchJobRequest {

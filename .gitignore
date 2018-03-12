@@ -10,6 +10,8 @@
 /.idea/
 /.cache/
 /.tox/
+.pytest_cache
+.vscode
 
 # vim
 *.swp
