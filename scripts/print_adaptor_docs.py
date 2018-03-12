@@ -108,6 +108,17 @@ def property_table(d):
                            if p.default_value else '(empty)'))
 
 
+def smart_str(obj):
+    if isinstance(obj, str):
+        return obj
+
+    try:
+        seq_str = ', '.join('`' + str(x) + '`' for x in obj)
+        return seq_str
+    except TypeError:
+        return str(obj)
+
+
 def print_adaptor_descriptions(desc, extra=[]):
     for d in desc:
         print(d.name.title())
@@ -118,7 +129,7 @@ def print_adaptor_descriptions(desc, extra=[]):
             Table.from_sequence(
                 extra,
                 field=lambda x: x,
-                value=lambda x: str(getattr(d, x))).print_rst()
+                value=lambda x: smart_str(getattr(d, x))).print_rst()
             print()
         print('location string:')
         print('\n'.join('    * `{}`'.format(l) for l in d.supported_locations))
@@ -133,14 +144,21 @@ scheduler_adaptor_props = [
     'is_embedded',
     'supports_interactive',
     'supports_batch',
-    'uses_file_system'
+    'uses_file_system',
+    'supported_credentials'
 ]
 
 file_system_adaptor_props = [
     'supports_third_party_copy',
     'can_create_symboliclinks',
     'can_read_symboliclinks',
-    'is_connectionless'
+    'is_connectionless',
+    'supported_credentials',
+    'can_append',
+    'supports_reading_posix_permissions',
+    'supports_setting_posix_permissions',
+    'supports_rename',
+    'needs_size_beforehand'
 ]
 
 print("""Adaptors

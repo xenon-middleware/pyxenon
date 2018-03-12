@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='xenon/proto/xenon.proto',
   package='xenon',
   syntax='proto3',
-  serialized_pb=_b('\n\x17xenon/proto/xenon.proto\x12\x05xenon\"\x07\n\x05\x45mpty\"v\n\nProperties\x12\x35\n\nproperties\x18\x01 \x03(\x0b\x32!.xenon.Properties.PropertiesEntry\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xd9\x01\n\x13PropertyDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x15\n\rdefault_value\x18\x03 \x01(\t\x12-\n\x04type\x18\x04 \x01(\x0e\x32\x1f.xenon.PropertyDescription.Type\"Y\n\x04Type\x12\n\n\x06STRING\x10\x00\x12\x0b\n\x07\x42OOLEAN\x10\x01\x12\x0b\n\x07INTEGER\x10\x02\x12\n\n\x06\x44OUBLE\x10\x03\x12\x08\n\x04LONG\x10\x04\x12\x08\n\x04SIZE\x10\x05\x12\x0b\n\x07NATURAL\x10\x06\"F\n\x14PropertyDescriptions\x12.\n\nproperties\x18\x01 \x03(\x0b\x32\x1a.xenon.PropertyDescription\"\xfc\x01\n\x1bSchedulerAdaptorDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1b\n\x13supported_locations\x18\x03 \x03(\t\x12\x38\n\x14supported_properties\x18\x04 \x03(\x0b\x32\x1a.xenon.PropertyDescription\x12\x13\n\x0bis_embedded\x18\x05 \x01(\x08\x12\x1c\n\x14supports_interactive\x18\x06 \x01(\x08\x12\x16\n\x0esupports_batch\x18\x07 \x01(\x08\x12\x18\n\x10uses_file_system\x18\x08 \x01(\x08\"X\n\x1cSchedulerAdaptorDescriptions\x12\x38\n\x0c\x64\x65scriptions\x18\x01 \x03(\x0b\x32\".xenon.SchedulerAdaptorDescription\"\x98\x02\n\x1c\x46ileSystemAdaptorDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1b\n\x13supported_locations\x18\x03 \x03(\t\x12\x38\n\x14supported_properties\x18\x04 \x03(\x0b\x32\x1a.xenon.PropertyDescription\x12!\n\x19supports_third_party_copy\x18\x05 \x01(\x08\x12 \n\x18\x63\x61n_create_symboliclinks\x18\x06 \x01(\x08\x12\x1e\n\x16\x63\x61n_read_symboliclinks\x18\x07 \x01(\x08\x12\x19\n\x11is_connectionless\x18\x08 \x01(\x08\"Z\n\x1d\x46ileSystemAdaptorDescriptions\x12\x39\n\x0c\x64\x65scriptions\x18\x01 \x03(\x0b\x32#.xenon.FileSystemAdaptorDescription\"\x1b\n\x0b\x41\x64\x61ptorName\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1c\n\x0c\x41\x64\x61ptorNames\x12\x0c\n\x04name\x18\x01 \x03(\t\"O\n\x15\x43\x65rtificateCredential\x12\x10\n\x08\x63\x65rtfile\x18\x01 \x01(\t\x12\x12\n\npassphrase\x18\x02 \x01(\t\x12\x10\n\x08username\x18\x03 \x01(\t\"8\n\x12PasswordCredential\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"%\n\x11\x44\x65\x66\x61ultCredential\x12\x10\n\x08username\x18\x01 \x01(\t\"\xcb\x01\n\x0eUserCredential\x12>\n\x16\x63\x65rtificate_credential\x18\x01 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x02 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x03 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x42\x07\n\x05\x65ntry\"\xc8\x02\n\rCredentialMap\x12\x32\n\x07\x65ntries\x18\x01 \x03(\x0b\x32!.xenon.CredentialMap.EntriesEntry\x12>\n\x16\x63\x65rtificate_credential\x18\x02 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x03 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x04 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x1a\x45\n\x0c\x45ntriesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.xenon.UserCredential:\x02\x38\x01\x42\n\n\x08\x66\x61llback\"\x1c\n\x08Location\x12\x10\n\x08location\x18\x01 \x01(\t\"\x87\x02\n\x15GetCredentialResponse\x12>\n\x16\x63\x65rtificate_credential\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x12.\n\x0e\x63redential_map\x18\x07 \x01(\x0b\x32\x14.xenon.CredentialMapH\x00\x42\x0c\n\ncredential\"\xa3\x03\n\x17\x43reateFileSystemRequest\x12\x0f\n\x07\x61\x64\x61ptor\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x42\n\nproperties\x18\x03 \x03(\x0b\x32..xenon.CreateFileSystemRequest.PropertiesEntry\x12>\n\x16\x63\x65rtificate_credential\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x12.\n\x0e\x63redential_map\x18\x07 \x01(\x0b\x32\x14.xenon.CredentialMapH\x00\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\ncredential\"\x18\n\nFileSystem\x12\n\n\x02id\x18\x01 \x01(\t\"5\n\x0b\x46ileSystems\x12&\n\x0b\x66ilesystems\x18\x01 \x03(\x0b\x32\x11.xenon.FileSystem\"\'\n\x04Path\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x11\n\tseparator\x18\x02 \x01(\t\"O\n\x0bPathRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\"d\n\rDeleteRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x11\n\trecursive\x18\x03 \x01(\x08\"\x95\x02\n\x0b\x43opyRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x1b\n\x06source\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x31\n\x16\x64\x65stination_filesystem\x18\x03 \x01(\x0b\x32\x11.xenon.FileSystem\x12 \n\x0b\x64\x65stination\x18\x04 \x01(\x0b\x32\x0b.xenon.Path\x12)\n\x04mode\x18\x05 \x01(\x0e\x32\x1b.xenon.CopyRequest.CopyMode\x12\x11\n\trecursive\x18\x06 \x01(\x08\"/\n\x08\x43opyMode\x12\n\n\x06\x43REATE\x10\x00\x12\x0b\n\x07REPLACE\x10\x01\x12\n\n\x06IGNORE\x10\x02\"p\n\rRenameRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x1b\n\x06source\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x1b\n\x06target\x18\x03 \x01(\x0b\x32\x0b.xenon.Path\"z\n\x19\x43reateSymbolicLinkRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04link\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x1b\n\x06target\x18\x03 \x01(\x0b\x32\x0b.xenon.Path\"\x1b\n\rCopyOperation\x12\n\n\x02id\x18\x01 \x01(\t\"k\n\x14\x43opyOperationRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12,\n\x0e\x63opy_operation\x18\x02 \x01(\x0b\x32\x14.xenon.CopyOperation\"|\n\x14WaitUntilDoneRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12,\n\x0e\x63opy_operation\x18\x02 \x01(\x0b\x32\x14.xenon.CopyOperation\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"\xc4\x02\n\nCopyStatus\x12,\n\x0e\x63opy_operation\x18\x01 \x01(\x0b\x32\x14.xenon.CopyOperation\x12\x14\n\x0c\x62ytes_copied\x18\x02 \x01(\x04\x12\x15\n\rbytes_to_copy\x18\x03 \x01(\x04\x12\x0c\n\x04\x64one\x18\x04 \x01(\x08\x12\x0f\n\x07running\x18\x05 \x01(\x08\x12\r\n\x05state\x18\x06 \x01(\t\x12\x15\n\rerror_message\x18\x07 \x01(\t\x12/\n\nerror_type\x18\x08 \x01(\x0e\x32\x1b.xenon.CopyStatus.ErrorType\"e\n\tErrorType\x12\x08\n\x04NONE\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\x12\r\n\tCANCELLED\x10\x02\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x03\x12\x11\n\rNOT_CONNECTED\x10\x04\x12\t\n\x05XENON\x10\x05\"\xff\x02\n\x0ePathAttributes\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x15\n\rcreation_time\x18\x02 \x01(\x04\x12\r\n\x05group\x18\x03 \x01(\t\x12\x14\n\x0cis_directory\x18\x04 \x01(\x08\x12\x15\n\ris_executable\x18\x05 \x01(\x08\x12\x11\n\tis_hidden\x18\x06 \x01(\x08\x12\x10\n\x08is_other\x18\x07 \x01(\x08\x12\x13\n\x0bis_readable\x18\x08 \x01(\x08\x12\x12\n\nis_regular\x18\t \x01(\x08\x12\x18\n\x10is_symbolic_link\x18\n \x01(\x08\x12\x13\n\x0bis_writable\x18\x0b \x01(\x08\x12\x18\n\x10last_access_time\x18\x0c \x01(\x04\x12\x1a\n\x12last_modified_time\x18\r \x01(\x04\x12\r\n\x05owner\x18\x0e \x01(\t\x12/\n\x0bpermissions\x18\x0f \x03(\x0e\x32\x1a.xenon.PosixFilePermission\x12\x0c\n\x04size\x18\x10 \x01(\x04\"\x93\x01\n\x1eSetPosixFilePermissionsRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12/\n\x0bpermissions\x18\x03 \x03(\x0e\x32\x1a.xenon.PosixFilePermission\"&\n\x14ReadFromFileResponse\x12\x0e\n\x06\x62uffer\x18\x01 \x01(\x0c\"t\n\x12WriteToFileRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x0e\n\x06\x62uffer\x18\x03 \x01(\x0c\x12\x0c\n\x04size\x18\x04 \x01(\x04\"g\n\x13\x41ppendToFileRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x0e\n\x06\x62uffer\x18\x03 \x01(\x0c\"a\n\x0bListRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x18\n\x03\x64ir\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x11\n\trecursive\x18\x03 \x01(\x08\"-\n\x18GetPathSeparatorResponse\x12\x11\n\tseparator\x18\x01 \x01(\t\"\xa1\x03\n\x16\x43reateSchedulerRequest\x12\x0f\n\x07\x61\x64\x61ptor\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x41\n\nproperties\x18\x03 \x03(\x0b\x32-.xenon.CreateSchedulerRequest.PropertiesEntry\x12>\n\x16\x63\x65rtificate_credential\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x12.\n\x0e\x63redential_map\x18\x07 \x01(\x0b\x32\x14.xenon.CredentialMapH\x00\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\ncredential\"\x17\n\tScheduler\x12\n\n\x02id\x18\x01 \x01(\t\"2\n\nSchedulers\x12$\n\nschedulers\x18\x01 \x03(\x0b\x32\x10.xenon.Scheduler\"\xce\x03\n\x0eJobDescription\x12\x12\n\nexecutable\x18\x01 \x01(\t\x12\x11\n\targuments\x18\x02 \x03(\t\x12\x19\n\x11working_directory\x18\x03 \x01(\t\x12;\n\x0b\x65nvironment\x18\x04 \x03(\x0b\x32&.xenon.JobDescription.EnvironmentEntry\x12\x12\n\nqueue_name\x18\x05 \x01(\t\x12\x13\n\x0bmax_runtime\x18\x06 \x01(\r\x12\x12\n\nnode_count\x18\x07 \x01(\r\x12\x1a\n\x12processes_per_node\x18\x08 \x01(\r\x12\x1c\n\x14start_single_process\x18\t \x01(\x08\x12\x0e\n\x06stderr\x18\n \x01(\t\x12\r\n\x05stdin\x18\x0b \x01(\t\x12\x0e\n\x06stdout\x18\x0c \x01(\t\x12\x33\n\x07options\x18\r \x03(\x0b\x32\".xenon.JobDescription.OptionsEntry\x1a\x32\n\x10\x45nvironmentEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a.\n\x0cOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"h\n\x15SubmitBatchJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12*\n\x0b\x64\x65scription\x18\x02 \x01(\x0b\x32\x15.xenon.JobDescription\"}\n\x1bSubmitInteractiveJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12*\n\x0b\x64\x65scription\x18\x02 \x01(\x0b\x32\x15.xenon.JobDescription\x12\r\n\x05stdin\x18\x03 \x01(\x0c\"\x11\n\x03Job\x12\n\n\x02id\x18\x01 \x01(\t\"J\n\nJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x17\n\x03job\x18\x02 \x01(\x0b\x32\n.xenon.Job\" \n\x04Jobs\x12\x18\n\x04jobs\x18\x02 \x03(\x0b\x32\n.xenon.Job\"V\n\x15GetJobStatusesRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x18\n\x04jobs\x18\x02 \x03(\x0b\x32\n.xenon.Job\"\\\n\x0bWaitRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x17\n\x03job\x18\x02 \x01(\x0b\x32\n.xenon.Job\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"\x15\n\x05Queue\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x16\n\x06Queues\x12\x0c\n\x04name\x18\x01 \x03(\t\"I\n\x12SchedulerAndQueues\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x0e\n\x06queues\x18\x02 \x03(\t\"K\n\x15GetQueueStatusRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\r\n\x05queue\x18\x02 \x01(\t\"\xb3\x03\n\tJobStatus\x12\x17\n\x03job\x18\x01 \x01(\x0b\x32\n.xenon.Job\x12\r\n\x05state\x18\x02 \x01(\t\x12\x0f\n\x07running\x18\x03 \x01(\x08\x12\x0c\n\x04\x64one\x18\x04 \x01(\x08\x12Z\n\x1escheduler_specific_information\x18\x05 \x03(\x0b\x32\x32.xenon.JobStatus.SchedulerSpecificInformationEntry\x12\x11\n\texit_code\x18\x06 \x01(\x05\x12\x15\n\rerror_message\x18\x07 \x01(\t\x12.\n\nerror_type\x18\x08 \x01(\x0e\x32\x1a.xenon.JobStatus.ErrorType\x1a\x43\n!SchedulerSpecificInformationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"d\n\tErrorType\x12\x08\n\x04NONE\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\x12\r\n\tCANCELLED\x10\x02\x12\x11\n\rNOT_CONNECTED\x10\x03\x12\t\n\x05XENON\x10\x04\x12\x06\n\x02IO\x10\x05\x12\t\n\x05OTHER\x10\x06\"<\n\x16GetJobStatusesResponse\x12\"\n\x08statuses\x18\x01 \x03(\x0b\x32\x10.xenon.JobStatus\"\xde\x02\n\x0bQueueStatus\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\\\n\x1escheduler_specific_information\x18\x02 \x03(\x0b\x32\x34.xenon.QueueStatus.SchedulerSpecificInformationEntry\x12\x15\n\rerror_message\x18\x03 \x01(\t\x12\x30\n\nerror_type\x18\x04 \x01(\x0e\x32\x1c.xenon.QueueStatus.ErrorType\x1a\x43\n!SchedulerSpecificInformationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"U\n\tErrorType\x12\x08\n\x04NONE\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\x12\x11\n\rNOT_CONNECTED\x10\x02\x12\t\n\x05XENON\x10\x03\x12\x06\n\x02IO\x10\x04\x12\t\n\x05OTHER\x10\x05\"5\n\rQueueStatuses\x12$\n\x08statuses\x18\x01 \x03(\x0b\x32\x12.xenon.QueueStatus\"W\n\x1cSubmitInteractiveJobResponse\x12\x17\n\x03job\x18\x01 \x01(\x0b\x32\n.xenon.Job\x12\x0e\n\x06stdout\x18\x02 \x01(\x0c\x12\x0e\n\x06stderr\x18\x03 \x01(\x0c\"\x13\n\x02Is\x12\r\n\x05value\x18\x01 \x01(\x08*\xbe\x01\n\x13PosixFilePermission\x12\x08\n\x04NONE\x10\x00\x12\x0e\n\nOWNER_READ\x10\x01\x12\x0f\n\x0bOWNER_WRITE\x10\x02\x12\x11\n\rOWNER_EXECUTE\x10\x03\x12\x0e\n\nGROUP_READ\x10\x04\x12\x0f\n\x0bGROUP_WRITE\x10\x05\x12\x11\n\rGROUP_EXECUTE\x10\x06\x12\x0f\n\x0bOTHERS_READ\x10\x07\x12\x10\n\x0cOTHERS_WRITE\x10\x08\x12\x12\n\x0eOTHERS_EXECUTE\x10\t2\xc2\x0f\n\x11\x46ileSystemService\x12N\n\x16getAdaptorDescriptions\x12\x0c.xenon.Empty\x1a$.xenon.FileSystemAdaptorDescriptions\"\x00\x12\x36\n\x0fgetAdaptorNames\x12\x0c.xenon.Empty\x1a\x13.xenon.AdaptorNames\"\x00\x12R\n\x15getAdaptorDescription\x12\x12.xenon.AdaptorName\x1a#.xenon.FileSystemAdaptorDescription\"\x00\x12=\n\x06\x63reate\x12\x1e.xenon.CreateFileSystemRequest\x1a\x11.xenon.FileSystem\"\x00\x12\x39\n\x0egetAdaptorName\x12\x11.xenon.FileSystem\x1a\x12.xenon.AdaptorName\"\x00\x12\x33\n\x0bgetLocation\x12\x11.xenon.FileSystem\x1a\x0f.xenon.Location\"\x00\x12\x42\n\rgetCredential\x12\x11.xenon.FileSystem\x1a\x1c.xenon.GetCredentialResponse\"\x00\x12\x37\n\rgetProperties\x12\x11.xenon.FileSystem\x1a\x11.xenon.Properties\"\x00\x12\x37\n\x11\x63reateDirectories\x12\x12.xenon.PathRequest\x1a\x0c.xenon.Empty\"\x00\x12\x35\n\x0f\x63reateDirectory\x12\x12.xenon.PathRequest\x1a\x0c.xenon.Empty\"\x00\x12\x30\n\ncreateFile\x12\x12.xenon.PathRequest\x1a\x0c.xenon.Empty\"\x00\x12\x46\n\x12\x63reateSymbolicLink\x12 .xenon.CreateSymbolicLinkRequest\x1a\x0c.xenon.Empty\"\x00\x12\x32\n\x04\x63opy\x12\x12.xenon.CopyRequest\x1a\x14.xenon.CopyOperation\"\x00\x12:\n\x06\x63\x61ncel\x12\x1b.xenon.CopyOperationRequest\x1a\x11.xenon.CopyStatus\"\x00\x12=\n\tgetStatus\x12\x1b.xenon.CopyOperationRequest\x1a\x11.xenon.CopyStatus\"\x00\x12.\n\x06rename\x12\x14.xenon.RenameRequest\x1a\x0c.xenon.Empty\"\x00\x12.\n\x06\x64\x65lete\x12\x14.xenon.DeleteRequest\x1a\x0c.xenon.Empty\"\x00\x12)\n\x06\x65xists\x12\x12.xenon.PathRequest\x1a\t.xenon.Is\"\x00\x12\x43\n\x0creadFromFile\x12\x12.xenon.PathRequest\x1a\x1b.xenon.ReadFromFileResponse\"\x00\x30\x01\x12:\n\x0bwriteToFile\x12\x19.xenon.WriteToFileRequest\x1a\x0c.xenon.Empty\"\x00(\x01\x12<\n\x0c\x61ppendToFile\x12\x1a.xenon.AppendToFileRequest\x1a\x0c.xenon.Empty\"\x00(\x01\x12\x35\n\x04list\x12\x12.xenon.ListRequest\x1a\x15.xenon.PathAttributes\"\x00\x30\x01\x12<\n\rgetAttributes\x12\x12.xenon.PathRequest\x1a\x15.xenon.PathAttributes\"\x00\x12\x37\n\x13getWorkingDirectory\x12\x11.xenon.FileSystem\x1a\x0b.xenon.Path\"\x00\x12\x39\n\x13setWorkingDirectory\x12\x12.xenon.PathRequest\x1a\x0c.xenon.Empty\"\x00\x12P\n\x17setPosixFilePermissions\x12%.xenon.SetPosixFilePermissionsRequest\x1a\x0c.xenon.Empty\"\x00\x12\x35\n\x10readSymbolicLink\x12\x12.xenon.PathRequest\x1a\x0b.xenon.Path\"\x00\x12H\n\x10getPathSeparator\x12\x11.xenon.FileSystem\x1a\x1f.xenon.GetPathSeparatorResponse\"\x00\x12(\n\x06isOpen\x12\x11.xenon.FileSystem\x1a\t.xenon.Is\"\x00\x12*\n\x05\x63lose\x12\x11.xenon.FileSystem\x1a\x0c.xenon.Empty\"\x00\x12\x41\n\rwaitUntilDone\x12\x1b.xenon.WaitUntilDoneRequest\x1a\x11.xenon.CopyStatus\"\x00\x12\x36\n\x10localFileSystems\x12\x0c.xenon.Empty\x1a\x12.xenon.FileSystems\"\x00\x12\x35\n\x0flistFileSystems\x12\x0c.xenon.Empty\x1a\x12.xenon.FileSystems\"\x00\x32\x8c\x0c\n\x10SchedulerService\x12M\n\x16getAdaptorDescriptions\x12\x0c.xenon.Empty\x1a#.xenon.SchedulerAdaptorDescriptions\"\x00\x12\x36\n\x0fgetAdaptorNames\x12\x0c.xenon.Empty\x1a\x13.xenon.AdaptorNames\"\x00\x12Q\n\x15getAdaptorDescription\x12\x12.xenon.AdaptorName\x1a\".xenon.SchedulerAdaptorDescription\"\x00\x12;\n\x06\x63reate\x12\x1d.xenon.CreateSchedulerRequest\x1a\x10.xenon.Scheduler\"\x00\x12\x38\n\x0egetAdaptorName\x12\x10.xenon.Scheduler\x1a\x12.xenon.AdaptorName\"\x00\x12\x32\n\x0bgetLocation\x12\x10.xenon.Scheduler\x1a\x0f.xenon.Location\"\x00\x12\x41\n\rgetCredential\x12\x10.xenon.Scheduler\x1a\x1c.xenon.GetCredentialResponse\"\x00\x12\x36\n\rgetProperties\x12\x10.xenon.Scheduler\x1a\x11.xenon.Properties\"\x00\x12<\n\x0esubmitBatchJob\x12\x1c.xenon.SubmitBatchJobRequest\x1a\n.xenon.Job\"\x00\x12\x65\n\x14submitInteractiveJob\x12\".xenon.SubmitInteractiveJobRequest\x1a#.xenon.SubmitInteractiveJobResponse\"\x00(\x01\x30\x01\x12\x32\n\rgetQueueNames\x12\x10.xenon.Scheduler\x1a\r.xenon.Queues\"\x00\x12\x37\n\x13getDefaultQueueName\x12\x10.xenon.Scheduler\x1a\x0c.xenon.Queue\"\x00\x12\x33\n\x07getJobs\x12\x19.xenon.SchedulerAndQueues\x1a\x0b.xenon.Jobs\"\x00\x12\x35\n\x0cgetJobStatus\x12\x11.xenon.JobRequest\x1a\x10.xenon.JobStatus\"\x00\x12O\n\x0egetJobStatuses\x12\x1c.xenon.GetJobStatusesRequest\x1a\x1d.xenon.GetJobStatusesResponse\"\x00\x12\x44\n\x0egetQueueStatus\x12\x1c.xenon.GetQueueStatusRequest\x1a\x12.xenon.QueueStatus\"\x00\x12\x45\n\x10getQueueStatuses\x12\x19.xenon.SchedulerAndQueues\x1a\x14.xenon.QueueStatuses\"\x00\x12\x37\n\rwaitUntilDone\x12\x12.xenon.WaitRequest\x1a\x10.xenon.JobStatus\"\x00\x12:\n\x10waitUntilRunning\x12\x12.xenon.WaitRequest\x1a\x10.xenon.JobStatus\"\x00\x12\'\n\x06isOpen\x12\x10.xenon.Scheduler\x1a\t.xenon.Is\"\x00\x12\x32\n\tcancelJob\x12\x11.xenon.JobRequest\x1a\x10.xenon.JobStatus\"\x00\x12\x36\n\rgetFileSystem\x12\x10.xenon.Scheduler\x1a\x11.xenon.FileSystem\"\x00\x12)\n\x05\x63lose\x12\x10.xenon.Scheduler\x1a\x0c.xenon.Empty\"\x00\x12\x32\n\x0elocalScheduler\x12\x0c.xenon.Empty\x1a\x10.xenon.Scheduler\"\x00\x12\x33\n\x0elistSchedulers\x12\x0c.xenon.Empty\x1a\x11.xenon.Schedulers\"\x00\x42*\n\x1cnl.esciencecenter.xenon.grpcB\nXenonProtob\x06proto3')
+  serialized_pb=_b('\n\x17xenon/proto/xenon.proto\x12\x05xenon\"\x07\n\x05\x45mpty\"v\n\nProperties\x12\x35\n\nproperties\x18\x01 \x03(\x0b\x32!.xenon.Properties.PropertiesEntry\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xd9\x01\n\x13PropertyDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x15\n\rdefault_value\x18\x03 \x01(\t\x12-\n\x04type\x18\x04 \x01(\x0e\x32\x1f.xenon.PropertyDescription.Type\"Y\n\x04Type\x12\n\n\x06STRING\x10\x00\x12\x0b\n\x07\x42OOLEAN\x10\x01\x12\x0b\n\x07INTEGER\x10\x02\x12\n\n\x06\x44OUBLE\x10\x03\x12\x08\n\x04LONG\x10\x04\x12\x08\n\x04SIZE\x10\x05\x12\x0b\n\x07NATURAL\x10\x06\"F\n\x14PropertyDescriptions\x12.\n\nproperties\x18\x01 \x03(\x0b\x32\x1a.xenon.PropertyDescription\"\x9b\x02\n\x1bSchedulerAdaptorDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1b\n\x13supported_locations\x18\x03 \x03(\t\x12\x38\n\x14supported_properties\x18\x04 \x03(\x0b\x32\x1a.xenon.PropertyDescription\x12\x13\n\x0bis_embedded\x18\x05 \x01(\x08\x12\x1c\n\x14supports_interactive\x18\x06 \x01(\x08\x12\x16\n\x0esupports_batch\x18\x07 \x01(\x08\x12\x18\n\x10uses_file_system\x18\x08 \x01(\x08\x12\x1d\n\x15supported_credentials\x18\t \x03(\t\"X\n\x1cSchedulerAdaptorDescriptions\x12\x38\n\x0c\x64\x65scriptions\x18\x01 \x03(\x0b\x32\".xenon.SchedulerAdaptorDescription\"\xdb\x03\n\x1c\x46ileSystemAdaptorDescription\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x1b\n\x13supported_locations\x18\x03 \x03(\t\x12\x38\n\x14supported_properties\x18\x04 \x03(\x0b\x32\x1a.xenon.PropertyDescription\x12!\n\x19supports_third_party_copy\x18\x05 \x01(\x08\x12 \n\x18\x63\x61n_create_symboliclinks\x18\x06 \x01(\x08\x12\x1e\n\x16\x63\x61n_read_symboliclinks\x18\x07 \x01(\x08\x12\x19\n\x11is_connectionless\x18\x08 \x01(\x08\x12\x1d\n\x15supported_credentials\x18\t \x03(\t\x12*\n\"supports_reading_posix_permissions\x18\n \x01(\x08\x12*\n\"supports_setting_posix_permissions\x18\x0b \x01(\x08\x12\x17\n\x0fsupports_rename\x18\x0c \x01(\x08\x12\x12\n\ncan_append\x18\r \x01(\x08\x12\x1d\n\x15needs_size_beforehand\x18\x0e \x01(\x08\"Z\n\x1d\x46ileSystemAdaptorDescriptions\x12\x39\n\x0c\x64\x65scriptions\x18\x01 \x03(\x0b\x32#.xenon.FileSystemAdaptorDescription\"\x1b\n\x0b\x41\x64\x61ptorName\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1c\n\x0c\x41\x64\x61ptorNames\x12\x0c\n\x04name\x18\x01 \x03(\t\"O\n\x15\x43\x65rtificateCredential\x12\x10\n\x08\x63\x65rtfile\x18\x01 \x01(\t\x12\x12\n\npassphrase\x18\x02 \x01(\t\x12\x10\n\x08username\x18\x03 \x01(\t\"8\n\x12PasswordCredential\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"%\n\x11\x44\x65\x66\x61ultCredential\x12\x10\n\x08username\x18\x01 \x01(\t\"8\n\x10KeytabCredential\x12\x10\n\x08username\x18\x01 \x01(\t\x12\x12\n\nkeytabfile\x18\x02 \x01(\t\"\x81\x02\n\x0eUserCredential\x12>\n\x16\x63\x65rtificate_credential\x18\x01 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x02 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x03 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x12\x34\n\x11keytab_credential\x18\x04 \x01(\x0b\x32\x17.xenon.KeytabCredentialH\x00\x42\x07\n\x05\x65ntry\"\xfe\x02\n\rCredentialMap\x12\x32\n\x07\x65ntries\x18\x01 \x03(\x0b\x32!.xenon.CredentialMap.EntriesEntry\x12>\n\x16\x63\x65rtificate_credential\x18\x02 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x03 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x04 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x12\x34\n\x11keytab_credential\x18\x05 \x01(\x0b\x32\x17.xenon.KeytabCredentialH\x00\x1a\x45\n\x0c\x45ntriesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.xenon.UserCredential:\x02\x38\x01\x42\n\n\x08\x66\x61llback\"\x1c\n\x08Location\x12\x10\n\x08location\x18\x01 \x01(\t\"\xbd\x02\n\x15GetCredentialResponse\x12>\n\x16\x63\x65rtificate_credential\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x12.\n\x0e\x63redential_map\x18\x07 \x01(\x0b\x32\x14.xenon.CredentialMapH\x00\x12\x34\n\x11keytab_credential\x18\x08 \x01(\x0b\x32\x17.xenon.KeytabCredentialH\x00\x42\x0c\n\ncredential\"\xd9\x03\n\x17\x43reateFileSystemRequest\x12\x0f\n\x07\x61\x64\x61ptor\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x42\n\nproperties\x18\x03 \x03(\x0b\x32..xenon.CreateFileSystemRequest.PropertiesEntry\x12>\n\x16\x63\x65rtificate_credential\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x12.\n\x0e\x63redential_map\x18\x07 \x01(\x0b\x32\x14.xenon.CredentialMapH\x00\x12\x34\n\x11keytab_credential\x18\x08 \x01(\x0b\x32\x17.xenon.KeytabCredentialH\x00\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\ncredential\"\x18\n\nFileSystem\x12\n\n\x02id\x18\x01 \x01(\t\"5\n\x0b\x46ileSystems\x12&\n\x0b\x66ilesystems\x18\x01 \x03(\x0b\x32\x11.xenon.FileSystem\"\'\n\x04Path\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x11\n\tseparator\x18\x02 \x01(\t\"O\n\x0bPathRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\"d\n\rDeleteRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x11\n\trecursive\x18\x03 \x01(\x08\"\x95\x02\n\x0b\x43opyRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x1b\n\x06source\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x31\n\x16\x64\x65stination_filesystem\x18\x03 \x01(\x0b\x32\x11.xenon.FileSystem\x12 \n\x0b\x64\x65stination\x18\x04 \x01(\x0b\x32\x0b.xenon.Path\x12)\n\x04mode\x18\x05 \x01(\x0e\x32\x1b.xenon.CopyRequest.CopyMode\x12\x11\n\trecursive\x18\x06 \x01(\x08\"/\n\x08\x43opyMode\x12\n\n\x06\x43REATE\x10\x00\x12\x0b\n\x07REPLACE\x10\x01\x12\n\n\x06IGNORE\x10\x02\"p\n\rRenameRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x1b\n\x06source\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x1b\n\x06target\x18\x03 \x01(\x0b\x32\x0b.xenon.Path\"z\n\x19\x43reateSymbolicLinkRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04link\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x1b\n\x06target\x18\x03 \x01(\x0b\x32\x0b.xenon.Path\"\x1b\n\rCopyOperation\x12\n\n\x02id\x18\x01 \x01(\t\"k\n\x14\x43opyOperationRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12,\n\x0e\x63opy_operation\x18\x02 \x01(\x0b\x32\x14.xenon.CopyOperation\"|\n\x14WaitUntilDoneRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12,\n\x0e\x63opy_operation\x18\x02 \x01(\x0b\x32\x14.xenon.CopyOperation\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"\xc4\x02\n\nCopyStatus\x12,\n\x0e\x63opy_operation\x18\x01 \x01(\x0b\x32\x14.xenon.CopyOperation\x12\x14\n\x0c\x62ytes_copied\x18\x02 \x01(\x04\x12\x15\n\rbytes_to_copy\x18\x03 \x01(\x04\x12\x0c\n\x04\x64one\x18\x04 \x01(\x08\x12\x0f\n\x07running\x18\x05 \x01(\x08\x12\r\n\x05state\x18\x06 \x01(\t\x12\x15\n\rerror_message\x18\x07 \x01(\t\x12/\n\nerror_type\x18\x08 \x01(\x0e\x32\x1b.xenon.CopyStatus.ErrorType\"e\n\tErrorType\x12\x08\n\x04NONE\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\x12\r\n\tCANCELLED\x10\x02\x12\x12\n\x0e\x41LREADY_EXISTS\x10\x03\x12\x11\n\rNOT_CONNECTED\x10\x04\x12\t\n\x05XENON\x10\x05\"\xff\x02\n\x0ePathAttributes\x12\x19\n\x04path\x18\x01 \x01(\x0b\x32\x0b.xenon.Path\x12\x15\n\rcreation_time\x18\x02 \x01(\x04\x12\r\n\x05group\x18\x03 \x01(\t\x12\x14\n\x0cis_directory\x18\x04 \x01(\x08\x12\x15\n\ris_executable\x18\x05 \x01(\x08\x12\x11\n\tis_hidden\x18\x06 \x01(\x08\x12\x10\n\x08is_other\x18\x07 \x01(\x08\x12\x13\n\x0bis_readable\x18\x08 \x01(\x08\x12\x12\n\nis_regular\x18\t \x01(\x08\x12\x18\n\x10is_symbolic_link\x18\n \x01(\x08\x12\x13\n\x0bis_writable\x18\x0b \x01(\x08\x12\x18\n\x10last_access_time\x18\x0c \x01(\x04\x12\x1a\n\x12last_modified_time\x18\r \x01(\x04\x12\r\n\x05owner\x18\x0e \x01(\t\x12/\n\x0bpermissions\x18\x0f \x03(\x0e\x32\x1a.xenon.PosixFilePermission\x12\x0c\n\x04size\x18\x10 \x01(\x04\"\x93\x01\n\x1eSetPosixFilePermissionsRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12/\n\x0bpermissions\x18\x03 \x03(\x0e\x32\x1a.xenon.PosixFilePermission\"&\n\x14ReadFromFileResponse\x12\x0e\n\x06\x62uffer\x18\x01 \x01(\x0c\"t\n\x12WriteToFileRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x0e\n\x06\x62uffer\x18\x03 \x01(\x0c\x12\x0c\n\x04size\x18\x04 \x01(\x04\"g\n\x13\x41ppendToFileRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x19\n\x04path\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x0e\n\x06\x62uffer\x18\x03 \x01(\x0c\"a\n\x0bListRequest\x12%\n\nfilesystem\x18\x01 \x01(\x0b\x32\x11.xenon.FileSystem\x12\x18\n\x03\x64ir\x18\x02 \x01(\x0b\x32\x0b.xenon.Path\x12\x11\n\trecursive\x18\x03 \x01(\x08\"-\n\x18GetPathSeparatorResponse\x12\x11\n\tseparator\x18\x01 \x01(\t\"\xd7\x03\n\x16\x43reateSchedulerRequest\x12\x0f\n\x07\x61\x64\x61ptor\x18\x01 \x01(\t\x12\x10\n\x08location\x18\x02 \x01(\t\x12\x41\n\nproperties\x18\x03 \x03(\x0b\x32-.xenon.CreateSchedulerRequest.PropertiesEntry\x12>\n\x16\x63\x65rtificate_credential\x18\x04 \x01(\x0b\x32\x1c.xenon.CertificateCredentialH\x00\x12\x38\n\x13password_credential\x18\x05 \x01(\x0b\x32\x19.xenon.PasswordCredentialH\x00\x12\x36\n\x12\x64\x65\x66\x61ult_credential\x18\x06 \x01(\x0b\x32\x18.xenon.DefaultCredentialH\x00\x12.\n\x0e\x63redential_map\x18\x07 \x01(\x0b\x32\x14.xenon.CredentialMapH\x00\x12\x34\n\x11keytab_credential\x18\x08 \x01(\x0b\x32\x17.xenon.KeytabCredentialH\x00\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0c\n\ncredential\"\x17\n\tScheduler\x12\n\n\x02id\x18\x01 \x01(\t\"2\n\nSchedulers\x12$\n\nschedulers\x18\x01 \x03(\x0b\x32\x10.xenon.Scheduler\"\x8d\x04\n\x0eJobDescription\x12\x12\n\nexecutable\x18\x01 \x01(\t\x12\x11\n\targuments\x18\x02 \x03(\t\x12\x19\n\x11working_directory\x18\x03 \x01(\t\x12;\n\x0b\x65nvironment\x18\x04 \x03(\x0b\x32&.xenon.JobDescription.EnvironmentEntry\x12\x12\n\nqueue_name\x18\x05 \x01(\t\x12\x13\n\x0bmax_runtime\x18\x06 \x01(\r\x12\x12\n\nnode_count\x18\x07 \x01(\r\x12\x1a\n\x12processes_per_node\x18\x08 \x01(\r\x12\x1c\n\x14start_single_process\x18\t \x01(\x08\x12\x0e\n\x06stderr\x18\n \x01(\t\x12\r\n\x05stdin\x18\x0b \x01(\t\x12\x0e\n\x06stdout\x18\x0c \x01(\t\x12\x33\n\x07options\x18\r \x03(\x0b\x32\".xenon.JobDescription.OptionsEntry\x12\x0c\n\x04name\x18\x0e \x01(\t\x12\x12\n\nmax_memory\x18\x0f \x01(\r\x12\x1b\n\x13scheduler_arguments\x18\x10 \x03(\t\x1a\x32\n\x10\x45nvironmentEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a.\n\x0cOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"h\n\x15SubmitBatchJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12*\n\x0b\x64\x65scription\x18\x02 \x01(\x0b\x32\x15.xenon.JobDescription\"}\n\x1bSubmitInteractiveJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12*\n\x0b\x64\x65scription\x18\x02 \x01(\x0b\x32\x15.xenon.JobDescription\x12\r\n\x05stdin\x18\x03 \x01(\x0c\"\x11\n\x03Job\x12\n\n\x02id\x18\x01 \x01(\t\"J\n\nJobRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x17\n\x03job\x18\x02 \x01(\x0b\x32\n.xenon.Job\" \n\x04Jobs\x12\x18\n\x04jobs\x18\x02 \x03(\x0b\x32\n.xenon.Job\"V\n\x15GetJobStatusesRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x18\n\x04jobs\x18\x02 \x03(\x0b\x32\n.xenon.Job\"\\\n\x0bWaitRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x17\n\x03job\x18\x02 \x01(\x0b\x32\n.xenon.Job\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"\x15\n\x05Queue\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x16\n\x06Queues\x12\x0c\n\x04name\x18\x01 \x03(\t\"I\n\x12SchedulerAndQueues\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\x0e\n\x06queues\x18\x02 \x03(\t\"K\n\x15GetQueueStatusRequest\x12#\n\tscheduler\x18\x01 \x01(\x0b\x32\x10.xenon.Scheduler\x12\r\n\x05queue\x18\x02 \x01(\t\"\xc1\x03\n\tJobStatus\x12\x17\n\x03job\x18\x01 \x01(\x0b\x32\n.xenon.Job\x12\r\n\x05state\x18\x02 \x01(\t\x12\x0f\n\x07running\x18\x03 \x01(\x08\x12\x0c\n\x04\x64one\x18\x04 \x01(\x08\x12Z\n\x1escheduler_specific_information\x18\x05 \x03(\x0b\x32\x32.xenon.JobStatus.SchedulerSpecificInformationEntry\x12\x11\n\texit_code\x18\x06 \x01(\x05\x12\x15\n\rerror_message\x18\x07 \x01(\t\x12.\n\nerror_type\x18\x08 \x01(\x0e\x32\x1a.xenon.JobStatus.ErrorType\x12\x0c\n\x04name\x18\t \x01(\t\x1a\x43\n!SchedulerSpecificInformationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"d\n\tErrorType\x12\x08\n\x04NONE\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\x12\r\n\tCANCELLED\x10\x02\x12\x11\n\rNOT_CONNECTED\x10\x03\x12\t\n\x05XENON\x10\x04\x12\x06\n\x02IO\x10\x05\x12\t\n\x05OTHER\x10\x06\"<\n\x16GetJobStatusesResponse\x12\"\n\x08statuses\x18\x01 \x03(\x0b\x32\x10.xenon.JobStatus\"\xde\x02\n\x0bQueueStatus\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\\\n\x1escheduler_specific_information\x18\x02 \x03(\x0b\x32\x34.xenon.QueueStatus.SchedulerSpecificInformationEntry\x12\x15\n\rerror_message\x18\x03 \x01(\t\x12\x30\n\nerror_type\x18\x04 \x01(\x0e\x32\x1c.xenon.QueueStatus.ErrorType\x1a\x43\n!SchedulerSpecificInformationEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"U\n\tErrorType\x12\x08\n\x04NONE\x10\x00\x12\r\n\tNOT_FOUND\x10\x01\x12\x11\n\rNOT_CONNECTED\x10\x02\x12\t\n\x05XENON\x10\x03\x12\x06\n\x02IO\x10\x04\x12\t\n\x05OTHER\x10\x05\"5\n\rQueueStatuses\x12$\n\x08statuses\x18\x01 \x03(\x0b\x32\x12.xenon.QueueStatus\"W\n\x1cSubmitInteractiveJobResponse\x12\x17\n\x03job\x18\x01 \x01(\x0b\x32\n.xenon.Job\x12\x0e\n\x06stdout\x18\x02 \x01(\x0c\x12\x0e\n\x06stderr\x18\x03 \x01(\x0c\"\x13\n\x02Is\x12\r\n\x05value\x18\x01 \x01(\x08*\xbe\x01\n\x13PosixFilePermission\x12\x08\n\x04NONE\x10\x00\x12\x0e\n\nOWNER_READ\x10\x01\x12\x0f\n\x0bOWNER_WRITE\x10\x02\x12\x11\n\rOWNER_EXECUTE\x10\x03\x12\x0e\n\nGROUP_READ\x10\x04\x12\x0f\n\x0bGROUP_WRITE\x10\x05\x12\x11\n\rGROUP_EXECUTE\x10\x06\x12\x0f\n\x0bOTHERS_READ\x10\x07\x12\x10\n\x0cOTHERS_WRITE\x10\x08\x12\x12\n\x0eOTHERS_EXECUTE\x10\t2\xc2\x0f\n\x11\x46ileSystemService\x12N\n\x16getAdaptorDescriptions\x12\x0c.xenon.Empty\x1a$.xenon.FileSystemAdaptorDescriptions\"\x00\x12\x36\n\x0fgetAdaptorNames\x12\x0c.xenon.Empty\x1a\x13.xenon.AdaptorNames\"\x00\x12R\n\x15getAdaptorDescription\x12\x12.xenon.AdaptorName\x1a#.xenon.FileSystemAdaptorDescription\"\x00\x12=\n\x06\x63reate\x12\x1e.xenon.CreateFileSystemRequest\x1a\x11.xenon.FileSystem\"\x00\x12\x39\n\x0egetAdaptorName\x12\x11.xenon.FileSystem\x1a\x12.xenon.AdaptorName\"\x00\x12\x33\n\x0bgetLocation\x12\x11.xenon.FileSystem\x1a\x0f.xenon.Location\"\x00\x12\x42\n\rgetCredential\x12\x11.xenon.FileSystem\x1a\x1c.xenon.GetCredentialResponse\"\x00\x12\x37\n\rgetProperties\x12\x11.xenon.FileSystem\x1a\x11.xenon.Properties\"\x00\x12\x37\n\x11\x63reateDirectories\x12\x12.xenon.PathRequest\x1a\x0c.xenon.Empty\"\x00\x12\x35\n\x0f\x63reateDirectory\x12\x12.xenon.PathRequest\x1a\x0c.xenon.Empty\"\x00\x12\x30\n\ncreateFile\x12\x12.xenon.PathRequest\x1a\x0c.xenon.Empty\"\x00\x12\x46\n\x12\x63reateSymbolicLink\x12 .xenon.CreateSymbolicLinkRequest\x1a\x0c.xenon.Empty\"\x00\x12\x32\n\x04\x63opy\x12\x12.xenon.CopyRequest\x1a\x14.xenon.CopyOperation\"\x00\x12:\n\x06\x63\x61ncel\x12\x1b.xenon.CopyOperationRequest\x1a\x11.xenon.CopyStatus\"\x00\x12=\n\tgetStatus\x12\x1b.xenon.CopyOperationRequest\x1a\x11.xenon.CopyStatus\"\x00\x12.\n\x06rename\x12\x14.xenon.RenameRequest\x1a\x0c.xenon.Empty\"\x00\x12.\n\x06\x64\x65lete\x12\x14.xenon.DeleteRequest\x1a\x0c.xenon.Empty\"\x00\x12)\n\x06\x65xists\x12\x12.xenon.PathRequest\x1a\t.xenon.Is\"\x00\x12\x43\n\x0creadFromFile\x12\x12.xenon.PathRequest\x1a\x1b.xenon.ReadFromFileResponse\"\x00\x30\x01\x12:\n\x0bwriteToFile\x12\x19.xenon.WriteToFileRequest\x1a\x0c.xenon.Empty\"\x00(\x01\x12<\n\x0c\x61ppendToFile\x12\x1a.xenon.AppendToFileRequest\x1a\x0c.xenon.Empty\"\x00(\x01\x12\x35\n\x04list\x12\x12.xenon.ListRequest\x1a\x15.xenon.PathAttributes\"\x00\x30\x01\x12<\n\rgetAttributes\x12\x12.xenon.PathRequest\x1a\x15.xenon.PathAttributes\"\x00\x12\x37\n\x13getWorkingDirectory\x12\x11.xenon.FileSystem\x1a\x0b.xenon.Path\"\x00\x12\x39\n\x13setWorkingDirectory\x12\x12.xenon.PathRequest\x1a\x0c.xenon.Empty\"\x00\x12P\n\x17setPosixFilePermissions\x12%.xenon.SetPosixFilePermissionsRequest\x1a\x0c.xenon.Empty\"\x00\x12\x35\n\x10readSymbolicLink\x12\x12.xenon.PathRequest\x1a\x0b.xenon.Path\"\x00\x12H\n\x10getPathSeparator\x12\x11.xenon.FileSystem\x1a\x1f.xenon.GetPathSeparatorResponse\"\x00\x12(\n\x06isOpen\x12\x11.xenon.FileSystem\x1a\t.xenon.Is\"\x00\x12*\n\x05\x63lose\x12\x11.xenon.FileSystem\x1a\x0c.xenon.Empty\"\x00\x12\x41\n\rwaitUntilDone\x12\x1b.xenon.WaitUntilDoneRequest\x1a\x11.xenon.CopyStatus\"\x00\x12\x36\n\x10localFileSystems\x12\x0c.xenon.Empty\x1a\x12.xenon.FileSystems\"\x00\x12\x35\n\x0flistFileSystems\x12\x0c.xenon.Empty\x1a\x12.xenon.FileSystems\"\x00\x32\x8c\x0c\n\x10SchedulerService\x12M\n\x16getAdaptorDescriptions\x12\x0c.xenon.Empty\x1a#.xenon.SchedulerAdaptorDescriptions\"\x00\x12\x36\n\x0fgetAdaptorNames\x12\x0c.xenon.Empty\x1a\x13.xenon.AdaptorNames\"\x00\x12Q\n\x15getAdaptorDescription\x12\x12.xenon.AdaptorName\x1a\".xenon.SchedulerAdaptorDescription\"\x00\x12;\n\x06\x63reate\x12\x1d.xenon.CreateSchedulerRequest\x1a\x10.xenon.Scheduler\"\x00\x12\x38\n\x0egetAdaptorName\x12\x10.xenon.Scheduler\x1a\x12.xenon.AdaptorName\"\x00\x12\x32\n\x0bgetLocation\x12\x10.xenon.Scheduler\x1a\x0f.xenon.Location\"\x00\x12\x41\n\rgetCredential\x12\x10.xenon.Scheduler\x1a\x1c.xenon.GetCredentialResponse\"\x00\x12\x36\n\rgetProperties\x12\x10.xenon.Scheduler\x1a\x11.xenon.Properties\"\x00\x12<\n\x0esubmitBatchJob\x12\x1c.xenon.SubmitBatchJobRequest\x1a\n.xenon.Job\"\x00\x12\x65\n\x14submitInteractiveJob\x12\".xenon.SubmitInteractiveJobRequest\x1a#.xenon.SubmitInteractiveJobResponse\"\x00(\x01\x30\x01\x12\x32\n\rgetQueueNames\x12\x10.xenon.Scheduler\x1a\r.xenon.Queues\"\x00\x12\x37\n\x13getDefaultQueueName\x12\x10.xenon.Scheduler\x1a\x0c.xenon.Queue\"\x00\x12\x33\n\x07getJobs\x12\x19.xenon.SchedulerAndQueues\x1a\x0b.xenon.Jobs\"\x00\x12\x35\n\x0cgetJobStatus\x12\x11.xenon.JobRequest\x1a\x10.xenon.JobStatus\"\x00\x12O\n\x0egetJobStatuses\x12\x1c.xenon.GetJobStatusesRequest\x1a\x1d.xenon.GetJobStatusesResponse\"\x00\x12\x44\n\x0egetQueueStatus\x12\x1c.xenon.GetQueueStatusRequest\x1a\x12.xenon.QueueStatus\"\x00\x12\x45\n\x10getQueueStatuses\x12\x19.xenon.SchedulerAndQueues\x1a\x14.xenon.QueueStatuses\"\x00\x12\x37\n\rwaitUntilDone\x12\x12.xenon.WaitRequest\x1a\x10.xenon.JobStatus\"\x00\x12:\n\x10waitUntilRunning\x12\x12.xenon.WaitRequest\x1a\x10.xenon.JobStatus\"\x00\x12\'\n\x06isOpen\x12\x10.xenon.Scheduler\x1a\t.xenon.Is\"\x00\x12\x32\n\tcancelJob\x12\x11.xenon.JobRequest\x1a\x10.xenon.JobStatus\"\x00\x12\x36\n\rgetFileSystem\x12\x10.xenon.Scheduler\x1a\x11.xenon.FileSystem\"\x00\x12)\n\x05\x63lose\x12\x10.xenon.Scheduler\x1a\x0c.xenon.Empty\"\x00\x12\x32\n\x0elocalScheduler\x12\x0c.xenon.Empty\x1a\x10.xenon.Scheduler\"\x00\x12\x33\n\x0elistSchedulers\x12\x0c.xenon.Empty\x1a\x11.xenon.Schedulers\"\x00\x42*\n\x1cnl.esciencecenter.xenon.grpcB\nXenonProtob\x06proto3')
 )
 
 _POSIXFILEPERMISSION = _descriptor.EnumDescriptor(
@@ -72,8 +72,8 @@ _POSIXFILEPERMISSION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=7750,
-  serialized_end=7940,
+  serialized_start=8381,
+  serialized_end=8571,
 )
 _sym_db.RegisterEnumDescriptor(_POSIXFILEPERMISSION)
 
@@ -153,8 +153,8 @@ _COPYREQUEST_COPYMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=3203,
-  serialized_end=3250,
+  serialized_start=3703,
+  serialized_end=3750,
 )
 _sym_db.RegisterEnumDescriptor(_COPYREQUEST_COPYMODE)
 
@@ -191,8 +191,8 @@ _COPYSTATUS_ERRORTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=3978,
-  serialized_end=4079,
+  serialized_start=4478,
+  serialized_end=4579,
 )
 _sym_db.RegisterEnumDescriptor(_COPYSTATUS_ERRORTYPE)
 
@@ -233,8 +233,8 @@ _JOBSTATUS_ERRORTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=7067,
-  serialized_end=7167,
+  serialized_start=7698,
+  serialized_end=7798,
 )
 _sym_db.RegisterEnumDescriptor(_JOBSTATUS_ERRORTYPE)
 
@@ -271,8 +271,8 @@ _QUEUESTATUS_ERRORTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=7497,
-  serialized_end=7582,
+  serialized_start=8128,
+  serialized_end=8213,
 )
 _sym_db.RegisterEnumDescriptor(_QUEUESTATUS_ERRORTYPE)
 
@@ -314,14 +314,14 @@ _PROPERTIES_PROPERTIESENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='xenon.Properties.PropertiesEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -351,7 +351,7 @@ _PROPERTIES = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -382,28 +382,28 @@ _PROPERTYDESCRIPTION = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='description', full_name='xenon.PropertyDescription.description', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='default_value', full_name='xenon.PropertyDescription.default_value', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='type', full_name='xenon.PropertyDescription.type', index=3,
       number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -435,7 +435,7 @@ _PROPERTYDESCRIPTIONS = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -466,56 +466,63 @@ _SCHEDULERADAPTORDESCRIPTION = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='description', full_name='xenon.SchedulerAdaptorDescription.description', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='supported_locations', full_name='xenon.SchedulerAdaptorDescription.supported_locations', index=2,
       number=3, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='supported_properties', full_name='xenon.SchedulerAdaptorDescription.supported_properties', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_embedded', full_name='xenon.SchedulerAdaptorDescription.is_embedded', index=4,
       number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='supports_interactive', full_name='xenon.SchedulerAdaptorDescription.supports_interactive', index=5,
       number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='supports_batch', full_name='xenon.SchedulerAdaptorDescription.supports_batch', index=6,
       number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='uses_file_system', full_name='xenon.SchedulerAdaptorDescription.uses_file_system', index=7,
       number=8, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='supported_credentials', full_name='xenon.SchedulerAdaptorDescription.supported_credentials', index=8,
+      number=9, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -529,7 +536,7 @@ _SCHEDULERADAPTORDESCRIPTION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=456,
-  serialized_end=708,
+  serialized_end=739,
 )
 
 
@@ -546,7 +553,7 @@ _SCHEDULERADAPTORDESCRIPTIONS = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -559,8 +566,8 @@ _SCHEDULERADAPTORDESCRIPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=710,
-  serialized_end=798,
+  serialized_start=741,
+  serialized_end=829,
 )
 
 
@@ -577,56 +584,98 @@ _FILESYSTEMADAPTORDESCRIPTION = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='description', full_name='xenon.FileSystemAdaptorDescription.description', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='supported_locations', full_name='xenon.FileSystemAdaptorDescription.supported_locations', index=2,
       number=3, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='supported_properties', full_name='xenon.FileSystemAdaptorDescription.supported_properties', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='supports_third_party_copy', full_name='xenon.FileSystemAdaptorDescription.supports_third_party_copy', index=4,
       number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='can_create_symboliclinks', full_name='xenon.FileSystemAdaptorDescription.can_create_symboliclinks', index=5,
       number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='can_read_symboliclinks', full_name='xenon.FileSystemAdaptorDescription.can_read_symboliclinks', index=6,
       number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_connectionless', full_name='xenon.FileSystemAdaptorDescription.is_connectionless', index=7,
       number=8, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='supported_credentials', full_name='xenon.FileSystemAdaptorDescription.supported_credentials', index=8,
+      number=9, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='supports_reading_posix_permissions', full_name='xenon.FileSystemAdaptorDescription.supports_reading_posix_permissions', index=9,
+      number=10, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='supports_setting_posix_permissions', full_name='xenon.FileSystemAdaptorDescription.supports_setting_posix_permissions', index=10,
+      number=11, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='supports_rename', full_name='xenon.FileSystemAdaptorDescription.supports_rename', index=11,
+      number=12, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='can_append', full_name='xenon.FileSystemAdaptorDescription.can_append', index=12,
+      number=13, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='needs_size_beforehand', full_name='xenon.FileSystemAdaptorDescription.needs_size_beforehand', index=13,
+      number=14, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -639,8 +688,8 @@ _FILESYSTEMADAPTORDESCRIPTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=801,
-  serialized_end=1081,
+  serialized_start=832,
+  serialized_end=1307,
 )
 
 
@@ -657,7 +706,7 @@ _FILESYSTEMADAPTORDESCRIPTIONS = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -670,8 +719,8 @@ _FILESYSTEMADAPTORDESCRIPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1083,
-  serialized_end=1173,
+  serialized_start=1309,
+  serialized_end=1399,
 )
 
 
@@ -688,7 +737,7 @@ _ADAPTORNAME = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -701,8 +750,8 @@ _ADAPTORNAME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1175,
-  serialized_end=1202,
+  serialized_start=1401,
+  serialized_end=1428,
 )
 
 
@@ -719,7 +768,7 @@ _ADAPTORNAMES = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -732,8 +781,8 @@ _ADAPTORNAMES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1204,
-  serialized_end=1232,
+  serialized_start=1430,
+  serialized_end=1458,
 )
 
 
@@ -750,21 +799,21 @@ _CERTIFICATECREDENTIAL = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='passphrase', full_name='xenon.CertificateCredential.passphrase', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='username', full_name='xenon.CertificateCredential.username', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -777,8 +826,8 @@ _CERTIFICATECREDENTIAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1234,
-  serialized_end=1313,
+  serialized_start=1460,
+  serialized_end=1539,
 )
 
 
@@ -795,14 +844,14 @@ _PASSWORDCREDENTIAL = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='password', full_name='xenon.PasswordCredential.password', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -815,8 +864,8 @@ _PASSWORDCREDENTIAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1315,
-  serialized_end=1371,
+  serialized_start=1541,
+  serialized_end=1597,
 )
 
 
@@ -833,7 +882,7 @@ _DEFAULTCREDENTIAL = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -846,8 +895,46 @@ _DEFAULTCREDENTIAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1373,
-  serialized_end=1410,
+  serialized_start=1599,
+  serialized_end=1636,
+)
+
+
+_KEYTABCREDENTIAL = _descriptor.Descriptor(
+  name='KeytabCredential',
+  full_name='xenon.KeytabCredential',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='username', full_name='xenon.KeytabCredential.username', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='keytabfile', full_name='xenon.KeytabCredential.keytabfile', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1638,
+  serialized_end=1694,
 )
 
 
@@ -864,21 +951,28 @@ _USERCREDENTIAL = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='password_credential', full_name='xenon.UserCredential.password_credential', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='default_credential', full_name='xenon.UserCredential.default_credential', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='keytab_credential', full_name='xenon.UserCredential.keytab_credential', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -894,8 +988,8 @@ _USERCREDENTIAL = _descriptor.Descriptor(
       name='entry', full_name='xenon.UserCredential.entry',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=1413,
-  serialized_end=1616,
+  serialized_start=1697,
+  serialized_end=1954,
 )
 
 
@@ -912,14 +1006,14 @@ _CREDENTIALMAP_ENTRIESENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='xenon.CredentialMap.EntriesEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -932,8 +1026,8 @@ _CREDENTIALMAP_ENTRIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1866,
-  serialized_end=1935,
+  serialized_start=2258,
+  serialized_end=2327,
 )
 
 _CREDENTIALMAP = _descriptor.Descriptor(
@@ -949,28 +1043,35 @@ _CREDENTIALMAP = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='certificate_credential', full_name='xenon.CredentialMap.certificate_credential', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='password_credential', full_name='xenon.CredentialMap.password_credential', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='default_credential', full_name='xenon.CredentialMap.default_credential', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='keytab_credential', full_name='xenon.CredentialMap.keytab_credential', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -986,8 +1087,8 @@ _CREDENTIALMAP = _descriptor.Descriptor(
       name='fallback', full_name='xenon.CredentialMap.fallback',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=1619,
-  serialized_end=1947,
+  serialized_start=1957,
+  serialized_end=2339,
 )
 
 
@@ -1004,7 +1105,7 @@ _LOCATION = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1017,8 +1118,8 @@ _LOCATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1949,
-  serialized_end=1977,
+  serialized_start=2341,
+  serialized_end=2369,
 )
 
 
@@ -1035,28 +1136,35 @@ _GETCREDENTIALRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='password_credential', full_name='xenon.GetCredentialResponse.password_credential', index=1,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='default_credential', full_name='xenon.GetCredentialResponse.default_credential', index=2,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='credential_map', full_name='xenon.GetCredentialResponse.credential_map', index=3,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='keytab_credential', full_name='xenon.GetCredentialResponse.keytab_credential', index=4,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1072,8 +1180,8 @@ _GETCREDENTIALRESPONSE = _descriptor.Descriptor(
       name='credential', full_name='xenon.GetCredentialResponse.credential',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=1980,
-  serialized_end=2243,
+  serialized_start=2372,
+  serialized_end=2689,
 )
 
 
@@ -1090,14 +1198,14 @@ _CREATEFILESYSTEMREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='xenon.CreateFileSystemRequest.PropertiesEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1127,49 +1235,56 @@ _CREATEFILESYSTEMREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='location', full_name='xenon.CreateFileSystemRequest.location', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='properties', full_name='xenon.CreateFileSystemRequest.properties', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='certificate_credential', full_name='xenon.CreateFileSystemRequest.certificate_credential', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='password_credential', full_name='xenon.CreateFileSystemRequest.password_credential', index=4,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='default_credential', full_name='xenon.CreateFileSystemRequest.default_credential', index=5,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='credential_map', full_name='xenon.CreateFileSystemRequest.credential_map', index=6,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='keytab_credential', full_name='xenon.CreateFileSystemRequest.keytab_credential', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1185,8 +1300,8 @@ _CREATEFILESYSTEMREQUEST = _descriptor.Descriptor(
       name='credential', full_name='xenon.CreateFileSystemRequest.credential',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=2246,
-  serialized_end=2665,
+  serialized_start=2692,
+  serialized_end=3165,
 )
 
 
@@ -1203,7 +1318,7 @@ _FILESYSTEM = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1216,8 +1331,8 @@ _FILESYSTEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2667,
-  serialized_end=2691,
+  serialized_start=3167,
+  serialized_end=3191,
 )
 
 
@@ -1234,7 +1349,7 @@ _FILESYSTEMS = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1247,8 +1362,8 @@ _FILESYSTEMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2693,
-  serialized_end=2746,
+  serialized_start=3193,
+  serialized_end=3246,
 )
 
 
@@ -1265,14 +1380,14 @@ _PATH = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='separator', full_name='xenon.Path.separator', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1285,8 +1400,8 @@ _PATH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2748,
-  serialized_end=2787,
+  serialized_start=3248,
+  serialized_end=3287,
 )
 
 
@@ -1303,14 +1418,14 @@ _PATHREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='path', full_name='xenon.PathRequest.path', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1323,8 +1438,8 @@ _PATHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2789,
-  serialized_end=2868,
+  serialized_start=3289,
+  serialized_end=3368,
 )
 
 
@@ -1341,21 +1456,21 @@ _DELETEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='path', full_name='xenon.DeleteRequest.path', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='recursive', full_name='xenon.DeleteRequest.recursive', index=2,
       number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1368,8 +1483,8 @@ _DELETEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2870,
-  serialized_end=2970,
+  serialized_start=3370,
+  serialized_end=3470,
 )
 
 
@@ -1386,42 +1501,42 @@ _COPYREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='source', full_name='xenon.CopyRequest.source', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='destination_filesystem', full_name='xenon.CopyRequest.destination_filesystem', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='destination', full_name='xenon.CopyRequest.destination', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='mode', full_name='xenon.CopyRequest.mode', index=4,
       number=5, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='recursive', full_name='xenon.CopyRequest.recursive', index=5,
       number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1435,8 +1550,8 @@ _COPYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2973,
-  serialized_end=3250,
+  serialized_start=3473,
+  serialized_end=3750,
 )
 
 
@@ -1453,21 +1568,21 @@ _RENAMEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='source', full_name='xenon.RenameRequest.source', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='target', full_name='xenon.RenameRequest.target', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1480,8 +1595,8 @@ _RENAMEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3252,
-  serialized_end=3364,
+  serialized_start=3752,
+  serialized_end=3864,
 )
 
 
@@ -1498,21 +1613,21 @@ _CREATESYMBOLICLINKREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='link', full_name='xenon.CreateSymbolicLinkRequest.link', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='target', full_name='xenon.CreateSymbolicLinkRequest.target', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1525,8 +1640,8 @@ _CREATESYMBOLICLINKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3366,
-  serialized_end=3488,
+  serialized_start=3866,
+  serialized_end=3988,
 )
 
 
@@ -1543,7 +1658,7 @@ _COPYOPERATION = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1556,8 +1671,8 @@ _COPYOPERATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3490,
-  serialized_end=3517,
+  serialized_start=3990,
+  serialized_end=4017,
 )
 
 
@@ -1574,14 +1689,14 @@ _COPYOPERATIONREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='copy_operation', full_name='xenon.CopyOperationRequest.copy_operation', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1594,8 +1709,8 @@ _COPYOPERATIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3519,
-  serialized_end=3626,
+  serialized_start=4019,
+  serialized_end=4126,
 )
 
 
@@ -1612,21 +1727,21 @@ _WAITUNTILDONEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='copy_operation', full_name='xenon.WaitUntilDoneRequest.copy_operation', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='timeout', full_name='xenon.WaitUntilDoneRequest.timeout', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1639,8 +1754,8 @@ _WAITUNTILDONEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3628,
-  serialized_end=3752,
+  serialized_start=4128,
+  serialized_end=4252,
 )
 
 
@@ -1657,56 +1772,56 @@ _COPYSTATUS = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='bytes_copied', full_name='xenon.CopyStatus.bytes_copied', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='bytes_to_copy', full_name='xenon.CopyStatus.bytes_to_copy', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='done', full_name='xenon.CopyStatus.done', index=3,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='running', full_name='xenon.CopyStatus.running', index=4,
       number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='state', full_name='xenon.CopyStatus.state', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='error_message', full_name='xenon.CopyStatus.error_message', index=6,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='error_type', full_name='xenon.CopyStatus.error_type', index=7,
       number=8, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1720,8 +1835,8 @@ _COPYSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3755,
-  serialized_end=4079,
+  serialized_start=4255,
+  serialized_end=4579,
 )
 
 
@@ -1738,112 +1853,112 @@ _PATHATTRIBUTES = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='creation_time', full_name='xenon.PathAttributes.creation_time', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='group', full_name='xenon.PathAttributes.group', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_directory', full_name='xenon.PathAttributes.is_directory', index=3,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_executable', full_name='xenon.PathAttributes.is_executable', index=4,
       number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_hidden', full_name='xenon.PathAttributes.is_hidden', index=5,
       number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_other', full_name='xenon.PathAttributes.is_other', index=6,
       number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_readable', full_name='xenon.PathAttributes.is_readable', index=7,
       number=8, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_regular', full_name='xenon.PathAttributes.is_regular', index=8,
       number=9, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_symbolic_link', full_name='xenon.PathAttributes.is_symbolic_link', index=9,
       number=10, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='is_writable', full_name='xenon.PathAttributes.is_writable', index=10,
       number=11, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='last_access_time', full_name='xenon.PathAttributes.last_access_time', index=11,
       number=12, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='last_modified_time', full_name='xenon.PathAttributes.last_modified_time', index=12,
       number=13, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='owner', full_name='xenon.PathAttributes.owner', index=13,
       number=14, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='permissions', full_name='xenon.PathAttributes.permissions', index=14,
       number=15, type=14, cpp_type=8, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='size', full_name='xenon.PathAttributes.size', index=15,
       number=16, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1856,8 +1971,8 @@ _PATHATTRIBUTES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4082,
-  serialized_end=4465,
+  serialized_start=4582,
+  serialized_end=4965,
 )
 
 
@@ -1874,21 +1989,21 @@ _SETPOSIXFILEPERMISSIONSREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='path', full_name='xenon.SetPosixFilePermissionsRequest.path', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='permissions', full_name='xenon.SetPosixFilePermissionsRequest.permissions', index=2,
       number=3, type=14, cpp_type=8, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1901,8 +2016,8 @@ _SETPOSIXFILEPERMISSIONSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4468,
-  serialized_end=4615,
+  serialized_start=4968,
+  serialized_end=5115,
 )
 
 
@@ -1919,7 +2034,7 @@ _READFROMFILERESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1932,8 +2047,8 @@ _READFROMFILERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4617,
-  serialized_end=4655,
+  serialized_start=5117,
+  serialized_end=5155,
 )
 
 
@@ -1950,28 +2065,28 @@ _WRITETOFILEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='path', full_name='xenon.WriteToFileRequest.path', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='buffer', full_name='xenon.WriteToFileRequest.buffer', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='size', full_name='xenon.WriteToFileRequest.size', index=3,
       number=4, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1984,8 +2099,8 @@ _WRITETOFILEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4657,
-  serialized_end=4773,
+  serialized_start=5157,
+  serialized_end=5273,
 )
 
 
@@ -2002,21 +2117,21 @@ _APPENDTOFILEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='path', full_name='xenon.AppendToFileRequest.path', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='buffer', full_name='xenon.AppendToFileRequest.buffer', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2029,8 +2144,8 @@ _APPENDTOFILEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4775,
-  serialized_end=4878,
+  serialized_start=5275,
+  serialized_end=5378,
 )
 
 
@@ -2047,21 +2162,21 @@ _LISTREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='dir', full_name='xenon.ListRequest.dir', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='recursive', full_name='xenon.ListRequest.recursive', index=2,
       number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2074,8 +2189,8 @@ _LISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4880,
-  serialized_end=4977,
+  serialized_start=5380,
+  serialized_end=5477,
 )
 
 
@@ -2092,7 +2207,7 @@ _GETPATHSEPARATORRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2105,8 +2220,8 @@ _GETPATHSEPARATORRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4979,
-  serialized_end=5024,
+  serialized_start=5479,
+  serialized_end=5524,
 )
 
 
@@ -2123,14 +2238,14 @@ _CREATESCHEDULERREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='xenon.CreateSchedulerRequest.PropertiesEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2160,49 +2275,56 @@ _CREATESCHEDULERREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='location', full_name='xenon.CreateSchedulerRequest.location', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='properties', full_name='xenon.CreateSchedulerRequest.properties', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='certificate_credential', full_name='xenon.CreateSchedulerRequest.certificate_credential', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='password_credential', full_name='xenon.CreateSchedulerRequest.password_credential', index=4,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='default_credential', full_name='xenon.CreateSchedulerRequest.default_credential', index=5,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='credential_map', full_name='xenon.CreateSchedulerRequest.credential_map', index=6,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='keytab_credential', full_name='xenon.CreateSchedulerRequest.keytab_credential', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2218,8 +2340,8 @@ _CREATESCHEDULERREQUEST = _descriptor.Descriptor(
       name='credential', full_name='xenon.CreateSchedulerRequest.credential',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=5027,
-  serialized_end=5444,
+  serialized_start=5527,
+  serialized_end=5998,
 )
 
 
@@ -2236,7 +2358,7 @@ _SCHEDULER = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2249,8 +2371,8 @@ _SCHEDULER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5446,
-  serialized_end=5469,
+  serialized_start=6000,
+  serialized_end=6023,
 )
 
 
@@ -2267,7 +2389,7 @@ _SCHEDULERS = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2280,8 +2402,8 @@ _SCHEDULERS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5471,
-  serialized_end=5521,
+  serialized_start=6025,
+  serialized_end=6075,
 )
 
 
@@ -2298,14 +2420,14 @@ _JOBDESCRIPTION_ENVIRONMENTENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='xenon.JobDescription.EnvironmentEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2318,8 +2440,8 @@ _JOBDESCRIPTION_ENVIRONMENTENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5888,
-  serialized_end=5938,
+  serialized_start=6505,
+  serialized_end=6555,
 )
 
 _JOBDESCRIPTION_OPTIONSENTRY = _descriptor.Descriptor(
@@ -2335,14 +2457,14 @@ _JOBDESCRIPTION_OPTIONSENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='xenon.JobDescription.OptionsEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2355,8 +2477,8 @@ _JOBDESCRIPTION_OPTIONSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5940,
-  serialized_end=5986,
+  serialized_start=6557,
+  serialized_end=6603,
 )
 
 _JOBDESCRIPTION = _descriptor.Descriptor(
@@ -2372,91 +2494,112 @@ _JOBDESCRIPTION = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='arguments', full_name='xenon.JobDescription.arguments', index=1,
       number=2, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='working_directory', full_name='xenon.JobDescription.working_directory', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='environment', full_name='xenon.JobDescription.environment', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='queue_name', full_name='xenon.JobDescription.queue_name', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='max_runtime', full_name='xenon.JobDescription.max_runtime', index=5,
       number=6, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='node_count', full_name='xenon.JobDescription.node_count', index=6,
       number=7, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='processes_per_node', full_name='xenon.JobDescription.processes_per_node', index=7,
       number=8, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='start_single_process', full_name='xenon.JobDescription.start_single_process', index=8,
       number=9, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stderr', full_name='xenon.JobDescription.stderr', index=9,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stdin', full_name='xenon.JobDescription.stdin', index=10,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stdout', full_name='xenon.JobDescription.stdout', index=11,
       number=12, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='options', full_name='xenon.JobDescription.options', index=12,
       number=13, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='xenon.JobDescription.name', index=13,
+      number=14, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='max_memory', full_name='xenon.JobDescription.max_memory', index=14,
+      number=15, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='scheduler_arguments', full_name='xenon.JobDescription.scheduler_arguments', index=15,
+      number=16, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2469,8 +2612,8 @@ _JOBDESCRIPTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5524,
-  serialized_end=5986,
+  serialized_start=6078,
+  serialized_end=6603,
 )
 
 
@@ -2487,14 +2630,14 @@ _SUBMITBATCHJOBREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='description', full_name='xenon.SubmitBatchJobRequest.description', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2507,8 +2650,8 @@ _SUBMITBATCHJOBREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5988,
-  serialized_end=6092,
+  serialized_start=6605,
+  serialized_end=6709,
 )
 
 
@@ -2525,21 +2668,21 @@ _SUBMITINTERACTIVEJOBREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='description', full_name='xenon.SubmitInteractiveJobRequest.description', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stdin', full_name='xenon.SubmitInteractiveJobRequest.stdin', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2552,8 +2695,8 @@ _SUBMITINTERACTIVEJOBREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6094,
-  serialized_end=6219,
+  serialized_start=6711,
+  serialized_end=6836,
 )
 
 
@@ -2570,7 +2713,7 @@ _JOB = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2583,8 +2726,8 @@ _JOB = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6221,
-  serialized_end=6238,
+  serialized_start=6838,
+  serialized_end=6855,
 )
 
 
@@ -2601,14 +2744,14 @@ _JOBREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='job', full_name='xenon.JobRequest.job', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2621,8 +2764,8 @@ _JOBREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6240,
-  serialized_end=6314,
+  serialized_start=6857,
+  serialized_end=6931,
 )
 
 
@@ -2639,7 +2782,7 @@ _JOBS = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2652,8 +2795,8 @@ _JOBS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6316,
-  serialized_end=6348,
+  serialized_start=6933,
+  serialized_end=6965,
 )
 
 
@@ -2670,14 +2813,14 @@ _GETJOBSTATUSESREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='jobs', full_name='xenon.GetJobStatusesRequest.jobs', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2690,8 +2833,8 @@ _GETJOBSTATUSESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6350,
-  serialized_end=6436,
+  serialized_start=6967,
+  serialized_end=7053,
 )
 
 
@@ -2708,21 +2851,21 @@ _WAITREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='job', full_name='xenon.WaitRequest.job', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='timeout', full_name='xenon.WaitRequest.timeout', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2735,8 +2878,8 @@ _WAITREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6438,
-  serialized_end=6530,
+  serialized_start=7055,
+  serialized_end=7147,
 )
 
 
@@ -2753,7 +2896,7 @@ _QUEUE = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2766,8 +2909,8 @@ _QUEUE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6532,
-  serialized_end=6553,
+  serialized_start=7149,
+  serialized_end=7170,
 )
 
 
@@ -2784,7 +2927,7 @@ _QUEUES = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2797,8 +2940,8 @@ _QUEUES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6555,
-  serialized_end=6577,
+  serialized_start=7172,
+  serialized_end=7194,
 )
 
 
@@ -2815,14 +2958,14 @@ _SCHEDULERANDQUEUES = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='queues', full_name='xenon.SchedulerAndQueues.queues', index=1,
       number=2, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2835,8 +2978,8 @@ _SCHEDULERANDQUEUES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6579,
-  serialized_end=6652,
+  serialized_start=7196,
+  serialized_end=7269,
 )
 
 
@@ -2853,14 +2996,14 @@ _GETQUEUESTATUSREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='queue', full_name='xenon.GetQueueStatusRequest.queue', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2873,8 +3016,8 @@ _GETQUEUESTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6654,
-  serialized_end=6729,
+  serialized_start=7271,
+  serialized_end=7346,
 )
 
 
@@ -2891,14 +3034,14 @@ _JOBSTATUS_SCHEDULERSPECIFICINFORMATIONENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='xenon.JobStatus.SchedulerSpecificInformationEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2911,8 +3054,8 @@ _JOBSTATUS_SCHEDULERSPECIFICINFORMATIONENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6998,
-  serialized_end=7065,
+  serialized_start=7629,
+  serialized_end=7696,
 )
 
 _JOBSTATUS = _descriptor.Descriptor(
@@ -2928,56 +3071,63 @@ _JOBSTATUS = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='state', full_name='xenon.JobStatus.state', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='running', full_name='xenon.JobStatus.running', index=2,
       number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='done', full_name='xenon.JobStatus.done', index=3,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='scheduler_specific_information', full_name='xenon.JobStatus.scheduler_specific_information', index=4,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='exit_code', full_name='xenon.JobStatus.exit_code', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='error_message', full_name='xenon.JobStatus.error_message', index=6,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='error_type', full_name='xenon.JobStatus.error_type', index=7,
       number=8, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='xenon.JobStatus.name', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2991,8 +3141,8 @@ _JOBSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6732,
-  serialized_end=7167,
+  serialized_start=7349,
+  serialized_end=7798,
 )
 
 
@@ -3009,7 +3159,7 @@ _GETJOBSTATUSESRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -3022,8 +3172,8 @@ _GETJOBSTATUSESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7169,
-  serialized_end=7229,
+  serialized_start=7800,
+  serialized_end=7860,
 )
 
 
@@ -3040,14 +3190,14 @@ _QUEUESTATUS_SCHEDULERSPECIFICINFORMATIONENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='xenon.QueueStatus.SchedulerSpecificInformationEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -3060,8 +3210,8 @@ _QUEUESTATUS_SCHEDULERSPECIFICINFORMATIONENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6998,
-  serialized_end=7065,
+  serialized_start=7629,
+  serialized_end=7696,
 )
 
 _QUEUESTATUS = _descriptor.Descriptor(
@@ -3077,28 +3227,28 @@ _QUEUESTATUS = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='scheduler_specific_information', full_name='xenon.QueueStatus.scheduler_specific_information', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='error_message', full_name='xenon.QueueStatus.error_message', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='error_type', full_name='xenon.QueueStatus.error_type', index=3,
       number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -3112,8 +3262,8 @@ _QUEUESTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7232,
-  serialized_end=7582,
+  serialized_start=7863,
+  serialized_end=8213,
 )
 
 
@@ -3130,7 +3280,7 @@ _QUEUESTATUSES = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -3143,8 +3293,8 @@ _QUEUESTATUSES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7584,
-  serialized_end=7637,
+  serialized_start=8215,
+  serialized_end=8268,
 )
 
 
@@ -3161,21 +3311,21 @@ _SUBMITINTERACTIVEJOBRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stdout', full_name='xenon.SubmitInteractiveJobResponse.stdout', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stderr', full_name='xenon.SubmitInteractiveJobResponse.stderr', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -3188,8 +3338,8 @@ _SUBMITINTERACTIVEJOBRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7639,
-  serialized_end=7726,
+  serialized_start=8270,
+  serialized_end=8357,
 )
 
 
@@ -3206,7 +3356,7 @@ _IS = _descriptor.Descriptor(
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -3219,8 +3369,8 @@ _IS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7728,
-  serialized_end=7747,
+  serialized_start=8359,
+  serialized_end=8378,
 )
 
 _PROPERTIES_PROPERTIESENTRY.containing_type = _PROPERTIES
@@ -3235,6 +3385,7 @@ _FILESYSTEMADAPTORDESCRIPTIONS.fields_by_name['descriptions'].message_type = _FI
 _USERCREDENTIAL.fields_by_name['certificate_credential'].message_type = _CERTIFICATECREDENTIAL
 _USERCREDENTIAL.fields_by_name['password_credential'].message_type = _PASSWORDCREDENTIAL
 _USERCREDENTIAL.fields_by_name['default_credential'].message_type = _DEFAULTCREDENTIAL
+_USERCREDENTIAL.fields_by_name['keytab_credential'].message_type = _KEYTABCREDENTIAL
 _USERCREDENTIAL.oneofs_by_name['entry'].fields.append(
   _USERCREDENTIAL.fields_by_name['certificate_credential'])
 _USERCREDENTIAL.fields_by_name['certificate_credential'].containing_oneof = _USERCREDENTIAL.oneofs_by_name['entry']
@@ -3244,12 +3395,16 @@ _USERCREDENTIAL.fields_by_name['password_credential'].containing_oneof = _USERCR
 _USERCREDENTIAL.oneofs_by_name['entry'].fields.append(
   _USERCREDENTIAL.fields_by_name['default_credential'])
 _USERCREDENTIAL.fields_by_name['default_credential'].containing_oneof = _USERCREDENTIAL.oneofs_by_name['entry']
+_USERCREDENTIAL.oneofs_by_name['entry'].fields.append(
+  _USERCREDENTIAL.fields_by_name['keytab_credential'])
+_USERCREDENTIAL.fields_by_name['keytab_credential'].containing_oneof = _USERCREDENTIAL.oneofs_by_name['entry']
 _CREDENTIALMAP_ENTRIESENTRY.fields_by_name['value'].message_type = _USERCREDENTIAL
 _CREDENTIALMAP_ENTRIESENTRY.containing_type = _CREDENTIALMAP
 _CREDENTIALMAP.fields_by_name['entries'].message_type = _CREDENTIALMAP_ENTRIESENTRY
 _CREDENTIALMAP.fields_by_name['certificate_credential'].message_type = _CERTIFICATECREDENTIAL
 _CREDENTIALMAP.fields_by_name['password_credential'].message_type = _PASSWORDCREDENTIAL
 _CREDENTIALMAP.fields_by_name['default_credential'].message_type = _DEFAULTCREDENTIAL
+_CREDENTIALMAP.fields_by_name['keytab_credential'].message_type = _KEYTABCREDENTIAL
 _CREDENTIALMAP.oneofs_by_name['fallback'].fields.append(
   _CREDENTIALMAP.fields_by_name['certificate_credential'])
 _CREDENTIALMAP.fields_by_name['certificate_credential'].containing_oneof = _CREDENTIALMAP.oneofs_by_name['fallback']
@@ -3259,10 +3414,14 @@ _CREDENTIALMAP.fields_by_name['password_credential'].containing_oneof = _CREDENT
 _CREDENTIALMAP.oneofs_by_name['fallback'].fields.append(
   _CREDENTIALMAP.fields_by_name['default_credential'])
 _CREDENTIALMAP.fields_by_name['default_credential'].containing_oneof = _CREDENTIALMAP.oneofs_by_name['fallback']
+_CREDENTIALMAP.oneofs_by_name['fallback'].fields.append(
+  _CREDENTIALMAP.fields_by_name['keytab_credential'])
+_CREDENTIALMAP.fields_by_name['keytab_credential'].containing_oneof = _CREDENTIALMAP.oneofs_by_name['fallback']
 _GETCREDENTIALRESPONSE.fields_by_name['certificate_credential'].message_type = _CERTIFICATECREDENTIAL
 _GETCREDENTIALRESPONSE.fields_by_name['password_credential'].message_type = _PASSWORDCREDENTIAL
 _GETCREDENTIALRESPONSE.fields_by_name['default_credential'].message_type = _DEFAULTCREDENTIAL
 _GETCREDENTIALRESPONSE.fields_by_name['credential_map'].message_type = _CREDENTIALMAP
+_GETCREDENTIALRESPONSE.fields_by_name['keytab_credential'].message_type = _KEYTABCREDENTIAL
 _GETCREDENTIALRESPONSE.oneofs_by_name['credential'].fields.append(
   _GETCREDENTIALRESPONSE.fields_by_name['certificate_credential'])
 _GETCREDENTIALRESPONSE.fields_by_name['certificate_credential'].containing_oneof = _GETCREDENTIALRESPONSE.oneofs_by_name['credential']
@@ -3275,12 +3434,16 @@ _GETCREDENTIALRESPONSE.fields_by_name['default_credential'].containing_oneof = _
 _GETCREDENTIALRESPONSE.oneofs_by_name['credential'].fields.append(
   _GETCREDENTIALRESPONSE.fields_by_name['credential_map'])
 _GETCREDENTIALRESPONSE.fields_by_name['credential_map'].containing_oneof = _GETCREDENTIALRESPONSE.oneofs_by_name['credential']
+_GETCREDENTIALRESPONSE.oneofs_by_name['credential'].fields.append(
+  _GETCREDENTIALRESPONSE.fields_by_name['keytab_credential'])
+_GETCREDENTIALRESPONSE.fields_by_name['keytab_credential'].containing_oneof = _GETCREDENTIALRESPONSE.oneofs_by_name['credential']
 _CREATEFILESYSTEMREQUEST_PROPERTIESENTRY.containing_type = _CREATEFILESYSTEMREQUEST
 _CREATEFILESYSTEMREQUEST.fields_by_name['properties'].message_type = _CREATEFILESYSTEMREQUEST_PROPERTIESENTRY
 _CREATEFILESYSTEMREQUEST.fields_by_name['certificate_credential'].message_type = _CERTIFICATECREDENTIAL
 _CREATEFILESYSTEMREQUEST.fields_by_name['password_credential'].message_type = _PASSWORDCREDENTIAL
 _CREATEFILESYSTEMREQUEST.fields_by_name['default_credential'].message_type = _DEFAULTCREDENTIAL
 _CREATEFILESYSTEMREQUEST.fields_by_name['credential_map'].message_type = _CREDENTIALMAP
+_CREATEFILESYSTEMREQUEST.fields_by_name['keytab_credential'].message_type = _KEYTABCREDENTIAL
 _CREATEFILESYSTEMREQUEST.oneofs_by_name['credential'].fields.append(
   _CREATEFILESYSTEMREQUEST.fields_by_name['certificate_credential'])
 _CREATEFILESYSTEMREQUEST.fields_by_name['certificate_credential'].containing_oneof = _CREATEFILESYSTEMREQUEST.oneofs_by_name['credential']
@@ -3293,6 +3456,9 @@ _CREATEFILESYSTEMREQUEST.fields_by_name['default_credential'].containing_oneof =
 _CREATEFILESYSTEMREQUEST.oneofs_by_name['credential'].fields.append(
   _CREATEFILESYSTEMREQUEST.fields_by_name['credential_map'])
 _CREATEFILESYSTEMREQUEST.fields_by_name['credential_map'].containing_oneof = _CREATEFILESYSTEMREQUEST.oneofs_by_name['credential']
+_CREATEFILESYSTEMREQUEST.oneofs_by_name['credential'].fields.append(
+  _CREATEFILESYSTEMREQUEST.fields_by_name['keytab_credential'])
+_CREATEFILESYSTEMREQUEST.fields_by_name['keytab_credential'].containing_oneof = _CREATEFILESYSTEMREQUEST.oneofs_by_name['credential']
 _FILESYSTEMS.fields_by_name['filesystems'].message_type = _FILESYSTEM
 _PATHREQUEST.fields_by_name['filesystem'].message_type = _FILESYSTEM
 _PATHREQUEST.fields_by_name['path'].message_type = _PATH
@@ -3334,6 +3500,7 @@ _CREATESCHEDULERREQUEST.fields_by_name['certificate_credential'].message_type = 
 _CREATESCHEDULERREQUEST.fields_by_name['password_credential'].message_type = _PASSWORDCREDENTIAL
 _CREATESCHEDULERREQUEST.fields_by_name['default_credential'].message_type = _DEFAULTCREDENTIAL
 _CREATESCHEDULERREQUEST.fields_by_name['credential_map'].message_type = _CREDENTIALMAP
+_CREATESCHEDULERREQUEST.fields_by_name['keytab_credential'].message_type = _KEYTABCREDENTIAL
 _CREATESCHEDULERREQUEST.oneofs_by_name['credential'].fields.append(
   _CREATESCHEDULERREQUEST.fields_by_name['certificate_credential'])
 _CREATESCHEDULERREQUEST.fields_by_name['certificate_credential'].containing_oneof = _CREATESCHEDULERREQUEST.oneofs_by_name['credential']
@@ -3346,6 +3513,9 @@ _CREATESCHEDULERREQUEST.fields_by_name['default_credential'].containing_oneof = 
 _CREATESCHEDULERREQUEST.oneofs_by_name['credential'].fields.append(
   _CREATESCHEDULERREQUEST.fields_by_name['credential_map'])
 _CREATESCHEDULERREQUEST.fields_by_name['credential_map'].containing_oneof = _CREATESCHEDULERREQUEST.oneofs_by_name['credential']
+_CREATESCHEDULERREQUEST.oneofs_by_name['credential'].fields.append(
+  _CREATESCHEDULERREQUEST.fields_by_name['keytab_credential'])
+_CREATESCHEDULERREQUEST.fields_by_name['keytab_credential'].containing_oneof = _CREATESCHEDULERREQUEST.oneofs_by_name['credential']
 _SCHEDULERS.fields_by_name['schedulers'].message_type = _SCHEDULER
 _JOBDESCRIPTION_ENVIRONMENTENTRY.containing_type = _JOBDESCRIPTION
 _JOBDESCRIPTION_OPTIONSENTRY.containing_type = _JOBDESCRIPTION
@@ -3389,6 +3559,7 @@ DESCRIPTOR.message_types_by_name['AdaptorNames'] = _ADAPTORNAMES
 DESCRIPTOR.message_types_by_name['CertificateCredential'] = _CERTIFICATECREDENTIAL
 DESCRIPTOR.message_types_by_name['PasswordCredential'] = _PASSWORDCREDENTIAL
 DESCRIPTOR.message_types_by_name['DefaultCredential'] = _DEFAULTCREDENTIAL
+DESCRIPTOR.message_types_by_name['KeytabCredential'] = _KEYTABCREDENTIAL
 DESCRIPTOR.message_types_by_name['UserCredential'] = _USERCREDENTIAL
 DESCRIPTOR.message_types_by_name['CredentialMap'] = _CREDENTIALMAP
 DESCRIPTOR.message_types_by_name['Location'] = _LOCATION
@@ -3535,6 +3706,13 @@ DefaultCredential = _reflection.GeneratedProtocolMessageType('DefaultCredential'
   # @@protoc_insertion_point(class_scope:xenon.DefaultCredential)
   ))
 _sym_db.RegisterMessage(DefaultCredential)
+
+KeytabCredential = _reflection.GeneratedProtocolMessageType('KeytabCredential', (_message.Message,), dict(
+  DESCRIPTOR = _KEYTABCREDENTIAL,
+  __module__ = 'xenon.proto.xenon_pb2'
+  # @@protoc_insertion_point(class_scope:xenon.KeytabCredential)
+  ))
+_sym_db.RegisterMessage(KeytabCredential)
 
 UserCredential = _reflection.GeneratedProtocolMessageType('UserCredential', (_message.Message,), dict(
   DESCRIPTOR = _USERCREDENTIAL,
@@ -3933,8 +4111,8 @@ _FILESYSTEMSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=7943,
-  serialized_end=9929,
+  serialized_start=8574,
+  serialized_end=10560,
   methods=[
   _descriptor.MethodDescriptor(
     name='getAdaptorDescriptions',
@@ -4245,8 +4423,8 @@ _SCHEDULERSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   options=None,
-  serialized_start=9932,
-  serialized_end=11480,
+  serialized_start=10563,
+  serialized_end=12111,
   methods=[
   _descriptor.MethodDescriptor(
     name='getAdaptorDescriptions',

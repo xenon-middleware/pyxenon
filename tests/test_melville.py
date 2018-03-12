@@ -140,7 +140,9 @@ def test_moby_dick_spliced(local_scheduler, tmpdir):
     data = source.open().readlines()
     queue, stream = make_input_queue()
 
-    expected_word_count = [(i+1, len(line.split(' '))) for i, line in enumerate(data)]
+    expected_word_count = [
+        (i+1, len(line.split(' ')))
+        for i, line in enumerate(data)]
 
     job, output_stream = local_scheduler.submit_interactive_job(
         description=job_description,
