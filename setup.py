@@ -54,7 +54,7 @@ setup(
                   'nt': 'bin/xenon-grpc.bat'}[os.name]])],
     install_requires=['grpcio', 'grpcio-tools', 'pyxdg', 'pyopenssl'],
     extras_require={
-        'test': ['pytest', 'pytest-flake8', 'coverage', 'tox'],
+        'test': ['pytest', 'flake8', 'coverage', 'pep8', 'tox'],
         'develop': ['sphinx']
     }
 )
