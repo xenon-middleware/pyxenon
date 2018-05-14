@@ -4,7 +4,9 @@ from .oop import (
 
 from .proto import (xenon_pb2, xenon_pb2_grpc)
 from .server import __server__
+from .exceptions import make_exception
 
+import grpc
 import pathlib
 import inspect
 import functools
@@ -117,17 +119,23 @@ class Is(OopProxy):
 
 
 def append_request_stream(self, path, data_stream):
-    yield xenon_pb2.AppendToFileRequest(
-        filesystem=unwrap(self), path=unwrap(path))
-    yield from (xenon_pb2.AppendToFileRequest(buffer=b)
-                for b in data_stream)
+    try:
+        yield xenon_pb2.AppendToFileRequest(
+            filesystem=unwrap(self), path=unwrap(path))
+        yield from (xenon_pb2.AppendToFileRequest(buffer=b)
+                    for b in data_stream)
+    except grpc.RpcError as e:
+        raise make_exception(append_request_stream, e) from None
 
 
 def write_request_stream(self, path, data_stream):
-    yield xenon_pb2.WriteToFileRequest(
-        filesystem=unwrap(self), path=unwrap(path))
-    yield from (xenon_pb2.WriteToFileRequest(buffer=b)
-                for b in data_stream)
+    try:
+        yield xenon_pb2.WriteToFileRequest(
+            filesystem=unwrap(self), path=unwrap(path))
+        yield from (xenon_pb2.WriteToFileRequest(buffer=b)
+                    for b in data_stream)
+    except grpc.RpcError as e:
+        raise make_exception(write_request_stream, e) from None
 
 
 class Path(PathLike):
@@ -203,7 +211,10 @@ def t_getattr(name):
 
 
 def read_response_stream(self, stream):
-    yield from (chunk.buffer for chunk in stream)
+    try:
+        yield from (chunk.buffer for chunk in stream)
+    except grpc.RpcError as e:
+        raise make_exception(read_response_stream, e) from None
 
 
 class FileSystem(OopProxy):
@@ -315,11 +326,14 @@ class FileSystem(OopProxy):
 
 
 def input_request_stream(self, description, stdin_stream):
-    yield xenon_pb2.SubmitInteractiveJobRequest(
-        scheduler=unwrap(self), description=unwrap(description), stdin=b'')
-    yield from (xenon_pb2.SubmitInteractiveJobRequest(
-        scheduler=None, description=None, stdin=msg)
-        for msg in stdin_stream)
+    try:
+        yield xenon_pb2.SubmitInteractiveJobRequest(
+            scheduler=unwrap(self), description=unwrap(description), stdin=b'')
+        yield from (xenon_pb2.SubmitInteractiveJobRequest(
+            scheduler=None, description=None, stdin=msg)
+            for msg in stdin_stream)
+    except grpc.RpcError as e:
+        raise make_exception(input_request_stream, e) from None
 
 
 def interactive_job_response(self, stream):

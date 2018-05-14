@@ -1,8 +1,18 @@
 class XenonException(Exception):
     """Xenon base exception."""
     def __init__(self, method, code, msg):
+        def get_name():
+            try:
+                return method.name
+            except AttributeError:
+                pass
+            try:
+                return method.__name__
+            except AttributeError:
+                return "<uknown function>"
+
         super(XenonException, self).__init__(
-            "Xenon ({}): \"{}\" in {}".format(code, msg, method.name))
+            "Xenon ({}): \"{}\" in {}".format(code, msg, get_name()))
 
 
 def make_exception(method, e):
