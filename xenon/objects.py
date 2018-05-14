@@ -4,7 +4,9 @@ from .oop import (
 
 from .proto import (xenon_pb2, xenon_pb2_grpc)
 from .server import __server__
+from .exceptions import make_exception
 
+import grpc
 import pathlib
 import inspect
 import functools
@@ -203,7 +205,10 @@ def t_getattr(name):
 
 
 def read_response_stream(self, stream):
-    yield from (chunk.buffer for chunk in stream)
+    try:
+        yield from (chunk.buffer for chunk in stream)
+    except grpc.RpcError as e:
+        raise make_exception(read_response_stream, e) from None
 
 
 class FileSystem(OopProxy):
