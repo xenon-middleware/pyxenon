@@ -73,8 +73,8 @@ practice you'll be reusing the descriptions a lot.
 
     scheduler = Scheduler.create(
         adaptor='slurm',
-        location='localhost:10022',
-        password_credential=credential)
+	location='ssh://localhost:10022',
+	password_credential=credential)
 
     job_description = JobDescription(
         executable='/bin/sh',
