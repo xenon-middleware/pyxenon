@@ -69,11 +69,11 @@ practice you'll be reusing the descriptions a lot.
 
 .. code-block:: python
 
-    from xenon import Scheduler
+    from xenon import Scheduler, JobDescription
 
     scheduler = Scheduler.create(
         adaptor='slurm',
-        location='localhost:10022',
+        location='ssh://localhost:10022',
         password_credential=credential)
 
     job_description = JobDescription(
