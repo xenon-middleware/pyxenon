@@ -115,7 +115,7 @@ the change didn't break any code. The pull request will be evaluated in
 .. |Apache2License| image:: https://img.shields.io/github/license/NLeSC/pyxenon.svg?branch=master
    :target: https://raw.githubusercontent.com/NLeSC/pyxenon/master/LICENSE
 .. |PythonVersions| image:: https://img.shields.io/pypi/pyversions/pyxenon.svg
-.. |BuildStatus| image:: https://travis-ci.org/NLeSC/pyxenon.svg?branch=master
+.. |BuildStatus| image:: https://travis-ci.org/xenon-middleware/pyxenon.svg?branch=master
    :target: https://travis-ci.org/NLeSC/pyxenon
 .. |CodacyBadge| image:: https://api.codacy.com/project/badge/grade/35e155e3bb08459aa2c24622d5fdb0d3
    :target: https://www.codacy.com/app/NLeSC/pyxenon
