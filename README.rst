@@ -62,6 +62,7 @@ Example
 .. code-block:: python
 
     import xenon
+    from pathlib import Path
     import os
 
     xenon.init()
@@ -72,10 +73,10 @@ Example
 
         # make a new job description. The executable must already be present on
         # the target host.
-        target = xenon.Path('.') / 'stdout.txt'
+        target = Path('.') / 'stdout.txt'
         desc = xenon.JobDescription(
             executable='hostname',
-            stdout=str(target))
+            stdout=str(target.resolve()))
 
         # submit a job
         job = scheduler.submit_batch_job(desc)
