@@ -6,7 +6,7 @@ import grpc
 
 try:
     from enum import Enum
-except ImportError as e:
+except ImportError:
     use_enum = False
 
     class Enum(object):
@@ -20,7 +20,7 @@ else:
 
 try:
     from inspect import (Signature, Parameter, signature)
-except ImportError as e:
+except ImportError:
     use_signature = False
 else:
     use_signature = True
