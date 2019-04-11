@@ -8,11 +8,9 @@ import socket
 import threading
 import time
 
-from pathlib import Path
 from contextlib import closing
 
 import grpc
-from xdg import BaseDirectory
 
 from .proto import (xenon_pb2_grpc)
 from .compat import (start_xenon_server, kill_process)
@@ -25,11 +23,8 @@ def check_socket(host, port):
         return sock.connect_ex((host, port)) == 0
 
 
-def get_secure_channel(port=50051):
+def get_secure_channel(crt_file, key_file, port=50051):
     """Try to connect over a secure channel."""
-    config_dir = Path(BaseDirectory.xdg_config_home) / 'xenon-grpc'
-    crt_file = config_dir / 'server.crt'
-    key_file = config_dir / 'server.key'
 
     creds = grpc.ssl_channel_credentials(
         root_certificates=open(str(crt_file), 'rb').read(),
@@ -77,7 +72,7 @@ class Server(object):
             logger.info('Xenon-GRPC servers seems to be running.')
         else:
             logger.info('Starting Xenon-GRPC server.')
-            self.process = start_xenon_server(self.port, self.disable_tls)
+            self.process, crt_file, key_file = start_xenon_server(self.port, self.disable_tls)
 
             for name, output in [('out', self.process.stdout),
                                  ('err', self.process.stderr)]:
@@ -99,7 +94,7 @@ class Server(object):
             self.channel = grpc.insecure_channel(
                 '{}:{}'.format(socket.gethostname(), self.port))
         else:
-            self.channel = get_secure_channel(self.port)
+            self.channel = get_secure_channel(crt_file, key_file, self.port)
 
         self.file_system_stub = \
             xenon_pb2_grpc.FileSystemServiceStub(self.channel)

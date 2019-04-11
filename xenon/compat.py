@@ -9,8 +9,6 @@ import os
 import sys
 import signal
 
-from xdg import BaseDirectory
-
 from .create_keys import create_self_signed_cert
 from .version import xenon_grpc_version
 
@@ -53,15 +51,14 @@ def start_xenon_server(port=50051, disable_tls=False):
     cmd = ['java', '-jar', jar_file, '-p', str(port)]
 
     if not disable_tls:
-        create_self_signed_cert()
-        config_dir = Path(BaseDirectory.xdg_config_home) / 'xenon-grpc'
-        crt_file = config_dir / 'server.crt'
-        key_file = config_dir / 'server.key'
+        crt_file, key_file = create_self_signed_cert()
 
         cmd.extend([
             '--server-cert-chain', str(crt_file),
             '--server-private-key', str(key_file),
             '--client-cert-chain', str(crt_file)])
+    else:
+        crt_file = key_file = None
 
     process = subprocess.Popen(
         cmd,
@@ -69,4 +66,4 @@ def start_xenon_server(port=50051, disable_tls=False):
         universal_newlines=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE)
-    return process
+    return process, crt_file, key_file
