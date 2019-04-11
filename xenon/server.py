@@ -72,7 +72,8 @@ class Server(object):
             logger.info('Xenon-GRPC servers seems to be running.')
         else:
             logger.info('Starting Xenon-GRPC server.')
-            self.process, crt_file, key_file = start_xenon_server(self.port, self.disable_tls)
+            self.process, crt_file, key_file = \
+                start_xenon_server(self.port, self.disable_tls)
 
             for name, output in [('out', self.process.stdout),
                                  ('err', self.process.stderr)]:
