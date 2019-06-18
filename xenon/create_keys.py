@@ -4,21 +4,24 @@ Certificate creation.
 
 import logging
 from socket import gethostname
-from pathlib import Path
 
-from xdg import BaseDirectory
 from OpenSSL import crypto
+
+from pathlib import Path
+from xdg import BaseDirectory
 
 
 def create_self_signed_cert():
     """Creates a self-signed certificate key pair."""
     config_dir = Path(BaseDirectory.xdg_config_home) / 'xenon-grpc'
     config_dir.mkdir(parents=True, exist_ok=True)
-    crt_file = config_dir / 'server.crt'
-    key_file = config_dir / 'server.key'
+
+    key_prefix = gethostname()
+    crt_file = config_dir / ('%s.crt' % key_prefix)
+    key_file = config_dir / ('%s.key' % key_prefix)
 
     if crt_file.exists() and key_file.exists():
-        return
+        return crt_file, key_file
 
     logger = logging.getLogger('xenon')
     logger.info("Creating authentication keys for xenon-grpc.")
@@ -42,3 +45,5 @@ def create_self_signed_cert():
         crypto.dump_certificate(crypto.FILETYPE_PEM, cert))
     open(str(key_file), "wb").write(
         crypto.dump_privatekey(crypto.FILETYPE_PEM, k))
+
+    return crt_file, key_file

@@ -31,7 +31,7 @@ with xenon.Scheduler.create(adaptor='local') as scheduler:
     job_status = scheduler.wait_until_done(job)
 
     # if we were not successful, raise an exception
-    if job_status.error_type != xenon.JobStatus.NONE:
+    if job_status.error_type != xenon.JobStatus.ErrorType.NONE:
         raise Exception(job_status.error_message)
 
 # display the result
