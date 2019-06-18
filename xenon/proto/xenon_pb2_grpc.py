@@ -714,6 +714,11 @@ class SchedulerServiceStub(object):
         request_serializer=xenon_dot_proto_dot_xenon__pb2.JobRequest.SerializeToString,
         response_deserializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.FromString,
         )
+    self.getDefaultRuntime = channel.unary_unary(
+        '/xenon.SchedulerService/getDefaultRuntime',
+        request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
+        response_deserializer=xenon_dot_proto_dot_xenon__pb2.GetDefaultRuntimeResponse.FromString,
+        )
     self.getFileSystem = channel.unary_unary(
         '/xenon.SchedulerService/getFileSystem',
         request_serializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.SerializeToString,
@@ -889,6 +894,13 @@ class SchedulerServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def getDefaultRuntime(self, request, context):
+    """Get the default runtime of a job in minutes.
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def getFileSystem(self, request, context):
     """Retrieve the FileSystem used internally by this Scheduler.
     """
@@ -1029,6 +1041,11 @@ def add_SchedulerServiceServicer_to_server(servicer, server):
           servicer.cancelJob,
           request_deserializer=xenon_dot_proto_dot_xenon__pb2.JobRequest.FromString,
           response_serializer=xenon_dot_proto_dot_xenon__pb2.JobStatus.SerializeToString,
+      ),
+      'getDefaultRuntime': grpc.unary_unary_rpc_method_handler(
+          servicer.getDefaultRuntime,
+          request_deserializer=xenon_dot_proto_dot_xenon__pb2.Scheduler.FromString,
+          response_serializer=xenon_dot_proto_dot_xenon__pb2.GetDefaultRuntimeResponse.SerializeToString,
       ),
       'getFileSystem': grpc.unary_unary_rpc_method_handler(
           servicer.getFileSystem,

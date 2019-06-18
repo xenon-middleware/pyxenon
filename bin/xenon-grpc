@@ -64,7 +64,7 @@ case "`uname`" in
     ;;
 esac
 
-CLASSPATH=$APP_HOME/lib/xenon-grpc-2.2.1-all.jar
+CLASSPATH=$APP_HOME/lib/xenon-grpc-3.0.0.jar
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then

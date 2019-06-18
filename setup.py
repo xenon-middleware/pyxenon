@@ -46,10 +46,11 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: System :: Distributed Computing',
     ],
     data_files=[
-        ('lib', ['lib/xenon-grpc-{}-all.jar'.format(xenon_grpc_version)]),  # noqa
+        ('lib', ['lib/xenon-grpc-{}.jar'.format(xenon_grpc_version)]),  # noqa
         ('bin', [{'posix': 'bin/xenon-grpc',
                   'nt': 'bin/xenon-grpc.bat'}[os.name]])],
     install_requires=['grpcio', 'grpcio-tools', 'pyxdg', 'pyopenssl'],

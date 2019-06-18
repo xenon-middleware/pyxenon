@@ -335,17 +335,19 @@ message JobDescription {
     map<string, string> environment = 4;
     string queue_name = 5;
     uint32 max_runtime = 6;
-    uint32 node_count = 7;
-    uint32 processes_per_node = 8;
-    bool start_single_process = 9;
     string stderr = 10;
     string stdin = 11;
     string stdout = 12;
-    // In Xenon named jobOptions
-    map<string, string> options = 13;
     string name = 14;
     uint32 max_memory = 15;
     repeated string scheduler_arguments = 16;
+    uint32 tasks = 17;
+    uint32 cores_per_task = 18;
+    uint32 tasks_per_node = 19;
+    // In Xenon if true then uses setStartPerTask else uses setStartPerJob to configure how to start executable
+    bool start_per_task = 20;
+    string start_time = 21;
+    uint32 temp_space = 22;
 }
 
 message SubmitBatchJobRequest {
@@ -465,6 +467,10 @@ message SubmitInteractiveJobResponse {
 
 message Is {
     bool value = 1;
+}
+
+message GetDefaultRuntimeResponse {
+    uint32 value = 1;
 }
 
 // XenonFiles represents the Xenon nl.esciencecenter.xenon.filesystems.FileSystem class.
@@ -591,6 +597,8 @@ service SchedulerService {
     rpc isOpen(Scheduler) returns (Is) {}
     // Cancel a job
     rpc cancelJob(JobRequest) returns (JobStatus) {}
+    // Get the default runtime of a job in minutes.
+    rpc getDefaultRuntime(Scheduler) returns (GetDefaultRuntimeResponse) {}
     // Retrieve the FileSystem used internally by this Scheduler.
     rpc getFileSystem(Scheduler) returns (FileSystem) {}
     // Close this Scheduler.

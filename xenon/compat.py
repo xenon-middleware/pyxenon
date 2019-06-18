@@ -25,7 +25,7 @@ def find_xenon_grpc_jar():
     ]
 
     for location in locations:
-        jar_file = location / 'xenon-grpc-{}-all.jar'.format(
+        jar_file = location / 'xenon-grpc-{}.jar'.format(
                 xenon_grpc_version)
 
         if not jar_file.exists():
