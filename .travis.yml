@@ -1,13 +1,14 @@
 language: python
+dist: xenial
 sudo: false
 addons:
   apt:
     packages:
-      - oracle-java8-set-default
+      - default-jre
 python:
   - "3.5"
   - "3.6"
-#  - "3.7"
+  - "3.7"
 install:
   - pip install -U tox-travis
 script:
