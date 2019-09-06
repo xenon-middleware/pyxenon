@@ -21,9 +21,9 @@ def find_xenon_grpc_jar():
 
     locations = [
         prefix / 'lib',
-        prefix / 'local' / 'lib'
+        prefix / 'local' / 'lib',
         user_prefix / 'lib',
-        user_prefix / 'local' / 'lib'
+        user_prefix / 'local' / 'lib',
     ]
 
     for location in locations:
