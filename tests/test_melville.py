@@ -82,7 +82,7 @@ def make_input_queue():
     return queue, stream
 
 
-@pytest.mark.skip(True, "Test takes very long")
+@pytest.mark.skip(reason="Test takes very long")
 def test_moby_dick_cat(local_scheduler, tmpdir):
     tmpdir = Path(str(tmpdir))
     source = Path('./tests/moby-dick.txt')
