@@ -7,6 +7,7 @@ import logging
 import subprocess
 import os
 import sys
+import site
 import signal
 
 from .create_keys import create_self_signed_cert
@@ -16,10 +17,13 @@ from .version import xenon_grpc_version
 def find_xenon_grpc_jar():
     """Find the Xenon-GRPC jar-file, windows version."""
     prefix = Path(sys.prefix)
+    user_prefix = Path(site.USER_BASE)
 
     locations = [
         prefix / 'lib',
-        prefix / 'local' / 'lib'
+        prefix / 'local' / 'lib',
+        user_prefix / 'lib',
+        user_prefix / 'local' / 'lib',
     ]
 
     for location in locations:
