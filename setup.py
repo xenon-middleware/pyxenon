@@ -35,7 +35,7 @@ setup(
     long_description=long_description,
     author='Johan Hidding',
     author_email='j.hididng@esciencecenter.nl',
-    url='https://github.com/NLeSC/pyxenon',
+    url='https://github.com/xenon-middleware/pyxenon',
     packages=['xenon', 'xenon.proto'],
     classifiers=[
         'License :: OSI Approved :: Apache Software License',
