@@ -1,14 +1,14 @@
-Python interface to Xenon 2.0
+Python interface to Xenon 3.0
 =============================
 |ZenodoBadge| |ReadTheDocsBadge| |Apache2License| |BuildStatus| |CodacyBadge|
 
-Python interface to the `Xenon middleware library, v. 2.0
-<http://nlesc.github.io/Xenon/>`__. Xenon provides a simple programming
+Python interface to the `Xenon middleware library, v. 3.0
+<http://xenon-middleware.github.io/Xenon/>`__. Xenon provides a simple programming
 interface to various pieces of software that can be used to access distributed
 compute and storage resources.
 
 Underneath it uses `GRPC <https://grpc.io>`__, to connect to the `Xenon-GRPC
-<https://github.com/NLeSC/xenon-grpc>`__ service.
+<https://github.com/xenon-middleware/xenon-grpc>`__ service.
 We've taken care to mirror the original Java API in this Python module as much
 as possible.
 
