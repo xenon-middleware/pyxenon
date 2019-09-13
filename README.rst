@@ -35,6 +35,25 @@ these need upgrading, build them manually, following instructions at
 
 To generate the `GRPC` code, run ``scripts/protoc.sh`` from the project root.
 
+Steps for upgrading Xenon-GRPC
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In the ``xenon-grpc`` repository, run::
+
+   ./gradlew shadowJar
+
+The updated JAR file will be located in ``./build/libs/xenon-grpc-${version}.jar``.
+Also make sure to copy updated binary files from ``./build/install/xenon-grpc/bin``.
+The target files should go to the ``./bin`` and ``./lib`` folders in the ``pyxenon`` repository.
+
+Update ``./xenon/versions.py``.
+
+To update the GRPC Python bindings, run the ``./scripts/protoc.sh`` script.
+
+To update the Xenon adaptor documentation, first ``pip install --upgrade .``, then run ``python ./scripts/print_adaptor_docs.py > docs/adaptors.rst``.
+
+Run ``tox`` before pushing anything back to github.
+
 Testing
 -------
 Unit tests all run against the `local` scheduler and the `file` adaptor for
