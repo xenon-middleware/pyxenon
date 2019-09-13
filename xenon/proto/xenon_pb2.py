@@ -3616,480 +3616,480 @@ DESCRIPTOR.message_types_by_name['GetDefaultRuntimeResponse'] = _GETDEFAULTRUNTI
 DESCRIPTOR.enum_types_by_name['PosixFilePermission'] = _POSIXFILEPERMISSION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), dict(
-  DESCRIPTOR = _EMPTY,
-  __module__ = 'xenon.proto.xenon_pb2'
+Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), {
+  'DESCRIPTOR' : _EMPTY,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Empty)
-  ))
+  })
 _sym_db.RegisterMessage(Empty)
 
-Properties = _reflection.GeneratedProtocolMessageType('Properties', (_message.Message,), dict(
+Properties = _reflection.GeneratedProtocolMessageType('Properties', (_message.Message,), {
 
-  PropertiesEntry = _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), dict(
-    DESCRIPTOR = _PROPERTIES_PROPERTIESENTRY,
-    __module__ = 'xenon.proto.xenon_pb2'
+  'PropertiesEntry' : _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), {
+    'DESCRIPTOR' : _PROPERTIES_PROPERTIESENTRY,
+    '__module__' : 'xenon.proto.xenon_pb2'
     # @@protoc_insertion_point(class_scope:xenon.Properties.PropertiesEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _PROPERTIES,
-  __module__ = 'xenon.proto.xenon_pb2'
+  'DESCRIPTOR' : _PROPERTIES,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Properties)
-  ))
+  })
 _sym_db.RegisterMessage(Properties)
 _sym_db.RegisterMessage(Properties.PropertiesEntry)
 
-PropertyDescription = _reflection.GeneratedProtocolMessageType('PropertyDescription', (_message.Message,), dict(
-  DESCRIPTOR = _PROPERTYDESCRIPTION,
-  __module__ = 'xenon.proto.xenon_pb2'
+PropertyDescription = _reflection.GeneratedProtocolMessageType('PropertyDescription', (_message.Message,), {
+  'DESCRIPTOR' : _PROPERTYDESCRIPTION,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.PropertyDescription)
-  ))
+  })
 _sym_db.RegisterMessage(PropertyDescription)
 
-PropertyDescriptions = _reflection.GeneratedProtocolMessageType('PropertyDescriptions', (_message.Message,), dict(
-  DESCRIPTOR = _PROPERTYDESCRIPTIONS,
-  __module__ = 'xenon.proto.xenon_pb2'
+PropertyDescriptions = _reflection.GeneratedProtocolMessageType('PropertyDescriptions', (_message.Message,), {
+  'DESCRIPTOR' : _PROPERTYDESCRIPTIONS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.PropertyDescriptions)
-  ))
+  })
 _sym_db.RegisterMessage(PropertyDescriptions)
 
-SchedulerAdaptorDescription = _reflection.GeneratedProtocolMessageType('SchedulerAdaptorDescription', (_message.Message,), dict(
-  DESCRIPTOR = _SCHEDULERADAPTORDESCRIPTION,
-  __module__ = 'xenon.proto.xenon_pb2'
+SchedulerAdaptorDescription = _reflection.GeneratedProtocolMessageType('SchedulerAdaptorDescription', (_message.Message,), {
+  'DESCRIPTOR' : _SCHEDULERADAPTORDESCRIPTION,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.SchedulerAdaptorDescription)
-  ))
+  })
 _sym_db.RegisterMessage(SchedulerAdaptorDescription)
 
-SchedulerAdaptorDescriptions = _reflection.GeneratedProtocolMessageType('SchedulerAdaptorDescriptions', (_message.Message,), dict(
-  DESCRIPTOR = _SCHEDULERADAPTORDESCRIPTIONS,
-  __module__ = 'xenon.proto.xenon_pb2'
+SchedulerAdaptorDescriptions = _reflection.GeneratedProtocolMessageType('SchedulerAdaptorDescriptions', (_message.Message,), {
+  'DESCRIPTOR' : _SCHEDULERADAPTORDESCRIPTIONS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.SchedulerAdaptorDescriptions)
-  ))
+  })
 _sym_db.RegisterMessage(SchedulerAdaptorDescriptions)
 
-FileSystemAdaptorDescription = _reflection.GeneratedProtocolMessageType('FileSystemAdaptorDescription', (_message.Message,), dict(
-  DESCRIPTOR = _FILESYSTEMADAPTORDESCRIPTION,
-  __module__ = 'xenon.proto.xenon_pb2'
+FileSystemAdaptorDescription = _reflection.GeneratedProtocolMessageType('FileSystemAdaptorDescription', (_message.Message,), {
+  'DESCRIPTOR' : _FILESYSTEMADAPTORDESCRIPTION,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.FileSystemAdaptorDescription)
-  ))
+  })
 _sym_db.RegisterMessage(FileSystemAdaptorDescription)
 
-FileSystemAdaptorDescriptions = _reflection.GeneratedProtocolMessageType('FileSystemAdaptorDescriptions', (_message.Message,), dict(
-  DESCRIPTOR = _FILESYSTEMADAPTORDESCRIPTIONS,
-  __module__ = 'xenon.proto.xenon_pb2'
+FileSystemAdaptorDescriptions = _reflection.GeneratedProtocolMessageType('FileSystemAdaptorDescriptions', (_message.Message,), {
+  'DESCRIPTOR' : _FILESYSTEMADAPTORDESCRIPTIONS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.FileSystemAdaptorDescriptions)
-  ))
+  })
 _sym_db.RegisterMessage(FileSystemAdaptorDescriptions)
 
-AdaptorName = _reflection.GeneratedProtocolMessageType('AdaptorName', (_message.Message,), dict(
-  DESCRIPTOR = _ADAPTORNAME,
-  __module__ = 'xenon.proto.xenon_pb2'
+AdaptorName = _reflection.GeneratedProtocolMessageType('AdaptorName', (_message.Message,), {
+  'DESCRIPTOR' : _ADAPTORNAME,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.AdaptorName)
-  ))
+  })
 _sym_db.RegisterMessage(AdaptorName)
 
-AdaptorNames = _reflection.GeneratedProtocolMessageType('AdaptorNames', (_message.Message,), dict(
-  DESCRIPTOR = _ADAPTORNAMES,
-  __module__ = 'xenon.proto.xenon_pb2'
+AdaptorNames = _reflection.GeneratedProtocolMessageType('AdaptorNames', (_message.Message,), {
+  'DESCRIPTOR' : _ADAPTORNAMES,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.AdaptorNames)
-  ))
+  })
 _sym_db.RegisterMessage(AdaptorNames)
 
-CertificateCredential = _reflection.GeneratedProtocolMessageType('CertificateCredential', (_message.Message,), dict(
-  DESCRIPTOR = _CERTIFICATECREDENTIAL,
-  __module__ = 'xenon.proto.xenon_pb2'
+CertificateCredential = _reflection.GeneratedProtocolMessageType('CertificateCredential', (_message.Message,), {
+  'DESCRIPTOR' : _CERTIFICATECREDENTIAL,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.CertificateCredential)
-  ))
+  })
 _sym_db.RegisterMessage(CertificateCredential)
 
-PasswordCredential = _reflection.GeneratedProtocolMessageType('PasswordCredential', (_message.Message,), dict(
-  DESCRIPTOR = _PASSWORDCREDENTIAL,
-  __module__ = 'xenon.proto.xenon_pb2'
+PasswordCredential = _reflection.GeneratedProtocolMessageType('PasswordCredential', (_message.Message,), {
+  'DESCRIPTOR' : _PASSWORDCREDENTIAL,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.PasswordCredential)
-  ))
+  })
 _sym_db.RegisterMessage(PasswordCredential)
 
-DefaultCredential = _reflection.GeneratedProtocolMessageType('DefaultCredential', (_message.Message,), dict(
-  DESCRIPTOR = _DEFAULTCREDENTIAL,
-  __module__ = 'xenon.proto.xenon_pb2'
+DefaultCredential = _reflection.GeneratedProtocolMessageType('DefaultCredential', (_message.Message,), {
+  'DESCRIPTOR' : _DEFAULTCREDENTIAL,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.DefaultCredential)
-  ))
+  })
 _sym_db.RegisterMessage(DefaultCredential)
 
-KeytabCredential = _reflection.GeneratedProtocolMessageType('KeytabCredential', (_message.Message,), dict(
-  DESCRIPTOR = _KEYTABCREDENTIAL,
-  __module__ = 'xenon.proto.xenon_pb2'
+KeytabCredential = _reflection.GeneratedProtocolMessageType('KeytabCredential', (_message.Message,), {
+  'DESCRIPTOR' : _KEYTABCREDENTIAL,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.KeytabCredential)
-  ))
+  })
 _sym_db.RegisterMessage(KeytabCredential)
 
-UserCredential = _reflection.GeneratedProtocolMessageType('UserCredential', (_message.Message,), dict(
-  DESCRIPTOR = _USERCREDENTIAL,
-  __module__ = 'xenon.proto.xenon_pb2'
+UserCredential = _reflection.GeneratedProtocolMessageType('UserCredential', (_message.Message,), {
+  'DESCRIPTOR' : _USERCREDENTIAL,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.UserCredential)
-  ))
+  })
 _sym_db.RegisterMessage(UserCredential)
 
-CredentialMap = _reflection.GeneratedProtocolMessageType('CredentialMap', (_message.Message,), dict(
+CredentialMap = _reflection.GeneratedProtocolMessageType('CredentialMap', (_message.Message,), {
 
-  EntriesEntry = _reflection.GeneratedProtocolMessageType('EntriesEntry', (_message.Message,), dict(
-    DESCRIPTOR = _CREDENTIALMAP_ENTRIESENTRY,
-    __module__ = 'xenon.proto.xenon_pb2'
+  'EntriesEntry' : _reflection.GeneratedProtocolMessageType('EntriesEntry', (_message.Message,), {
+    'DESCRIPTOR' : _CREDENTIALMAP_ENTRIESENTRY,
+    '__module__' : 'xenon.proto.xenon_pb2'
     # @@protoc_insertion_point(class_scope:xenon.CredentialMap.EntriesEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _CREDENTIALMAP,
-  __module__ = 'xenon.proto.xenon_pb2'
+  'DESCRIPTOR' : _CREDENTIALMAP,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.CredentialMap)
-  ))
+  })
 _sym_db.RegisterMessage(CredentialMap)
 _sym_db.RegisterMessage(CredentialMap.EntriesEntry)
 
-Location = _reflection.GeneratedProtocolMessageType('Location', (_message.Message,), dict(
-  DESCRIPTOR = _LOCATION,
-  __module__ = 'xenon.proto.xenon_pb2'
+Location = _reflection.GeneratedProtocolMessageType('Location', (_message.Message,), {
+  'DESCRIPTOR' : _LOCATION,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Location)
-  ))
+  })
 _sym_db.RegisterMessage(Location)
 
-GetCredentialResponse = _reflection.GeneratedProtocolMessageType('GetCredentialResponse', (_message.Message,), dict(
-  DESCRIPTOR = _GETCREDENTIALRESPONSE,
-  __module__ = 'xenon.proto.xenon_pb2'
+GetCredentialResponse = _reflection.GeneratedProtocolMessageType('GetCredentialResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETCREDENTIALRESPONSE,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.GetCredentialResponse)
-  ))
+  })
 _sym_db.RegisterMessage(GetCredentialResponse)
 
-CreateFileSystemRequest = _reflection.GeneratedProtocolMessageType('CreateFileSystemRequest', (_message.Message,), dict(
+CreateFileSystemRequest = _reflection.GeneratedProtocolMessageType('CreateFileSystemRequest', (_message.Message,), {
 
-  PropertiesEntry = _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), dict(
-    DESCRIPTOR = _CREATEFILESYSTEMREQUEST_PROPERTIESENTRY,
-    __module__ = 'xenon.proto.xenon_pb2'
+  'PropertiesEntry' : _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), {
+    'DESCRIPTOR' : _CREATEFILESYSTEMREQUEST_PROPERTIESENTRY,
+    '__module__' : 'xenon.proto.xenon_pb2'
     # @@protoc_insertion_point(class_scope:xenon.CreateFileSystemRequest.PropertiesEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _CREATEFILESYSTEMREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+  'DESCRIPTOR' : _CREATEFILESYSTEMREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.CreateFileSystemRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateFileSystemRequest)
 _sym_db.RegisterMessage(CreateFileSystemRequest.PropertiesEntry)
 
-FileSystem = _reflection.GeneratedProtocolMessageType('FileSystem', (_message.Message,), dict(
-  DESCRIPTOR = _FILESYSTEM,
-  __module__ = 'xenon.proto.xenon_pb2'
+FileSystem = _reflection.GeneratedProtocolMessageType('FileSystem', (_message.Message,), {
+  'DESCRIPTOR' : _FILESYSTEM,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.FileSystem)
-  ))
+  })
 _sym_db.RegisterMessage(FileSystem)
 
-FileSystems = _reflection.GeneratedProtocolMessageType('FileSystems', (_message.Message,), dict(
-  DESCRIPTOR = _FILESYSTEMS,
-  __module__ = 'xenon.proto.xenon_pb2'
+FileSystems = _reflection.GeneratedProtocolMessageType('FileSystems', (_message.Message,), {
+  'DESCRIPTOR' : _FILESYSTEMS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.FileSystems)
-  ))
+  })
 _sym_db.RegisterMessage(FileSystems)
 
-Path = _reflection.GeneratedProtocolMessageType('Path', (_message.Message,), dict(
-  DESCRIPTOR = _PATH,
-  __module__ = 'xenon.proto.xenon_pb2'
+Path = _reflection.GeneratedProtocolMessageType('Path', (_message.Message,), {
+  'DESCRIPTOR' : _PATH,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Path)
-  ))
+  })
 _sym_db.RegisterMessage(Path)
 
-PathRequest = _reflection.GeneratedProtocolMessageType('PathRequest', (_message.Message,), dict(
-  DESCRIPTOR = _PATHREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+PathRequest = _reflection.GeneratedProtocolMessageType('PathRequest', (_message.Message,), {
+  'DESCRIPTOR' : _PATHREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.PathRequest)
-  ))
+  })
 _sym_db.RegisterMessage(PathRequest)
 
-DeleteRequest = _reflection.GeneratedProtocolMessageType('DeleteRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DELETEREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+DeleteRequest = _reflection.GeneratedProtocolMessageType('DeleteRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DELETEREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.DeleteRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DeleteRequest)
 
-CopyRequest = _reflection.GeneratedProtocolMessageType('CopyRequest', (_message.Message,), dict(
-  DESCRIPTOR = _COPYREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+CopyRequest = _reflection.GeneratedProtocolMessageType('CopyRequest', (_message.Message,), {
+  'DESCRIPTOR' : _COPYREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.CopyRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CopyRequest)
 
-RenameRequest = _reflection.GeneratedProtocolMessageType('RenameRequest', (_message.Message,), dict(
-  DESCRIPTOR = _RENAMEREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+RenameRequest = _reflection.GeneratedProtocolMessageType('RenameRequest', (_message.Message,), {
+  'DESCRIPTOR' : _RENAMEREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.RenameRequest)
-  ))
+  })
 _sym_db.RegisterMessage(RenameRequest)
 
-CreateSymbolicLinkRequest = _reflection.GeneratedProtocolMessageType('CreateSymbolicLinkRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CREATESYMBOLICLINKREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+CreateSymbolicLinkRequest = _reflection.GeneratedProtocolMessageType('CreateSymbolicLinkRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATESYMBOLICLINKREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.CreateSymbolicLinkRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateSymbolicLinkRequest)
 
-CopyOperation = _reflection.GeneratedProtocolMessageType('CopyOperation', (_message.Message,), dict(
-  DESCRIPTOR = _COPYOPERATION,
-  __module__ = 'xenon.proto.xenon_pb2'
+CopyOperation = _reflection.GeneratedProtocolMessageType('CopyOperation', (_message.Message,), {
+  'DESCRIPTOR' : _COPYOPERATION,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.CopyOperation)
-  ))
+  })
 _sym_db.RegisterMessage(CopyOperation)
 
-CopyOperationRequest = _reflection.GeneratedProtocolMessageType('CopyOperationRequest', (_message.Message,), dict(
-  DESCRIPTOR = _COPYOPERATIONREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+CopyOperationRequest = _reflection.GeneratedProtocolMessageType('CopyOperationRequest', (_message.Message,), {
+  'DESCRIPTOR' : _COPYOPERATIONREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.CopyOperationRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CopyOperationRequest)
 
-WaitUntilDoneRequest = _reflection.GeneratedProtocolMessageType('WaitUntilDoneRequest', (_message.Message,), dict(
-  DESCRIPTOR = _WAITUNTILDONEREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+WaitUntilDoneRequest = _reflection.GeneratedProtocolMessageType('WaitUntilDoneRequest', (_message.Message,), {
+  'DESCRIPTOR' : _WAITUNTILDONEREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.WaitUntilDoneRequest)
-  ))
+  })
 _sym_db.RegisterMessage(WaitUntilDoneRequest)
 
-CopyStatus = _reflection.GeneratedProtocolMessageType('CopyStatus', (_message.Message,), dict(
-  DESCRIPTOR = _COPYSTATUS,
-  __module__ = 'xenon.proto.xenon_pb2'
+CopyStatus = _reflection.GeneratedProtocolMessageType('CopyStatus', (_message.Message,), {
+  'DESCRIPTOR' : _COPYSTATUS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.CopyStatus)
-  ))
+  })
 _sym_db.RegisterMessage(CopyStatus)
 
-PathAttributes = _reflection.GeneratedProtocolMessageType('PathAttributes', (_message.Message,), dict(
-  DESCRIPTOR = _PATHATTRIBUTES,
-  __module__ = 'xenon.proto.xenon_pb2'
+PathAttributes = _reflection.GeneratedProtocolMessageType('PathAttributes', (_message.Message,), {
+  'DESCRIPTOR' : _PATHATTRIBUTES,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.PathAttributes)
-  ))
+  })
 _sym_db.RegisterMessage(PathAttributes)
 
-SetPosixFilePermissionsRequest = _reflection.GeneratedProtocolMessageType('SetPosixFilePermissionsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _SETPOSIXFILEPERMISSIONSREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+SetPosixFilePermissionsRequest = _reflection.GeneratedProtocolMessageType('SetPosixFilePermissionsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SETPOSIXFILEPERMISSIONSREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.SetPosixFilePermissionsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(SetPosixFilePermissionsRequest)
 
-ReadFromFileResponse = _reflection.GeneratedProtocolMessageType('ReadFromFileResponse', (_message.Message,), dict(
-  DESCRIPTOR = _READFROMFILERESPONSE,
-  __module__ = 'xenon.proto.xenon_pb2'
+ReadFromFileResponse = _reflection.GeneratedProtocolMessageType('ReadFromFileResponse', (_message.Message,), {
+  'DESCRIPTOR' : _READFROMFILERESPONSE,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.ReadFromFileResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ReadFromFileResponse)
 
-WriteToFileRequest = _reflection.GeneratedProtocolMessageType('WriteToFileRequest', (_message.Message,), dict(
-  DESCRIPTOR = _WRITETOFILEREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+WriteToFileRequest = _reflection.GeneratedProtocolMessageType('WriteToFileRequest', (_message.Message,), {
+  'DESCRIPTOR' : _WRITETOFILEREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.WriteToFileRequest)
-  ))
+  })
 _sym_db.RegisterMessage(WriteToFileRequest)
 
-AppendToFileRequest = _reflection.GeneratedProtocolMessageType('AppendToFileRequest', (_message.Message,), dict(
-  DESCRIPTOR = _APPENDTOFILEREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+AppendToFileRequest = _reflection.GeneratedProtocolMessageType('AppendToFileRequest', (_message.Message,), {
+  'DESCRIPTOR' : _APPENDTOFILEREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.AppendToFileRequest)
-  ))
+  })
 _sym_db.RegisterMessage(AppendToFileRequest)
 
-ListRequest = _reflection.GeneratedProtocolMessageType('ListRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+ListRequest = _reflection.GeneratedProtocolMessageType('ListRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.ListRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListRequest)
 
-GetPathSeparatorResponse = _reflection.GeneratedProtocolMessageType('GetPathSeparatorResponse', (_message.Message,), dict(
-  DESCRIPTOR = _GETPATHSEPARATORRESPONSE,
-  __module__ = 'xenon.proto.xenon_pb2'
+GetPathSeparatorResponse = _reflection.GeneratedProtocolMessageType('GetPathSeparatorResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETPATHSEPARATORRESPONSE,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.GetPathSeparatorResponse)
-  ))
+  })
 _sym_db.RegisterMessage(GetPathSeparatorResponse)
 
-CreateSchedulerRequest = _reflection.GeneratedProtocolMessageType('CreateSchedulerRequest', (_message.Message,), dict(
+CreateSchedulerRequest = _reflection.GeneratedProtocolMessageType('CreateSchedulerRequest', (_message.Message,), {
 
-  PropertiesEntry = _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), dict(
-    DESCRIPTOR = _CREATESCHEDULERREQUEST_PROPERTIESENTRY,
-    __module__ = 'xenon.proto.xenon_pb2'
+  'PropertiesEntry' : _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), {
+    'DESCRIPTOR' : _CREATESCHEDULERREQUEST_PROPERTIESENTRY,
+    '__module__' : 'xenon.proto.xenon_pb2'
     # @@protoc_insertion_point(class_scope:xenon.CreateSchedulerRequest.PropertiesEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _CREATESCHEDULERREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+  'DESCRIPTOR' : _CREATESCHEDULERREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.CreateSchedulerRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateSchedulerRequest)
 _sym_db.RegisterMessage(CreateSchedulerRequest.PropertiesEntry)
 
-Scheduler = _reflection.GeneratedProtocolMessageType('Scheduler', (_message.Message,), dict(
-  DESCRIPTOR = _SCHEDULER,
-  __module__ = 'xenon.proto.xenon_pb2'
+Scheduler = _reflection.GeneratedProtocolMessageType('Scheduler', (_message.Message,), {
+  'DESCRIPTOR' : _SCHEDULER,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Scheduler)
-  ))
+  })
 _sym_db.RegisterMessage(Scheduler)
 
-Schedulers = _reflection.GeneratedProtocolMessageType('Schedulers', (_message.Message,), dict(
-  DESCRIPTOR = _SCHEDULERS,
-  __module__ = 'xenon.proto.xenon_pb2'
+Schedulers = _reflection.GeneratedProtocolMessageType('Schedulers', (_message.Message,), {
+  'DESCRIPTOR' : _SCHEDULERS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Schedulers)
-  ))
+  })
 _sym_db.RegisterMessage(Schedulers)
 
-JobDescription = _reflection.GeneratedProtocolMessageType('JobDescription', (_message.Message,), dict(
+JobDescription = _reflection.GeneratedProtocolMessageType('JobDescription', (_message.Message,), {
 
-  EnvironmentEntry = _reflection.GeneratedProtocolMessageType('EnvironmentEntry', (_message.Message,), dict(
-    DESCRIPTOR = _JOBDESCRIPTION_ENVIRONMENTENTRY,
-    __module__ = 'xenon.proto.xenon_pb2'
+  'EnvironmentEntry' : _reflection.GeneratedProtocolMessageType('EnvironmentEntry', (_message.Message,), {
+    'DESCRIPTOR' : _JOBDESCRIPTION_ENVIRONMENTENTRY,
+    '__module__' : 'xenon.proto.xenon_pb2'
     # @@protoc_insertion_point(class_scope:xenon.JobDescription.EnvironmentEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _JOBDESCRIPTION,
-  __module__ = 'xenon.proto.xenon_pb2'
+  'DESCRIPTOR' : _JOBDESCRIPTION,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.JobDescription)
-  ))
+  })
 _sym_db.RegisterMessage(JobDescription)
 _sym_db.RegisterMessage(JobDescription.EnvironmentEntry)
 
-SubmitBatchJobRequest = _reflection.GeneratedProtocolMessageType('SubmitBatchJobRequest', (_message.Message,), dict(
-  DESCRIPTOR = _SUBMITBATCHJOBREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+SubmitBatchJobRequest = _reflection.GeneratedProtocolMessageType('SubmitBatchJobRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SUBMITBATCHJOBREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.SubmitBatchJobRequest)
-  ))
+  })
 _sym_db.RegisterMessage(SubmitBatchJobRequest)
 
-SubmitInteractiveJobRequest = _reflection.GeneratedProtocolMessageType('SubmitInteractiveJobRequest', (_message.Message,), dict(
-  DESCRIPTOR = _SUBMITINTERACTIVEJOBREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+SubmitInteractiveJobRequest = _reflection.GeneratedProtocolMessageType('SubmitInteractiveJobRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SUBMITINTERACTIVEJOBREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.SubmitInteractiveJobRequest)
-  ))
+  })
 _sym_db.RegisterMessage(SubmitInteractiveJobRequest)
 
-Job = _reflection.GeneratedProtocolMessageType('Job', (_message.Message,), dict(
-  DESCRIPTOR = _JOB,
-  __module__ = 'xenon.proto.xenon_pb2'
+Job = _reflection.GeneratedProtocolMessageType('Job', (_message.Message,), {
+  'DESCRIPTOR' : _JOB,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Job)
-  ))
+  })
 _sym_db.RegisterMessage(Job)
 
-JobRequest = _reflection.GeneratedProtocolMessageType('JobRequest', (_message.Message,), dict(
-  DESCRIPTOR = _JOBREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+JobRequest = _reflection.GeneratedProtocolMessageType('JobRequest', (_message.Message,), {
+  'DESCRIPTOR' : _JOBREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.JobRequest)
-  ))
+  })
 _sym_db.RegisterMessage(JobRequest)
 
-Jobs = _reflection.GeneratedProtocolMessageType('Jobs', (_message.Message,), dict(
-  DESCRIPTOR = _JOBS,
-  __module__ = 'xenon.proto.xenon_pb2'
+Jobs = _reflection.GeneratedProtocolMessageType('Jobs', (_message.Message,), {
+  'DESCRIPTOR' : _JOBS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Jobs)
-  ))
+  })
 _sym_db.RegisterMessage(Jobs)
 
-GetJobStatusesRequest = _reflection.GeneratedProtocolMessageType('GetJobStatusesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETJOBSTATUSESREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+GetJobStatusesRequest = _reflection.GeneratedProtocolMessageType('GetJobStatusesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETJOBSTATUSESREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.GetJobStatusesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetJobStatusesRequest)
 
-WaitRequest = _reflection.GeneratedProtocolMessageType('WaitRequest', (_message.Message,), dict(
-  DESCRIPTOR = _WAITREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+WaitRequest = _reflection.GeneratedProtocolMessageType('WaitRequest', (_message.Message,), {
+  'DESCRIPTOR' : _WAITREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.WaitRequest)
-  ))
+  })
 _sym_db.RegisterMessage(WaitRequest)
 
-Queue = _reflection.GeneratedProtocolMessageType('Queue', (_message.Message,), dict(
-  DESCRIPTOR = _QUEUE,
-  __module__ = 'xenon.proto.xenon_pb2'
+Queue = _reflection.GeneratedProtocolMessageType('Queue', (_message.Message,), {
+  'DESCRIPTOR' : _QUEUE,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Queue)
-  ))
+  })
 _sym_db.RegisterMessage(Queue)
 
-Queues = _reflection.GeneratedProtocolMessageType('Queues', (_message.Message,), dict(
-  DESCRIPTOR = _QUEUES,
-  __module__ = 'xenon.proto.xenon_pb2'
+Queues = _reflection.GeneratedProtocolMessageType('Queues', (_message.Message,), {
+  'DESCRIPTOR' : _QUEUES,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Queues)
-  ))
+  })
 _sym_db.RegisterMessage(Queues)
 
-SchedulerAndQueues = _reflection.GeneratedProtocolMessageType('SchedulerAndQueues', (_message.Message,), dict(
-  DESCRIPTOR = _SCHEDULERANDQUEUES,
-  __module__ = 'xenon.proto.xenon_pb2'
+SchedulerAndQueues = _reflection.GeneratedProtocolMessageType('SchedulerAndQueues', (_message.Message,), {
+  'DESCRIPTOR' : _SCHEDULERANDQUEUES,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.SchedulerAndQueues)
-  ))
+  })
 _sym_db.RegisterMessage(SchedulerAndQueues)
 
-GetQueueStatusRequest = _reflection.GeneratedProtocolMessageType('GetQueueStatusRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETQUEUESTATUSREQUEST,
-  __module__ = 'xenon.proto.xenon_pb2'
+GetQueueStatusRequest = _reflection.GeneratedProtocolMessageType('GetQueueStatusRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETQUEUESTATUSREQUEST,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.GetQueueStatusRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetQueueStatusRequest)
 
-JobStatus = _reflection.GeneratedProtocolMessageType('JobStatus', (_message.Message,), dict(
+JobStatus = _reflection.GeneratedProtocolMessageType('JobStatus', (_message.Message,), {
 
-  SchedulerSpecificInformationEntry = _reflection.GeneratedProtocolMessageType('SchedulerSpecificInformationEntry', (_message.Message,), dict(
-    DESCRIPTOR = _JOBSTATUS_SCHEDULERSPECIFICINFORMATIONENTRY,
-    __module__ = 'xenon.proto.xenon_pb2'
+  'SchedulerSpecificInformationEntry' : _reflection.GeneratedProtocolMessageType('SchedulerSpecificInformationEntry', (_message.Message,), {
+    'DESCRIPTOR' : _JOBSTATUS_SCHEDULERSPECIFICINFORMATIONENTRY,
+    '__module__' : 'xenon.proto.xenon_pb2'
     # @@protoc_insertion_point(class_scope:xenon.JobStatus.SchedulerSpecificInformationEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _JOBSTATUS,
-  __module__ = 'xenon.proto.xenon_pb2'
+  'DESCRIPTOR' : _JOBSTATUS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.JobStatus)
-  ))
+  })
 _sym_db.RegisterMessage(JobStatus)
 _sym_db.RegisterMessage(JobStatus.SchedulerSpecificInformationEntry)
 
-GetJobStatusesResponse = _reflection.GeneratedProtocolMessageType('GetJobStatusesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _GETJOBSTATUSESRESPONSE,
-  __module__ = 'xenon.proto.xenon_pb2'
+GetJobStatusesResponse = _reflection.GeneratedProtocolMessageType('GetJobStatusesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETJOBSTATUSESRESPONSE,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.GetJobStatusesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(GetJobStatusesResponse)
 
-QueueStatus = _reflection.GeneratedProtocolMessageType('QueueStatus', (_message.Message,), dict(
+QueueStatus = _reflection.GeneratedProtocolMessageType('QueueStatus', (_message.Message,), {
 
-  SchedulerSpecificInformationEntry = _reflection.GeneratedProtocolMessageType('SchedulerSpecificInformationEntry', (_message.Message,), dict(
-    DESCRIPTOR = _QUEUESTATUS_SCHEDULERSPECIFICINFORMATIONENTRY,
-    __module__ = 'xenon.proto.xenon_pb2'
+  'SchedulerSpecificInformationEntry' : _reflection.GeneratedProtocolMessageType('SchedulerSpecificInformationEntry', (_message.Message,), {
+    'DESCRIPTOR' : _QUEUESTATUS_SCHEDULERSPECIFICINFORMATIONENTRY,
+    '__module__' : 'xenon.proto.xenon_pb2'
     # @@protoc_insertion_point(class_scope:xenon.QueueStatus.SchedulerSpecificInformationEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _QUEUESTATUS,
-  __module__ = 'xenon.proto.xenon_pb2'
+  'DESCRIPTOR' : _QUEUESTATUS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.QueueStatus)
-  ))
+  })
 _sym_db.RegisterMessage(QueueStatus)
 _sym_db.RegisterMessage(QueueStatus.SchedulerSpecificInformationEntry)
 
-QueueStatuses = _reflection.GeneratedProtocolMessageType('QueueStatuses', (_message.Message,), dict(
-  DESCRIPTOR = _QUEUESTATUSES,
-  __module__ = 'xenon.proto.xenon_pb2'
+QueueStatuses = _reflection.GeneratedProtocolMessageType('QueueStatuses', (_message.Message,), {
+  'DESCRIPTOR' : _QUEUESTATUSES,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.QueueStatuses)
-  ))
+  })
 _sym_db.RegisterMessage(QueueStatuses)
 
-SubmitInteractiveJobResponse = _reflection.GeneratedProtocolMessageType('SubmitInteractiveJobResponse', (_message.Message,), dict(
-  DESCRIPTOR = _SUBMITINTERACTIVEJOBRESPONSE,
-  __module__ = 'xenon.proto.xenon_pb2'
+SubmitInteractiveJobResponse = _reflection.GeneratedProtocolMessageType('SubmitInteractiveJobResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SUBMITINTERACTIVEJOBRESPONSE,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.SubmitInteractiveJobResponse)
-  ))
+  })
 _sym_db.RegisterMessage(SubmitInteractiveJobResponse)
 
-Is = _reflection.GeneratedProtocolMessageType('Is', (_message.Message,), dict(
-  DESCRIPTOR = _IS,
-  __module__ = 'xenon.proto.xenon_pb2'
+Is = _reflection.GeneratedProtocolMessageType('Is', (_message.Message,), {
+  'DESCRIPTOR' : _IS,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.Is)
-  ))
+  })
 _sym_db.RegisterMessage(Is)
 
-GetDefaultRuntimeResponse = _reflection.GeneratedProtocolMessageType('GetDefaultRuntimeResponse', (_message.Message,), dict(
-  DESCRIPTOR = _GETDEFAULTRUNTIMERESPONSE,
-  __module__ = 'xenon.proto.xenon_pb2'
+GetDefaultRuntimeResponse = _reflection.GeneratedProtocolMessageType('GetDefaultRuntimeResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETDEFAULTRUNTIMERESPONSE,
+  '__module__' : 'xenon.proto.xenon_pb2'
   # @@protoc_insertion_point(class_scope:xenon.GetDefaultRuntimeResponse)
-  ))
+  })
 _sym_db.RegisterMessage(GetDefaultRuntimeResponse)
 
 

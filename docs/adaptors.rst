@@ -14,6 +14,48 @@ File System
 readability of the tables.
 
 
+S3
+~~
+The S3 adaptor uses Apache JClouds to talk to s3 and others. To
+authenticate use PasswordCredential with access key id as username and
+secret access key as password
+
++------------------------------------+----------------------+
+| field                              | value                |
++====================================+======================+
+| supports_third_party_copy          | False                |
++------------------------------------+----------------------+
+| can_create_symboliclinks           | False                |
++------------------------------------+----------------------+
+| can_read_symboliclinks             | False                |
++------------------------------------+----------------------+
+| is_connectionless                  | True                 |
++------------------------------------+----------------------+
+| supported_credentials              | `PasswordCredential` |
++------------------------------------+----------------------+
+| can_append                         | False                |
++------------------------------------+----------------------+
+| supports_reading_posix_permissions | False                |
++------------------------------------+----------------------+
+| supports_setting_posix_permissions | False                |
++------------------------------------+----------------------+
+| supports_rename                    | False                |
++------------------------------------+----------------------+
+| needs_size_beforehand              | True                 |
++------------------------------------+----------------------+
+
+location string:
+    * `http[s]://host[:port]/bucketname[/workdir]`
+    * `https://s3.region.amazonaws.com/bucketname[/workdir]`
+
+supported properties:
+
++---------------+-------------------------------------------------------+-----------+---------+
+| name          | description                                           | data_type | default |
++===============+=======================================================+===========+=========+
+| s3.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
++---------------+-------------------------------------------------------+-----------+---------+
+
 File
 ~~~~
 This is the local file adaptor that implements file functionality for
@@ -56,45 +98,6 @@ supported properties:
 +=================+=======================================================+===========+=========+
 | file.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
 +-----------------+-------------------------------------------------------+-----------+---------+
-
-Ftp
-~~~
-The FTP adaptor implements file access on remote ftp servers.
-
-+------------------------------------+-------------------------------------------+
-| field                              | value                                     |
-+====================================+===========================================+
-| supports_third_party_copy          | False                                     |
-+------------------------------------+-------------------------------------------+
-| can_create_symboliclinks           | False                                     |
-+------------------------------------+-------------------------------------------+
-| can_read_symboliclinks             | True                                      |
-+------------------------------------+-------------------------------------------+
-| is_connectionless                  | False                                     |
-+------------------------------------+-------------------------------------------+
-| supported_credentials              | `DefaultCredential`, `PasswordCredential` |
-+------------------------------------+-------------------------------------------+
-| can_append                         | True                                      |
-+------------------------------------+-------------------------------------------+
-| supports_reading_posix_permissions | True                                      |
-+------------------------------------+-------------------------------------------+
-| supports_setting_posix_permissions | False                                     |
-+------------------------------------+-------------------------------------------+
-| supports_rename                    | True                                      |
-+------------------------------------+-------------------------------------------+
-| needs_size_beforehand              | False                                     |
-+------------------------------------+-------------------------------------------+
-
-location string:
-    * `host[:port][/workdir]`
-
-supported properties:
-
-+----------------+-------------------------------------------------------+-----------+---------+
-| name           | description                                           | data_type | default |
-+================+=======================================================+===========+=========+
-| ftp.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
-+----------------+-------------------------------------------------------+-----------+---------+
 
 Sftp
 ~~~~
@@ -150,6 +153,45 @@ supported properties:
 | sftp.bufferSize            | The buffer size to use when copying files (in bytes).      | size      | `64K`   |
 +----------------------------+------------------------------------------------------------+-----------+---------+
 
+Ftp
+~~~
+The FTP adaptor implements file access on remote ftp servers.
+
++------------------------------------+-------------------------------------------+
+| field                              | value                                     |
++====================================+===========================================+
+| supports_third_party_copy          | False                                     |
++------------------------------------+-------------------------------------------+
+| can_create_symboliclinks           | False                                     |
++------------------------------------+-------------------------------------------+
+| can_read_symboliclinks             | True                                      |
++------------------------------------+-------------------------------------------+
+| is_connectionless                  | False                                     |
++------------------------------------+-------------------------------------------+
+| supported_credentials              | `DefaultCredential`, `PasswordCredential` |
++------------------------------------+-------------------------------------------+
+| can_append                         | True                                      |
++------------------------------------+-------------------------------------------+
+| supports_reading_posix_permissions | True                                      |
++------------------------------------+-------------------------------------------+
+| supports_setting_posix_permissions | False                                     |
++------------------------------------+-------------------------------------------+
+| supports_rename                    | True                                      |
++------------------------------------+-------------------------------------------+
+| needs_size_beforehand              | False                                     |
++------------------------------------+-------------------------------------------+
+
+location string:
+    * `host[:port][/workdir]`
+
+supported properties:
+
++----------------+-------------------------------------------------------+-----------+---------+
+| name           | description                                           | data_type | default |
++================+=======================================================+===========+=========+
+| ftp.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
++----------------+-------------------------------------------------------+-----------+---------+
+
 Webdav
 ~~~~~~
 The webdav file adaptor implements file access to remote webdav
@@ -190,88 +232,6 @@ supported properties:
 +===================+=======================================================+===========+=========+
 | webdav.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
 +-------------------+-------------------------------------------------------+-----------+---------+
-
-S3
-~~
-The JClouds adaptor uses Apache JClouds to talk to s3 and others
-
-+------------------------------------+----------------------+
-| field                              | value                |
-+====================================+======================+
-| supports_third_party_copy          | False                |
-+------------------------------------+----------------------+
-| can_create_symboliclinks           | False                |
-+------------------------------------+----------------------+
-| can_read_symboliclinks             | False                |
-+------------------------------------+----------------------+
-| is_connectionless                  | True                 |
-+------------------------------------+----------------------+
-| supported_credentials              | `PasswordCredential` |
-+------------------------------------+----------------------+
-| can_append                         | False                |
-+------------------------------------+----------------------+
-| supports_reading_posix_permissions | False                |
-+------------------------------------+----------------------+
-| supports_setting_posix_permissions | False                |
-+------------------------------------+----------------------+
-| supports_rename                    | False                |
-+------------------------------------+----------------------+
-| needs_size_beforehand              | True                 |
-+------------------------------------+----------------------+
-
-location string:
-    * `[http://host[:port]]/bucketname[/workdir]`
-
-supported properties:
-
-+---------------+-------------------------------------------------------+-----------+---------+
-| name          | description                                           | data_type | default |
-+===============+=======================================================+===========+=========+
-| s3.bufferSize | The buffer size to use when copying files (in bytes). | size      | `64K`   |
-+---------------+-------------------------------------------------------+-----------+---------+
-
-Hdfs
-~~~~
-Adaptor for the Apache Hadoop file system
-
-+------------------------------------+----------------------------------------------------+
-| field                              | value                                              |
-+====================================+====================================================+
-| supports_third_party_copy          | False                                              |
-+------------------------------------+----------------------------------------------------+
-| can_create_symboliclinks           | False                                              |
-+------------------------------------+----------------------------------------------------+
-| can_read_symboliclinks             | False                                              |
-+------------------------------------+----------------------------------------------------+
-| is_connectionless                  | False                                              |
-+------------------------------------+----------------------------------------------------+
-| supported_credentials              | `DefaultCredential`, `PasswordCredential`,         |
-|                                    | `KeytabCredential`                                 |
-+------------------------------------+----------------------------------------------------+
-| can_append                         | True                                               |
-+------------------------------------+----------------------------------------------------+
-| supports_reading_posix_permissions | False                                              |
-+------------------------------------+----------------------------------------------------+
-| supports_setting_posix_permissions | False                                              |
-+------------------------------------+----------------------------------------------------+
-| supports_rename                    | True                                               |
-+------------------------------------+----------------------------------------------------+
-| needs_size_beforehand              | False                                              |
-+------------------------------------+----------------------------------------------------+
-
-location string:
-    * `hdfs://host[:port]`
-
-supported properties:
-
-+-------------------------+---------------------------------------------------------------+-----------+---------+
-| name                    | description                                                   | data_type | default |
-+=========================+===============================================================+===========+=========+
-| hdfs.bufferSize         | The buffer size to use when copying files (in bytes).         | size      | `64K`   |
-+-------------------------+---------------------------------------------------------------+-----------+---------+
-| hdfs.hadoopSettingsFile | The path to the file with the hadoop settings, i.e.           | string    | (empty) |
-|                         | "/home/xenon/core-site.xml".                                  |           |         |
-+-------------------------+---------------------------------------------------------------+-----------+---------+
 
 
 Scheduler
@@ -364,13 +324,12 @@ supported properties:
 |                                   | the multiq..                               |           |         |
 +-----------------------------------+--------------------------------------------+-----------+---------+
 
-Gridengine
-~~~~~~~~~~
-The SGE Adaptor submits jobs to a (Sun/Oracle/Univa) Grid Engine
-scheduler. This adaptor uses either the local or the ssh scheduler
-adaptor to run commands on the machine running Grid Engine,  and the
-file or the stfp filesystem adaptor to gain access to the filesystem
-of that machine.
+At
+~~
+The At Adaptor submits jobs to an at scheduler.  This adaptor uses
+either the local or the ssh scheduler adaptor to run commands on the
+machine running at,  and the file or the stfp filesystem adaptor to
+gain access to the filesystem of that machine.
 
 +-----------------------+---------------------------------------------------------------------------------+
 | field                 | value                                                                           |
@@ -396,16 +355,7 @@ supported properties:
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | name                                | description                                | data_type | default |
 +=====================================+============================================+===========+=========+
-| gridengine.ignore.version           | Skip version check is skipped when         | boolean   | `false` |
-|                                     | connecting to remote machines. WARNING: it |           |         |
-|                                     | is not recommended to use this setting in  |           |         |
-|                                     | production environments!                   |           |         |
-+-------------------------------------+--------------------------------------------+-----------+---------+
-| gridengine.accounting.grace.time    | Number of milliseconds a job is allowed to | long      | `60000` |
-|                                     | take going from the queue to the qacct     |           |         |
-|                                     | output.                                    |           |         |
-+-------------------------------------+--------------------------------------------+-----------+---------+
-| gridengine.poll.delay               | Number of milliseconds between polling the | long      | `1000`  |
+| at.poll.delay                       | Number of milliseconds between polling the | long      | `1000`  |
 |                                     | status of a job.                           |           |         |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.strictHostKeyChecking           | Enable strict host key checking.           | boolean   | `true`  |
@@ -470,6 +420,76 @@ supported properties:
 |                                     | purposes                                   |           |         |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | slurm.poll.delay                    | Number of milliseconds between polling the | long      | `1000`  |
+|                                     | status of a job.                           |           |         |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| ssh.strictHostKeyChecking           | Enable strict host key checking.           | boolean   | `true`  |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| ssh.loadKnownHosts                  | Load the standard known_hosts file.        | boolean   | `true`  |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| ssh.loadSshConfig                   | Load the OpenSSH config file.              | boolean   | `true`  |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| ssh.agent                           | Use a (local) ssh-agent.                   | boolean   | `false` |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| ssh.agentForwarding                 | Use ssh-agent forwarding                   | boolean   | `false` |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| ssh.timeout                         | The timeout for the connection setup and   | long      | `10000` |
+|                                     | authetication (in milliseconds).           |           |         |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| ssh.queue.pollingDelay              | The polling delay for monitoring running   | long      | `1000`  |
+|                                     | jobs (in milliseconds).                    |           |         |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| ssh.queue.multi.maxConcurrentJobs   | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                     | the multiq..                               |           |         |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| local.queue.pollingDelay            | The polling delay for monitoring running   | long      | `1000`  |
+|                                     | jobs (in milliseconds).                    |           |         |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| local.queue.multi.maxConcurrentJobs | The maximum number of concurrent jobs in   | integer   | `4`     |
+|                                     | the multiq.                                |           |         |
++-------------------------------------+--------------------------------------------+-----------+---------+
+
+Gridengine
+~~~~~~~~~~
+The SGE Adaptor submits jobs to a (Sun/Oracle/Univa) Grid Engine
+scheduler. This adaptor uses either the local or the ssh scheduler
+adaptor to run commands on the machine running Grid Engine,  and the
+file or the stfp filesystem adaptor to gain access to the filesystem
+of that machine.
+
++-----------------------+---------------------------------------------------------------------------------+
+| field                 | value                                                                           |
++=======================+=================================================================================+
+| is_embedded           | False                                                                           |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_interactive  | False                                                                           |
++-----------------------+---------------------------------------------------------------------------------+
+| supports_batch        | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| uses_file_system      | True                                                                            |
++-----------------------+---------------------------------------------------------------------------------+
+| supported_credentials | `DefaultCredential`, `CertificateCredential`, `PasswordCredential`,             |
+|                       | `CredentialMap`                                                                 |
++-----------------------+---------------------------------------------------------------------------------+
+
+location string:
+    * `local://[/workdir]`
+    * `ssh://host[:port][/workdir][ via:otherhost[:port]]*`
+
+supported properties:
+
++-------------------------------------+--------------------------------------------+-----------+---------+
+| name                                | description                                | data_type | default |
++=====================================+============================================+===========+=========+
+| gridengine.ignore.version           | Skip version check is skipped when         | boolean   | `false` |
+|                                     | connecting to remote machines. WARNING: it |           |         |
+|                                     | is not recommended to use this setting in  |           |         |
+|                                     | production environments!                   |           |         |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| gridengine.accounting.grace.time    | Number of milliseconds a job is allowed to | long      | `60000` |
+|                                     | take going from the queue to the qacct     |           |         |
+|                                     | output.                                    |           |         |
++-------------------------------------+--------------------------------------------+-----------+---------+
+| gridengine.poll.delay               | Number of milliseconds between polling the | long      | `1000`  |
 |                                     | status of a job.                           |           |         |
 +-------------------------------------+--------------------------------------------+-----------+---------+
 | ssh.strictHostKeyChecking           | Enable strict host key checking.           | boolean   | `true`  |
