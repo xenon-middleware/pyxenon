@@ -3,7 +3,7 @@ Python interface to Xenon 3.0
 |ZenodoBadge| |ReadTheDocsBadge| |Apache2License| |BuildStatus| |CodacyBadge|
 
 Python interface to the `Xenon middleware library, v. 3.0
-<http://xenon-middleware.github.io/Xenon/>`__. Xenon provides a simple programming
+<http://xenon-middleware.github.io/xenon/>`__. Xenon provides a simple programming
 interface to various pieces of software that can be used to access distributed
 compute and storage resources.
 
