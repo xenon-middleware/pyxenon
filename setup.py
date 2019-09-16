@@ -51,8 +51,8 @@ setup(
     ],
     data_files=[
         ('lib', ['lib/xenon-grpc-{}.jar'.format(xenon_grpc_version)]),  # noqa
-        ('bin', [{'posix': 'bin/xenon-grpc',
-                  'nt': 'bin/xenon-grpc.bat'}[os.name]])],
+        ('bin', ['bin/xenon-grpc',
+                 'bin/xenon-grpc.bat'])],
     install_requires=['grpcio', 'grpcio-tools', 'pyxdg', 'pyopenssl'],
     extras_require={
         'test': ['pytest', 'flake8', 'coverage', 'pep8', 'tox'],
